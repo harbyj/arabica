@@ -1,0 +1,817 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Arabica Picks Homepage</title>
+    <link rel="stylesheet" href="Assets/bootstrap/css/bootstrapp.min.css" />
+    <link rel="stylesheet" href="Assets/css/styles.css" />
+    <link
+      rel="stylesheet"
+      href="Assets/fonts/font-awesome/css/all.min.css"
+      media="all"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+      media="all"
+    />
+  </head>
+  <body>
+    <header class="header">
+      <div class="arabica_header arabica_container">
+        <div class="logo">
+          <a href="/"
+            ><img src="Assets/images/logo.png" alt="Arabic Picks"
+          /></a>
+        </div>
+        <button class="menu-toggle" id="menuToggle">
+          <span class="toggle-icon" />
+        </button>
+
+        <div class="arabica_nav" id="navMenu">
+          <ul>
+            <li><a href="About.html">حول الموسوعة</a></li>
+            <li><a href="Editors.html">المحررون المليون</a></li>
+            <li><a href="Entries.html">المداخل الموسوعية</a></li>
+            <li><a href="News.html">الأخبار</a></li>
+            <li><a href="Contact.html">ساهم في أرابيكا</a></li>
+          </ul>
+        </div>
+      </div>
+    </header>
+    <style>
+      /* General Setup for Main Wrapper */
+      .arabica_main-wrapper {
+        margin: auto;
+      }
+
+      /* Slider Container Setup */
+      .arabica_slider {
+        position: relative;
+        overflow: hidden;
+        background-color: #724c3a;
+      }
+
+      .arabica_slider img {
+        pointer-events: none; /* Disables clicking, right-clicking, etc. */
+      }
+
+      .arabica_slides {
+        position: relative;
+        max-width: 100%;
+        height: 550px; /* Adjust height as needed */
+      }
+      @media (max-width: 1599px) {
+        .arabica_slides {
+          height: 500px;
+        }
+      }
+      /* Media Queries for Responsiveness */
+      @media (max-width: 991px) {
+        .arabica_slides {
+          height: 300px;
+        }
+      }
+      @media (max-width: 767px) {
+        .arabica_slides {
+          height: 250px;
+        }
+      }
+
+      /* Individual Slide Styling */
+      .arabica_slide {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0;
+        transition: opacity 1s ease-in-out;
+        pointer-events: none; /* Ensure only active slide is clickable */
+      }
+
+      .arabica_slide.active {
+        opacity: 1;
+        pointer-events: auto; /* Allow clicking only on the active slide */
+      }
+
+      .arabica_slide img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      /* Gradient Overlay for Slides */
+      .arabica_slide::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          to top,
+          rgba(0, 0, 0, 0.5),
+          rgba(0, 0, 0, 0)
+        );
+        pointer-events: none;
+      }
+
+      /* Slider Navigation Buttons */
+      .arabica_slider-buttons {
+        position: absolute;
+        bottom: 20px;
+        right: 50%; /* Adjusted for RTL layout */
+        transform: translateX(50%); /* Reversed for RTL */
+        display: flex;
+        gap: 7px;
+        flex-direction: row-reverse; /* Reverse button order */
+      }
+
+      .arabica_slider-buttons button {
+        width: 8px;
+        height: 8px;
+        border: none;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.6);
+        cursor: pointer;
+        outline: none;
+        transition: background 0.3s, transform 0.3s;
+      }
+
+      /* Media Queries for Button Size Adjustments */
+      @media (min-width: 768px) {
+        .arabica_slider-buttons button {
+          width: 11.5px;
+          height: 11.5px;
+        }
+        .arabica_slider-buttons {
+          position: absolute;
+          bottom: 25px;
+        }
+      }
+      @media (min-width: 992px) {
+        .arabica_slider-buttons button {
+          width: 15px;
+          height: 15px;
+        }
+        .arabica_slider-buttons {
+          position: absolute;
+          bottom: 30px;
+        }
+      }
+
+      .arabica_slider-buttons button.active {
+        background: rgba(255, 255, 255, 1);
+      }
+
+      /* Styling for the About Section */
+      .arabica_main-about {
+        text-align: center;
+        padding: 40px 0px 100px 0;
+        background: #eeeeee url("Assets/images/main-top-bg.png") no-repeat
+          center center;
+        background-size: cover; /* Ensures the image covers the entire background */
+      }
+
+      .arabica_main-about h3 {
+        font-size: 35px;
+        margin-bottom: 15px;
+        text-align: center;
+        color: #17355d;
+      }
+
+      .arabica_main-about p {
+        margin-bottom: 30px;
+        font-size: 21px;
+        color: #333333;
+      }
+
+      /* Slider Content Positioning Flexbox */
+      .arabica_slide .arabica_slide-content {
+        position: absolute;
+        left: 0;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        z-index: 1;
+      }
+      @media (min-width: 992px) {
+        .arabica_slide .arabica_slide-content {
+          top: 40%;
+        }
+      }
+      .arabica_additional-info,
+      .arabica_fit-container {
+        margin-right: auto;
+        margin-left: auto;
+      }
+
+      .arabica_tag {
+        background: #724c3a;
+        color: white;
+        display: inline-block;
+        padding: 6px 15px;
+        font-size: 14px;
+      }
+
+      a.arabica_tag:hover {
+        background: #5a3a29;
+      }
+
+      .arabica_additional-info h2 {
+        font-size: 35px;
+        margin: 15px 0 5px 0;
+        color: #ffffff;
+      }
+
+      .arabica_additional-info h2 a {
+        color: #ffffff;
+      }
+      .arabica_date {
+        font-size: 21px;
+        color: #999999;
+        margin-bottom: 5px;
+      }
+
+      .arabica_author,
+      .arabica_author a {
+        font-size: 14px;
+        color: #cc9933;
+      }
+      .arabica_author a,
+      h2 a:hover {
+        text-decoration: underline;
+      }
+
+      /* Responsive Adjustments */
+      @media (max-width: 991px) {
+        .arabica_additional-info h2 {
+          font-size: 25px;
+          margin: 5px 0 0 0;
+        }
+        .arabica_additional-info h2 {
+          display: -webkit-box;
+          -webkit-line-clamp: 2; /* Limits to 2 lines */
+          -webkit-box-orient: vertical;
+          overflow: hidden; /* Hides extra text */
+          text-overflow: ellipsis; /* Adds "..." at the end */
+          max-width: 100%; /* Ensures it fits within the container */
+        }
+
+        .arabica_main-about h3 {
+          font-size: 20px;
+          font-weight: bold;
+        }
+
+        .arabica_slide .arabica_slide-content {
+          bottom: 16.5%;
+        }
+        .arabica_author,
+        .arabica_author a {
+          font-size: 11px;
+        }
+        .arabica_tag {
+          font-size: 12px;
+        }
+        .arabica_date {
+          font-size: 14px;
+          margin-bottom: 0px;
+        }
+        .arabica_tag {
+          padding: 3px 7px;
+        }
+        .arabica_main-about p {
+          font-size: 14px;
+        }
+      }
+
+      .arabica_card-container {
+        display: flex;
+        justify-content: center;
+        gap: 10%;
+        flex-direction: row-reverse;
+        margin-top: -80px;
+      }
+
+      /* Card styling */
+      .arabica_card {
+        text-decoration: none;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        transition: 0.3s;
+        width: 150px;
+      }
+
+      .arabica_icon {
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        background-color: #fafbfb;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border: 10px solid #ffffff;
+        font-size: 50px;
+        color: #c69c6d;
+        transition: background-color 0.3s ease, color 0.3s ease,
+          border-color 0.3s ease, transform 0.3s ease;
+        box-shadow: 5px 6px 10px #0000001f; /* Drop shadow */
+      }
+
+      /* Hover Animation */
+      .arabica_card:hover .arabica_icon {
+        background-color: #3a9ede;
+        color: #ffffff;
+        border-color: #3a9ede;
+        transform: scale(1.1); /* Slight scale effect on hover */
+      }
+
+      /* Hover effect */
+
+      .arabica_card:hover .arabica_text {
+        color: #3a9ede;
+        transform: scale(1.1);
+      }
+      .arabica_text {
+        margin-top: 20px;
+        font-size: 16px;
+        color: #c69c6d;
+      }
+
+      @media (max-width: 991px) {
+        .arabica_main-about {
+          text-align: center;
+          padding: 40px 0px 30px 0;
+        }
+
+        .arabica_card {
+          width: 80px;
+        }
+
+        .arabica_card-container {
+          margin-top: -40px;
+        }
+
+        .arabica_icon {
+          width: 80px;
+          height: 80px;
+          border: 6px solid #ffffff;
+          font-size: 30px;
+        }
+
+        .arabica_text {
+          margin-top: 15px;
+          font-size: 12px;
+        }
+      }
+
+      /* featured post */
+      .arabica_featured {
+        padding: 100px 0 0 0;
+        background: linear-gradient(to bottom, #ffffff, #f2f2f2);
+      }
+
+      .arabica_featured-title {
+        text-align: center;
+        font-size: 24px;
+        color: #2d2d2d;
+        margin-bottom: 30px;
+      }
+
+      .arabica_featured-article {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background: white;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
+        margin-bottom: 30px;
+      }
+
+      .arabica_featured-article-image {
+        position: relative;
+        width: 40%;
+      }
+
+      .arabica_featured-article-image img {
+        width: 100%;
+        border-radius: 8px;
+      }
+
+      .arabica_featured-article-category {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background: #004080;
+        color: white;
+        font-size: 14px;
+        padding: 5px 10px;
+        border-radius: 5px;
+      }
+
+      .arabica_featured-article-content {
+        width: 55%;
+      }
+
+      .arabica_featured-article-title {
+        font-size: 20px;
+        color: #1a1a1a;
+      }
+
+      .arabica_featured-article-author {
+        font-size: 14px;
+        color: #888;
+        margin-bottom: 10px;
+      }
+
+      .arabica_featured-article-author a {
+        color: #d49136;
+        text-decoration: none;
+        font-weight: bold;
+      }
+
+      .arabica_featured-article-text {
+        font-size: 14px;
+        color: #555;
+        line-height: 1.6;
+      }
+
+      .arabica_featured-article-button {
+        display: inline-block;
+        background: #d49136;
+        color: white;
+        padding: 8px 15px;
+        border-radius: 5px;
+        text-decoration: none;
+        font-size: 14px;
+        margin-top: 10px;
+      }
+
+      .arabica_featured-article-share {
+        margin-top: 15px;
+        font-size: 14px;
+        color: #888;
+      }
+
+      .arabica_featured-article-share i {
+        margin-left: 5px;
+      }
+    </style>
+
+    <div class="arabica_main-wrapper">
+      <div class="arabica_slider">
+        <div class="arabica_slides">
+          <div class="arabica_slide">
+            <img src="Assets/images/slider-img1.jpg" alt="Slide 1" />
+            <div class="arabica_slide-content">
+              <div>
+                <div class="arabica_additional-info arabica_container">
+                  <a href="#" class="arabica_tag">تاريخ</a>
+                  <h2><a href="news-details.html">معركة أبو قير</a></h2>
+                  <p class="arabica_date">25 يوليو 1799</p>
+                  <p class="arabica_author">
+                    <a href="author.html">إبراهيم حسنين</a>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="arabica_slide">
+            <img src="Assets/images/slider-img2.jpg" alt="Slide 2" />
+            <div class="arabica_slide-content">
+              <div>
+                <div class="arabica_additional-info arabica_container">
+                  <a href="#" class="arabica_tag">أحداث</a>
+                  <h2><a href="news-details.html">حصار الطائف</a></h2>
+                  <p class="arabica_date">23 سبتمبر 1813</p>
+                  <p class="arabica_author">
+                    <a href="author.html">عبد الرحمن الطحاوي</a>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="arabica_slide">
+            <img src="Assets/images/slider-img3.jpg" alt="Slide 3" />
+            <div class="arabica_slide-content">
+              <div>
+                <div class="arabica_additional-info arabica_container">
+                  <a href="#" class="arabica_tag">معارك</a>
+                  <h2><a href="news-details.html">معركة المريقب</a></h2>
+                  <p class="arabica_date">12 نوفمبر 1842</p>
+                  <p class="arabica_author">
+                    <a href="author.html">خالد الزهراني</a>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="arabica_slide">
+            <img src="Assets/images/slider-img4.jpg" alt="Slide 4" />
+            <div class="arabica_slide-content">
+              <div>
+                <div class="arabica_additional-info arabica_container">
+                  <a href="#" class="arabica_tag">تاريخ</a>
+                  <h2>
+                    <a href="news-details.html">حملة محمد علي على السودان</a>
+                  </h2>
+                  <p class="arabica_date">5 مايو 1820</p>
+                  <p class="arabica_author">
+                    <a href="author.html">ياسين الفهري</a>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="arabica_slider-buttons">
+          <button class="active" data-slide="0"></button>
+          <button data-slide="1"></button>
+          <button data-slide="2"></button>
+          <button data-slide="3"></button>
+        </div>
+      </div>
+
+      <div class="arabica_main-about">
+        <div>
+          <div class="arabica_fit-container arabica_container">
+            <h3>الموسوعة العربية، منهجية وسبق</h3>
+            <p>
+              صدر عن المركز العربي للأبحاث ودراسة السياسات كتاب اقتصاديات الطاقة
+              المتجددة في ألمانيا ومصر والعراق، للكاتب هيثم عبد الله سلمان.
+              ويأتي هذا الكتاب الذي يشتمل على 360 صفحةً من القطع الكبير في وقت
+              تشغل فيه مسألة الطاقة المتجددة صانعي القرار حول العالم. ويُعدّ هذا
+              الكتاب دراسةً في اقتصاديات الطاقة المتجددة، ودور الطاقة في تعزيز
+              مؤشرات التنمية المستدامة، في نطاق السعي نحو "الاقتصاد الأخضر"
+              والحؤول دون تفاقم التلوث البيئي.صانعي القرار حول العالم.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="arabica_fit-container arabica_container">
+          <div class="arabica_card-container">
+            <a href="#" class="arabica_card">
+              <div class="arabica_icon">
+                <i class="fa-light fa-file-circle-plus"></i>
+              </div>
+              <span class="arabica_text">ساهم معنا</span>
+            </a>
+            <a href="#" class="arabica_card">
+              <div class="arabica_icon">
+                <i class="fa-light fa-book-atlas"></i>
+              </div>
+              <span class="arabica_text">المداخل الموسوعية</span>
+            </a>
+            <a href="#" class="arabica_card">
+              <div class="arabica_icon">
+                <i class="fa-light fa-newspaper"></i>
+              </div>
+              <span class="arabica_text">المحررون العلميون</span>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="arabica_featured">
+        <div>
+          <div class="arabica_fit-container arabica_container">
+            <h2 class="arabica_featured-title">اخترنا لكم</h2>
+
+            <div class="arabica_featured-article">
+              <div class="arabica_featured-article-image">
+                <img src="image1.jpg" alt="العلم" />
+                <span class="arabica_featured-article-category"
+                  >العلوم الرياضية والفيزياء</span
+                >
+              </div>
+              <div class="arabica_featured-article-content">
+                <h3 class="arabica_featured-article-title">
+                  علم الفلك في الحضارة الإسلامية
+                </h3>
+                <p class="arabica_featured-article-author">
+                  <a href="#">إبراهيم حسن</a> - مدرس مساعد للتراث التطبيقي في
+                  جامعة بغداد
+                </p>
+                <p class="arabica_featured-article-text">
+                  محمد بن إدريس، ينسب للشيعة الاثني عشرية، كان مؤلفا لأحد أضخم
+                  الكتب الفلكية في العصور الوسطى، حيث سجل بيانات فلكية دقيقة
+                  تعتمد على 360 درجة من القطع...
+                </p>
+                <a href="#" class="arabica_featured-article-button"
+                  >إقرأ المزيد</a
+                >
+                <div class="arabica_featured-article-share">
+                  <i class="fas fa-share"></i> <a href="#">شارك</a>
+                </div>
+              </div>
+            </div>
+
+            <div class="arabica_featured-article">
+              <div class="arabica_featured-article-content">
+                <h3 class="arabica_featured-article-title">توجيه الدواء</h3>
+                <p class="arabica_featured-article-author">
+                  <a href="#">إبراهيم حسن</a> - مدرس مساعد للتراث التطبيقي في
+                  جامعة بغداد
+                </p>
+                <p class="arabica_featured-article-text">
+                  محمد بن إدريس، ينسب للشيعة الاثني عشرية، كان مؤلفا لأحد أضخم
+                  الكتب الفلكية في العصور الوسطى، حيث سجل بيانات فلكية دقيقة
+                  تعتمد على 360 درجة من القطع...
+                </p>
+                <a href="#" class="arabica_featured-article-button"
+                  >إقرأ المزيد</a
+                >
+                <div class="arabica_featured-article-share">
+                  <i class="fas fa-share"></i> <a href="#">شارك</a>
+                </div>
+              </div>
+              <div class="arabica_featured-article-image">
+                <img src="image2.jpg" alt="الكيمياء" />
+                <span class="arabica_featured-article-category"
+                  >الإسلام وعلومه</span
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <footer class="arabica_footer">
+      <div class="arabica_footer-container">
+        <!-- Right Side (70%) -->
+        <div class="arabica_footer-right">
+          <!-- Top Image -->
+          <div class="arabica_footer-logo">
+            <a href="/">
+              <img
+                src="Assets/images/arabica.png"
+                alt="Top Image"
+                class="footer-top-image"
+              />
+            </a>
+          </div>
+          <hr />
+          <!-- Three Columns of Links -->
+          <div class="arabica_link-columns">
+            <div class="arabica_column">
+              <ul>
+                <li><a href="#">حول الموسوعة</a></li>
+                <li><a href="#">مكتب التحرير</a></li>
+                <li><a href="#">هيئة البلدان العربية</a></li>
+                <li><a href="#">الهيئة الإدارية</a></li>
+                <li><a href="#">الإعلانات</a></li>
+                <li><a href="#">ساهم معنا</a></li>
+                <li><a href="#">تواصل معنا</a></li>
+              </ul>
+            </div>
+            <div class="arabica_column">
+              <ul>
+                <li><a href="#">الاقتصاد</a></li>
+                <li><a href="#">الفلسفة</a></li>
+                <li><a href="#">الكيمياء</a></li>
+                <li><a href="#">البيولوجيا</a></li>
+                <li><a href="#">العلوم الرياضية والفيزيائية</a></li>
+                <li><a href="#">التاريخ</a></li>
+                <li><a href="#">الجغرافيا</a></li>
+              </ul>
+            </div>
+            <div class="arabica_column">
+              <ul>
+                <li><a href="#">اللسانيات</a></li>
+                <li><a href="#">الديانات</a></li>
+                <li><a href="#">الشخصيات العامة</a></li>
+                <li><a href="#">الفلك</a></li>
+                <li><a href="#">العلوم الاجتماعية</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <!-- Left Side (30%) -->
+        <div class="arabica_footer-left">
+          <hr class="arabica_tab-show" />
+          <div class="arabica_footer_logo_copy">
+            <div class="arabica_footer-logo arabica_footer-logo-left">
+              <a href="https://www.dohainstitute.org">
+                <img src="Assets/images/arab-center.png" alt="Logo" />
+              </a>
+            </div>
+            <hr class="arabica_tab-hide" />
+            <div class="arabica_footer_copyright">
+              <p class="arabica_footer-text">
+                © جميع الحقوق محفوظة<br />
+                للمركز العربي للأبحاث ودراسة السياسات، 2024 <br />
+              </p>
+              <div class="arabica_doha_link">
+                <a href="https://www.dohainstitute.org">
+                  www.dohainstitute.org</a
+                >
+              </div>
+            </div>
+          </div>
+          <hr />
+          <div class="arabica_footer-social">
+            <ul>
+              <li>
+                <a
+                  href="https://www.facebook.com"
+                  target="_blank"
+                  title="Facebook"
+                  ><i class="fa-brands fa-square-facebook"></i
+                ></a>
+              </li>
+              <li>
+                <a href="https://twitter.com" target="_blank" title="Twitter"
+                  ><i class="fa-brands fa-square-x-twitter"></i
+                ></a>
+              </li>
+              <li>
+                <a
+                  href="https://www.youtube.com"
+                  target="_blank"
+                  title="YouTube"
+                  ><i class="fa-brands fa-square-youtube"></i
+                ></a>
+              </li>
+              <li>
+                <a
+                  href="https://www.linkedin.com"
+                  target="_blank"
+                  title="LinkedIn"
+                  ><i class="fab fa-linkedin"></i
+                ></a>
+              </li>
+              <li>
+                <a href="rss-feed-url" target="_blank" title="RSS"
+                  ><i class="fa-solid fa-square-rss"></i
+                ></a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <div class="arabica_mobile_nav hidden" id="mobileNav">
+      <button class="menu-close" id="menuClose">
+        <span class="menu-close-icon"><i class="fa-solid fa-xmark"></i></span>
+      </button>
+      <div class="arabica_mobile_nav_content">
+        <div class="menu-logo">
+          <img
+            src="Assets/images/logo-2.png"
+            alt="Arabic Picks"
+            width="192"
+            height="37"
+          />
+        </div>
+        <div class="arabica_mobile_nav_list"></div>
+        <div class="arabica_social_link">
+          <ul>
+            <li>
+              <a
+                href="https://www.facebook.com"
+                target="_blank"
+                title="Facebook"
+                ><i class="fa-brands fa-square-facebook"></i
+              ></a>
+            </li>
+            <li>
+              <a href="https://twitter.com" target="_blank" title="Twitter"
+                ><i class="fa-brands fa-square-x-twitter"></i
+              ></a>
+            </li>
+            <li>
+              <a href="https://www.youtube.com" target="_blank" title="YouTube"
+                ><i class="fa-brands fa-square-youtube"></i
+              ></a>
+            </li>
+            <li>
+              <a
+                href="https://www.linkedin.com"
+                target="_blank"
+                title="LinkedIn"
+                ><i class="fab fa-linkedin"></i
+              ></a>
+            </li>
+            <li>
+              <a href="rss-feed-url" target="_blank" title="RSS"
+                ><i class="fa-solid fa-square-rss"></i
+              ></a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <script src="Assets/js/script.js"></script>
+  </body>
+</html>
