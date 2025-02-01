@@ -76,6 +76,11 @@ svg {
 a {
   text-decoration: none;
   -webkit-tap-highlight-color: transparent;
+  color: #cc9933;
+}
+a:hover,
+.arabica_featured-article-share a:hover i {
+  color: #b07f2a;
 }
 /* General heading styles */
 h1,
@@ -766,6 +771,7 @@ hr.arabica_tab-show {
 }
 
 a.arabica_tag:hover {
+  color: #ffffff;
   background: #5a3a29;
 }
 
@@ -787,7 +793,6 @@ a.arabica_tag:hover {
 .arabica_author,
 .arabica_author a {
   font-size: 14px;
-  color: #cc9933;
 }
 .arabica_author a,
 h2 a:hover {
