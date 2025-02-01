@@ -89,6 +89,7 @@ h3,
 h4,
 h5,
 h6 {
+  color: #17355d;
   font-weight: normal;
   margin: 0 0 10px;
   line-height: 1.3;
@@ -98,32 +99,26 @@ h6 {
 /* Specific header sizes */
 h1 {
   font-size: 2.5rem; /* 40px */
-  color: #222;
 }
 
 h2 {
   font-size: 2rem; /* 32px */
-  color: #333;
 }
 
 h3 {
   font-size: 1.75rem; /* 28px */
-  color: #444;
 }
 
 h4 {
   font-size: 1.5rem; /* 24px */
-  color: #555;
 }
 
 h5 {
   font-size: 1.25rem; /* 20px */
-  color: #666;
 }
 
 h6 {
   font-size: 1rem; /* 16px */
-  color: #777;
 }
 
 /* Additional spacing for readability */
