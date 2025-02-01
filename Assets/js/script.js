@@ -123,3 +123,38 @@ document.addEventListener("DOMContentLoaded", function () {
   startAutoSlide();
   showSlide(currentSlide); // Show the first slide
 });
+document.addEventListener("DOMContentLoaded", function () {
+  // Check if the browser supports IntersectionObserver
+  if ("IntersectionObserver" in window) {
+    const lazyImages = document.querySelectorAll("img.lazyload");
+
+    const imageObserver = new IntersectionObserver((entries, observer) => {
+      entries.forEach((entry) => {
+        // If the image is in view (intersection ratio > 0)
+        if (entry.isIntersecting) {
+          const image = entry.target;
+          const src = image.getAttribute("data-src");
+
+          // Replace the src with the data-src (actual image URL)
+          image.src = src;
+
+          // Optionally, remove the observer after loading the image
+          image.classList.remove("lazyload");
+          observer.unobserve(image);
+        }
+      });
+    });
+
+    // Start observing each lazy-loaded image
+    lazyImages.forEach((image) => {
+      imageObserver.observe(image);
+    });
+  } else {
+    // Fallback for browsers that don't support IntersectionObserver
+    // You can use a basic scroll event or a lazy loading library like lazysizes
+    const lazyImages = document.querySelectorAll("img.lazyload");
+    lazyImages.forEach((image) => {
+      image.src = image.getAttribute("data-src");
+    });
+  }
+});
