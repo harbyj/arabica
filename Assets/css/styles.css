@@ -795,10 +795,14 @@ a.arabica_tag:hover {
   font-size: 14px;
 }
 .arabica_author a,
-h2 a:hover {
+.arabica_additional-info h2 a:hover,
+.arabica_featured-article-author a {
   text-decoration: underline;
 }
 
+span.arabica_date {
+  display: block;
+}
 /* Responsive Adjustments */
 @media (max-width: 991px) {
   .arabica_additional-info h2 {
@@ -824,7 +828,7 @@ h2 a:hover {
   }
   .arabica_author,
   .arabica_author a {
-    font-size: 11px;
+    font-size: 12px;
   }
   .arabica_tag {
     font-size: 12px;
