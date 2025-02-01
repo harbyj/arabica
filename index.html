@@ -197,6 +197,7 @@
         }
         .arabica_featured-article-text {
           font-size: 13px;
+          text-align: right;
         }
       }
 
@@ -233,7 +234,11 @@
       <div class="arabica_slider">
         <div class="arabica_slides">
           <div class="arabica_slide">
-            <img src="Assets/images/slider-img1.jpg" alt="Slide 1" />
+            <img
+              data-src="Assets/images/slider-img1.jpg"
+              alt="Slide 1"
+              class="lazyload"
+            />
             <div class="arabica_slide-content">
               <div>
                 <div class="arabica_additional-info arabica_container">
@@ -358,8 +363,13 @@
             <div class="arabica_featured-article-inner">
               <div class="arabica_featured-article-image">
                 <a href="news-details.html"
-                  ><img src="Assets/images/post-img1.png" alt="العلم"
-                /></a>
+                  ><img
+                    data-src="Assets/images/post-img1.png"
+                    src="Assets/images/placeholder.jpg"
+                    alt="العلم"
+                    class="lazyload"
+                  />
+                </a>
                 <a href="#" class="arabica_featured-article-category"
                   >العلوم الرياضية والفيزياء</a
                 >
@@ -406,7 +416,11 @@
             <div class="arabica_featured-article-inner">
               <div class="arabica_featured-article-image">
                 <a href="news-details.html"
-                  ><img src="Assets/images/post-img2.png" alt="الكيمياء"
+                  ><img
+                    data-src="Assets/images/post-img2.png"
+                    src="Assets/images/placeholder.jpg"
+                    alt="العلم"
+                    class="lazyload"
                 /></a>
                 <a href="#" class="arabica_featured-article-category"
                   >الإسلام وعلومه</a
