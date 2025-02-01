@@ -35,368 +35,39 @@
             <li><a href="Editors.html">المحررون المليون</a></li>
             <li><a href="Entries.html">المداخل الموسوعية</a></li>
             <li><a href="News.html">الأخبار</a></li>
-            <li><a href="Contact.html">ساهم في أرابيكا</a></li>
+            <li><a href="Contribute.html">ساهم في أرابيكا</a></li>
           </ul>
         </div>
       </div>
     </header>
     <style>
-      /* General Setup for Main Wrapper */
-      .arabica_main-wrapper {
-        margin: auto;
-      }
-
-      /* Slider Container Setup */
-      .arabica_slider {
-        position: relative;
-        overflow: hidden;
-        background-color: #724c3a;
-      }
-
-      .arabica_slider img {
-        pointer-events: none; /* Disables clicking, right-clicking, etc. */
-      }
-
-      .arabica_slides {
-        position: relative;
-        max-width: 100%;
-        height: 550px; /* Adjust height as needed */
-      }
-      @media (max-width: 1599px) {
-        .arabica_slides {
-          height: 500px;
-        }
-      }
-      /* Media Queries for Responsiveness */
-      @media (max-width: 991px) {
-        .arabica_slides {
-          height: 300px;
-        }
-      }
-      @media (max-width: 767px) {
-        .arabica_slides {
-          height: 250px;
-        }
-      }
-
-      /* Individual Slide Styling */
-      .arabica_slide {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        opacity: 0;
-        transition: opacity 1s ease-in-out;
-        pointer-events: none; /* Ensure only active slide is clickable */
-      }
-
-      .arabica_slide.active {
-        opacity: 1;
-        pointer-events: auto; /* Allow clicking only on the active slide */
-      }
-
-      .arabica_slide img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-      }
-
-      /* Gradient Overlay for Slides */
-      .arabica_slide::after {
-        content: "";
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: linear-gradient(
-          to top,
-          rgba(0, 0, 0, 0.5),
-          rgba(0, 0, 0, 0)
-        );
-        pointer-events: none;
-      }
-
-      /* Slider Navigation Buttons */
-      .arabica_slider-buttons {
-        position: absolute;
-        bottom: 20px;
-        right: 50%; /* Adjusted for RTL layout */
-        transform: translateX(50%); /* Reversed for RTL */
-        display: flex;
-        gap: 7px;
-        flex-direction: row-reverse; /* Reverse button order */
-      }
-
-      .arabica_slider-buttons button {
-        width: 8px;
-        height: 8px;
-        border: none;
-        border-radius: 50%;
-        background: rgba(255, 255, 255, 0.6);
-        cursor: pointer;
-        outline: none;
-        transition: background 0.3s, transform 0.3s;
-      }
-
-      /* Media Queries for Button Size Adjustments */
-      @media (min-width: 768px) {
-        .arabica_slider-buttons button {
-          width: 11.5px;
-          height: 11.5px;
-        }
-        .arabica_slider-buttons {
-          position: absolute;
-          bottom: 25px;
-        }
-      }
-      @media (min-width: 992px) {
-        .arabica_slider-buttons button {
-          width: 15px;
-          height: 15px;
-        }
-        .arabica_slider-buttons {
-          position: absolute;
-          bottom: 30px;
-        }
-      }
-
-      .arabica_slider-buttons button.active {
-        background: rgba(255, 255, 255, 1);
-      }
-
-      /* Styling for the About Section */
-      .arabica_main-about {
-        text-align: center;
-        padding: 40px 0px 100px 0;
-        background: #eeeeee url("Assets/images/main-top-bg.png") no-repeat
-          center center;
-        background-size: cover; /* Ensures the image covers the entire background */
-      }
-
-      .arabica_main-about h3 {
-        font-size: 35px;
-        margin-bottom: 15px;
-        text-align: center;
-        color: #17355d;
-      }
-
-      .arabica_main-about p {
-        margin-bottom: 30px;
-        font-size: 21px;
-        color: #333333;
-      }
-
-      /* Slider Content Positioning Flexbox */
-      .arabica_slide .arabica_slide-content {
-        position: absolute;
-        left: 0;
-        width: 100%;
-        display: flex;
-        justify-content: center;
-        flex-direction: column;
-        z-index: 1;
-      }
-      @media (min-width: 992px) {
-        .arabica_slide .arabica_slide-content {
-          top: 40%;
-        }
-      }
-      .arabica_additional-info,
-      .arabica_fit-container {
-        margin-right: auto;
-        margin-left: auto;
-      }
-
-      .arabica_tag {
-        background: #724c3a;
-        color: white;
-        display: inline-block;
-        padding: 6px 15px;
-        font-size: 14px;
-      }
-
-      a.arabica_tag:hover {
-        background: #5a3a29;
-      }
-
-      .arabica_additional-info h2 {
-        font-size: 35px;
-        margin: 15px 0 5px 0;
-        color: #ffffff;
-      }
-
-      .arabica_additional-info h2 a {
-        color: #ffffff;
-      }
-      .arabica_date {
-        font-size: 21px;
-        color: #999999;
-        margin-bottom: 5px;
-      }
-
-      .arabica_author,
-      .arabica_author a {
-        font-size: 14px;
-        color: #cc9933;
-      }
-      .arabica_author a,
-      h2 a:hover {
-        text-decoration: underline;
-      }
-
-      /* Responsive Adjustments */
-      @media (max-width: 991px) {
-        .arabica_additional-info h2 {
-          font-size: 25px;
-          margin: 5px 0 0 0;
-        }
-        .arabica_additional-info h2 {
-          display: -webkit-box;
-          -webkit-line-clamp: 2; /* Limits to 2 lines */
-          -webkit-box-orient: vertical;
-          overflow: hidden; /* Hides extra text */
-          text-overflow: ellipsis; /* Adds "..." at the end */
-          max-width: 100%; /* Ensures it fits within the container */
-        }
-
-        .arabica_main-about h3 {
-          font-size: 20px;
-          font-weight: bold;
-        }
-
-        .arabica_slide .arabica_slide-content {
-          bottom: 16.5%;
-        }
-        .arabica_author,
-        .arabica_author a {
-          font-size: 11px;
-        }
-        .arabica_tag {
-          font-size: 12px;
-        }
-        .arabica_date {
-          font-size: 14px;
-          margin-bottom: 0px;
-        }
-        .arabica_tag {
-          padding: 3px 7px;
-        }
-        .arabica_main-about p {
-          font-size: 14px;
-        }
-      }
-
-      .arabica_card-container {
-        display: flex;
-        justify-content: center;
-        gap: 10%;
-        flex-direction: row-reverse;
-        margin-top: -80px;
-      }
-
-      /* Card styling */
-      .arabica_card {
-        text-decoration: none;
-        text-align: center;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        transition: 0.3s;
-        width: 150px;
-      }
-
-      .arabica_icon {
-        width: 150px;
-        height: 150px;
-        border-radius: 50%;
-        background-color: #fafbfb;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        border: 10px solid #ffffff;
-        font-size: 50px;
-        color: #c69c6d;
-        transition: background-color 0.3s ease, color 0.3s ease,
-          border-color 0.3s ease, transform 0.3s ease;
-        box-shadow: 5px 6px 10px #0000001f; /* Drop shadow */
-      }
-
-      /* Hover Animation */
-      .arabica_card:hover .arabica_icon {
-        background-color: #3a9ede;
-        color: #ffffff;
-        border-color: #3a9ede;
-        transform: scale(1.1); /* Slight scale effect on hover */
-      }
-
-      /* Hover effect */
-
-      .arabica_card:hover .arabica_text {
-        color: #3a9ede;
-        transform: scale(1.1);
-      }
-      .arabica_text {
-        margin-top: 20px;
-        font-size: 16px;
-        color: #c69c6d;
-      }
-
-      @media (max-width: 991px) {
-        .arabica_main-about {
-          text-align: center;
-          padding: 40px 0px 35px 0;
-        }
-
-        .arabica_card {
-          width: 75px;
-        }
-
-        .arabica_card-container {
-          margin-top: -40px;
-        }
-
-        .arabica_icon {
-          width: 75px;
-          height: 75px;
-          border: 6px solid #ffffff;
-          font-size: 30px;
-        }
-
-        .arabica_text {
-          margin-top: 15px;
-          font-size: 12px;
-        }
-      }
-
-      /* featured post */
       .arabica_featured {
-        padding: 100px 0 0 0;
+        padding: 60px 15px;
         background: linear-gradient(to bottom, #ffffff, #f2f2f2);
       }
 
       .arabica_featured-title {
         text-align: center;
-        font-size: 24px;
+        font-size: 26px;
         color: #2d2d2d;
         margin-bottom: 30px;
       }
 
       .arabica_featured-article {
         display: flex;
+        flex-direction: row-reverse;
         align-items: center;
-        justify-content: space-between;
         background: white;
         padding: 20px;
         border-radius: 10px;
-        box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
-        margin-bottom: 30px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        margin-bottom: 20px;
+        gap: 20px;
       }
 
       .arabica_featured-article-image {
         position: relative;
-        width: 40%;
+        flex: 1;
       }
 
       .arabica_featured-article-image img {
@@ -411,17 +82,18 @@
         background: #004080;
         color: white;
         font-size: 14px;
-        padding: 5px 10px;
+        padding: 6px 12px;
         border-radius: 5px;
       }
 
       .arabica_featured-article-content {
-        width: 55%;
+        flex: 2;
       }
 
       .arabica_featured-article-title {
-        font-size: 20px;
+        font-size: 22px;
         color: #1a1a1a;
+        margin-bottom: 10px;
       }
 
       .arabica_featured-article-author {
@@ -439,14 +111,14 @@
       .arabica_featured-article-text {
         font-size: 14px;
         color: #555;
-        line-height: 1.6;
+        line-height: 1.7;
       }
 
       .arabica_featured-article-button {
         display: inline-block;
         background: #d49136;
         color: white;
-        padding: 8px 15px;
+        padding: 10px 20px;
         border-radius: 5px;
         text-decoration: none;
         font-size: 14px;
@@ -461,6 +133,23 @@
 
       .arabica_featured-article-share i {
         margin-left: 5px;
+      }
+
+      @media (max-width: 768px) {
+        .arabica_featured-article {
+          flex-direction: column;
+          text-align: center;
+        }
+
+        .arabica_featured-article-image,
+        .arabica_featured-article-content {
+          width: 100%;
+        }
+
+        .arabica_featured-article-category {
+          right: 50%;
+          transform: translateX(50%);
+        }
       }
     </style>
 
@@ -560,19 +249,19 @@
       <div>
         <div class="arabica_fit-container arabica_container">
           <div class="arabica_card-container">
-            <a href="#" class="arabica_card">
+            <a href="Contribute.html" class="arabica_card">
               <div class="arabica_icon">
                 <i class="fa-light fa-file-circle-plus"></i>
               </div>
               <span class="arabica_text">ساهم معنا</span>
             </a>
-            <a href="#" class="arabica_card">
+            <a href="Entries.html" class="arabica_card">
               <div class="arabica_icon">
                 <i class="fa-light fa-book-atlas"></i>
               </div>
               <span class="arabica_text">المداخل الموسوعية</span>
             </a>
-            <a href="#" class="arabica_card">
+            <a href="Editors.html" class="arabica_card">
               <div class="arabica_icon">
                 <i class="fa-light fa-newspaper"></i>
               </div>
@@ -582,63 +271,61 @@
         </div>
       </div>
       <div class="arabica_featured">
-        <div>
-          <div class="arabica_fit-container arabica_container">
-            <h2 class="arabica_featured-title">اخترنا لكم</h2>
+        <div class="arabica_fit-container arabica_container">
+          <h2 class="arabica_featured-title">اخترنا لكم</h2>
 
-            <div class="arabica_featured-article">
-              <div class="arabica_featured-article-image">
-                <img src="image1.jpg" alt="العلم" />
-                <span class="arabica_featured-article-category"
-                  >العلوم الرياضية والفيزياء</span
-                >
-              </div>
-              <div class="arabica_featured-article-content">
-                <h3 class="arabica_featured-article-title">
-                  علم الفلك في الحضارة الإسلامية
-                </h3>
-                <p class="arabica_featured-article-author">
-                  <a href="#">إبراهيم حسن</a> - مدرس مساعد للتراث التطبيقي في
-                  جامعة بغداد
-                </p>
-                <p class="arabica_featured-article-text">
-                  محمد بن إدريس، ينسب للشيعة الاثني عشرية، كان مؤلفا لأحد أضخم
-                  الكتب الفلكية في العصور الوسطى، حيث سجل بيانات فلكية دقيقة
-                  تعتمد على 360 درجة من القطع...
-                </p>
-                <a href="#" class="arabica_featured-article-button"
-                  >إقرأ المزيد</a
-                >
-                <div class="arabica_featured-article-share">
-                  <i class="fas fa-share"></i> <a href="#">شارك</a>
-                </div>
+          <div class="arabica_featured-article">
+            <div class="arabica_featured-article-image">
+              <img src="Assets/images/post-img1.png" alt="العلم" />
+              <span class="arabica_featured-article-category"
+                >العلوم الرياضية والفيزياء</span
+              >
+            </div>
+            <div class="arabica_featured-article-content">
+              <h3 class="arabica_featured-article-title">
+                علم الفلك في الحضارة الإسلامية
+              </h3>
+              <p class="arabica_featured-article-author">
+                <a href="#">إبراهيم حسن</a> - مدرس مساعد للتراث التطبيقي في
+                جامعة بغداد
+              </p>
+              <p class="arabica_featured-article-text">
+                محمد بن إدريس، ينسب للشيعة الاثني عشرية، كان مؤلفا لأحد أضخم
+                الكتب الفلكية في العصور الوسطى، حيث سجل بيانات فلكية دقيقة تعتمد
+                على 360 درجة من القطع...
+              </p>
+              <a href="#" class="arabica_featured-article-button"
+                >إقرأ المزيد</a
+              >
+              <div class="arabica_featured-article-share">
+                <i class="fas fa-share"></i> <a href="#">شارك</a>
               </div>
             </div>
+          </div>
 
-            <div class="arabica_featured-article">
-              <div class="arabica_featured-article-content">
-                <h3 class="arabica_featured-article-title">توجيه الدواء</h3>
-                <p class="arabica_featured-article-author">
-                  <a href="#">إبراهيم حسن</a> - مدرس مساعد للتراث التطبيقي في
-                  جامعة بغداد
-                </p>
-                <p class="arabica_featured-article-text">
-                  محمد بن إدريس، ينسب للشيعة الاثني عشرية، كان مؤلفا لأحد أضخم
-                  الكتب الفلكية في العصور الوسطى، حيث سجل بيانات فلكية دقيقة
-                  تعتمد على 360 درجة من القطع...
-                </p>
-                <a href="#" class="arabica_featured-article-button"
-                  >إقرأ المزيد</a
-                >
-                <div class="arabica_featured-article-share">
-                  <i class="fas fa-share"></i> <a href="#">شارك</a>
-                </div>
-              </div>
-              <div class="arabica_featured-article-image">
-                <img src="image2.jpg" alt="الكيمياء" />
-                <span class="arabica_featured-article-category"
-                  >الإسلام وعلومه</span
-                >
+          <div class="arabica_featured-article">
+            <div class="arabica_featured-article-image">
+              <img src="Assets/images/post-img2.png" alt="الكيمياء" />
+              <span class="arabica_featured-article-category"
+                >الإسلام وعلومه</span
+              >
+            </div>
+            <div class="arabica_featured-article-content">
+              <h3 class="arabica_featured-article-title">توجيه الدواء</h3>
+              <p class="arabica_featured-article-author">
+                <a href="#">إبراهيم حسن</a> - مدرس مساعد للتراث التطبيقي في
+                جامعة بغداد
+              </p>
+              <p class="arabica_featured-article-text">
+                محمد بن إدريس، ينسب للشيعة الاثني عشرية، كان مؤلفا لأحد أضخم
+                الكتب الفلكية في العصور الوسطى، حيث سجل بيانات فلكية دقيقة تعتمد
+                على 360 درجة من القطع...
+              </p>
+              <a href="#" class="arabica_featured-article-button"
+                >إقرأ المزيد</a
+              >
+              <div class="arabica_featured-article-share">
+                <i class="fas fa-share"></i> <a href="#">شارك</a>
               </div>
             </div>
           </div>
