@@ -75,6 +75,7 @@ svg {
 }
 a {
   text-decoration: none;
+  -webkit-tap-highlight-color: transparent;
 }
 /* General heading styles */
 h1,
