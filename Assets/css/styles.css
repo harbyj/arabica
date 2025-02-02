@@ -1,0 +1,1472 @@
+@font-face {
+  font-family: "Bahij TheSansArabic";
+  src: url(".../fonts/BahijTheSans/BahijTheSans/Bahij_TheSansArabic-Black.ttf")
+    format("truetype");
+  font-weight: 900; /* Adjust weight as needed */
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Bahij TheSansArabic";
+  src: url("../fonts/BahijTheSans/Bahij_TheSansArabic-Bold.ttf")
+    format("truetype");
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Bahij TheSansArabic";
+  src: url("../fonts/BahijTheSans/Bahij_TheSansArabic-ExtraBold.ttf")
+    format("truetype");
+  font-weight: 800;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Bahij TheSansArabic";
+  src: url("../fonts/BahijTheSans/Bahij_TheSansArabic-ExtraLight.ttf")
+    format("truetype");
+  font-weight: 200;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Bahij TheSansArabic";
+  src: url("../fonts/BahijTheSans/Bahij_TheSansArabic-Plain.ttf")
+    format("truetype");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Bahij TheSansArabic";
+  src: url("../fonts/BahijTheSans/Bahij_TheSansArabic-SemiBold.ttf")
+    format("truetype");
+  font-weight: 600;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Bahij TheSansArabic";
+  src: url("../fonts/BahijTheSans/Bahij_TheSansArabic-SemiLight.ttf")
+    format("truetype");
+  font-weight: 300;
+  font-style: normal;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Bahij TheSansArabic";
+  line-height: 1.6;
+}
+
+ol,
+ul {
+  padding: 0;
+}
+img,
+svg {
+  vertical-align: middle;
+}
+a {
+  text-decoration: none;
+  -webkit-tap-highlight-color: transparent;
+  color: #cc9933;
+}
+a:hover,
+.arabica_featured-article-share a:hover i {
+  color: #b07f2a;
+}
+/* General heading styles */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: #17355d;
+  font-weight: normal;
+  margin: 0 0 10px;
+  line-height: 1.3;
+  text-align: right; /* For Arabic text */
+}
+h1 a:hover,
+h2 a:hover,
+h3 a:hover,
+h4 a:hover,
+h5 a:hover,
+h6 a:hover {
+  text-decoration: underline;
+}
+
+/* Specific header sizes */
+h1 {
+  font-size: 2.5rem; /* 40px */
+}
+
+h2 {
+  font-size: 2rem; /* 32px */
+}
+
+h3 {
+  font-size: 1.75rem; /* 28px */
+}
+
+h4 {
+  font-size: 1.5rem; /* 24px */
+}
+
+h5 {
+  font-size: 1.25rem; /* 20px */
+}
+
+h6 {
+  font-size: 1rem; /* 16px */
+}
+
+/* Additional spacing for readability */
+h1,
+h2 {
+  margin-bottom: 15px;
+  padding-bottom: 5px;
+}
+
+h3,
+h4,
+h5,
+h6 {
+  margin-bottom: 10px;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  h1 {
+    font-size: 2rem;
+  }
+  h2 {
+    font-size: 1.75rem;
+  }
+  h3 {
+    font-size: 1.5rem;
+  }
+  h4 {
+    font-size: 1.25rem;
+  }
+  h5 {
+    font-size: 1rem;
+  }
+  h6 {
+    font-size: 0.875rem;
+  }
+}
+
+/* Disable scrolling on the body */
+.no-scroll {
+  overflow: hidden;
+  height: 100vh;
+}
+
+.header {
+  background: #fff;
+  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.3);
+}
+
+.arabica_header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 0;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+@media (max-width: 991px) {
+  .arabica_container {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+  .arabica_header {
+    padding: 20px;
+    max-width: 100%;
+  }
+  .arabica_additional-info {
+    padding: 0 35px;
+  }
+}
+
+@media (min-width: 992px) {
+  .arabica_container {
+    width: 970px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .arabica_container {
+    width: 1170px;
+  }
+}
+
+@media (min-width: 1300px) {
+  .arabica_container {
+    width: 1260px;
+  }
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.logo img {
+  height: 30px;
+}
+
+.logo span {
+  font-size: 20px;
+  color: #003366;
+  font-weight: bold;
+}
+
+.arabica_nav {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .logo img {
+    height: 37px;
+  }
+}
+@media (min-width: 992px) {
+  .logo img {
+    height: 56px;
+  }
+  .arabica_nav {
+    margin-left: -10px;
+  }
+}
+.arabica_nav ul {
+  list-style: none;
+  display: flex;
+  margin: 0;
+}
+.arabica_nav ul li {
+  margin-right: 10px;
+}
+
+.arabica_nav ul li a {
+  text-decoration: none;
+  padding: 10px;
+  color: #17355d;
+  font-weight: bold;
+  font-size: 14px;
+  border-radius: 5px;
+  transition: background 0.3s ease;
+}
+
+.arabica_nav ul li a:hover,
+.arabica_nav ul li a.current {
+  background: rgba(153, 153, 153, 0.15);
+}
+
+.menu-toggle {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.menu-toggle span {
+  display: block;
+}
+
+@media (min-width: 992px) {
+  .menu-toggle {
+    display: none;
+  }
+
+  .arabica_nav {
+    display: block;
+  }
+}
+
+@media (max-width: 991px) {
+  .arabica_nav {
+    display: none;
+  }
+
+  .arabica_nav ul {
+    flex-direction: column;
+    gap: 10px;
+  }
+}
+
+.toggle-icon {
+  top: 32px;
+  left: 29px;
+  width: 25px;
+  height: 18px;
+  background: transparent url("./../images/menu-icon.svg") 0% 0% no-repeat
+    padding-box;
+}
+
+/* Mobile Nav Styling */
+.arabica_mobile_nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #05284c url("./../images/mobile-nav-bg.png") no-repeat center
+    center;
+  background-size: cover; /* Ensures the image covers the entire background */
+  color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 1000;
+  overflow-y: auto;
+  padding: 20px;
+
+  /* Initial State for Animation */
+  transform: translateX(-100%); /* Start from the left */
+  opacity: 0; /* Fully transparent */
+  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+    opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1); /* Smooth combined transitions */
+}
+
+/* Visible State */
+.arabica_mobile_nav.visible {
+  transform: translateX(0); /* Slide into view */
+  opacity: 1; /* Fully visible */
+}
+
+/* Hidden State */
+.arabica_mobile_nav.hidden {
+  transform: translateX(-100%); /* Slide out of view */
+  opacity: 0; /* Fully transparent */
+}
+
+/* Close Button */
+.menu-close {
+  position: absolute;
+  top: 22px;
+  right: 24px;
+  background: none;
+  border: none;
+  color: #ffffff;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.arabica_mobile_nav ul {
+  list-style: none;
+  padding: 0;
+}
+
+.arabica_mobile_nav ul li {
+  margin: 15px 0;
+}
+
+.arabica_mobile_nav ul li a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 18px;
+  font-weight: lighter;
+  transition: color 0.3s;
+}
+
+.arabica_mobile_nav ul li a:hover {
+  font-weight: bold;
+  color: #cc9933; /* Highlight on hover */
+}
+.arabica_mobile_nav_content {
+  text-align: center; /* Aligns text for inline elements inside children */
+  padding: 20px; /* Optional: Adds spacing inside the arabica_container */
+  box-sizing: border-box; /* Ensures padding doesn't overflow the width */
+}
+.menu-logo {
+  margin: 40px 0 70px 0;
+}
+
+.arabica_social_link {
+  margin-top: 70px;
+}
+
+.arabica_footer-social {
+  text-align: center;
+}
+
+.arabica_social_link ul,
+.arabica_footer-social ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  flex-direction: row-reverse; /* Reverse the order of the items */
+}
+
+.arabica_social_link ul li:not(:last-child),
+.arabica_footer-social ul li:not(:last-child) {
+  margin-right: 15px; /* Space between items */
+}
+
+.arabica_social_link ul li a,
+.arabica_footer-social ul li a {
+  text-decoration: none; /* Removes underline from links */
+  font-size: 25px; /* Adjust the icon size */
+  color: #ffffff; /* Icon color (you can change this to match your design) */
+}
+
+.arabica_social_link ul li a:hover,
+.arabica_footer-social ul li a:hover,
+.arabica_doha_link a,
+.arabica_column ul li a:hover {
+  color: #cc9933; /* Change color on hover (e.g., for LinkedIn) */
+}
+
+.arabica_footer {
+  background-color: #15355d;
+  color: #fff;
+  font-weight: lighter;
+}
+
+.arabica_footer-container {
+  display: flex;
+  justify-content: space-between;
+  margin: 0 auto;
+  flex-wrap: wrap;
+}
+.arabica_footer-left {
+  text-align: center;
+  padding: 30px;
+}
+@media (min-width: 992px) {
+  /* Left Side (35%) */
+  .arabica_footer-left {
+    width: 35%;
+    text-align: center;
+    padding: 100px 70px 100px 70px;
+  }
+}
+
+.arabica_footer-text {
+  font-size: 14px;
+  margin-bottom: 15px;
+}
+.arabica_footer-right {
+  padding: 30px 30px 0 30px;
+}
+hr {
+  opacity: 1;
+}
+.arabica_footer hr {
+  margin: 30px 0;
+  border-top: 0;
+  border-bottom: 1px solid #3b5578;
+  border-right: 0;
+  border-left: 0;
+}
+.arabica_footer-logo img {
+  height: 37px;
+}
+.arabica_link-columns {
+  display: flex;
+  justify-content: space-between;
+}
+.arabica_footer-logo {
+  height: auto;
+  text-align: right;
+}
+@media (max-width: 767px) {
+  .arabica_footer-logo.arabica_footer-logo-left {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .arabica_footer-logo img {
+    height: 30px;
+  }
+}
+hr.arabica_tab-show {
+  display: none;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  .arabica_link-columns {
+    margin: 0 100px;
+  }
+  .arabica_footer-left {
+    text-align: right;
+  }
+  .arabica_footer_logo_copy {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .arabica_footer-logo.arabica_footer-logo-left {
+    order: 1;
+    margin-right: 100px;
+  }
+
+  .arabica_footer_copyright {
+    order: 2;
+    margin-left: 100px;
+  }
+
+  .arabica_footer_copyright {
+    text-align: right;
+  }
+
+  hr.arabica_tab-hide {
+    display: none;
+  }
+  hr.arabica_tab-show {
+    margin-top: 0;
+    display: block;
+  }
+}
+
+@media (min-width: 992px) {
+  /* Right Side (65%) */
+  .arabica_footer-right {
+    width: 65%;
+    background: url("./../images/footer-right-bg.png") no-repeat center center;
+    background-size: cover;
+    padding: 100px 70px 100px 70px;
+  }
+  .arabica_footer hr {
+    margin: 40px 0;
+  }
+  .arabica_footer-logo img {
+    height: 50px;
+  }
+  .arabica_link-columns {
+    margin-right: 25px;
+  }
+}
+@media (min-width: 1400px) {
+  /* Left Side (35%) */
+  .arabica_footer-left {
+    padding: 100px 70px 100px 100px;
+  }
+  .arabica_footer-right {
+    padding: 100px 100px 100px 70px;
+  }
+}
+@media (min-width: 1500px) {
+  /* Left Side (35%) */
+  .arabica_footer-left {
+    padding: 100px 70px 100px 140px;
+  }
+  .arabica_footer-right {
+    padding: 100px 140px 100px 70px;
+  }
+}
+@media (min-width: 1600px) {
+  /* Left Side (35%) */
+  .arabica_footer-left {
+    padding: 100px 70px 100px 200px;
+  }
+  .arabica_footer-right {
+    padding: 100px 200px 100px 70px;
+  }
+}
+
+.arabica_column {
+  width: 30%;
+}
+
+.arabica_column h4 {
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.arabica_column ul {
+  list-style: none;
+  padding: 0;
+}
+
+.arabica_column ul li {
+  margin: 10px 0;
+}
+
+.arabica_column ul li a {
+  text-decoration: underline;
+  color: #fff;
+  font-size: 14px;
+}
+
+@media (max-width: 767px) {
+  .arabica_column ul li a {
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 991px) {
+  .arabica_footer-container {
+    flex-direction: column;
+  }
+  .arabica_footer {
+    background-image: url("./../images/footer-right-bg.png");
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+  }
+}
+
+.arabica_doha_link a {
+  text-decoration: underline;
+  font-size: 14px;
+}
+.arabica_doha_link a:hover {
+  text-decoration: underline;
+}
+/* General Setup for Main Wrapper */
+.arabica_main-wrapper {
+  margin: auto;
+}
+
+/* Slider Container Setup */
+.arabica_slider {
+  position: relative;
+  overflow: hidden;
+  background-color: #724c3a;
+}
+
+.arabica_slider img {
+  pointer-events: none; /* Disables clicking, right-clicking, etc. */
+}
+
+.arabica_slides {
+  position: relative;
+  max-width: 100%;
+  height: 550px; /* Adjust height as needed */
+}
+@media (max-width: 1599px) {
+  .arabica_slides {
+    height: 500px;
+  }
+}
+/* Media Queries for Responsiveness */
+@media (max-width: 991px) {
+  .arabica_slides {
+    height: 300px;
+  }
+}
+@media (max-width: 767px) {
+  .arabica_slides {
+    height: 250px;
+  }
+}
+
+/* Individual Slide Styling */
+.arabica_slide {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: opacity 1s ease-in-out;
+  pointer-events: none; /* Ensure only active slide is clickable */
+}
+
+.arabica_slide.active {
+  opacity: 1;
+  pointer-events: auto; /* Allow clicking only on the active slide */
+}
+
+.arabica_slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Gradient Overlay for Slides */
+.arabica_slide::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0));
+  pointer-events: none;
+}
+
+/* Slider Navigation Buttons */
+.arabica_slider-buttons {
+  position: absolute;
+  bottom: 20px;
+  right: 50%; /* Adjusted for RTL layout */
+  transform: translateX(50%); /* Reversed for RTL */
+  display: flex;
+  gap: 7px;
+  flex-direction: row-reverse; /* Reverse button order */
+}
+
+.arabica_slider-buttons button {
+  width: 8px;
+  height: 8px;
+  border: none;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.6);
+  cursor: pointer;
+  outline: none;
+  transition: background 0.3s, transform 0.3s;
+}
+
+/* Media Queries for Button Size Adjustments */
+@media (min-width: 768px) {
+  .arabica_slider-buttons button {
+    width: 11.5px;
+    height: 11.5px;
+  }
+  .arabica_slider-buttons {
+    position: absolute;
+    bottom: 25px;
+  }
+}
+@media (min-width: 992px) {
+  .arabica_slider-buttons button {
+    width: 15px;
+    height: 15px;
+  }
+  .arabica_slider-buttons {
+    position: absolute;
+    bottom: 30px;
+  }
+}
+
+.arabica_slider-buttons button.active {
+  background: rgba(255, 255, 255, 1);
+}
+
+/* Styling for the About Section */
+.arabica_main-about {
+  text-align: center;
+  padding: 40px 0px 100px 0;
+  background: #eeeeee url("Assets/images/main-top-bg.png") no-repeat center
+    center;
+  background-size: cover; /* Ensures the image covers the entire background */
+}
+
+.arabica_main-about h3 {
+  font-size: 35px;
+  margin-bottom: 15px;
+  text-align: center;
+  color: #17355d;
+}
+
+.arabica_main-about p {
+  margin-bottom: 30px;
+  font-size: 21px;
+  color: #333333;
+}
+
+/* Slider Content Positioning Flexbox */
+.arabica_slide .arabica_slide-content {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  z-index: 1;
+}
+@media (min-width: 992px) {
+  .arabica_slide .arabica_slide-content {
+    top: 40%;
+  }
+}
+.arabica_additional-info,
+.arabica_fit-container {
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.arabica_tag {
+  background: #724c3a;
+  color: white;
+  display: inline-block;
+  padding: 6px 15px;
+  font-size: 14px;
+}
+
+a.arabica_tag:hover {
+  color: #ffffff;
+  background: #5a3a29;
+}
+
+.arabica_additional-info h2 {
+  font-size: 35px;
+  margin: 15px 0 5px 0;
+  color: #ffffff;
+}
+
+.arabica_additional-info h2 a {
+  color: #ffffff;
+}
+.arabica_date {
+  font-size: 21px;
+  color: #999999;
+  margin-bottom: 5px;
+}
+
+.arabica_author,
+.arabica_author a,
+.arabica_latest-article-category,
+.arabica_latest-article-category a {
+  font-size: 14px;
+}
+.arabica_author a,
+.arabica_additional-info h2 a:hover,
+.arabica_featured-article-author a {
+  text-decoration: underline;
+}
+
+span.arabica_date {
+  display: block;
+}
+/* Responsive Adjustments */
+@media (max-width: 991px) {
+  .arabica_footer-text {
+    font-size: 12px;
+  }
+  .arabica_doha_link a {
+    font-size: 12px;
+  }
+  .arabica_additional-info h2 {
+    font-size: 25px;
+    margin: 5px 0 0 0;
+  }
+  .arabica_additional-info h2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2; /* Limits to 2 lines */
+    -webkit-box-orient: vertical;
+    overflow: hidden; /* Hides extra text */
+    text-overflow: ellipsis; /* Adds "..." at the end */
+    max-width: 100%; /* Ensures it fits within the container */
+  }
+
+  .arabica_main-about h3 {
+    font-size: 20px;
+    font-weight: bold;
+  }
+
+  .arabica_slide .arabica_slide-content {
+    bottom: 16.5%;
+  }
+  .arabica_author,
+  .arabica_author a,
+  .arabica_latest-article-category,
+  .arabica_latest-article-category a {
+    font-size: 12px;
+  }
+  .arabica_tag {
+    font-size: 12px;
+  }
+  .arabica_date {
+    font-size: 14px;
+    margin-bottom: 0px;
+  }
+  .arabica_tag {
+    padding: 3px 7px;
+  }
+  .arabica_main-about p {
+    font-size: 14px;
+  }
+}
+
+.arabica_card-container {
+  display: flex;
+  justify-content: center;
+  gap: 10%;
+  flex-direction: row-reverse;
+  margin-top: -80px;
+}
+
+/* Card styling */
+.arabica_card {
+  text-decoration: none;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: 0.3s;
+  width: 150px;
+}
+
+.arabica_icon {
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #cc9933;
+  transition: background-color 0.3s ease, color 0.3s ease,
+    border-color 0.3s ease, transform 0.3s ease;
+  box-shadow: 5px 6px 10px #0000001f; /* Drop shadow */
+  background-color: #ffffff;
+}
+
+.arabica_card .arabica_icon {
+  width: 150px;
+  height: 150px;
+  font-size: 50px;
+  background-color: #fafbfb;
+  border: 10px solid #ffffff;
+}
+
+/* Hover Animation */
+.arabica_card:hover .arabica_icon {
+  background-color: #3a9ede;
+  color: #ffffff;
+  border-color: #3a9ede;
+  transform: scale(1.1); /* Slight scale effect on hover */
+}
+
+/* Hover effect */
+
+.arabica_card:hover .arabica_text {
+  color: #3a9ede;
+  transform: scale(1.1);
+}
+.arabica_text {
+  margin-top: 20px;
+  font-size: 16px;
+  color: #cc9933;
+}
+
+@media (max-width: 991px) {
+  .arabica_main-about {
+    text-align: center;
+    padding: 40px 0px 35px 0;
+  }
+
+  .arabica_card {
+    width: 75px;
+  }
+
+  .arabica_card-container {
+    margin-top: -40px;
+  }
+
+  .arabica_card .arabica_icon {
+    width: 75px;
+    height: 75px;
+    border: 6px solid #ffffff;
+    font-size: 30px;
+  }
+
+  .arabica_text {
+    margin-top: 15px;
+    font-size: 12px;
+  }
+}
+
+.arabica_featured {
+  padding: 60px 0 15px 0;
+  background: linear-gradient(to bottom, #ffffff, #f2f2f2);
+}
+
+.arabica_latest {
+  padding: 60px 0 15px 0;
+  background: #f8f8f8;
+}
+
+.arabica_latest-pager {
+  text-align: center;
+  transition: 0.3s;
+  margin: 20px 0 0 0;
+}
+
+.arabica_short {
+  padding: 80px 0 15px 0;
+  background: #ffffff;
+}
+
+.arabica_featured-title {
+  text-align: center;
+  font-size: 35px;
+  margin-bottom: 30px;
+}
+
+.arabica_featured-article-inner {
+  display: flex;
+  margin-bottom: 30px;
+  gap: 30px;
+}
+
+.arabica_latest-article-inner {
+  display: flex;
+  margin-bottom: 15px;
+  column-gap: 20px;
+}
+
+.arabica_short-article-inner {
+  display: flex;
+  gap: 15px;
+  flex-direction: column;
+}
+.arabica_featured-article-image {
+  position: relative;
+  flex: 1;
+}
+
+.arabica_featured-article-image img {
+  width: 100%;
+}
+
+.arabica_latest-article-image {
+  aspect-ratio: 121 / 64;
+  width: 100%;
+  flex: 1;
+}
+
+.arabica_latest-article-image img {
+  width: 121px;
+}
+.arabica_latest-article-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.arabica_featured-article-category {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background: #17355d;
+  color: #ffffff;
+  font-size: 14px;
+  padding: 6px 12px;
+}
+a.arabica_featured-article-category:hover {
+  background: #0f2745;
+  color: #ffffff;
+}
+
+.arabica_featured-article-content {
+  flex: 2;
+}
+.arabica_latest-article-content {
+  flex: 2;
+  margin: -7px 0;
+}
+
+.arabica_featured-article-title {
+  font-size: 22px;
+  margin-bottom: 10px;
+}
+
+.arabica_latest-article-title {
+  font-size: 19px;
+  margin-top: 5px;
+  margin-bottom: 0;
+}
+
+.arabica_featured-article-title a,
+.arabica_latest-article-title a {
+  color: #17355d;
+}
+
+.arabica_featured-article-title a:hover,
+.arabica_latest-article-title a:hover {
+  text-decoration: underline;
+}
+
+.arabica_featured-article-text {
+  font-size: 14px;
+  color: #333333;
+  text-align: justify;
+  margin-top: 10px;
+}
+
+.arabica_featured-article-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.arabica_featured-article-button {
+  display: inline-block;
+  background: #cc9933;
+  color: white;
+  padding: 3px 10px;
+  border-radius: 20px;
+  text-decoration: none;
+  font-size: 12px;
+}
+
+a.arabica_featured-article-button:hover,
+a.arabica_latest-article-more:hover {
+  background: #b07f2a;
+  color: #ffffff;
+}
+
+.arabica_featured-article-share {
+  font-size: 14px;
+  color: #16365e;
+  display: flex;
+  align-items: center;
+}
+
+.arabica_featured-article-share a {
+  color: #16365e;
+}
+
+.arabica_featured-article-author {
+  color: #999999;
+  margin-top: -6px;
+}
+.arabica_featured-article-share i,
+.arabica_featured-article-author i {
+  margin-left: 5px;
+  color: #cc9933;
+  font-size: 14px;
+}
+
+.arabica_author-role {
+  font-size: 14px;
+}
+
+@media (max-width: 767px) {
+  .arabica_featured-article-inner {
+    flex-direction: column;
+  }
+
+  .arabica_featured-article-image,
+  .arabica_featured-article-content,
+  .arabica_latest-article-content {
+    width: 100%;
+  }
+  .arabica_featured-article-author {
+    margin-top: -20px;
+  }
+  .arabica_short .arabica_featured-article-author {
+    margin-top: -10px;
+  }
+}
+@media (max-width: 991px) {
+  .arabica_featured-article-share i,
+  .arabica_featured-article-author i {
+    font-size: 12px;
+  }
+
+  .arabica_author-role {
+    font-size: 12px;
+    display: block;
+  }
+
+  .arabica_featured-title {
+    text-align: center;
+    font-size: 21px;
+    font-weight: bold;
+    margin-bottom: 20px;
+  }
+  .arabica_featured {
+    padding: 50px 0 15px 0;
+  }
+
+  .arabica_short {
+    padding: 60px 0 15px 0;
+  }
+
+  .arabica_latest {
+    padding: 60px 0 35px 0;
+  }
+
+  .arabica_featured-article-title {
+    font-size: 18px;
+    font-weight: 600;
+  }
+  .arabica_latest-article-title {
+    font-size: 15px;
+    font-weight: 600;
+  }
+  .arabica_featured-article-category {
+    font-size: 12px;
+    padding: 3px 10px;
+  }
+  .arabica_featured-article-text {
+    font-size: 13px;
+    text-align: right;
+  }
+}
+
+/* Hide all by default */
+.arabica-mobile,
+.arabica-mobile-tab,
+.arabica-desktop {
+  display: none;
+}
+
+/* Show on mobile screens (max-width: 767px) */
+@media (max-width: 767px) {
+  .arabica-mobile {
+    display: block;
+  }
+}
+
+/* Show on tablets (max-width: 991px but greater than 767px) */
+@media (max-width: 991px) {
+  .arabica-mobile-tab {
+    display: block;
+  }
+}
+
+/* Show on desktop screens (min-width: 992px) */
+@media (min-width: 992px) {
+  .arabica-desktop {
+    display: block;
+  }
+  .arabica_featured {
+    padding: 60px 0 15px 0;
+  }
+  .arabica_short {
+    padding: 80px 0 15px 0;
+  }
+
+  .arabica_latest {
+    padding: 60px 0;
+  }
+}
+
+.arabica_featured-article-image {
+  width: 100%;
+  aspect-ratio: 375 / 191;
+}
+
+.arabica_post-image {
+  background: url("Assets/images/nophoto.jpg") center / cover no-repeat;
+  position: relative;
+}
+
+.arabica_featured-article-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.arabica_short-article-image {
+  width: 100%;
+  aspect-ratio: 375 / 196;
+  overflow: hidden;
+}
+
+.arabica_short-article-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+@media (max-width: 767px) {
+  .arabica_featured-article-image {
+    overflow: hidden;
+  }
+}
+@media (min-width: 768px) {
+  .arabica_latest-pager {
+    margin: 30px 0 0 0;
+  }
+  .arabica_featured-article-image {
+    aspect-ratio: 375 / 191;
+  }
+  .arabica_featured-article-image img {
+    width: 375px;
+  }
+  .arabica_short-article-image {
+    aspect-ratio: 360 / 188;
+  }
+  .arabica_short-article-image img {
+    /* width: 360px; */
+  }
+}
+/* Show on desktop screens (min-width: 992px) */
+@media (min-width: 992px) {
+  .arabica_latest-pager {
+    margin: 60px 0 0 0;
+  }
+  .arabica_featured-article-image {
+    aspect-ratio: 480 / 245;
+  }
+  .arabica_featured-article-image img {
+    width: 480px;
+  }
+  .arabica_short-article-image {
+    aspect-ratio: 380 / 199;
+  }
+  .arabica_short-article-image img {
+    /* width: 380px; */
+  }
+  .arabica_featured-article-text {
+    line-height: 2;
+  }
+}
+
+.arabica_featured-pager,
+.arabica_short-pager {
+  text-decoration: none;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: 0.3s;
+  margin: 100px 0 -40px 0;
+}
+
+.arabica_featured-pager .arabica_icon,
+.arabica_short-pager .arabica_icon {
+  width: 50px;
+  height: 50px;
+  font-size: 25px;
+}
+
+.arabica_featured-pager .arabica_icon:hover,
+.arabica_short-pager .arabica_icon:hover {
+  color: #cc9933;
+}
+
+@media (max-width: 991px) {
+  .arabica_featured-pager,
+  .arabica_short-pager {
+    margin: 35px 0 -35px 0;
+  }
+  .arabica_featured-pager .arabica_icon,
+  .arabica_short-pager .arabica_icon {
+    width: 40px;
+    height: 40px;
+    font-size: 20px;
+  }
+}
+
+/* Initially hide the loading spinner */
+.arabica_loading-icon {
+  display: none; /* Hidden by default */
+  width: 20px;
+  height: 20px;
+  border: 2px solid transparent;
+  border-top: 2px solid #cc9933;
+  border-right: 2px solid #cc9933;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+/* Keyframe animation for the spinner */
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* When loading, hide the load-more button and show the spinner */
+.arabica_featured-pager.loading .arabica_load-more,
+.arabica_short-pager.loading .arabica_load-more {
+  pointer-events: none; /* Disable clicking */
+}
+
+/* When loading, show the spinner inside the link */
+.arabica_featured-pager.loading .arabica_loading-icon,
+.arabica_short-pager.loading .arabica_loading-icon {
+  display: inline-block; /* Show spinner */
+}
+
+/* Hide the plus icon when loading */
+.arabica_featured-pager.loading .fa-plus,
+.arabica_short-pager.loading .fa-plus {
+  display: none; /* Hide the plus icon */
+}
+
+.short-posts,
+.latest-posts {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  gap: 20px;
+}
+
+.latest-posts {
+  row-gap: 15px;
+}
+
+@media (min-width: 768px) {
+  .short-posts,
+  .latest-posts {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .short-posts {
+    row-gap: 30px;
+  }
+}
+
+@media (min-width: 992px) {
+  .short-posts {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+  }
+  .latest-posts {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+.arabica_latest-article {
+  border-bottom: 1px solid #eeeeee;
+}
+
+.arabica_latest-article-more {
+  display: inline-block;
+  background: #cc9933;
+  color: white;
+  padding: 5px 30px;
+  border-radius: 20px;
+  text-decoration: none;
+  font-size: 18px;
+}
+
+@media (max-width: 991px) {
+  .arabica_latest-article-more {
+    padding: 3px 25px;
+    font-size: 12px;
+  }
+}
+
+/* CSS to control the display of articles based on screen size */
+
+/* Default display for small screens (max-width: 767px) */
+.arabica_latest-article {
+  display: none;
+}
+
+.arabica_latest-article:nth-child(-n + 8) {
+  display: block;
+}
+
+/* Medium screens (min-width: 768px) */
+@media (min-width: 768px) {
+  .arabica_latest-article {
+    display: none;
+  }
+
+  .arabica_latest-article:nth-child(-n + 16) {
+    display: block;
+  }
+}
+
+/* Large screens (min-width: 992px) */
+@media (min-width: 992px) {
+  .arabica_latest-article {
+    display: block;
+  }
+}
