@@ -901,19 +901,23 @@ span.arabica_date {
 }
 
 .arabica_icon {
-  width: 150px;
-  height: 150px;
   border-radius: 50%;
-  background-color: #fafbfb;
   display: flex;
   justify-content: center;
   align-items: center;
-  border: 10px solid #ffffff;
-  font-size: 50px;
   color: #cc9933;
   transition: background-color 0.3s ease, color 0.3s ease,
     border-color 0.3s ease, transform 0.3s ease;
   box-shadow: 5px 6px 10px #0000001f; /* Drop shadow */
+  background-color: #ffffff;
+}
+
+.arabica_card .arabica_icon {
+  width: 150px;
+  height: 150px;
+  font-size: 50px;
+  background-color: #fafbfb;
+  border: 10px solid #ffffff;
 }
 
 /* Hover Animation */
@@ -950,7 +954,7 @@ span.arabica_date {
     margin-top: -40px;
   }
 
-  .arabica_icon {
+  .arabica_card .arabica_icon {
     width: 75px;
     height: 75px;
     border: 6px solid #ffffff;
