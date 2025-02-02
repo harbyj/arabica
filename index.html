@@ -284,6 +284,12 @@
         height: 50px;
         font-size: 25px;
       }
+
+      .arabica_featured-pager .arabica_icon:hover {
+        background: #cc9933;
+        color: #ffffff;
+      }
+
       @media (max-width: 991px) {
         .arabica_featured-pager {
           margin: 35px 0 -35px 0;
@@ -293,6 +299,43 @@
           height: 40px;
           font-size: 20px;
         }
+      }
+
+      /* Initially hide the loading spinner */
+      .arabica_loading-icon {
+        display: none; /* Hidden by default */
+        width: 20px;
+        height: 20px;
+        border: 2px solid transparent;
+        border-top: 2px solid #cc9933;
+        border-right: 2px solid #cc9933;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+      }
+
+      /* Keyframe animation for the spinner */
+      @keyframes spin {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+
+      /* When loading, hide the load-more button and show the spinner */
+      .arabica_featured-pager.loading .arabica_load-more {
+        pointer-events: none; /* Disable clicking */
+      }
+
+      /* When loading, show the spinner inside the link */
+      .arabica_featured-pager.loading .arabica_loading-icon {
+        display: inline-block; /* Show spinner */
+      }
+
+      /* Hide the plus icon when loading */
+      .arabica_featured-pager.loading .fa-plus {
+        display: none; /* Hide the plus icon */
       }
     </style>
     <!-- Content Start -->
@@ -506,7 +549,7 @@
                       >إقرأ المزيد</a
                     >
                     <div class="arabica_featured-article-share">
-                      <a href="#"><i class="fa-light fa-share"></i> شارك</a>
+                      <a href="/"><i class="fa-light fa-share"></i> شارك</a>
                     </div>
                   </div>
                 </div>
@@ -514,8 +557,10 @@
             </div>
           </div>
           <div class="arabica_featured-pager">
-            <a href="Entries.html" class="arabica_icon">
+            <a href="/" class="arabica_icon arabica_load-more" id="loadMoreBtn">
               <i class="fa-light fa-plus"></i>
+              <span class="arabica_loading-icon"></span>
+              <!-- Hidden by default -->
             </a>
           </div>
         </div>
