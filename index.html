@@ -101,7 +101,6 @@
       .arabica_featured-article-text {
         font-size: 14px;
         color: #333333;
-        line-height: 1.7;
         text-align: justify;
       }
 
@@ -109,7 +108,7 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
-        margin-top: 10px;
+        margin-top: 20px;
       }
 
       .arabica_featured-article-button {
@@ -120,7 +119,6 @@
         border-radius: 20px;
         text-decoration: none;
         font-size: 12px;
-        margin-top: 10px;
       }
 
       a.arabica_featured-article-button:hover {
@@ -155,7 +153,7 @@
         font-size: 14px;
       }
 
-      @media (max-width: 768px) {
+      @media (max-width: 767px) {
         .arabica_featured-article-inner {
           flex-direction: column;
         }
@@ -227,9 +225,77 @@
         .arabica-desktop {
           display: block;
         }
+        .arabica_featured {
+          padding: 60px 0 15px 0;
+        }
+      }
+
+      .arabica_featured-article-image {
+        width: 100%;
+        aspect-ratio: 375 / 191;
+        background: url("Assets/images/nophoto.jpg") center / cover no-repeat;
+        position: relative;
+      }
+
+      .arabica_featured-article-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+      }
+      @media (max-width: 767px) {
+        .arabica_featured-article-image {
+          overflow: hidden;
+        }
+      }
+      @media (min-width: 768px) {
+        .arabica_featured-article-image {
+          aspect-ratio: 375 / 191;
+        }
+        .arabica_featured-article-image img {
+          width: 375px;
+        }
+      }
+      /* Show on desktop screens (min-width: 992px) */
+      @media (min-width: 992px) {
+        .arabica_featured-article-image {
+          aspect-ratio: 480 / 245;
+        }
+        .arabica_featured-article-image img {
+          width: 480px;
+        }
+        .arabica_featured-article-text {
+          line-height: 2;
+        }
+      }
+
+      .arabica_featured-pager {
+        text-decoration: none;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        transition: 0.3s;
+        margin: 100px 0 -40px 0;
+      }
+
+      .arabica_featured-pager .arabica_icon {
+        width: 50px;
+        height: 50px;
+        font-size: 25px;
+      }
+      @media (max-width: 991px) {
+        .arabica_featured-pager {
+          margin: 35px 0 -35px 0;
+        }
+        .arabica_featured-pager .arabica_icon {
+          width: 40px;
+          height: 40px;
+          font-size: 20px;
+        }
       }
     </style>
-
+    <!-- Content Start -->
     <div class="arabica_main-wrapper">
       <div class="arabica_slider">
         <div class="arabica_slides">
@@ -351,94 +417,206 @@
       <div class="arabica_featured">
         <div class="arabica_fit-container arabica_container">
           <h2 class="arabica_featured-title">اخترنا لكم</h2>
-
-          <div class="arabica_featured-article">
-            <h3 class="arabica_featured-article-title arabica-mobile-tab">
-              <a href="news-details.html">علم الفلك في الحضارة الإسلامية</a>
-            </h3>
-            <div class="arabica_featured-article-inner">
-              <div class="arabica_featured-article-image">
-                <a href="news-details.html"
-                  ><img src="Assets/images/post-img1.jpg" alt="العلم"
-                /></a>
-                <a href="#" class="arabica_featured-article-category"
-                  >العلوم الرياضية والفيزياء</a
-                >
-              </div>
-              <div class="arabica_featured-article-content">
-                <span class="arabica_featured-article-title arabica-desktop">
-                  <a href="news-details.html">علم الفلك في الحضارة الإسلامية</a>
-                </span>
-                <div class="arabica_featured-article-author">
-                  <i class="fa-light fa-user"></i
-                  ><span class="arabica_author"
-                    ><a href="author.html">إبراهيم حسن</a></span
-                  ><span class="arabica_author-role">
-                    • مدرس مساعد للتراث التطبيقي في جامعة بغداد
-                  </span>
-                </div>
-                <p class="arabica_featured-article-text">
-                  محمد محمد مرسي عيسى العياط (8 أغسطس 1951 – 17 يونيو 2019)،
-                  مهندس فلزات، وأستاذ جامعي، وصدر عن المركز العربي للأبحاث
-                  ودراسة السياسات كتاب اقتصاديات الطاقة المتجددة في ألمانيا ومصر
-                  والعراق، للكاتب هيثم عبد الله سلمان. ويأتي هذا الكتاب الذي
-                  يشتمل على 360 صفحةً من القطع الكبير في وقت تشغل فيه مسألة
-                  الطاقة المتجددة .
-                </p>
-                <div class="arabica_featured-article-actions">
-                  <a
-                    href="news-details.html"
-                    class="arabica_featured-article-button"
-                    >إقرأ المزيد</a
+          <div class="arabica_featured-content featured-posts">
+            <div class="arabica_featured-article">
+              <h3 class="arabica_featured-article-title arabica-mobile-tab">
+                <a href="news-details.html">علم الفلك في الحضارة الإسلامية</a>
+              </h3>
+              <div class="arabica_featured-article-inner">
+                <div class="arabica_featured-article-image">
+                  <a href="news-details.html"
+                    ><img src="Assets/images/post-img1.jpg" alt="العلم"
+                  /></a>
+                  <a href="#" class="arabica_featured-article-category"
+                    >العلوم الرياضية والفيزياء</a
                   >
-                  <div class="arabica_featured-article-share">
-                    <a href="#"><i class="fa-light fa-share"></i> شارك</a>
+                </div>
+                <div class="arabica_featured-article-content">
+                  <span class="arabica_featured-article-title arabica-desktop">
+                    <a href="news-details.html"
+                      >علم الفلك في الحضارة الإسلامية</a
+                    >
+                  </span>
+                  <div class="arabica_featured-article-author">
+                    <i class="fa-light fa-user"></i
+                    ><span class="arabica_author"
+                      ><a href="author.html">إبراهيم حسن</a></span
+                    ><span class="arabica_author-role">
+                      • مدرس مساعد للتراث التطبيقي في جامعة بغداد
+                    </span>
+                  </div>
+                  <p class="arabica_featured-article-text">
+                    محمد محمد مرسي عيسى العياط (8 أغسطس 1951 – 17 يونيو 2019)،
+                    مهندس فلزات، وأستاذ جامعي، وصدر عن المركز العربي للأبحاث
+                    ودراسة السياسات كتاب اقتصاديات الطاقة المتجددة في ألمانيا
+                    ومصر والعراق، للكاتب هيثم عبد الله سلمان. ويأتي هذا الكتاب
+                    الذي يشتمل على 360 صفحةً من القطع الكبير في وقت تشغل فيه
+                    مسألة الطاقة المتجددة .
+                  </p>
+                  <div class="arabica_featured-article-actions">
+                    <a
+                      href="news-details.html"
+                      class="arabica_featured-article-button"
+                      >إقرأ المزيد</a
+                    >
+                    <div class="arabica_featured-article-share">
+                      <a href="#"><i class="fa-light fa-share"></i> شارك</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="arabica_featured-article">
+              <h3 class="arabica_featured-article-title arabica-mobile-tab">
+                <a href="news-details.html">توجيه الدواء</a>
+              </h3>
+
+              <div class="arabica_featured-article-inner">
+                <div class="arabica_featured-article-image">
+                  <a href="news-details.html"
+                    ><img src="Assets/images/post-img2.jpg" alt="الكيمياء"
+                  /></a>
+                  <a href="#" class="arabica_featured-article-category"
+                    >الإسلام وعلومه</a
+                  >
+                </div>
+                <div class="arabica_featured-article-content">
+                  <span class="arabica_featured-article-title arabica-desktop">
+                    <a href="news-details.html">توجيه الدواء</a>
+                  </span>
+                  <div class="arabica_featured-article-author">
+                    <i class="fa-light fa-user"></i
+                    ><span class="arabica_author"
+                      ><a href="author.html">إبراهيم حسن</a></span
+                    ><span class="arabica_author-role">
+                      • مدرس مساعد للتراث التطبيقي في جامعة بغداد</span
+                    >
+                  </div>
+                  <p class="arabica_featured-article-text">
+                    محمد محمد مرسي عيسى العياط (8 أغسطس 1951 – 17 يونيو 2019)،
+                    مهندس فلزات، وأستاذ جامعي، وسياسي مصري وهو الرئيس الخامس
+                    لجمهورية مصر العربية[8] والأول بعد ثورة 25 يناير وهو أول
+                    رئيس مدني منتخب للبلاد وأول.
+                  </p>
+                  <div class="arabica_featured-article-actions">
+                    <a
+                      href="news-details.html"
+                      class="arabica_featured-article-button"
+                      >إقرأ المزيد</a
+                    >
+                    <div class="arabica_featured-article-share">
+                      <a href="#"><i class="fa-light fa-share"></i> شارك</a>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
+          <div class="arabica_featured-pager">
+            <a href="Entries.html" class="arabica_icon">
+              <i class="fa-light fa-plus"></i>
+            </a>
+          </div>
+        </div>
+      </div>
 
-          <div class="arabica_featured-article">
-            <h3 class="arabica_featured-article-title arabica-mobile-tab">
-              <a href="news-details.html">توجيه الدواء</a>
-            </h3>
-
-            <div class="arabica_featured-article-inner">
-              <div class="arabica_featured-article-image">
-                <a href="news-details.html"
-                  ><img src="Assets/images/post-img2.jpg" alt="الكيمياء"
-                /></a>
-                <a href="#" class="arabica_featured-article-category"
-                  >الإسلام وعلومه</a
-                >
-              </div>
-              <div class="arabica_featured-article-content">
-                <span class="arabica_featured-article-title arabica-desktop">
-                  <a href="news-details.html">توجيه الدواء</a>
-                </span>
-                <div class="arabica_featured-article-author">
-                  <i class="fa-light fa-user"></i
-                  ><span class="arabica_author"
-                    ><a href="author.html">إبراهيم حسن</a></span
-                  ><span class="arabica_author-role">
-                    • مدرس مساعد للتراث التطبيقي في جامعة بغداد</span
+      <div class="arabica_featured">
+        <div class="arabica_fit-container arabica_container">
+          <h2 class="arabica_featured-title">اخترنا لكم</h2>
+          <div class="arabica_featured-content featured-posts">
+            <div class="arabica_featured-article">
+              <h3 class="arabica_featured-article-title arabica-mobile-tab">
+                <a href="news-details.html">علم الفلك في الحضارة الإسلامية</a>
+              </h3>
+              <div class="arabica_featured-article-inner">
+                <div class="arabica_featured-article-image">
+                  <a href="news-details.html"
+                    ><img
+                      src="https://siyasatarabiya.dohainstitute.org/ar/PublishingImages/IssueCovers/Siyassat51-2021-Cover.png"
+                      alt="العلم"
+                  /></a>
+                  <a href="#" class="arabica_featured-article-category"
+                    >العلوم الرياضية والفيزياء</a
                   >
                 </div>
-                <p class="arabica_featured-article-text">
-                  محمد محمد مرسي عيسى العياط (8 أغسطس 1951 – 17 يونيو 2019)،
-                  مهندس فلزات، وأستاذ جامعي، وسياسي مصري وهو الرئيس الخامس
-                  لجمهورية مصر العربية[8] والأول بعد ثورة 25 يناير وهو أول رئيس
-                  مدني منتخب للبلاد وأول.
-                </p>
-                <div class="arabica_featured-article-actions">
-                  <a
-                    href="news-details.html"
-                    class="arabica_featured-article-button"
-                    >إقرأ المزيد</a
+                <div class="arabica_featured-article-content">
+                  <span class="arabica_featured-article-title arabica-desktop">
+                    <a href="news-details.html"
+                      >علم الفلك في الحضارة الإسلامية</a
+                    >
+                  </span>
+                  <div class="arabica_featured-article-author">
+                    <i class="fa-light fa-user"></i
+                    ><span class="arabica_author"
+                      ><a href="author.html">إبراهيم حسن</a></span
+                    ><span class="arabica_author-role">
+                      • مدرس مساعد للتراث التطبيقي في جامعة بغداد
+                    </span>
+                  </div>
+                  <p class="arabica_featured-article-text">
+                    محمد محمد مرسي عيسى العياط (8 أغسطس 1951 – 17 يونيو 2019)،
+                    مهندس فلزات، وأستاذ جامعي، وصدر عن المركز العربي للأبحاث
+                    ودراسة السياسات كتاب اقتصاديات الطاقة المتجددة في ألمانيا
+                    ومصر والعراق، للكاتب هيثم عبد الله سلمان. ويأتي هذا الكتاب
+                    الذي يشتمل على 360 صفحةً من القطع الكبير في وقت تشغل فيه
+                    مسألة الطاقة المتجددة .
+                  </p>
+                  <div class="arabica_featured-article-actions">
+                    <a
+                      href="news-details.html"
+                      class="arabica_featured-article-button"
+                      >إقرأ المزيد</a
+                    >
+                    <div class="arabica_featured-article-share">
+                      <a href="#"><i class="fa-light fa-share"></i> شارك</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="arabica_featured-article">
+              <h3 class="arabica_featured-article-title arabica-mobile-tab">
+                <a href="news-details.html">توجيه الدواء</a>
+              </h3>
+
+              <div class="arabica_featured-article-inner">
+                <div class="arabica_featured-article-image">
+                  <a href="news-details.html"
+                    ><img src="Assets/images/post-img2.jpg" alt="الكيمياء"
+                  /></a>
+                  <a href="#" class="arabica_featured-article-category"
+                    >الإسلام وعلومه</a
                   >
-                  <div class="arabica_featured-article-share">
-                    <a href="#"><i class="fa-light fa-share"></i> شارك</a>
+                </div>
+                <div class="arabica_featured-article-content">
+                  <span class="arabica_featured-article-title arabica-desktop">
+                    <a href="news-details.html">توجيه الدواء</a>
+                  </span>
+                  <div class="arabica_featured-article-author">
+                    <i class="fa-light fa-user"></i
+                    ><span class="arabica_author"
+                      ><a href="author.html">إبراهيم حسن</a></span
+                    ><span class="arabica_author-role">
+                      • مدرس مساعد للتراث التطبيقي في جامعة بغداد</span
+                    >
+                  </div>
+                  <p class="arabica_featured-article-text">
+                    محمد محمد مرسي عيسى العياط (8 أغسطس 1951 – 17 يونيو 2019)،
+                    مهندس فلزات، وأستاذ جامعي، وسياسي مصري وهو الرئيس الخامس
+                    لجمهورية مصر العربية[8] والأول بعد ثورة 25 يناير وهو أول
+                    رئيس مدني منتخب للبلاد وأول.
+                  </p>
+                  <div class="arabica_featured-article-actions">
+                    <a
+                      href="news-details.html"
+                      class="arabica_featured-article-button"
+                      >إقرأ المزيد</a
+                    >
+                    <div class="arabica_featured-article-share">
+                      <a href="#"><i class="fa-light fa-share"></i> شارك</a>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -447,19 +625,15 @@
         </div>
       </div>
     </div>
-
+    <!-- Content End -->
     <footer class="arabica_footer">
       <div class="arabica_footer-container">
-        <!-- Right Side (60%) -->
+        <!-- Right Side (65%) -->
         <div class="arabica_footer-right">
           <!-- Top Image -->
           <div class="arabica_footer-logo">
             <a href="/">
-              <img
-                src="Assets/images/arabica.png"
-                alt="Top Image"
-                class="footer-top-image"
-              />
+              <img src="Assets/images/arabica.png" alt="Top Image" />
             </a>
           </div>
           <hr />
@@ -498,7 +672,7 @@
             </div>
           </div>
         </div>
-        <!-- Left Side (40%) -->
+        <!-- Left Side (35%) -->
         <div class="arabica_footer-left">
           <hr class="arabica_tab-show" />
           <div class="arabica_footer_logo_copy">
