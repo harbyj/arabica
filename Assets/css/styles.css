@@ -821,7 +821,9 @@ a.arabica_tag:hover {
 }
 
 .arabica_author,
-.arabica_author a {
+.arabica_author a,
+.arabica_latest-article-category,
+.arabica_latest-article-category a {
   font-size: 14px;
 }
 .arabica_author a,
@@ -863,7 +865,9 @@ span.arabica_date {
     bottom: 16.5%;
   }
   .arabica_author,
-  .arabica_author a {
+  .arabica_author a,
+  .arabica_latest-article-category,
+  .arabica_latest-article-category a {
     font-size: 12px;
   }
   .arabica_tag {
