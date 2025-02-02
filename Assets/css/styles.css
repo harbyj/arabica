@@ -753,8 +753,7 @@ hr.arabica_tab-show {
 .arabica_main-about {
   text-align: center;
   padding: 40px 0px 100px 0;
-  background: #eeeeee url("Assets/images/main-top-bg.png") no-repeat center
-    center;
+  background: #eeeeee url("./../images/main-top-bg.png") no-repeat center center;
   background-size: cover; /* Ensures the image covers the entire background */
 }
 
@@ -1247,7 +1246,7 @@ a.arabica_latest-article-more:hover {
 }
 
 .arabica_post-image {
-  background: url("Assets/images/nophoto.jpg") center / cover no-repeat;
+  background: url("./../images/nophoto.jpg") center / cover no-repeat;
   position: relative;
 }
 
