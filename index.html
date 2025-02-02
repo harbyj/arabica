@@ -67,6 +67,12 @@
         gap: 30px;
       }
 
+      .arabica_latest-article-inner {
+        display: flex;
+        margin-bottom: 15px;
+        column-gap: 20px;
+      }
+
       .arabica_short-article-inner {
         display: flex;
         gap: 15px;
@@ -79,6 +85,22 @@
 
       .arabica_featured-article-image img {
         width: 100%;
+      }
+
+      .arabica_latest-article-image {
+        aspect-ratio: 121 / 64;
+        width: 100%;
+        flex: 1;
+      }
+
+      .arabica_latest-article-image img {
+        width: 121px;
+      }
+      .arabica_latest-article-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
       }
 
       .arabica_featured-article-category {
@@ -104,11 +126,18 @@
         margin-bottom: 10px;
       }
 
-      .arabica_featured-article-title a {
+      .arabica_latest-article-title {
+        font-size: 19px;
+        margin-bottom: 10px;
+      }
+
+      .arabica_featured-article-title a,
+      .arabica_latest-article-title a {
         color: #17355d;
       }
 
-      .arabica_featured-article-title a:hover {
+      .arabica_featured-article-title a:hover,
+      .arabica_latest-article-title a:hover {
         text-decoration: underline;
       }
 
@@ -207,8 +236,16 @@
         .arabica_short {
           padding: 60px 0 15px 0;
         }
+
+        .arabica_latest {
+          padding: 60px 0;
+        }
         .arabica_featured-article-title {
           font-size: 18px;
+          font-weight: 600;
+        }
+        .arabica_latest-article-title {
+          font-size: 15px;
           font-weight: 600;
         }
         .arabica_featured-article-category {
@@ -253,11 +290,18 @@
         .arabica_short {
           padding: 80px 0 15px 0;
         }
+
+        .arabica_latest {
+          padding: 80px 0;
+        }
       }
 
       .arabica_featured-article-image {
         width: 100%;
         aspect-ratio: 375 / 191;
+      }
+
+      .arabica_post-image {
         background: url("Assets/images/nophoto.jpg") center / cover no-repeat;
         position: relative;
       }
@@ -272,8 +316,6 @@
       .arabica_short-article-image {
         width: 100%;
         aspect-ratio: 375 / 196;
-        background: url("Assets/images/nophoto.jpg") center / cover no-repeat;
-        position: relative;
         overflow: hidden;
       }
 
@@ -390,15 +432,24 @@
         display: none; /* Hide the plus icon */
       }
 
-      .short-posts {
+      .short-posts,
+      .latest-posts {
         display: grid;
         grid-template-columns: repeat(1, 1fr);
         gap: 20px;
       }
 
+      .latest-posts {
+        row-gap: 15px;
+      }
+
       @media (min-width: 768px) {
-        .short-posts {
+        .short-posts,
+        .latest-posts {
           grid-template-columns: repeat(2, 1fr);
+        }
+        .short-posts {
+          row-gap: 30px;
         }
       }
 
@@ -407,6 +458,12 @@
           grid-template-columns: repeat(3, 1fr);
           gap: 30px;
         }
+        .latest-posts {
+          grid-template-columns: repeat(3, 1fr);
+        }
+      }
+      .arabica_latest-article {
+        border-bottom: 1px solid #eeeeee;
       }
     </style>
     <!-- Content Start -->
@@ -537,7 +594,7 @@
                 <a href="news-details.html">علم الفلك في الحضارة الإسلامية</a>
               </h3>
               <div class="arabica_featured-article-inner">
-                <div class="arabica_featured-article-image">
+                <div class="arabica_featured-article-image arabica_post-image">
                   <a href="news-details.html"
                     ><img src="Assets/images/post-img1.jpg" alt="العلم"
                   /></a>
@@ -587,7 +644,7 @@
               </h3>
 
               <div class="arabica_featured-article-inner">
-                <div class="arabica_featured-article-image">
+                <div class="arabica_featured-article-image arabica_post-image">
                   <a href="news-details.html"
                     ><img src="Assets/images/post-img2.jpg" alt="الكيمياء"
                   /></a>
@@ -642,9 +699,9 @@
           <h2 class="arabica_featured-title">مقالات قصيرة</h2>
 
           <div class="arabica_featured-content short-posts">
-            <div class="arabica_featured-article">
+            <div class="arabica_short-article">
               <div class="arabica_short-article-inner">
-                <div class="arabica_short-article-image">
+                <div class="arabica_short-article-image arabica_post-image">
                   <a href="news-details.html"
                     ><img src="Assets/images/post-img3.jpg" alt="العلم"
                   /></a>
@@ -669,9 +726,9 @@
               </div>
             </div>
 
-            <div class="arabica_featured-article">
+            <div class="arabica_short-article">
               <div class="arabica_short-article-inner">
-                <div class="arabica_short-article-image">
+                <div class="arabica_short-article-image arabica_post-image">
                   <a href="news-details.html"
                     ><img src="Assets/images/post-img4.jpg" alt="الكيمياء"
                   /></a>
@@ -693,9 +750,9 @@
               </div>
             </div>
 
-            <div class="arabica_featured-article">
+            <div class="arabica_short-article">
               <div class="arabica_short-article-inner">
-                <div class="arabica_short-article-image">
+                <div class="arabica_short-article-image arabica_post-image">
                   <a href="news-details.html"
                     ><img src="Assets/images/post-img5.jpg" alt="العلم"
                   /></a>
@@ -720,9 +777,9 @@
               </div>
             </div>
 
-            <div class="arabica_featured-article">
+            <div class="arabica_short-article">
               <div class="arabica_short-article-inner">
-                <div class="arabica_short-article-image">
+                <div class="arabica_short-article-image arabica_post-image">
                   <a href="news-details.html"
                     ><img src="Assets/images/post-img3.jpg" alt="الكيمياء"
                   /></a>
@@ -743,9 +800,9 @@
                 </div>
               </div>
             </div>
-            <div class="arabica_featured-article">
+            <div class="arabica_short-article">
               <div class="arabica_short-article-inner">
-                <div class="arabica_short-article-image">
+                <div class="arabica_short-article-image arabica_post-image">
                   <a href="news-details.html"
                     ><img src="Assets/images/post-img4.jpg" alt="العلم"
                   /></a>
@@ -770,9 +827,9 @@
               </div>
             </div>
 
-            <div class="arabica_featured-article">
+            <div class="arabica_short-article">
               <div class="arabica_short-article-inner">
-                <div class="arabica_short-article-image">
+                <div class="arabica_short-article-image arabica_post-image">
                   <a href="news-details.html"
                     ><img src="Assets/images/post-img5.jpg" alt="الكيمياء"
                   /></a>
@@ -807,6 +864,141 @@
       <div class="arabica_latest">
         <div class="arabica_fit-container arabica_container">
           <h2 class="arabica_featured-title">آخر المقالات</h2>
+          <div class="arabica_featured-content latest-posts">
+            <div class="arabica_latest-article">
+              <div class="arabica_latest-article-inner">
+                <div class="arabica_latest-article-image arabica_post-image">
+                  <a href="news-details.html"
+                    ><img src="Assets/images/post-img3.jpg" alt="العلم"
+                  /></a>
+                </div>
+                <div class="arabica_featured-article-content">
+                  <h3 class="arabica_latest-article-title">
+                    <a href="news-details.html"
+                      >علم الفلك في الحضارة الإسلامية</a
+                    >
+                  </h3>
+
+                  <div class="arabica_featured-article-author">
+                    <i class="fa-light fa-user"></i
+                    ><span class="arabica_author"
+                      ><a href="author.html">إبراهيم حسن</a></span
+                    >
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="arabica_latest-article">
+              <div class="arabica_latest-article-inner">
+                <div class="arabica_latest-article-image arabica_post-image">
+                  <a href="news-details.html"
+                    ><img src="Assets/images/post-img4.jpg" alt="الكيمياء"
+                  /></a>
+                </div>
+                <div class="arabica_featured-article-content">
+                  <h3 class="arabica_latest-article-title">
+                    <a href="news-details.html">توجيه الدواء</a>
+                  </h3>
+                  <div class="arabica_featured-article-author">
+                    <i class="fa-light fa-user"></i
+                    ><span class="arabica_author"
+                      ><a href="author.html">إبراهيم حسن</a></span
+                    >
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="arabica_latest-article">
+              <div class="arabica_latest-article-inner">
+                <div class="arabica_latest-article-image arabica_post-image">
+                  <a href="news-details.html"
+                    ><img src="Assets/images/post-img5.jpg" alt="العلم"
+                  /></a>
+                </div>
+                <div class="arabica_featured-article-content">
+                  <h3 class="arabica_latest-article-title">
+                    <a href="news-details.html"
+                      >علم الفلك في الحضارة الإسلامية</a
+                    >
+                  </h3>
+
+                  <div class="arabica_featured-article-author">
+                    <i class="fa-light fa-user"></i
+                    ><span class="arabica_author"
+                      ><a href="author.html">إبراهيم حسن</a></span
+                    >
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="arabica_latest-article">
+              <div class="arabica_latest-article-inner">
+                <div class="arabica_latest-article-image arabica_post-image">
+                  <a href="news-details.html"
+                    ><img src="Assets/images/post-img3.jpg" alt="الكيمياء"
+                  /></a>
+                </div>
+                <div class="arabica_featured-article-content">
+                  <h3 class="arabica_latest-article-title">
+                    <a href="news-details.html">توجيه الدواء</a>
+                  </h3>
+                  <div class="arabica_featured-article-author">
+                    <i class="fa-light fa-user"></i
+                    ><span class="arabica_author"
+                      ><a href="author.html">إبراهيم حسن</a></span
+                    >
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="arabica_latest-article">
+              <div class="arabica_latest-article-inner">
+                <div class="arabica_latest-article-image arabica_post-image">
+                  <a href="news-details.html"
+                    ><img src="Assets/images/post-img4.jpg" alt="العلم"
+                  /></a>
+                </div>
+                <div class="arabica_featured-article-content">
+                  <h3 class="arabica_latest-article-title">
+                    <a href="news-details.html"
+                      >علم الفلك في الحضارة الإسلامية</a
+                    >
+                  </h3>
+
+                  <div class="arabica_featured-article-author">
+                    <i class="fa-light fa-user"></i
+                    ><span class="arabica_author"
+                      ><a href="author.html">إبراهيم حسن</a></span
+                    >
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="arabica_latest-article">
+              <div class="arabica_latest-article-inner">
+                <div class="arabica_latest-article-image arabica_post-image">
+                  <a href="news-details.html"
+                    ><img src="Assets/images/post-img5.jpg" alt="الكيمياء"
+                  /></a>
+                </div>
+                <div class="arabica_featured-article-content">
+                  <h3 class="arabica_latest-article-title">
+                    <a href="news-details.html">توجيه الدواء</a>
+                  </h3>
+                  <div class="arabica_featured-article-author">
+                    <i class="fa-light fa-user"></i
+                    ><span class="arabica_author"
+                      ><a href="author.html">إبراهيم حسن</a></span
+                    >
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
