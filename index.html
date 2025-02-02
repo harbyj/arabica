@@ -50,6 +50,13 @@
         padding: 60px 0 15px 0;
         background: #f8f8f8;
       }
+
+      .arabica_latest-pager {
+        text-align: center;
+        transition: 0.3s;
+        margin: 15px 0 0 0;
+      }
+
       .arabica_short {
         padding: 80px 0 15px 0;
         background: #ffffff;
@@ -170,7 +177,8 @@
         font-size: 12px;
       }
 
-      a.arabica_featured-article-button:hover {
+      a.arabica_featured-article-button:hover,
+      a.arabica_latest-article-more:hover {
         background: #b07f2a;
         color: #ffffff;
       }
@@ -244,8 +252,9 @@
         }
 
         .arabica_latest {
-          padding: 60px 0;
+          padding: 60px 0 30px 0;
         }
+
         .arabica_featured-article-title {
           font-size: 18px;
           font-weight: 600;
@@ -298,7 +307,7 @@
         }
 
         .arabica_latest {
-          padding: 80px 0;
+          padding: 60px 0;
         }
       }
 
@@ -338,6 +347,9 @@
         }
       }
       @media (min-width: 768px) {
+        .arabica_latest-pager {
+          margin: 30px 0 0 0;
+        }
         .arabica_featured-article-image {
           aspect-ratio: 375 / 191;
         }
@@ -353,6 +365,9 @@
       }
       /* Show on desktop screens (min-width: 992px) */
       @media (min-width: 992px) {
+        .arabica_latest-pager {
+          margin: 60px 0 0 0;
+        }
         .arabica_featured-article-image {
           aspect-ratio: 480 / 245;
         }
@@ -470,6 +485,52 @@
       }
       .arabica_latest-article {
         border-bottom: 1px solid #eeeeee;
+      }
+
+      .arabica_latest-article-more {
+        display: inline-block;
+        background: #cc9933;
+        color: white;
+        padding: 5px 30px;
+        border-radius: 20px;
+        text-decoration: none;
+        font-size: 18px;
+      }
+
+      @media (max-width: 991px) {
+        .arabica_latest-article-more {
+          padding: 3px 25px;
+          font-size: 12px;
+        }
+      }
+
+      /* CSS to control the display of articles based on screen size */
+
+      /* Default display for small screens (max-width: 767px) */
+      .arabica_latest-article {
+        display: none;
+      }
+
+      .arabica_latest-article:nth-child(-n + 8) {
+        display: block;
+      }
+
+      /* Medium screens (min-width: 768px) */
+      @media (min-width: 768px) {
+        .arabica_latest-article {
+          display: none;
+        }
+
+        .arabica_latest-article:nth-child(-n + 16) {
+          display: block;
+        }
+      }
+
+      /* Large screens (min-width: 992px) */
+      @media (min-width: 992px) {
+        .arabica_latest-article {
+          display: block;
+        }
       }
     </style>
     <!-- Content Start -->
@@ -1363,6 +1424,9 @@
                 </div>
               </div>
             </div>
+          </div>
+          <div class="arabica_latest-pager">
+            <a href="#" class="arabica_latest-article-more"> المزيد </a>
           </div>
         </div>
       </div>
