@@ -1,3 +1,4 @@
+/* jshint esversion: 6 */
 document.addEventListener("DOMContentLoaded", () => {
   const menuToggle = document.getElementById("menuToggle");
   const menuClose = document.getElementById("menuClose");
@@ -123,38 +124,20 @@ document.addEventListener("DOMContentLoaded", function () {
   startAutoSlide();
   showSlide(currentSlide); // Show the first slide
 });
-document.addEventListener("DOMContentLoaded", function () {
-  // Check if the browser supports IntersectionObserver
-  if ("IntersectionObserver" in window) {
-    const lazyImages = document.querySelectorAll("img.lazyload");
 
-    const imageObserver = new IntersectionObserver((entries, observer) => {
-      entries.forEach((entry) => {
-        // If the image is in view (intersection ratio > 0)
-        if (entry.isIntersecting) {
-          const image = entry.target;
-          const src = image.getAttribute("data-src");
+// Sample Load More
+const loadMoreBtn = document.getElementById("loadMoreBtn");
 
-          // Replace the src with the data-src (actual image URL)
-          image.src = src;
+loadMoreBtn.addEventListener("click", function (event) {
+  // Prevent default link behavior
+  event.preventDefault();
 
-          // Optionally, remove the observer after loading the image
-          image.classList.remove("lazyload");
-          observer.unobserve(image);
-        }
-      });
-    });
+  // Add the loading class to show the spinner and disable clicking
+  this.closest(".arabica_featured-pager").classList.add("loading");
 
-    // Start observing each lazy-loaded image
-    lazyImages.forEach((image) => {
-      imageObserver.observe(image);
-    });
-  } else {
-    // Fallback for browsers that don't support IntersectionObserver
-    // You can use a basic scroll event or a lazy loading library like lazysizes
-    const lazyImages = document.querySelectorAll("img.lazyload");
-    lazyImages.forEach((image) => {
-      image.src = image.getAttribute("data-src");
-    });
-  }
+  // Simulate loading (for example, with a setTimeout)
+  setTimeout(function () {
+    // Remove the loading class after some time (simulating loading complete)
+    loadMoreBtn.closest(".arabica_featured-pager").classList.remove("loading");
+  }, 2000); // Adjust the timeout duration as needed (2 seconds here)
 });
