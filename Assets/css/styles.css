@@ -309,12 +309,8 @@ h6 {
 }
 
 .toggle-icon {
-  top: 32px;
-  left: 29px;
   width: 25px;
-  height: 18px;
-  background: transparent url("./../images/menu-icon.svg") 0% 0% no-repeat
-    padding-box;
+  height: 16px;
 }
 
 /* Mobile Nav Styling */
