@@ -379,7 +379,7 @@ h6 {
   transition: color 0.3s;
 }
 
-.arabica_mobile_nav ul li a:hover {
+.arabica_mobile_nav_list ul li a:hover {
   font-weight: bold;
   color: #cc9933; /* Highlight on hover */
 }
@@ -417,7 +417,7 @@ h6 {
 
 .arabica_social_link ul li:not(:last-child),
 .arabica_footer-social ul li:not(:last-child) {
-  margin-right: 15px; /* Space between items */
+  margin-right: 13px; /* Space between items */
 }
 
 .arabica_social_link ul li a,
@@ -1490,4 +1490,28 @@ a.arabica_latest-article-more:hover {
 
 .cls-3 {
   fill: #66ccff;
+}
+
+.arabica_social-icon {
+  width: 25px;
+  height: 25px;
+}
+.arabica_social-color {
+  fill: #ffffff;
+}
+
+.arabica_social-color:hover {
+  fill: #cc9933;
+}
+
+.arabica_featured-pager .arabica_icon:hover,
+.arabica_short-pager .arabica_icon:hover {
+  color: #ffffff;
+  background-color: #cc9933;
+}
+
+.arabica_featured-pager .arabica_icon:hover .arabica_loading-icon,
+.arabica_short-pager .arabica_icon:hover .arabica_loading-icon {
+  border-top: 2px solid #ffffff;
+  border-right: 2px solid #ffffff;
 }
