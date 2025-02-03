@@ -983,7 +983,11 @@ span.arabica_date {
 .arabica_latest-pager {
   text-align: center;
   transition: 0.3s;
-  margin: 20px 0 0 0;
+  padding: 20px 0 0 0;
+  position: relative;
+  z-index: 1;
+  border-top: 1px solid #f8f8f8;
+  margin-top: -1px;
 }
 
 .arabica_short {
@@ -1277,7 +1281,7 @@ a.arabica_latest-article-more:hover {
 }
 @media (min-width: 768px) {
   .arabica_latest-pager {
-    margin: 30px 0 0 0;
+    padding: 30px 0 0 0;
   }
   .arabica_featured-article-image {
     aspect-ratio: 375 / 191;
@@ -1295,7 +1299,7 @@ a.arabica_latest-article-more:hover {
 /* Show on desktop screens (min-width: 992px) */
 @media (min-width: 992px) {
   .arabica_latest-pager {
-    margin: 60px 0 0 0;
+    padding: 60px 0 0 0;
   }
   .arabica_featured-article-image {
     aspect-ratio: 480 / 245;
