@@ -125,6 +125,34 @@ document.addEventListener("DOMContentLoaded", function () {
   showSlide(currentSlide); // Show the first slide
 });
 
+// Function to trigger the native share dialog
+function openShareDialog(event) {
+  event.preventDefault(); // Prevent the default link behavior
+
+  // Get the share data from the data attributes of the clicked link
+  const shareData = {
+    title: event.target.getAttribute("data-share-title"), // Get the title
+    url: event.target.getAttribute("data-share-url"), // Get the URL
+  };
+
+  // Check if the Web Share API is supported by the browser
+  if (navigator.share) {
+    // Trigger the share dialog
+    navigator
+      .share(shareData)
+      .then(() => console.log("Share was successful."))
+      .catch((error) => console.log("Sharing failed", error));
+  } else {
+    // Fallback for browsers that do not support the Web Share API
+    alert("Web Share API is not supported in your browser.");
+  }
+}
+
+// Attach the function to all share links
+document.querySelectorAll(".arabica_share-link").forEach((link) => {
+  link.addEventListener("click", openShareDialog);
+});
+
 // Sample Load More
 const loadMoreBtn = document.getElementById("loadMoreBtn");
 
