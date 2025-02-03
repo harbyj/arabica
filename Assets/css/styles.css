@@ -496,7 +496,7 @@ hr {
   }
   .arabica_footer-logo img,
   .arabica_footer-logo svg {
-    height: 30px;
+    height: 35px;
   }
 }
 hr.arabica_tab-show {
@@ -629,7 +629,6 @@ hr.arabica_tab-show {
 }
 
 .arabica_doha_link a {
-  text-decoration: underline;
   font-size: 14px;
 }
 .arabica_doha_link a:hover {
