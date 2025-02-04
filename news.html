@@ -219,16 +219,114 @@
       <div class="arabica_article-list">
         <div class="arabica_fit-container arabica_container">
           <div class="arabica_article-list-head">
-            <h1 class="arabica_article-list-title">اخترنا لكم</h1>
+            <h1 class="arabica_article-list-title">أخبار الموسوعة</h1>
             <div class="arabica_list-grid">
-              <span class="arabica_grid"
-                ><i class="fa-light fa-grid-2"></i></span
-              ><span class="arabica_list"
+              <span class="arabica_list"
                 ><i class="fa-light fa-list-ul"></i
+              ></span>
+              <span class="arabica_grid"
+                ><i class="fa-light fa-grid-2"></i
               ></span>
             </div>
           </div>
           <div class="arabica_featured-content">
+            <div class="arabica_featured-article">
+              <div class="arabica_featured-article-inner">
+                <div class="arabica_featured-article-image arabica_post-image">
+                  <a href="news-details.html"
+                    ><img src="Assets/images/post-img1.jpg" alt="العلم"
+                  /></a>
+                  <a href="#" class="arabica_featured-article-category"
+                    >العلوم الرياضية والفيزياء</a
+                  >
+                </div>
+                <div class="arabica_featured-article-content">
+                  <h2 class="arabica_featured-article-title">
+                    <a href="news-details.html"
+                      >علم الفلك في الحضارة الإسلامية</a
+                    >
+                  </h2>
+                  <div class="arabica_article-list-date">
+                    <i class="fa-light fa-calendar-days"></i
+                    ><time datetime="YYYY-MM-DDTHH:MM:SSZ" class="doha_date">
+                      05 ديسمبر ، 2024
+                    </time>
+                  </div>
+                  <p class="arabica_featured-article-text">
+                    محمد محمد مرسي عيسى العياط (8 أغسطس 1951 – 17 يونيو 2019)،
+                    مهندس فلزات، وأستاذ جامعي، وصدر عن المركز العربي للأبحاث
+                    ودراسة السياسات كتاب اقتصاديات الطاقة المتجددة في ألمانيا
+                    ومصر والعراق، للكاتب هيثم عبد الله سلمان. ويأتي هذا الكتاب
+                    الذي يشتمل على 360 صفحةً من القطع الكبير في وقت تشغل فيه
+                    مسألة الطاقة المتجددة .
+                  </p>
+                  <div class="arabica_featured-article-actions">
+                    <a
+                      href="news-details.html"
+                      class="arabica_featured-article-button"
+                      >إقرأ المزيد</a
+                    >
+                    <div class="arabica_featured-article-share">
+                      <a
+                        href="#"
+                        class="arabica_share-link"
+                        data-share-title="علم الفلك في الحضارة الإسلامية"
+                        data-share-url="news-details.html"
+                        ><i class="fa-light fa-share"></i> شارك</a
+                      >
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="arabica_featured-article">
+              <div class="arabica_featured-article-inner">
+                <div class="arabica_featured-article-image arabica_post-image">
+                  <a href="news-details.html"
+                    ><img src="Assets/images/post-img2.jpg" alt="الكيمياء"
+                  /></a>
+                  <a href="#" class="arabica_featured-article-category"
+                    >الإسلام وعلومه</a
+                  >
+                </div>
+                <div class="arabica_featured-article-content">
+                  <h2 class="arabica_featured-article-title">
+                    <a href="news-details.html">توجيه الدواء</a>
+                  </h2>
+
+                  <div class="arabica_article-list-date">
+                    <i class="fa-light fa-calendar-days"></i
+                    ><time datetime="YYYY-MM-DDTHH:MM:SSZ" class="doha_date">
+                      05 ديسمبر ، 2024
+                    </time>
+                  </div>
+                  <p class="arabica_featured-article-text">
+                    محمد محمد مرسي عيسى العياط (8 أغسطس 1951 – 17 يونيو 2019)،
+                    مهندس فلزات، وأستاذ جامعي، وسياسي مصري وهو الرئيس الخامس
+                    لجمهورية مصر العربية[8] والأول بعد ثورة 25 يناير وهو أول
+                    رئيس مدني منتخب للبلاد وأول.
+                  </p>
+                  <div class="arabica_featured-article-actions">
+                    <a
+                      href="news-details.html"
+                      class="arabica_featured-article-button"
+                      >إقرأ المزيد</a
+                    >
+                    <div class="arabica_featured-article-share">
+                      <a
+                        href="#"
+                        class="arabica_share-link"
+                        data-share-title="توجيه الدواء"
+                        data-share-url="news-details.html"
+                        ><i class="fa-light fa-share"></i> شارك</a
+                      >
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
             <div class="arabica_featured-article">
               <div class="arabica_featured-article-inner">
                 <div class="arabica_featured-article-image arabica_post-image">
@@ -462,6 +560,14 @@
 
         // Function to switch layouts with animation
         function applyLayout(isGrid) {
+          // Prevent switching if the current layout is already active
+          if (
+            (isGrid && contentContainer.classList.contains("grid-posts")) ||
+            (!isGrid && !contentContainer.classList.contains("grid-posts"))
+          ) {
+            return;
+          }
+
           // Add fade-out effect before switching
           contentContainer.classList.add("fade-out");
 

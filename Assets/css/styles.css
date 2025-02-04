@@ -1077,6 +1077,7 @@ a.arabica_featured-article-category:hover {
 .arabica_featured-article-content {
   flex: 2;
 }
+
 .arabica_latest-article-content {
   flex: 2;
   margin: -7px 0;
@@ -1445,9 +1446,6 @@ a.arabica_latest-article-more:hover {
 .latest-posts {
   row-gap: 15px;
 }
-.grid-posts {
-  row-gap: 30px;
-}
 @media (min-width: 768px) {
   .short-posts,
   .latest-posts,
@@ -1585,16 +1583,21 @@ a.arabica_latest-article-more:hover {
     font-weight: 600;
   }
 }
-
-.arabica_article-list .arabica_article-list-head {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding-bottom: 10px;
+.arabica_article-list-head {
+  margin-bottom: 20px;
+}
+@media (min-width: 768px) {
+  .arabica_article-list .arabica_article-list-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 10px;
+  }
 }
 
 .arabica_article-list-title {
   margin: 0;
+  padding: 0;
 }
 
 .arabica_list-grid {
@@ -1605,9 +1608,23 @@ a.arabica_latest-article-more:hover {
 .arabica_grid,
 .arabica_list {
   cursor: pointer;
-  padding: 5px 10px;
   border-radius: 5px;
   transition: background-color 0.3s ease;
+  height: 42px;
+  width: 42px;
+  font-size: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@media (max-width: 991px) {
+  .arabica_grid,
+  .arabica_list {
+    height: 23px;
+    width: 23px;
+    font-size: 18px;
+  }
 }
 
 .arabica_grid i,
@@ -1638,4 +1655,13 @@ a.arabica_latest-article-more:hover {
 .arabica_featured-content.fade-in .arabica_featured-article {
   opacity: 1;
   transform: scale(1) translateY(0);
+}
+@media (max-width: 767px) {
+  .arabica_list-grid {
+    display: none;
+  }
+}
+
+.grid-posts .arabica_featured-article-inner {
+  row-gap: 15px;
 }
