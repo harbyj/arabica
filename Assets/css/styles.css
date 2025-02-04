@@ -1176,8 +1176,7 @@ a.arabica_latest-article-more:hover {
   .arabica_latest-article-content {
     width: 100%;
   }
-  .arabica_featured-article-author,
-  .arabica_article-list-date {
+  .arabica_featured-article-author {
     margin-top: -20px;
   }
   .arabica_short .arabica_featured-article-author {
@@ -1625,6 +1624,9 @@ a.arabica_latest-article-more:hover {
     width: 23px;
     font-size: 18px;
   }
+  .arabica_article-list {
+    padding: 40px 0 15px 0;
+  }
 }
 
 .arabica_grid i,
@@ -1659,6 +1661,9 @@ a.arabica_latest-article-more:hover {
 @media (max-width: 767px) {
   .arabica_list-grid {
     display: none;
+  }
+  .arabica_article-list .arabica_featured-article-inner {
+    row-gap: 15px;
   }
 }
 
