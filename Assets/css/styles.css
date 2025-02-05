@@ -1555,9 +1555,6 @@ a.arabica_latest-article-more:hover {
 .arabica_article-list {
   padding: 80px 0 15px 0;
 }
-.arabica_article-list .arabica_featured-article-inner {
-  flex-flow: row-reverse;
-}
 .arabica_article-list .arabica_featured-article {
   border-bottom: 1px solid #cccccc;
 
@@ -1591,6 +1588,24 @@ a.arabica_latest-article-more:hover {
     justify-content: space-between;
     align-items: center;
     padding-bottom: 10px;
+  }
+  .grid-posts .arabica_featured-article-text {
+    display: -webkit-box;
+    -webkit-line-clamp: 4; /* Limit to 4 lines */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: normal;
+  }
+}
+@media (min-width: 992px) {
+  .grid-posts .arabica_featured-article-text {
+    display: -webkit-box;
+    -webkit-line-clamp: 5; /* Limit to 4 lines */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: normal;
   }
 }
 
@@ -1669,4 +1684,63 @@ a.arabica_latest-article-more:hover {
 
 .grid-posts .arabica_featured-article-inner {
   row-gap: 15px;
+}
+
+.arabica_pagination {
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  gap: 10px;
+}
+
+@media (min-width: 992px) {
+  .arabica_pagination {
+    gap: 20px;
+  }
+}
+
+.arabica_pagination a,
+.arabica_pagination span {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 12px;
+  text-decoration: none;
+  color: gray;
+  cursor: pointer;
+  border-radius: 50%;
+}
+
+.arabica_pagination .page-numbers {
+  display: flex; /* Enables flexbox */
+  align-items: center; /* Centers text vertically */
+  justify-content: center; /* Centers text horizontally */
+  background: none;
+  border: 1px solid transparent;
+  height: 36px;
+  width: 36px;
+  font-size: 18px;
+  text-align: center; /* Ensures inline text is centered */
+  line-height: 1; /* Prevents extra spacing issues */
+}
+
+.arabica_pagination .current {
+  background: #cc9933;
+  color: #ffffff;
+  cursor: default;
+}
+
+.arabica_pagination .page-prev,
+.arabica_pagination .page-next {
+  color: #cc9933;
+  font-size: 20px;
+}
+.arabica_pagination a.page-numbers:hover {
+  background: rgba(153, 153, 153, 0.15);
+}
+.arabica_pagination a.page-prev:hover,
+.arabica_pagination a.page-next:hover {
+  color: #b07f2a;
 }
