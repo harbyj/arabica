@@ -1740,7 +1740,7 @@ position: relative;
 .arabica_pagination .page-prev,
 .arabica_pagination .page-next {
   color: #cc9933;
-  font-size: 20px;
+  font-size: 18px;
 }
 .arabica_pagination a.page-numbers:hover {
   background: rgba(153, 153, 153, 0.15);
@@ -1749,3 +1749,17 @@ position: relative;
 .arabica_pagination a.page-next:hover {
   color: #b07f2a;
 }
+
+@media (max-width: 991px) {
+.arabica_pagination .page-numbers {
+height: 24px;
+  width: 24px;
+  font-size: 12px;} 
+
+
+.arabica_pagination .page-prev,
+.arabica_pagination .page-next {
+  color: #cc9933;
+  font-size: 12px;
+}
+} 
