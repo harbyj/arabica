@@ -1693,7 +1693,11 @@ a.arabica_latest-article-more:hover {
   justify-content: center;
   font-size: 16px;
   gap: 10px;
+<<<<<<< HEAD
   position: relative;
+=======
+position: relative;
+>>>>>>> 1b307a88c3732f64449923516506555c447d82cc
   z-index: 1;
   padding: 30px 0;
   border-top: 2px solid #ffffff;
@@ -1752,6 +1756,7 @@ a.arabica_latest-article-more:hover {
 }
 
 @media (max-width: 991px) {
+<<<<<<< HEAD
   .arabica_pagination .page-numbers {
     height: 30px;
     width: 30px;
@@ -1767,3 +1772,17 @@ a.arabica_latest-article-more:hover {
 .grid-posts {
   margin-bottom: 30px;
 }
+=======
+.arabica_pagination .page-numbers {
+height: 30px;
+  width: 30px;
+  font-size: 15px;} 
+
+
+.arabica_pagination .page-prev,
+.arabica_pagination .page-next {
+  color: #cc9933;
+  font-size: 15px;
+}
+} 
+>>>>>>> 1b307a88c3732f64449923516506555c447d82cc
