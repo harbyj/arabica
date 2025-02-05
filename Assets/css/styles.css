@@ -1715,7 +1715,6 @@ a.arabica_latest-article-more:hover {
   padding: 8px 12px;
   text-decoration: none;
   color: #999999;
-  cursor: pointer;
   border-radius: 50%;
 }
 
@@ -1751,8 +1750,18 @@ a.arabica_latest-article-more:hover {
   color: #b07f2a;
 }
 
+.arabica_pagination .ellipsis {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 36px;
+  width: 36px;
+  font-size: 18px;
+}
+
 @media (max-width: 991px) {
-  .arabica_pagination .page-numbers {
+  .arabica_pagination .page-numbers,
+  .arabica_pagination .ellipsis {
     height: 30px;
     width: 30px;
     font-size: 15px;
