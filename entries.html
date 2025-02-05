@@ -216,6 +216,22 @@
 
     <!-- Content Start -->
     <div class="arabica_main-wrapper">
+      <div class="arabica_article-about">
+        <div>
+          <div class="arabica_fit-container arabica_container">
+            <h1 class="arabica_title">المداخل الموسوعية</h1>
+            <p>
+              صدر عن المركز العربي للأبحاث ودراسة السياسات كتاب اقتصاديات الطاقة
+              المتجددة في ألمانيا ومصر والعراق، للكاتب هيثم عبد الله سلمان.
+              ويأتي هذا الكتاب الذي يشتمل على 360 صفحةً من القطع الكبير في وقت
+              تشغل فيه مسألة الطاقة المتجددة صانعي القرار حول العالم. ويُعدّ هذا
+              الكتاب دراسةً في اقتصاديات الطاقة المتجددة، ودور الطاقة في تعزيز
+              مؤشرات التنمية المستدامة، في نطاق السعي نحو "الاقتصاد الأخضر"
+              وصانعي القرار حول العالم.
+            </p>
+          </div>
+        </div>
+      </div>
       <div class="arabica_article-list">
         <div class="arabica_fit-container arabica_container">
           <div class="arabica_article-list-head">
@@ -510,6 +526,7 @@
             <a href="#" class="page-numbers">1</a>
             <span class="page-numbers current">2</span>
             <a href="#" class="page-numbers">3</a>
+            <span class="ellipsis">...</span>
             <a href="#" class="page-numbers">5</a>
             <a href="#" class="page-next"
               ><i class="fa-light fa-chevron-right"></i
@@ -521,14 +538,14 @@
 
     <script>
       document.addEventListener("DOMContentLoaded", function () {
-        const gridButton = document.querySelector(".arabica_grid");
-        const listButton = document.querySelector(".arabica_list");
-        const contentContainer = document.querySelector(
+        var gridButton = document.querySelector(".arabica_grid");
+        var listButton = document.querySelector(".arabica_list");
+        var contentContainer = document.querySelector(
           ".arabica_featured-content"
         );
 
         // Load saved preference
-        const savedLayout = localStorage.getItem("layoutPreference") || "list";
+        var savedLayout = localStorage.getItem("layoutPreference") || "list";
 
         // Apply the saved layout preference immediately
         if (savedLayout === "grid") {
@@ -554,7 +571,7 @@
           // Add fade-out effect before switching
           contentContainer.classList.add("fade-out");
 
-          setTimeout(() => {
+          setTimeout(function () {
             // Remove fade-out
             contentContainer.classList.remove("fade-out");
 
@@ -577,15 +594,19 @@
             contentContainer.classList.add("fade-in");
 
             // Remove fade-in after animation completes
-            setTimeout(() => {
+            setTimeout(function () {
               contentContainer.classList.remove("fade-in");
             }, 400); // Matches CSS transition time
           }, 300); // Matches fade-out transition time
         }
 
         // Add event listeners for layout switching
-        gridButton.addEventListener("click", () => applyLayout(true));
-        listButton.addEventListener("click", () => applyLayout(false));
+        gridButton.addEventListener("click", function () {
+          applyLayout(true);
+        });
+        listButton.addEventListener("click", function () {
+          applyLayout(false);
+        });
       });
     </script>
 

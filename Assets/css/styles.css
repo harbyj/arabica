@@ -174,7 +174,9 @@ h6 {
 
 .header {
   background: #fff;
-  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.39);
+  position: relative;
+  z-index: 1;
 }
 
 .arabica_header {
@@ -647,6 +649,7 @@ hr.arabica_tab-show {
   position: relative;
   overflow: hidden;
   background-color: #724c3a;
+  z-index: 2;
 }
 
 .arabica_slider img {
@@ -766,7 +769,15 @@ hr.arabica_tab-show {
   background-size: cover; /* Ensures the image covers the entire background */
 }
 
-.arabica_main-about h3 {
+.arabica_article-about {
+  text-align: center;
+  padding: 70px 0px 70px 0;
+  background: #eeeeee url("./../images/main-top-bg.jpg") no-repeat center center;
+  background-size: cover; /* Ensures the image covers the entire background */
+}
+
+.arabica_main-about h3,
+.arabica_title {
   font-size: 35px;
   margin-bottom: 15px;
   text-align: center;
@@ -779,6 +790,10 @@ hr.arabica_tab-show {
   color: #333333;
 }
 
+.arabica_article-about p {
+  font-size: 21px;
+  color: #333333;
+}
 /* Slider Content Positioning Flexbox */
 .arabica_slide .arabica_slide-content {
   position: absolute;
@@ -865,7 +880,8 @@ span.arabica_date {
     max-width: 100%; /* Ensures it fits within the container */
   }
 
-  .arabica_main-about h3 {
+  .arabica_main-about h3,
+  .arabica_title {
     font-size: 20px;
     font-weight: bold;
   }
@@ -889,7 +905,8 @@ span.arabica_date {
   .arabica_tag {
     padding: 3px 7px;
   }
-  .arabica_main-about p {
+  .arabica_main-about p,
+  .arabica_article-about p {
     font-size: 14px;
   }
 }
@@ -957,6 +974,11 @@ span.arabica_date {
   .arabica_main-about {
     text-align: center;
     padding: 40px 0px 35px 0;
+  }
+
+  .arabica_article-about {
+    text-align: center;
+    padding: 50px 0px 50px 0;
   }
 
   .arabica_card {
@@ -1151,7 +1173,7 @@ a.arabica_latest-article-more:hover {
 }
 
 .arabica_article-list-date {
-  color: #333333;
+  color: #17355d;
   margin-top: -6px;
   font-size: 14px;
 }
