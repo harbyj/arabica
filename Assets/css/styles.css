@@ -1178,14 +1178,16 @@ a.arabica_latest-article-more:hover {
   margin-top: -6px;
 }
 
-.arabica_article-list-date {
+.arabica_article-list-date,
+.arabica_article-meta {
   color: #17355d;
   margin-top: -6px;
   font-size: 14px;
 }
 .arabica_featured-article-share i,
 .arabica_featured-article-author i,
-.arabica_article-list-date i {
+.arabica_article-list-date i,
+.arabica_article-meta i {
   margin-left: 5px;
   color: #cc9933;
 }
@@ -1223,6 +1225,11 @@ a.arabica_latest-article-more:hover {
   .arabica_article-list-date {
     font-size: 12px;
   }
+
+  .arabica_article-meta {
+    font-size: 11px;
+  }
+
   .arabica_author-role {
     font-size: 12px;
     display: block;
