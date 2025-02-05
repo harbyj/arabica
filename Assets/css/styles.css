@@ -1108,6 +1108,11 @@ a.arabica_featured-article-category:hover {
 
 .arabica_featured-article-title {
   font-size: 22px;
+  margin-bottom: 10px;
+}
+
+.arabica_article-title {
+  font-size: 22px;
   margin-bottom: 0;
 }
 
@@ -1118,12 +1123,14 @@ a.arabica_featured-article-category:hover {
 }
 
 .arabica_featured-article-title a,
-.arabica_latest-article-title a {
+.arabica_latest-article-title a,
+.arabica_article-title a {
   color: #17355d;
 }
 
 .arabica_featured-article-title a:hover,
-.arabica_latest-article-title a:hover {
+.arabica_latest-article-title a:hover,
+.arabica_article-title a:hover {
   text-decoration: underline;
 }
 
@@ -1134,7 +1141,7 @@ a.arabica_featured-article-category:hover {
   margin-top: 10px;
 }
 
-.arabica_featured-article-subtitle {
+.arabica_article-subtitle {
   font-size: 14px;
   color: #333333;
   margin-bottom: 15px;
@@ -1255,7 +1262,8 @@ a.arabica_latest-article-more:hover {
     padding: 60px 0 35px 0;
   }
 
-  .arabica_featured-article-title {
+  .arabica_featured-article-title,
+  .arabica_article-title {
     font-size: 18px;
     font-weight: 600;
   }
@@ -1268,7 +1276,7 @@ a.arabica_latest-article-more:hover {
     padding: 3px 10px;
   }
   .arabica_featured-article-text,
-  .arabica_featured-article-subtitle {
+  .arabica_article-subtitle {
     font-size: 13px;
     text-align: right;
   }
@@ -1611,7 +1619,8 @@ a.arabica_latest-article-more:hover {
   }
 }
 @media (max-width: 991px) {
-  .arabica_article-list .arabica_featured-article-title {
+  .arabica_article-list .arabica_featured-article-title,
+  .arabica_article-title {
     font-size: 20px;
     font-weight: 600;
   }
