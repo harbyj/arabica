@@ -1752,14 +1752,14 @@ position: relative;
 
 @media (max-width: 991px) {
 .arabica_pagination .page-numbers {
-height: 24px;
-  width: 24px;
-  font-size: 12px;} 
+height: 28px;
+  width: 28px;
+  font-size: 14px;} 
 
 
 .arabica_pagination .page-prev,
 .arabica_pagination .page-next {
   color: #cc9933;
-  font-size: 12px;
+  font-size: 14px;
 }
 } 
