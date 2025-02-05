@@ -636,7 +636,8 @@ hr.arabica_tab-show {
 .arabica_doha_link a {
   font-size: 14px;
 }
-.arabica_doha_link a:hover {
+.arabica_doha_link a:hover,
+.arabica_article-author a:hover {
   text-decoration: underline;
 }
 /* General Setup for Main Wrapper */
