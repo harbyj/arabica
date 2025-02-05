@@ -1107,7 +1107,7 @@ a.arabica_featured-article-category:hover {
 
 .arabica_featured-article-title {
   font-size: 22px;
-  margin-bottom: 10px;
+  margin-bottom: 0;
 }
 
 .arabica_latest-article-title {
@@ -1131,6 +1131,12 @@ a.arabica_featured-article-category:hover {
   color: #333333;
   text-align: justify;
   margin-top: 10px;
+}
+
+.arabica_featured-article-subtitle {
+  font-size: 14px;
+  color: #333333;
+  margin-bottom: 15px;
 }
 
 .arabica_featured-article-actions {
@@ -1253,7 +1259,8 @@ a.arabica_latest-article-more:hover {
     font-size: 12px;
     padding: 3px 10px;
   }
-  .arabica_featured-article-text {
+  .arabica_featured-article-text,
+  .arabica_featured-article-subtitle {
     font-size: 13px;
     text-align: right;
   }
@@ -1797,4 +1804,8 @@ a.arabica_latest-article-more:hover {
 }
 .grid-posts {
   margin-bottom: 30px;
+}
+.arabica_article-author,
+.arabica_article-date {
+  margin-left: 15px;
 }
