@@ -317,6 +317,10 @@ h6 {
   width: 23px;
   height: 14px;
 }
+.menu-close-icon {
+  width: 21px;
+  height: 21px;
+}
 
 /* Mobile Nav Styling */
 .arabica_mobile_nav {
