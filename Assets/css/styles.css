@@ -208,6 +208,9 @@ h6 {
   .arabica_container {
     width: 970px;
   }
+  .arabica_about-info {
+    padding: 50px 200px;
+  }
 }
 
 @media (min-width: 1200px) {
@@ -781,6 +784,13 @@ hr.arabica_tab-show {
   background-size: cover; /* Ensures the image covers the entire background */
 }
 
+.arabica_about-top {
+  text-align: center;
+  padding: 70px 0px 70px 0;
+  background: #16365e url("./../images/about-top-bg.jpg") no-repeat center
+    center;
+  background-size: cover; /* Ensures the image covers the entire background */
+}
 .arabica_main-about h3,
 .arabica_title {
   font-size: 35px;
@@ -799,6 +809,12 @@ hr.arabica_tab-show {
   font-size: 21px;
   color: #333333;
 }
+
+.arabica_about-top p {
+  font-size: 21px;
+  color: #ffffff;
+}
+
 /* Slider Content Positioning Flexbox */
 .arabica_slide .arabica_slide-content {
   position: absolute;
@@ -911,7 +927,8 @@ span.arabica_date {
     padding: 3px 7px;
   }
   .arabica_main-about p,
-  .arabica_article-about p {
+  .arabica_article-about p,
+  .arabica_about-top p {
     font-size: 14px;
   }
 }
@@ -981,7 +998,8 @@ span.arabica_date {
     padding: 40px 0px 35px 0;
   }
 
-  .arabica_article-about {
+  .arabica_article-about,
+  .arabica_about-top {
     text-align: center;
     padding: 40px 0px 40px 0;
   }
@@ -1987,4 +2005,8 @@ a.arabica_latest-article-more:hover {
   .arabica_news-content h6 {
     font-size: 26px;
   }
+}
+
+.arabica_about-top .arabica_title {
+  color: #ffffff;
 }
