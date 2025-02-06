@@ -3,172 +3,13 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Article Entries Page - Arabica Picks</title>
+    <title>News Landing Page - Arabica Picks</title>
     <link rel="stylesheet" href="Assets/css/styles.css" />
     <link
       rel="stylesheet"
       href="Assets/fonts/font-awesome/css/all.min.css"
       media="all"
     />
-    <style>
-      .search-box input {
-        padding: 8px 30px 8px 8px;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-        width: 200px;
-        background: url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/sprites/solid.svg#fa-magnifying-glass")
-          no-repeat right 8px center;
-        background-size: 16px;
-      }
-
-      .dropdown {
-        position: relative;
-        display: inline-block;
-      }
-
-      .dropdown button {
-        padding: 8px 12px;
-        background: #fff;
-        border: 1px solid #ccc;
-        cursor: pointer;
-        border-radius: 5px;
-      }
-
-      .dropdown button i {
-        transition: transform 0.3s ease;
-      }
-
-      .dropdown-content {
-        display: none;
-        position: absolute;
-        background: #fff;
-        min-width: 200px;
-        border: 1px solid #ccc;
-        z-index: 1;
-        padding: 10px;
-        max-height: 200px;
-        overflow-y: auto;
-        border-radius: 5px;
-      }
-      .dropdown-content .select-all {
-        border-bottom: 1px solid #dddddd;
-      }
-
-      .dropdown.active .dropdown-content {
-        display: block;
-      }
-
-      .dropdown.active button i {
-        transform: rotate(180deg);
-      }
-
-      .dropdown-content label {
-        display: block;
-        padding: 5px;
-        cursor: pointer;
-      }
-
-      .dropdown-content label.checked {
-        font-weight: bold;
-      }
-
-      .switch-container {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-      }
-
-      .switch {
-        position: relative;
-        display: inline-block;
-        width: 40px;
-        height: 20px;
-      }
-
-      .switch input {
-        opacity: 0;
-        width: 0;
-        height: 0;
-      }
-
-      .slider {
-        position: absolute;
-        cursor: pointer;
-        top: 0;
-        right: 0;
-        bottom: 0;
-        left: 0;
-        background: #ccc;
-        border-radius: 20px;
-        transition: 0.4s;
-      }
-
-      .slider:before {
-        position: absolute;
-        content: "";
-        height: 16px;
-        width: 16px;
-        background: white;
-        border-radius: 50%;
-        transition: 0.4s;
-        right: 2px;
-        top: 2px;
-      }
-
-      input:checked + .slider {
-        background: #4caf50;
-      }
-
-      input:checked + .slider:before {
-        transform: translateX(-20px);
-      }
-
-      @media (max-width: 991px) {
-        .search-box input {
-          width: 150px;
-        }
-
-        .dropdown-content {
-          min-width: 150px;
-        }
-      }
-
-      @media (max-width: 767px) {
-        .arabica_article-list-head.arabica_search-content {
-          flex-direction: column;
-          align-items: flex-start;
-        }
-
-        .search-box input {
-          width: 100%;
-        }
-
-        .dropdown-content {
-          position: static;
-          max-height: 150px;
-        }
-      }
-
-      .dropdown-content::-webkit-scrollbar {
-        width: 8px; /* Total width including track */
-      }
-
-      .dropdown-content::-webkit-scrollbar-track {
-        background: #dddddd; /* 2px black line */
-        border-radius: 4px;
-        width: 2px;
-      }
-
-      .dropdown-content::-webkit-scrollbar-thumb {
-        background: #cc9933; /* Color of the scroll thumb */
-        border-radius: 4px;
-        width: 4px; /* Makes it appear like it's on a black line */
-      }
-
-      .dropdown-content::-webkit-scrollbar-button {
-        display: none; /* Hides the scrollbar arrows */
-      }
-    </style>
   </head>
   <body>
     <header class="header">
@@ -375,463 +216,132 @@
 
     <!-- Content Start -->
     <div class="arabica_main-wrapper">
-      <div class="arabica_article-about">
-        <div>
-          <div class="arabica_fit-container arabica_container">
-            <h1 class="arabica_title">المداخل الموسوعية</h1>
+      <div class="arabica_fit-container arabica_container">
+        <div class="arabica_news">
+          <div class="arabica_news-header">
+            <h1 class="arabica_featured-article-title">
+              الواقعية في العلاقات الدولية موضوع العدد 68 من دورية "سياسات
+              عربية"
+            </h1>
+            <div class="arabica_article-list-date">
+              <i class="fa-light fa-calendar-days"></i
+              ><time datetime="YYYY-MM-DDTHH:MM:SSZ" class="doha_date">
+                05 ديسمبر ، 2024
+              </time>
+            </div>
+          </div>
+          <div class="arabica_news-content">
             <p>
-              صدر عن المركز العربي للأبحاث ودراسة السياسات كتاب اقتصاديات الطاقة
-              المتجددة في ألمانيا ومصر والعراق، للكاتب هيثم عبد الله سلمان.
-              ويأتي هذا الكتاب الذي يشتمل على 360 صفحةً من القطع الكبير في وقت
-              تشغل فيه مسألة الطاقة المتجددة صانعي القرار حول العالم. ويُعدّ هذا
-              الكتاب دراسةً في اقتصاديات الطاقة المتجددة، ودور الطاقة في تعزيز
-              مؤشرات التنمية المستدامة، في نطاق السعي نحو "الاقتصاد الأخضر"
-              وصانعي القرار حول العالم.
+              صدر عن المركز العربي للأبحاث ودراسة السياسات ومعهد الدوحة للدراسات
+              العليا العدد الثامن والستون من الدورية العلمية المحكمة "سياسات
+              عربية"، التي تعنى بالعلوم السياسية والعلاقات الدولية، وتصدر كل
+              شهرين. ضم العدد ملفا خاصا بعنوان "الواقعية في العلاقات الدولية
+              مراجعات نظرية من خلال حالات عربية"، فيه خمس دراسات نظرية وتطبيقية،
+              إضافة إلى تقديم المحرر الملف أحمد قاسم حسين. وتضمن توثيقا لأهم
+              محطات الصراع العربي - الإسرائيلي، وأبرز محطات التحول الديمقراطي في
+              الوطن العربي، ومراجعتين لكتابين صدرا عن المركز العربي.
             </p>
-          </div>
-        </div>
-      </div>
-      <div class="arabica_article-list">
-        <div class="arabica_fit-container arabica_container">
-          <div class="arabica_article-list-head arabica_search-content">
-            <div class="search-box">
-              <input
-                type="text"
-                placeholder="&#xf002; البحث"
-                style="font-family: Arial, FontAwesome"
-              />
-            </div>
+            <p>
+              يناقش عبد النور بن عنتر، في دراسته التسلح ومعضلة الأمن في المنطقة
+              المغاربية: التنافس الجزائري - المغربي"، الارتفاع الملحوظ في مستوى
+              التسلح بين البلدين خلال السنوات الأخيرة، ما جعل المنطقة المغاربية
+              واحدة من أكثر المناطق تسلحًا في العالم. ويخلص إلى أن ديناميكيات
+              التسلح ذات استقلالية نسبية عن التوترات السياسية، وأن احتمالية وقوع
+              مواجهة عسكرية، حتى لو كانت محدودة، تبقى واردة نتيجة تفاعل عوامل
+              طارئة وبنيوية، ويشير إلى أن التنافس بين الجزائر والمغرب يتمحور حول
+              السعي للريادة والزعامة، وليس الهيمنة. وأخيرا، يدعو بن عنتر إلى فهم
+              أعمق الظاهرة التسلح من خلال مراعاة التفاعلات الديناميكية داخل
+              الإقليم المغاربي وخارجه، مشددًا على ضرورة مراجعة وتيرة التسلح
+              المتنامي في المنطقة لتجنب الدخول في معضلة أمنية مستدامة تغذيها
+              مصالح القوى المسلحة.
+            </p>
 
-            <div class="dropdown">
-              <button onclick="toggleDropdown(this)">
-                <i class="fa fa-globe"></i> البلدان العربية
-                <i class="fa fa-chevron-down"></i>
-              </button>
-              <div class="dropdown-content">
-                <label class="select-all"
-                  ><input type="checkbox" onclick="toggleSelectAll(this)" />
-                  تحديد الكل</label
-                >
-                <label><input type="checkbox" /> قطر</label>
-                <label><input type="checkbox" /> البحرين</label>
-                <label><input type="checkbox" /> لبنان</label>
-                <label><input type="checkbox" /> سوريا</label>
-                <label><input type="checkbox" /> مصر</label>
-                <label><input type="checkbox" /> الكويت</label>
-                <label><input type="checkbox" /> الإمارات</label>
-                <label><input type="checkbox" /> السعودية</label>
-                <label><input type="checkbox" /> العراق</label>
-                <label><input type="checkbox" /> السودان</label>
-              </div>
-            </div>
+            <img src="Assets/images/news-img1.jpg" alt="news image 1" />
 
-            <div class="dropdown">
-              <button onclick="toggleDropdown(this)">
-                <i class="fa fa-book"></i> الحقول المعرفية
-                <i class="fa fa-chevron-down"></i>
-              </button>
-              <div class="dropdown-content">
-                <label class="select-all"
-                  ><input type="checkbox" onclick="toggleSelectAll(this)" />
-                  تحديد الكل</label
-                >
-                <label><input type="checkbox" /> الفلسفة</label>
-                <label><input type="checkbox" /> الدين</label>
-                <label><input type="checkbox" /> الاقتصاد</label>
-                <label><input type="checkbox" /> الكيمياء</label>
-                <label><input type="checkbox" /> البيولوجيا</label>
-                <label><input type="checkbox" /> العلوم الرياضية</label>
-                <label><input type="checkbox" /> الفيزياء</label>
-                <label><input type="checkbox" /> التاريخ</label>
-                <label><input type="checkbox" /> الجغرافيا</label>
-                <label><input type="checkbox" /> الفنون</label>
-              </div>
-            </div>
-
-            <div class="switch-container">
-              <label
-                >المقالات القصيرة فقط
-                <label class="switch">
-                  <input type="checkbox" />
-                  <span class="slider"></span>
-                </label>
-              </label>
-            </div>
-
-            <div class="arabica_list-grid">
-              <span class="arabica_list"
-                ><i class="fa-light fa-list-ul"></i
-              ></span>
-              <span class="arabica_grid"
-                ><i class="fa-light fa-grid-2"></i
-              ></span>
-            </div>
-          </div>
-          <div class="arabica_featured-content">
-            <div class="arabica_featured-article">
-              <div class="arabica_featured-article-inner">
-                <div class="arabica_featured-article-image arabica_post-image">
-                  <a href="news-details.html"
-                    ><img src="Assets/images/post-img9.jpg" alt="العلم"
-                  /></a>
-                  <a href="#" class="arabica_featured-article-category"
-                    >العلوم السياسية</a
-                  >
-                </div>
-                <div class="arabica_featured-article-content">
-                  <h2 class="arabica_article-title">
-                    <a href="news-details.html">محمد محمد مرسي عيسى العياط</a>
-                  </h2>
-                  <p class="arabica_article-subtitle">
-                    الرئيس الخامس لجمهورية مصر العربية
-                  </p>
-                  <div class="arabica_article-meta">
-                    <span class="arabica_article-author"
-                      ><i class="fa-light fa-user"></i
-                      ><a href="author.html">إبراهيم حسن</a></span
-                    >
-                    <span class="arabica_article-date"
-                      ><i class="fa-light fa-calendar-days"></i
-                      ><time datetime="YYYY-MM-DDTHH:MM:SSZ" class="doha_date">
-                        05 ديسمبر ، 2024
-                      </time>
-                    </span>
-                    <span class="arabica_article-read"
-                      ><i class="fa-light fa-timer"></i>مدة القراءة 5:05 د</span
-                    >
-                  </div>
-                  <p class="arabica_featured-article-text">
-                    محمد محمد مرسي عيسى العياط (8 أغسطس 1951 – 17 يونيو 2019)،
-                    مهندس فلزات، وأستاذ جامعي، وسياسي مصري وهو الرئيس الخامس
-                    لجمهورية مصر العربية[8] والأول بعد ثورة 25 يناير وهو أول
-                    رئيس مدني منتخب للبلاد وأول.
-                  </p>
-                  <div class="arabica_featured-article-actions">
-                    <a
-                      href="news-details.html"
-                      class="arabica_featured-article-button"
-                      >إقرأ المزيد</a
-                    >
-                    <div class="arabica_featured-article-share">
-                      <a
-                        href="#"
-                        class="arabica_share-link"
-                        data-share-title="علم الفلك في الحضارة الإسلامية"
-                        data-share-url="news-details.html"
-                        ><i class="fa-light fa-share"></i> شارك</a
-                      >
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="arabica_featured-article">
-              <div class="arabica_featured-article-inner">
-                <div class="arabica_featured-article-image arabica_post-image">
-                  <a href="news-details.html"
-                    ><img src="Assets/images/post-img10.jpg" alt="الكيمياء"
-                  /></a>
-                  <a href="#" class="arabica_featured-article-category"
-                    >الإسلام وعلومه</a
-                  >
-                </div>
-                <div class="arabica_featured-article-content">
-                  <h2 class="arabica_article-title">
-                    <a href="news-details.html"
-                      >عن اللاساميّة ومظاهرات الطلاب</a
-                    >
-                  </h2>
-                  <p class="arabica_article-subtitle">
-                    حين تستغني عالمة اجتماع إسرائيلية عن أدوات الاستنتاج
-                    العقلاني وتلجأ إلى اللاوعي
-                  </p>
-                  <div class="arabica_article-meta">
-                    <span class="arabica_article-author"
-                      ><i class="fa-light fa-user"></i
-                      ><a href="author.html">إبراهيم حسن</a></span
-                    >
-                    <span class="arabica_article-date"
-                      ><i class="fa-light fa-calendar-days"></i
-                      ><time datetime="YYYY-MM-DDTHH:MM:SSZ" class="doha_date">
-                        05 ديسمبر ، 2024
-                      </time>
-                    </span>
-                    <span class="arabica_article-read"
-                      ><i class="fa-light fa-timer"></i>مدة القراءة 5:05 د</span
-                    >
-                  </div>
-                  <p class="arabica_featured-article-text">
-                    رسل إليّ أحد الأصدقاء مقالًا لعالمة الاجتماع الإسرائيلية،
-                    إيڤا إيلّوز، التي لم أسمع بها من قبل لجهلي بنجوم هذه الأيام
-                    في الأكاديمية الإسرائيلية، الذين تحتضنهم الأكاديميات
-                    الغربية. وقد نُشر المقال في جريدة زودويتشه تسايتونغ[1]
-                    الألمانية. المقال يردّ بالإيجاب عن السؤال.
-                  </p>
-                  <div class="arabica_featured-article-actions">
-                    <a
-                      href="news-details.html"
-                      class="arabica_featured-article-button"
-                      >إقرأ المزيد</a
-                    >
-                    <div class="arabica_featured-article-share">
-                      <a
-                        href="#"
-                        class="arabica_share-link"
-                        data-share-title="توجيه الدواء"
-                        data-share-url="news-details.html"
-                        ><i class="fa-light fa-share"></i> شارك</a
-                      >
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="arabica_featured-article">
-              <div class="arabica_featured-article-inner">
-                <div class="arabica_featured-article-image arabica_post-image">
-                  <a href="news-details.html"
-                    ><img src="Assets/images/post-img11.jpg" alt="العلم"
-                  /></a>
-                  <a href="#" class="arabica_featured-article-category"
-                    >العلوم الرياضية والفيزياء</a
-                  >
-                </div>
-                <div class="arabica_featured-article-content">
-                  <h2 class="arabica_article-title">
-                    <a href="news-details.html">رفيق الحريري</a>
-                  </h2>
-                  <p class="arabica_article-subtitle">رئيس الوزراء</p>
-                  <div class="arabica_article-meta">
-                    <span class="arabica_article-author"
-                      ><i class="fa-light fa-user"></i
-                      ><a href="author.html">إبراهيم حسن</a></span
-                    >
-                    <span class="arabica_article-date"
-                      ><i class="fa-light fa-calendar-days"></i
-                      ><time datetime="YYYY-MM-DDTHH:MM:SSZ" class="doha_date">
-                        05 ديسمبر ، 2024
-                      </time>
-                    </span>
-                    <span class="arabica_article-read"
-                      ><i class="fa-light fa-timer"></i>مدة القراءة 5:05 د</span
-                    >
-                  </div>
-                  <p class="arabica_featured-article-text">
-                    ساهم الحريري بشكل كبير في إعمار لبنان بعد الحرب الأهلية، وقد
-                    شكل اغتياله عام 2005 محطة فارقة، إذ دخلت البلاد في أزمة
-                    سياسية بعد انقسام الأحزاب إلى موالاة ومعارضة، حظي كل منهما
-                    بدعم أطراف إقليمية.
-                  </p>
-                  <div class="arabica_featured-article-actions">
-                    <a
-                      href="news-details.html"
-                      class="arabica_featured-article-button"
-                      >إقرأ المزيد</a
-                    >
-                    <div class="arabica_featured-article-share">
-                      <a
-                        href="#"
-                        class="arabica_share-link"
-                        data-share-title="علم الفلك في الحضارة الإسلامية"
-                        data-share-url="news-details.html"
-                        ><i class="fa-light fa-share"></i> شارك</a
-                      >
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="arabica_featured-article">
-              <div class="arabica_featured-article-inner">
-                <div class="arabica_featured-article-image arabica_post-image">
-                  <a href="news-details.html"
-                    ><img src="Assets/images/post-img12.jpg" alt="الكيمياء"
-                  /></a>
-                  <a href="#" class="arabica_featured-article-category"
-                    >الإسلام وعلومه</a
-                  >
-                </div>
-                <div class="arabica_featured-article-content">
-                  <h2 class="arabica_article-title">
-                    <a href="news-details.html">مرايا متقابلة</a>
-                  </h2>
-                  <p class="arabica_article-subtitle">أوباما ودبلوماسيّوه</p>
-                  <div class="arabica_article-meta">
-                    <span class="arabica_article-author"
-                      ><i class="fa-light fa-user"></i
-                      ><a href="author.html">إبراهيم حسن</a></span
-                    >
-                    <span class="arabica_article-date"
-                      ><i class="fa-light fa-calendar-days"></i
-                      ><time datetime="YYYY-MM-DDTHH:MM:SSZ" class="doha_date">
-                        05 ديسمبر ، 2024
-                      </time>
-                    </span>
-                    <span class="arabica_article-read"
-                      ><i class="fa-light fa-timer"></i>مدة القراءة 5:05 د</span
-                    >
-                  </div>
-                  <p class="arabica_featured-article-text">
-                    يسارع نفر غير قليل من المعلقين والباحثين في قولهم إن الرئيس
-                    الأميركي الجديد جو بايدن، سيعود، في سياسته الخارجية على
-                    الأقل، إلى السير في الطريق الذي شقّه الرئيس الأسبق باراك
-                    أوباما. ويضرب عدد منهم رغبته في التفاوض مع إيران.
-                  </p>
-                  <div class="arabica_featured-article-actions">
-                    <a
-                      href="news-details.html"
-                      class="arabica_featured-article-button"
-                      >إقرأ المزيد</a
-                    >
-                    <div class="arabica_featured-article-share">
-                      <a
-                        href="#"
-                        class="arabica_share-link"
-                        data-share-title="توجيه الدواء"
-                        data-share-url="news-details.html"
-                        ><i class="fa-light fa-share"></i> شارك</a
-                      >
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="arabica_featured-article">
-              <div class="arabica_featured-article-inner">
-                <div class="arabica_featured-article-image arabica_post-image">
-                  <a href="news-details.html"
-                    ><img src="Assets/images/post-img1.jpg" alt="العلم"
-                  /></a>
-                  <a href="#" class="arabica_featured-article-category"
-                    >العلوم الرياضية والفيزياء</a
-                  >
-                </div>
-                <div class="arabica_featured-article-content">
-                  <h2 class="arabica_article-title">
-                    <a href="news-details.html"
-                      >علم الفلك في الحضارة الإسلامية</a
-                    >
-                  </h2>
-                  <p class="arabica_article-subtitle">
-                    الرئيس الخامس لجمهورية مصر العربية
-                  </p>
-                  <div class="arabica_article-meta">
-                    <span class="arabica_article-author"
-                      ><i class="fa-light fa-user"></i
-                      ><a href="author.html">إبراهيم حسن</a></span
-                    >
-                    <span class="arabica_article-date"
-                      ><i class="fa-light fa-calendar-days"></i
-                      ><time datetime="YYYY-MM-DDTHH:MM:SSZ" class="doha_date">
-                        05 ديسمبر ، 2024
-                      </time>
-                    </span>
-                    <span class="arabica_article-read"
-                      ><i class="fa-light fa-timer"></i>مدة القراءة 5:05 د</span
-                    >
-                  </div>
-                  <p class="arabica_featured-article-text">
-                    محمد محمد مرسي عيسى العياط (8 أغسطس 1951 – 17 يونيو 2019)،
-                    مهندس فلزات، وأستاذ جامعي، وصدر عن المركز العربي للأبحاث
-                    ودراسة السياسات كتاب اقتصاديات الطاقة المتجددة في ألمانيا
-                    ومصر والعراق، للكاتب هيثم عبد الله سلمان. ويأتي هذا الكتاب
-                    الذي يشتمل على 360 صفحةً من القطع الكبير في وقت تشغل فيه
-                    مسألة الطاقة المتجددة .
-                  </p>
-                  <div class="arabica_featured-article-actions">
-                    <a
-                      href="news-details.html"
-                      class="arabica_featured-article-button"
-                      >إقرأ المزيد</a
-                    >
-                    <div class="arabica_featured-article-share">
-                      <a
-                        href="#"
-                        class="arabica_share-link"
-                        data-share-title="علم الفلك في الحضارة الإسلامية"
-                        data-share-url="news-details.html"
-                        ><i class="fa-light fa-share"></i> شارك</a
-                      >
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="arabica_featured-article">
-              <div class="arabica_featured-article-inner">
-                <div class="arabica_featured-article-image arabica_post-image">
-                  <a href="news-details.html"
-                    ><img src="Assets/images/post-img2.jpg" alt="الكيمياء"
-                  /></a>
-                  <a href="#" class="arabica_featured-article-category"
-                    >الإسلام وعلومه</a
-                  >
-                </div>
-                <div class="arabica_featured-article-content">
-                  <h2 class="arabica_article-title">
-                    <a href="news-details.html">توجيه الدواء</a>
-                  </h2>
-                  <p class="arabica_article-subtitle">
-                    الرئيس الخامس لجمهورية مصر العربية
-                  </p>
-                  <div class="arabica_article-meta">
-                    <span class="arabica_article-author"
-                      ><i class="fa-light fa-user"></i
-                      ><a href="author.html">إبراهيم حسن</a></span
-                    >
-                    <span class="arabica_article-date"
-                      ><i class="fa-light fa-calendar-days"></i
-                      ><time datetime="YYYY-MM-DDTHH:MM:SSZ" class="doha_date">
-                        05 ديسمبر ، 2024
-                      </time>
-                    </span>
-                    <span class="arabica_article-read"
-                      ><i class="fa-light fa-timer"></i>مدة القراءة 5:05 د</span
-                    >
-                  </div>
-                  <p class="arabica_featured-article-text">
-                    محمد محمد مرسي عيسى العياط (8 أغسطس 1951 – 17 يونيو 2019)،
-                    مهندس فلزات، وأستاذ جامعي، وسياسي مصري وهو الرئيس الخامس
-                    لجمهورية مصر العربية[8] والأول بعد ثورة 25 يناير وهو أول
-                    رئيس مدني منتخب للبلاد وأول.
-                  </p>
-                  <div class="arabica_featured-article-actions">
-                    <a
-                      href="news-details.html"
-                      class="arabica_featured-article-button"
-                      >إقرأ المزيد</a
-                    >
-                    <div class="arabica_featured-article-share">
-                      <a
-                        href="#"
-                        class="arabica_share-link"
-                        data-share-title="توجيه الدواء"
-                        data-share-url="news-details.html"
-                        ><i class="fa-light fa-share"></i> شارك</a
-                      >
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="arabica_pagination">
-            <a href="#" class="page-prev"
-              ><i class="fa-light fa-chevron-left"></i
-            ></a>
-            <a href="#" class="page-numbers">1</a>
-            <span class="page-numbers current">2</span>
-            <a href="#" class="page-numbers">3</a>
-            <span class="ellipsis">...</span>
-            <a href="#" class="page-numbers">5</a>
-            <a href="#" class="page-next"
-              ><i class="fa-light fa-chevron-right"></i
-            ></a>
+            <figcaption>
+              القاء الرئيس العراقي مع المبعوث الأميركي والمبعوث البريطاني في
+              ختام المؤتمر العراقي
+            </figcaption>
+            <h2>
+              اجتماع وزير الخارجية مع الوزراء والنقاش حول آخر التطوات في
+              المنطقة.
+            </h2>
+            <p>
+              وتستعرض مروة فكري، في دراستها "سياسة الردع والدول المراجعة من
+              منظور واقعي أزمة سد النهضة نموذجا" . القدرة التفسيرية للمدرسة
+              الواقعية في تحليل أزمة سد النهضة بين مصر وإثيوبيا. وتركز على مفهوم
+              الهيمنة بمعناه الواسع، الذي يشمل الهيمنة المائية، حيث يفسر سلوك
+              إثيوبيا بوصفه تحديا للهيمنة المصرية في حوض النيل، وتخلص إلى أن
+              أزمة سد النهضة تكشف عن نجاحات المنظور الواقعي وإخفاقاته فمن جهة،
+              تؤكد أهمية القوة، وبناء التحالفات، وتضارب المصالح والمكاسب
+              النسبية، وتأثير النظام الدولي في سلوك الدول. ومن جهة أخرى، تظهر
+              محدودية الواقعية نتيجة تجاهلها العوامل الداخلية والعوامل غير
+              المادية، التي تؤدي دورًا أساسيا في تحقيق مصالح الدول وتعزيز
+              هيمنتها. وتتساءل فكري في ختام دراستها عن طبيعة النظرية
+            </p>
+            <p>
+              الواقعية، قائلة: هل تكتفي بعكس الواقع كما هو، أم أنها تؤدي دوراً
+              فاعلاً في تشكيله وصياغة سلوك الدول؟ أما محمد خميس، في دراسته حدود
+              الواقعية في تفسير مأسسة جامعة الدول العربية وصندوق النقد العربي من
+              معضلة السجين إلى الألعاب التعاونية"، فيناقش قصور النظرية الواقعية
+              في تفسير تطور المؤسسات العربية. ويوضح أن الواقعية بركائزها
+              التقليدية القائمة على القوة والمصلحة الوطنية
+            </p>
+            <h2>
+              بحث تطور العلاقات بين البلدين وايجاد صيغ تفاهمية حول موضوع النفط
+              والاقتصاد.
+            </h2>
+            <p>
+              أما محمد خميس، في دراسته حدود الواقعية في تفسير مأسسة جامعة الدول
+              العربية وصندوق النقد العربي من معضلة السجين إلى الألعاب
+              التعاونية"، فيناقش قصور النظرية الواقعية في تفسير تطور المؤسسات
+              العربية. ويوضح أن الواقعية بركائزها التقليدية القائمة على القوة
+              والمصلحة الوطنية، لا تكفي لفهم ديناميكيات مأسسة جامعة الدول
+              العربية وصندوق النقد العربي. ويستند في طرحه إلى إخفاق الواقعية في
+              معالجة المأزق الأمني داخل النظام العربي، حيث لم تسهم جهودها
+              المتعلقة بنظرية الأمن الجماعي في تقديم حلول فعالة للأزمات في
+              المنطقة العربية. ويرى خميس أن تجاوز هذا القصور يتطلب تبني مقاربات
+              أكثر شمولية، مثل نظرية الألعاب التعاونية في العلاقات الدولية، التي
+              تراعي عناصر التعاون الإقليمي والدوافع غير المادية، مع التركيز على
+              الأبعاد التشاركية التي قد تسهم في إعادة صياغة مفهوم الأمن العربي.
+            </p>
+            <p>
+              ويعرض مدوخ بن عجمي العتيبي، في دراسته "التنافس السعودي - الإيراني
+              والمعضلة الأمنية في منطقة الخليج العربي"، أبعاد التنافس بين
+              المملكة العربية السعودية وإيران، مسلطا الضوء على تصاعد التوتر
+              بينهما خلال الفترة 1979-2019، وصولاً إلى استئناف العلاقات
+              الدبلوماسية في آذار / مارس 2023. ويوضح أن الطبيعة "الفوضوية"
+              للنظام الدولي تدفع الدول إلى تعظيم قدراتها، ما يعزز الطابع
+              العدواني لسلوكها، ويشير إلى أن إيران تسعى عبر استراتيجيتها الأمنية
+              إلى تعزيز قوتها، ليس فقط لحماية أمنها، بل أيضًا لتحقيق تفوق نسبي
+              على الدول الأخرى وفرض هيمنتها الإقليمية، ما يجعلها تهديدا رئيسًا
+              للمملكة. ويرى أن من شأن التقارب الاقتصادي والتنسيق الأمني والسياسي
+              بين السعودية وإيران أن يسهما في تقريب وجهات نظر الدولتين حول
+              القضايا الصراعية بينهما : ما يخفف آثار المعضلة الأمنية على المديين
+              المتوسط والبعيد.
+            </p>
+            <p>
+              ويوضح علي باكير، في دراسته بعنوان "التحوّل في السياسة الخارجية
+              التركية تجاه المنطقة العربية من منظور المدرسة الواقعية مقاربة
+              نقدية"، أن السياسة الخارجية التركية شهدت تحولات بارزة. منذ أن تولى
+              حزب العدالة والتنمية الحكم عام 2002، خاصة تجاه المنطقة العربية،
+              ويشير إلى تعددية أشكال هذا التحول واختلاف مراحله الزمنية، ما يجعل
+              تفسيره مرتبطا بالعوامل المؤثرة والنظريات المستخدمة. ويرى أن
+              الواقعية الكلاسيكية الجديدة هي الأكثر قدرة على تفسير هذه التحولات
+              خلال الفترة 2016-2021، حيث تأخذ في الاعتبار العوامل الخارجية، مثل
+              ضغط النظام الدولي. والداخلية كالحسابات المحلية وصانع القرار.
+              ويختتم بالتساؤل عن مستقبل السياسة الخارجية التركية، ومدى تأثرها
+              بالبيئة الإقليمية، وإذا ما كان صراع القوة الصلبة سيظل مهيمنا أم
+              ستبرز أولويات جديدة.
+            </p>
+            <p>
+              وفي باب "التوثيق" اشتمل العدد على توثيق لأهم محطات التحول
+              الديمقراطي في الوطن العربي"، و"الوقائع الفلسطينية"، في المدة 1
+              آذار / مارس - 30 نيسان / أبريل 2024. وفي باب "مراجعات الكتب"، قدمت
+              عائشة بلحاج مراجعة لكتاب "مسألة الدولة: أطروحة في الفلسفة والنظرية
+              والسياقات" لعزمي بشارة. وقدمت نهيلة صوفي مراجعة لكتاب " من مرحلة
+              ما بعد الديمقراطية إلى مرحلة الديمقراطية الجديدة، ترجمة سيد فارس.
+            </p>
           </div>
         </div>
       </div>
@@ -910,62 +420,7 @@
         });
       });
     </script>
-    <script>
-      function toggleDropdown(button) {
-        const currentDropdown = button.parentElement;
-        const allDropdowns = document.querySelectorAll(".dropdown");
 
-        allDropdowns.forEach((dropdown) => {
-          if (dropdown !== currentDropdown) {
-            dropdown.classList.remove("active");
-          }
-        });
-
-        currentDropdown.classList.toggle("active");
-      }
-
-      function toggleSelectAll(checkbox) {
-        const dropdownContent = checkbox.closest(".dropdown-content");
-        const checkboxes = dropdownContent.querySelectorAll(
-          'input[type="checkbox"]'
-        );
-
-        checkboxes.forEach((cb) => {
-          if (cb !== checkbox) {
-            cb.checked = checkbox.checked;
-            cb.dispatchEvent(new Event("change"));
-          }
-        });
-      }
-
-      function handleCheckboxChange(event) {
-        const checkbox = event.target;
-        const label = checkbox.closest("label");
-
-        if (checkbox.checked) {
-          label.classList.add("checked");
-        } else {
-          label.classList.remove("checked");
-        }
-      }
-
-      document
-        .querySelectorAll('.dropdown-content input[type="checkbox"]')
-        .forEach((checkbox) => {
-          checkbox.addEventListener("change", handleCheckboxChange);
-        });
-
-      window.onclick = function (event) {
-        if (
-          !event.target.closest(".dropdown") &&
-          !event.target.matches('input[type="checkbox"]')
-        ) {
-          document.querySelectorAll(".dropdown").forEach((dropdown) => {
-            dropdown.classList.remove("active");
-          });
-        }
-      };
-    </script>
     <!-- Content End -->
     <footer class="arabica_footer">
       <div class="arabica_footer-container">
@@ -1263,8 +718,8 @@
         <svg
           class="menu-close-icon"
           xmlns="http://www.w3.org/2000/svg"
-          width="22"
-          height="22"
+          width="23.81"
+          height="23.804"
           viewBox="0 0 23.81 23.804"
         >
           <path

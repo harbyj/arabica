@@ -1830,3 +1830,161 @@ a.arabica_latest-article-more:hover {
 .arabica_article-date {
   margin-left: 15px;
 }
+
+.arabica_article-list-head.arabica_search-content {
+  flex-wrap: wrap;
+}
+.arabica_news {
+  margin: 60px 0;
+}
+
+.arabica_news .arabica_article-list-date {
+  color: #333333;
+}
+
+.arabica_news-content {
+  margin-top: 20px;
+}
+
+/* Paragraphs */
+.arabica_news-content p {
+  margin-bottom: 15px;
+  text-align: justify;
+}
+
+/* Headings */
+.arabica_news-content h1,
+.arabica_news-content h2,
+.arabica_news-content h3,
+.arabica_news-content h4,
+.arabica_news-content h5,
+.arabica_news-content h6 {
+  color: #17355d;
+  margin-top: 25px;
+  margin-bottom: 10px;
+}
+
+/* Blockquote */
+.arabica_news-content blockquote {
+  border-left: 5px solid #0073e6;
+  padding-left: 15px;
+  font-style: italic;
+  color: #555;
+  margin: 20px 0;
+}
+
+/* Lists */
+.arabica_news-content ul,
+.arabica_news-content ol {
+  margin: 10px 0 10px 20px;
+  padding-left: 20px;
+}
+
+.arabica_news-content li {
+  margin-bottom: 5px;
+}
+
+/* Links */
+.arabica_news-content a {
+  color: #0073e6;
+  text-decoration: none;
+}
+
+.arabica_news-content a:hover {
+  text-decoration: underline;
+}
+
+/* Images */
+.arabica_news-content img {
+  width: 100%;
+  height: auto;
+  display: block;
+  margin: 10px 0;
+}
+
+/* Image Captions */
+.arabica_news-content figcaption {
+  text-align: right;
+  color: #a0a3ac;
+  margin-top: 5px;
+}
+
+/* Table Styles */
+.arabica_news-content table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+  background-color: #fff;
+}
+
+.arabica_news-content th,
+.arabica_news-content td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+.arabica_news-content th {
+  background-color: #0073e6;
+  color: white;
+}
+
+/* Code Blocks */
+.arabica_news-content code {
+  font-family: "Courier New", monospace;
+  background: #eee;
+  padding: 2px 4px;
+  border-radius: 3px;
+}
+
+/* Mobile View (max-width: 767px) */
+@media (max-width: 767px) {
+  .arabica_news-content table {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+
+  .arabica_news-content h1,
+  .arabica_news-content h2,
+  .arabica_news-content h3,
+  .arabica_news-content h4,
+  .arabica_news-content h5,
+  .arabica_news-content h6 {
+    font-size: 18px;
+  }
+}
+
+/* Tablet View (max-width: 991px) */
+@media (max-width: 991px) {
+  .arabica_news-content table {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+
+  .arabica_news-content h1,
+  .arabica_news-content h2,
+  .arabica_news-content h3,
+  .arabica_news-content h4,
+  .arabica_news-content h5,
+  .arabica_news-content h6 {
+    font-size: 22px;
+  }
+}
+
+/* Desktop View (default) */
+@media (min-width: 992px) {
+  .arabica_news-content table {
+    width: 100%;
+  }
+
+  .arabica_news-content h1,
+  .arabica_news-content h2,
+  .arabica_news-content h3,
+  .arabica_news-content h4,
+  .arabica_news-content h5,
+  .arabica_news-content h6 {
+    font-size: 26px;
+  }
+}
