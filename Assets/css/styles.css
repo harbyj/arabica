@@ -203,7 +203,9 @@ h6 {
     padding: 0 35px;
   }
 }
-
+.arabica_about-info {
+  padding: 20px 0px;
+}
 @media (min-width: 992px) {
   .arabica_container {
     width: 970px;
