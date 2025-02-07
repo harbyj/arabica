@@ -1231,6 +1231,16 @@ a.arabica_latest-article-more:hover {
   font-size: 26px;
   font-weight: 600;
 }
+
+.arabica_news h1,
+.arabica_news h2,
+.arabica_news h3,
+.arabica_news h4,
+.arabica_news h5,
+.arabica_news h6 {
+  line-height: 1.6;
+}
+
 @media (max-width: 767px) {
   .arabica_featured-article-inner {
     flex-direction: column;
