@@ -1227,7 +1227,10 @@ a.arabica_latest-article-more:hover {
 .arabica_author-role {
   font-size: 14px;
 }
-
+.arabica_news h1 {
+  font-size: 26px;
+  font-weight: 600;
+}
 @media (max-width: 767px) {
   .arabica_featured-article-inner {
     flex-direction: column;
@@ -1291,8 +1294,9 @@ a.arabica_latest-article-more:hover {
     font-size: 18px;
     font-weight: 600;
   }
-  .arabica_news .arabica_featured-article-title {
+  .arabica_news h1 {
     font-weight: bold;
+    font-size: 20px;
   }
   .arabica_latest-article-title {
     font-size: 15px;
@@ -1871,7 +1875,7 @@ a.arabica_latest-article-more:hover {
 
 /* Paragraphs */
 .arabica_news-content p {
-  margin-bottom: 15px;
+  margin-bottom: 20px;
   text-align: justify;
 }
 
@@ -1887,34 +1891,30 @@ a.arabica_latest-article-more:hover {
   margin-bottom: 10px;
 }
 
-/* Blockquote */
-.arabica_news-content blockquote {
-  border-left: 5px solid #0073e6;
-  padding-left: 15px;
-  font-style: italic;
-  color: #555;
-  margin: 20px 0;
+.arabica_news-content h2 {
+  font-size: 24px;
+  font-weight: 600;
+}
+.arabica_news-content h3 {
+  font-size: 21px;
+  font-weight: 500;
+}
+.arabica_news-content h4,
+.arabica_news-content h5,
+.arabica_news-content h6 {
+  font-size: 18px;
+  font-weight: 500;
 }
 
 /* Lists */
 .arabica_news-content ul,
 .arabica_news-content ol {
-  margin: 10px 0 10px 20px;
-  padding-left: 20px;
+  margin: 10px 20px 10px 0px;
+  padding-right: 20px;
 }
 
 .arabica_news-content li {
   margin-bottom: 5px;
-}
-
-/* Links */
-.arabica_news-content a {
-  color: #0073e6;
-  text-decoration: none;
-}
-
-.arabica_news-content a:hover {
-  text-decoration: underline;
 }
 
 /* Images */
@@ -1930,6 +1930,7 @@ a.arabica_latest-article-more:hover {
   text-align: right;
   color: #a0a3ac;
   margin-top: 5px;
+  font-size: 14px;
 }
 
 /* Table Styles */
@@ -1944,20 +1945,14 @@ a.arabica_latest-article-more:hover {
 .arabica_news-content td {
   border: 1px solid #ddd;
   padding: 8px;
-  text-align: left;
-}
-
-.arabica_news-content th {
-  background-color: #0073e6;
-  color: white;
 }
 
 /* Code Blocks */
 .arabica_news-content code {
-  font-family: "Courier New", monospace;
   background: #eee;
-  padding: 2px 4px;
-  border-radius: 3px;
+  padding: 3px 7px;
+  border-radius: 5px;
+  font-family: monospace;
 }
 
 /* Mobile View (max-width: 767px) */
@@ -1966,15 +1961,6 @@ a.arabica_latest-article-more:hover {
     display: block;
     overflow-x: auto;
     white-space: nowrap;
-  }
-
-  .arabica_news-content h1,
-  .arabica_news-content h2,
-  .arabica_news-content h3,
-  .arabica_news-content h4,
-  .arabica_news-content h5,
-  .arabica_news-content h6 {
-    font-size: 18px;
   }
 }
 
@@ -1987,15 +1973,35 @@ a.arabica_latest-article-more:hover {
   }
 
   .arabica_news {
-    margin: 40px 0;
+    margin: 50px 0;
   }
-  .arabica_news-content h1,
-  .arabica_news-content h2,
-  .arabica_news-content h3,
+  .arabica_news-content p {
+    margin-bottom: 15px;
+    text-align: justify;
+    font-size: 14px;
+  }
+  .arabica_news-content figcaption {
+    font-size: 10px;
+    margin-top: 3px;
+  }
+
+  .arabica_news-content h2 {
+    font-size: 18px;
+    font-weight: bold;
+  }
+  .arabica_news-content h3 {
+    font-size: 16px;
+    font-weight: 600;
+  }
   .arabica_news-content h4,
   .arabica_news-content h5,
   .arabica_news-content h6 {
-    font-size: 22px;
+    font-size: 14px;
+    font-weight: 500;
+  }
+
+  .arabica_news-content p {
+    font-size: 14px;
   }
 }
 
@@ -2004,17 +2010,48 @@ a.arabica_latest-article-more:hover {
   .arabica_news-content table {
     width: 100%;
   }
-
-  .arabica_news-content h1,
-  .arabica_news-content h2,
-  .arabica_news-content h3,
-  .arabica_news-content h4,
-  .arabica_news-content h5,
-  .arabica_news-content h6 {
-    font-size: 26px;
-  }
 }
 
 .arabica_about-top .arabica_title {
   color: #ffffff;
+}
+
+.arabica_news-content blockquote {
+  position: relative;
+  background: #f9f9f9;
+  padding: 20px 30px;
+  margin: 20px 0;
+  font-style: italic;
+  font-size: 18px;
+  color: #444;
+  border-right: 5px solid #17355d;
+  border-radius: 5px;
+}
+
+.arabica_news-content blockquote::before {
+  content: "\201D"; /* Unicode for left quote */
+  font-family: "Georgia", serif;
+  font-size: 50px;
+  color: #17355d;
+  position: absolute;
+  right: 10px;
+  top: -5px;
+}
+
+.arabica_news-content blockquote::after {
+  content: "\201C"; /* Unicode for right quote */
+  font-family: "Georgia", serif;
+  font-size: 50px;
+  color: #17355d;
+  position: absolute;
+  left: 10px;
+  bottom: -5px;
+}
+
+.arabica_news-content blockquote cite {
+  display: block;
+  text-align: left;
+  font-size: 16px;
+  margin-top: 10px;
+  color: #666;
 }
