@@ -1897,13 +1897,13 @@ a.arabica_latest-article-more:hover {
 }
 .arabica_news-content h3 {
   font-size: 21px;
-  font-weight: 500;
+  font-weight: 600;
 }
 .arabica_news-content h4,
 .arabica_news-content h5,
 .arabica_news-content h6 {
   font-size: 18px;
-  font-weight: 500;
+  font-weight: 600;
 }
 
 /* Lists */
@@ -1991,13 +1991,13 @@ a.arabica_latest-article-more:hover {
   }
   .arabica_news-content h3 {
     font-size: 16px;
-    font-weight: 600;
+    font-weight: bold;
   }
   .arabica_news-content h4,
   .arabica_news-content h5,
   .arabica_news-content h6 {
     font-size: 14px;
-    font-weight: 500;
+    font-weight: bold;
   }
 
   .arabica_news-content p {
