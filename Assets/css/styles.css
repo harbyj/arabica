@@ -1291,6 +1291,9 @@ a.arabica_latest-article-more:hover {
     font-size: 18px;
     font-weight: 600;
   }
+  .arabica_news .arabica_featured-article-title {
+    font-weight: bold;
+  }
   .arabica_latest-article-title {
     font-size: 15px;
     font-weight: 600;
@@ -1859,7 +1862,7 @@ a.arabica_latest-article-more:hover {
 }
 
 .arabica_news .arabica_article-list-date {
-  color: #333333;
+  color: #999999;
 }
 
 .arabica_news-content {
@@ -1983,6 +1986,9 @@ a.arabica_latest-article-more:hover {
     white-space: nowrap;
   }
 
+  .arabica_news {
+    margin: 40px 0;
+  }
   .arabica_news-content h1,
   .arabica_news-content h2,
   .arabica_news-content h3,
