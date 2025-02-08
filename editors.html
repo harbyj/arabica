@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Article Entries Page - Arabica Picks</title>
+    <title>Article Editors Page - Arabica Picks</title>
     <link rel="stylesheet" href="Assets/css/styles.css" />
     <link
       rel="stylesheet"
@@ -11,162 +11,120 @@
       media="all"
     />
     <style>
-      .search-box input {
-        padding: 8px 30px 8px 8px;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-        width: 200px;
-        background: url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/sprites/solid.svg#fa-magnifying-glass")
-          no-repeat right 8px center;
-        background-size: 16px;
+      .arabica_editor-container {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr); /* Default: 3 columns */
+        row-gap: 80px;
+        column-gap: 100px;
+        margin: 50px 80px 80px 80px;
       }
 
-      .dropdown {
+      .arabica_editor-profile {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        width: 100%;
         position: relative;
-        display: inline-block;
       }
 
-      .dropdown button {
-        padding: 8px 12px;
-        background: #fff;
-        border: 1px solid #ccc;
-        cursor: pointer;
-        border-radius: 5px;
-      }
-
-      .dropdown button i {
-        transition: transform 0.3s ease;
-      }
-
-      .dropdown-content {
-        display: none;
-        position: absolute;
-        background: #fff;
-        min-width: 200px;
-        border: 1px solid #ccc;
-        z-index: 1;
-        padding: 10px;
-        max-height: 200px;
-        overflow-y: auto;
-        border-radius: 5px;
-      }
-      .dropdown-content .select-all {
-        border-bottom: 1px solid #dddddd;
-      }
-
-      .dropdown.active .dropdown-content {
-        display: block;
-      }
-
-      .dropdown.active button i {
-        transform: rotate(180deg);
-      }
-
-      .dropdown-content label {
-        display: block;
-        padding: 5px;
-        cursor: pointer;
-      }
-
-      .dropdown-content label.checked {
-        font-weight: bold;
-      }
-
-      .switch-container {
+      .arabica_editor-profile .arabica_editor-image-wrapper {
+        width: 100%;
+        aspect-ratio: 1 / 1;
+        border-radius: 50%;
+        background-color: #17355d; /* Dark blue background */
         display: flex;
         align-items: center;
-        gap: 10px;
-      }
-
-      .switch {
+        justify-content: center;
         position: relative;
-        display: inline-block;
-        width: 40px;
-        height: 20px;
       }
 
-      .switch input {
-        opacity: 0;
-        width: 0;
-        height: 0;
-      }
-
-      .slider {
-        position: absolute;
-        cursor: pointer;
-        top: 0;
-        right: 0;
-        bottom: 0;
-        left: 0;
-        background: #ccc;
-        border-radius: 20px;
-        transition: 0.4s;
-      }
-
-      .slider:before {
-        position: absolute;
-        content: "";
-        height: 16px;
-        width: 16px;
-        background: white;
+      .arabica_editor-profile img {
+        width: 100%; /* Image fits inside the blue background */
+        aspect-ratio: 1 / 1;
         border-radius: 50%;
-        transition: 0.4s;
-        right: 2px;
-        top: 2px;
+        object-fit: cover;
+        filter: grayscale(100%); /* Only the image is black & white */
+        transition: all 0.3s ease-in-out;
+        position: relative;
+        z-index: 1;
       }
 
-      input:checked + .slider {
-        background: #4caf50;
+      .arabica_editor-profile .arabica_editor-image-wrapper::after {
+        content: "";
+        position: absolute;
+        width: 80%;
+        height: 80%;
+        border-radius: 50%;
+        border: 3px solid transparent;
+        transition: all 0.3s ease-in-out;
+        z-index: 2;
       }
 
-      input:checked + .slider:before {
-        transform: translateX(-20px);
+      .arabica_editor-profile:hover .arabica_editor-image-wrapper::after {
+        border-color: #cc9933; /* Yellow border appears 20px inside */
+      }
+
+      .arabica_editor-profile .arabica_editor-info {
+        margin-top: 10px;
+        width: 100%;
+      }
+
+      .arabica_editor-profile .arabica_editor-info p {
+        margin: 5px 0;
+        font-size: 14px;
+        color: #555;
+      }
+
+      @media (min-width: 992px) {
+        .arabica_editor-info {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+        }
+
+        .arabica_editor-info .arabica_editor-text1and2 {
+          display: flex;
+          justify-content: space-between;
+          width: 100%;
+        }
+
+        .arabica_editor-info .arabica_editor-text3 {
+          text-align: center;
+          margin-top: 5px;
+        }
       }
 
       @media (max-width: 991px) {
-        .search-box input {
-          width: 150px;
+        .arabica_editor-info {
+          display: flex;
+          flex-direction: column;
         }
 
-        .dropdown-content {
-          min-width: 150px;
+        .arabica_editor-info .arabica_editor-text1and2 {
+          flex-direction: column;
+          gap: 5px;
+        }
+
+        .arabica_editor-info .arabica_editor-text3 {
+          margin-top: 5px;
+        }
+
+        .arabica_editor-container {
+          row-gap: 40px;
+          column-gap: 50px;
+          margin: 30px 50px 50px 50px;
         }
       }
 
       @media (max-width: 767px) {
-        .arabica_article-list-head.arabica_search-content {
-          flex-direction: column;
-          align-items: flex-start;
+        .arabica_editor-container {
+          grid-template-columns: repeat(2, 1fr);
+          margin: 30px 10px;
+          row-gap: 30px;
+          column-gap: 30px;
         }
-
-        .search-box input {
-          width: 100%;
-        }
-
-        .dropdown-content {
-          position: static;
-          max-height: 150px;
-        }
-      }
-
-      .dropdown-content::-webkit-scrollbar {
-        width: 8px; /* Total width including track */
-      }
-
-      .dropdown-content::-webkit-scrollbar-track {
-        background: #dddddd; /* 2px black line */
-        border-radius: 4px;
-        width: 2px;
-      }
-
-      .dropdown-content::-webkit-scrollbar-thumb {
-        background: #cc9933; /* Color of the scroll thumb */
-        border-radius: 4px;
-        width: 4px; /* Makes it appear like it's on a black line */
-      }
-
-      .dropdown-content::-webkit-scrollbar-button {
-        display: none; /* Hides the scrollbar arrows */
       }
     </style>
   </head>
@@ -382,7 +340,7 @@
 
             <div class="arabica_editors-info">
               <img
-                src="Assets/images/editors-top-img.jpg"
+                src="Assets/images/Assets/images/editors-top-img.jpg"
                 srcset="
                   Assets/images/editors-top-img.jpg  768w,
                   Assets/images/editors-top-img.jpg  991w,
@@ -443,7 +401,95 @@
         </div>
       </div>
       <div class="arabica_article-list">
-        <div class="arabica_fit-container arabica_container"></div>
+        <div class="arabica_fit-container arabica_container">
+          <h2 class="arabica_featured-title">محررو الحقول المعرفية</h2>
+          <div class="arabica_editor-container">
+            <div class="arabica_editor-profile">
+              <div class="arabica_editor-image-wrapper">
+                <img src="Assets/images/editor1_prev_ui.png" alt="خالد الزين" />
+              </div>
+              <div class="arabica_editor-info">
+                <div class="arabica_editor-text1and2">
+                  <p class="arabica_editor-text1">الطب والصيدلة</p>
+                  <p class="arabica_editor-text2">المعلوماتية والهندسة</p>
+                </div>
+                <p class="arabica_editor-text3">علوم الأحياء والكيمياء</p>
+              </div>
+            </div>
+            <div class="arabica_editor-profile">
+              <div class="arabica_editor-image-wrapper">
+                <img
+                  src="Assets/images/editor2_prev_ui.png"
+                  alt="لين الزهراوي"
+                />
+              </div>
+              <div class="arabica_editor-info">
+                <div class="arabica_editor-text1and2">
+                  <p class="arabica_editor-text1">التاريخ والآثار</p>
+                  <p class="arabica_editor-text2">تاريخ العلوم</p>
+                </div>
+                <p class="arabica_editor-text3">العلوم الاجتماعية</p>
+              </div>
+            </div>
+            <div class="arabica_editor-profile">
+              <div class="arabica_editor-image-wrapper">
+                <img
+                  src="Assets/images/editor3_prev_ui.png"
+                  alt="خالد الجبال"
+                />
+              </div>
+              <div class="arabica_editor-info">
+                <div class="arabica_editor-text1and2">
+                  <p class="arabica_editor-text1">الرياضيات</p>
+                  <p class="arabica_editor-text2">الفيزياء</p>
+                </div>
+                <p class="arabica_editor-text3">الكيمياء</p>
+              </div>
+            </div>
+            <div class="arabica_editor-profile">
+              <div class="arabica_editor-image-wrapper">
+                <img src="Assets/images/editor4_prev_ui.png" alt="خالد الزين" />
+              </div>
+              <div class="arabica_editor-info">
+                <div class="arabica_editor-text1and2">
+                  <p class="arabica_editor-text1">الطب والصيدلة</p>
+                  <p class="arabica_editor-text2">المعلوماتية والهندسة</p>
+                </div>
+                <p class="arabica_editor-text3">علوم الأحياء والكيمياء</p>
+              </div>
+            </div>
+            <div class="arabica_editor-profile">
+              <div class="arabica_editor-image-wrapper">
+                <img
+                  src="Assets/images/editor5_prev_ui.png"
+                  alt="لين الزهراوي"
+                />
+              </div>
+              <div class="arabica_editor-info">
+                <div class="arabica_editor-text1and2">
+                  <p class="arabica_editor-text1">التاريخ والآثار</p>
+                  <p class="arabica_editor-text2">تاريخ العلوم</p>
+                </div>
+                <p class="arabica_editor-text3">العلوم الاجتماعية</p>
+              </div>
+            </div>
+            <div class="arabica_editor-profile">
+              <div class="arabica_editor-image-wrapper">
+                <img
+                  src="Assets/images/editor6_prev_ui.png"
+                  alt="خالد الجبال"
+                />
+              </div>
+              <div class="arabica_editor-info">
+                <div class="arabica_editor-text1and2">
+                  <p class="arabica_editor-text1">الرياضيات</p>
+                  <p class="arabica_editor-text2">الفيزياء</p>
+                </div>
+                <p class="arabica_editor-text3">الكيمياء</p>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -972,6 +1018,6 @@
         </div>
       </div>
     </div>
-    <script src="Assets/js/script.js"></script>
+    <script src="Assets/images/Assets/js/script.js"></script>
   </body>
 </html>
