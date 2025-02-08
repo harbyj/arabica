@@ -23,7 +23,7 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        justify-content: center;
+        justify-content: flex-start; /* Align items to the start */
         text-align: center;
         width: 100%;
         position: relative;
@@ -38,6 +38,7 @@
         align-items: center;
         justify-content: center;
         position: relative;
+        margin-bottom: 25px;
       }
 
       .arabica_editor-profile img {
@@ -71,10 +72,33 @@
         width: 100%;
       }
 
-      .arabica_editor-profile .arabica_editor-info p {
+      .arabica_editor-profile .arabica_editor-info span {
         margin: 5px 0;
+      }
+
+      .arabica_editor-info .arabica_editor-info1 {
+        color: #17355d;
         font-size: 14px;
-        color: #555;
+      }
+
+      .arabica_editor-info .arabica_editor-info2 {
+        color: #cc9933;
+        font-size: 12px;
+      }
+
+      .arabica_editor-info .arabica_editor-info3 {
+        color: #17355d;
+        font-size: 25px;
+        font-weight: 600;
+      }
+
+      .arabica_editor-profile .arabica_editor-info span {
+        min-height: 1em; /* Sets a minimum height */
+      }
+
+      .arabica_editor-profile .arabica_editor-info span::before {
+        content: "\200B"; /* Zero-width space to keep the element non-empty */
+        visibility: visible; /* Ensures it's still visible even if empty */
       }
 
       @media (min-width: 992px) {
@@ -84,13 +108,13 @@
           align-items: center;
         }
 
-        .arabica_editor-info .arabica_editor-text1and2 {
+        .arabica_editor-info .arabica_editor-info1and2 {
           display: flex;
           justify-content: space-between;
           width: 100%;
         }
 
-        .arabica_editor-info .arabica_editor-text3 {
+        .arabica_editor-info .arabica_editor-info3 {
           text-align: center;
           margin-top: 5px;
         }
@@ -102,12 +126,12 @@
           flex-direction: column;
         }
 
-        .arabica_editor-info .arabica_editor-text1and2 {
+        .arabica_editor-info .arabica_editor-info1and2 {
           flex-direction: column;
           gap: 5px;
         }
 
-        .arabica_editor-info .arabica_editor-text3 {
+        .arabica_editor-info .arabica_editor-info3 {
           margin-top: 5px;
         }
 
@@ -115,6 +139,10 @@
           row-gap: 40px;
           column-gap: 50px;
           margin: 30px 50px 50px 50px;
+        }
+
+        .arabica_editor-profile .arabica_editor-info span {
+          display: block;
         }
       }
 
@@ -404,89 +432,122 @@
         <div class="arabica_fit-container arabica_container">
           <h2 class="arabica_featured-title">محررو الحقول المعرفية</h2>
           <div class="arabica_editor-container">
+            <!-- Profile 1 (far right) -->
             <div class="arabica_editor-profile">
-              <div class="arabica_editor-image-wrapper">
-                <img src="Assets/images/editor1_prev_ui.png" alt="خالد الزين" />
-              </div>
-              <div class="arabica_editor-info">
-                <div class="arabica_editor-text1and2">
-                  <p class="arabica_editor-text1">الطب والصيدلة</p>
-                  <p class="arabica_editor-text2">المعلوماتية والهندسة</p>
+              <a href="#">
+                <div class="arabica_editor-image-wrapper">
+                  <img
+                    src="Assets/images/editor1_prev_ui.png"
+                    alt="خالد الجبال"
+                  />
                 </div>
-                <p class="arabica_editor-text3">علوم الأحياء والكيمياء</p>
-              </div>
+                <div class="arabica_editor-info">
+                  <div class="arabica_editor-info1and2">
+                    <span class="arabica_editor-info1"
+                      >علوم الأحياء والكيمياء</span
+                    >
+                    <span class="arabica_editor-info2">محرر علمي</span>
+                  </div>
+                  <span class="arabica_editor-info3">خالد الجبال</span>
+                </div>
+              </a>
             </div>
+
+            <!-- Profile 2 -->
             <div class="arabica_editor-profile">
-              <div class="arabica_editor-image-wrapper">
-                <img
-                  src="Assets/images/editor2_prev_ui.png"
-                  alt="لين الزهراوي"
-                />
-              </div>
-              <div class="arabica_editor-info">
-                <div class="arabica_editor-text1and2">
-                  <p class="arabica_editor-text1">التاريخ والآثار</p>
-                  <p class="arabica_editor-text2">تاريخ العلوم</p>
+              <a href="#">
+                <div class="arabica_editor-image-wrapper">
+                  <img
+                    src="Assets/images/editor2_prev_ui.png"
+                    alt="لين الزهراوي"
+                  />
                 </div>
-                <p class="arabica_editor-text3">العلوم الاجتماعية</p>
-              </div>
+                <div class="arabica_editor-info">
+                  <div class="arabica_editor-info1and2">
+                    <span class="arabica_editor-info1"
+                      >المعلوماتية والحوسبة</span
+                    >
+                    <span class="arabica_editor-info2">محرر علمي</span>
+                  </div>
+                  <span class="arabica_editor-info3">لين الزهراوي</span>
+                </div>
+              </a>
             </div>
+
+            <!-- Profile 3 -->
             <div class="arabica_editor-profile">
-              <div class="arabica_editor-image-wrapper">
-                <img
-                  src="Assets/images/editor3_prev_ui.png"
-                  alt="خالد الجبال"
-                />
-              </div>
-              <div class="arabica_editor-info">
-                <div class="arabica_editor-text1and2">
-                  <p class="arabica_editor-text1">الرياضيات</p>
-                  <p class="arabica_editor-text2">الفيزياء</p>
+              <a href="#">
+                <div class="arabica_editor-image-wrapper">
+                  <img
+                    src="Assets/images/editor3_prev_ui.png"
+                    alt="خالد الزين"
+                  />
                 </div>
-                <p class="arabica_editor-text3">الكيمياء</p>
-              </div>
+                <div class="arabica_editor-info">
+                  <div class="arabica_editor-info1and2">
+                    <span class="arabica_editor-info1">الطب والصيدلة</span>
+                    <span class="arabica_editor-info2">محرر علمي</span>
+                  </div>
+                  <span class="arabica_editor-info3">خالد الزين</span>
+                </div>
+              </a>
             </div>
+
+            <!-- Profile 4 -->
             <div class="arabica_editor-profile">
-              <div class="arabica_editor-image-wrapper">
-                <img src="Assets/images/editor4_prev_ui.png" alt="خالد الزين" />
-              </div>
-              <div class="arabica_editor-info">
-                <div class="arabica_editor-text1and2">
-                  <p class="arabica_editor-text1">الطب والصيدلة</p>
-                  <p class="arabica_editor-text2">المعلوماتية والهندسة</p>
+              <a href="#">
+                <div class="arabica_editor-image-wrapper">
+                  <img
+                    src="Assets/images/editor4_prev_ui.png"
+                    alt="خالد الجبال"
+                  />
                 </div>
-                <p class="arabica_editor-text3">علوم الأحياء والكيمياء</p>
-              </div>
+                <div class="arabica_editor-info">
+                  <div class="arabica_editor-info1and2">
+                    <span class="arabica_editor-info1">الرياضيات</span>
+                    <span class="arabica_editor-info2">محرر علمي</span>
+                  </div>
+                  <span class="arabica_editor-info3">خالد الجبال</span>
+                </div>
+              </a>
             </div>
+
+            <!-- Profile 5 -->
             <div class="arabica_editor-profile">
-              <div class="arabica_editor-image-wrapper">
-                <img
-                  src="Assets/images/editor5_prev_ui.png"
-                  alt="لين الزهراوي"
-                />
-              </div>
-              <div class="arabica_editor-info">
-                <div class="arabica_editor-text1and2">
-                  <p class="arabica_editor-text1">التاريخ والآثار</p>
-                  <p class="arabica_editor-text2">تاريخ العلوم</p>
+              <a href="#">
+                <div class="arabica_editor-image-wrapper">
+                  <img
+                    src="Assets/images/editor5_prev_ui.png"
+                    alt="لين الزهراوي"
+                  />
                 </div>
-                <p class="arabica_editor-text3">العلوم الاجتماعية</p>
-              </div>
+                <div class="arabica_editor-info">
+                  <div class="arabica_editor-info1and2">
+                    <span class="arabica_editor-info1">التاريخ والآثار</span>
+                    <span class="arabica_editor-info2">محرر علمي</span>
+                  </div>
+                  <span class="arabica_editor-info3">لين الزهراوي</span>
+                </div>
+              </a>
             </div>
+
+            <!-- Profile 6 (far left) -->
             <div class="arabica_editor-profile">
-              <div class="arabica_editor-image-wrapper">
-                <img
-                  src="Assets/images/editor6_prev_ui.png"
-                  alt="خالد الجبال"
-                />
-              </div>
-              <div class="arabica_editor-info">
-                <div class="arabica_editor-text1and2">
-                  <p class="arabica_editor-text1">الرياضيات</p>
-                  <p class="arabica_editor-text2">الفيزياء</p>
+              <a href="#">
+                <div class="arabica_editor-image-wrapper">
+                  <img
+                    src="Assets/images/editor6_prev_ui.png"
+                    alt="خالد الزين"
+                  />
                 </div>
-                <p class="arabica_editor-text3">الكيمياء</p>
-              </div>
+                <div class="arabica_editor-info">
+                  <div class="arabica_editor-info1and2">
+                    <span class="arabica_editor-info1">الطب والصيدلة</span>
+                    <span class="arabica_editor-info2">محرر علمي</span>
+                  </div>
+                  <span class="arabica_editor-info3">خالد الزين</span>
+                </div>
+              </a>
             </div>
           </div>
         </div>
