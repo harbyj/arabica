@@ -793,6 +793,29 @@ hr.arabica_tab-show {
     center;
   background-size: cover; /* Ensures the image covers the entire background */
 }
+
+.arabica_editors-top {
+  padding: 110px 0 70px 0;
+  background: #16365e;
+  color: #ffffff;
+}
+.arabica_editors-top h1 {
+  text-align: center;
+  color: #ffffff;
+}
+
+.arabica_editors-top span.arabica_title {
+  text-align: right;
+  color: #ffffff;
+}
+
+.arabica_editors-top p {
+  text-align: justify;
+  color: #ffffff;
+  margin-bottom: 10px;
+  line-height: 1.8;
+}
+
 .arabica_main-about h3,
 .arabica_title {
   font-size: 35px;
@@ -1887,6 +1910,7 @@ a.arabica_latest-article-more:hover {
 .arabica_news-content p {
   margin-bottom: 20px;
   text-align: justify;
+  line-height: 1.8;
 }
 
 /* Headings */
@@ -2064,4 +2088,33 @@ a.arabica_latest-article-more:hover {
   font-size: 16px;
   margin-top: 10px;
   color: #666;
+}
+.arabica_editors-info {
+  max-width: 100%;
+  overflow: hidden; /* Ensures the content stays within the container */
+}
+
+.arabica_editors-info img {
+  float: left; /* Floats the image to the left */
+  margin-right: 6%; /* Adds space between the image and the text */
+  margin-bottom: 6%; /* Adds space below the image */
+  max-width: 100%; /* Ensures the image fits within the screen */
+  height: auto; /* Maintains the image's aspect ratio */
+  box-shadow: 30px 30px 30px rgba(0, 0, 0, 0.3);
+  position: relative; /* Needed for overlay positioning */
+}
+@media (max-width: 991px) {
+  .arabica_editors-info img {
+    margin-right: 4%;
+    margin-bottom: 4%;
+  }
+}
+@media (max-width: 767px) {
+  .arabica_editors-info img {
+    margin: 0 0 20px 0;
+    width: 100%;
+  }
+  .arabica_editors-top p {
+    text-align: center;
+  }
 }
