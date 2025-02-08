@@ -1661,9 +1661,11 @@ a.arabica_latest-article-more:hover {
 #h1-off {
   display: none;
 }
-.arabica_article-list {
+.arabica_article-list,
+.arabica_editor-content {
   padding: 80px 0 15px 0;
 }
+
 .arabica_article-list .arabica_featured-article {
   border-bottom: 1px solid #cccccc;
 
@@ -1751,6 +1753,10 @@ a.arabica_latest-article-more:hover {
   }
   .arabica_article-list {
     padding: 50px 0 15px 0;
+  }
+
+  .arabica_editor-content {
+    padding: 50px 0 0 0;
   }
 }
 
@@ -2130,6 +2136,6 @@ a.arabica_latest-article-more:hover {
     font-size: 14px;
   }
   .arabica_editors-top {
-    padding: 50px 0 20px 0;
+    padding: 50px 0 30px 0;
   }
 }
