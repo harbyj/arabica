@@ -928,7 +928,7 @@ span.arabica_date {
 
   .arabica_main-about h3,
   .arabica_title {
-    font-size: 20px;
+    font-size: 21px;
     font-weight: bold;
   }
 
@@ -2113,17 +2113,17 @@ a.arabica_latest-article-more:hover {
   }
 
   .arabica_editors-info {
-    padding: 15px;
+    padding: 10px;
   }
   .arabica_editors-top h1 {
-    padding: 0 15px;
+    padding: 0 10px;
   }
 }
 @media (max-width: 767px) {
   .arabica_editors-info img {
     margin: 0 0 30px 0;
     width: 100%;
-    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.7);
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.7);
   }
   .arabica_editors-top p {
     text-align: center;
