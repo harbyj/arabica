@@ -2097,7 +2097,7 @@ a.arabica_latest-article-more:hover {
 .arabica_editors-info img {
   float: left; /* Floats the image to the left */
   margin-right: 6%; /* Adds space between the image and the text */
-  margin-bottom: 6%; /* Adds space below the image */
+  margin-bottom: 4%; /* Adds space below the image */
   max-width: 100%; /* Ensures the image fits within the screen */
   height: auto; /* Maintains the image's aspect ratio */
   box-shadow: 30px 30px 30px rgba(0, 0, 0, 0.3);
@@ -2109,7 +2109,7 @@ a.arabica_latest-article-more:hover {
     margin-bottom: 4%;
   }
   .arabica_editors-top {
-    padding: 65px 0 50px 0;
+    padding: 65px 0 45px 0;
   }
 
   .arabica_editors-info {
