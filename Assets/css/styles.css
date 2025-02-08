@@ -2108,6 +2108,16 @@ a.arabica_latest-article-more:hover {
     margin-right: 4%;
     margin-bottom: 4%;
   }
+  .arabica_editors-top {
+    padding: 65px 0 50px 0;
+  }
+
+  .arabica_editors-info {
+    padding: 15px;
+  }
+  .arabica_editors-top h1 {
+    padding: 0 15px;
+  }
 }
 @media (max-width: 767px) {
   .arabica_editors-info img {
@@ -2117,11 +2127,9 @@ a.arabica_latest-article-more:hover {
   }
   .arabica_editors-top p {
     text-align: center;
+    font-size: 14px;
   }
-  .arabica_editors-info {
-    padding: 15px;
-  }
-  .arabica_editors-top h1 {
-    padding: 0 15px;
+  .arabica_editors-top {
+    padding: 50px 0 20px 0;
   }
 }
