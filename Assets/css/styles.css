@@ -2111,10 +2111,17 @@ a.arabica_latest-article-more:hover {
 }
 @media (max-width: 767px) {
   .arabica_editors-info img {
-    margin: 0 0 20px 0;
+    margin: 0 0 30px 0;
     width: 100%;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.7);
   }
   .arabica_editors-top p {
     text-align: center;
+  }
+  .arabica_editors-info {
+    padding: 15px;
+  }
+  .arabica_editors-top h1 {
+    padding: 0 15px;
   }
 }
