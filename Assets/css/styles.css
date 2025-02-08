@@ -482,6 +482,10 @@ h6 {
 }
 hr {
   opacity: 1;
+  border-bottom: 1px solid #cccccc;
+  border-top: 0;
+  border-left: 0;
+  border-right: 0;
 }
 .arabica_footer hr {
   margin: 30px 0;
@@ -550,6 +554,13 @@ hr.arabica_tab-show {
   hr.arabica_tab-show {
     margin-top: 0;
     display: block;
+  }
+  .arabica_editor-line {
+    text-align: center;
+  }
+  .arabica_editor-line hr {
+    width: 60%;
+    margin: 0 auto; /* Centers the hr horizontally */
   }
 }
 
