@@ -367,12 +367,11 @@ h6 {
 /* Close Button */
 .menu-close {
   position: absolute;
-  top: 22px;
+  top: 24px;
   right: 24px;
   background: none;
   border: none;
   color: #ffffff;
-  font-size: 24px;
   cursor: pointer;
 }
 

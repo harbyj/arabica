@@ -220,7 +220,6 @@
         overflow: hidden;
         width: 1000px;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        direction: rtl;
         position: relative;
         transform: scale(0.8);
         transition: transform 0.4s ease;
@@ -234,7 +233,7 @@
       .modal-header,
       .modal-body,
       .modal-footer {
-        padding: 20px;
+        padding-top: 20px;
       }
 
       .modal-header {
@@ -244,54 +243,68 @@
       }
 
       .close {
-        font-size: 24px;
-        cursor: pointer;
-        color: #333;
         transition: color 0.3s ease;
-      }
-
-      .close:hover {
-        color: #f44336;
+        position: absolute;
+        top: 24px;
+        left: 24px;
+        background: #17355d;
+        border: none;
+        color: #ffffff;
+        cursor: pointer;
+        border-radius: 50%;
+        height: 35px;
+        width: 35px;
       }
 
       .editor-details {
         flex: 1;
-        padding: 20px;
-      }
-
-      .editor-details h2 {
-        color: #002b4e;
-        margin: 0 0 10px;
-      }
-
-      .editor-details h4 {
-        color: #f39c12;
-        margin: 0 0 5px;
-      }
-
-      .editor-details h5 {
-        color: #555;
-        margin: 0 0 15px;
+        padding: 30px 40px 30px 30px;
+        color: #333333;
       }
 
       .editor-bio p {
         margin: 0 0 10px;
-        color: #333;
+        color: #333333;
+        line-height: 1.8;
+        font-size: 17px;
       }
-
+      .modal-editor-field {
+        display: inline-flex;
+        align-items: center;
+        padding: 0 0 0 10px; /* Adds spacing */
+      }
+      .modal-separator {
+        color: #cccccc;
+        padding: 0 10px;
+      }
+      .modal-editor-title {
+        padding-right: 10px; /* Space between text and border */
+      }
+      .modal-editor-name {
+        font-size: 30px;
+        display: block;
+        font-weight: 600;
+        margin: 10px 0 20px 0;
+      }
+      .modal-editor-title,
+      .modal-editor-region,
+      .modal-editor-field,
+      .modal-separator {
+        font-size: 15px;
+      }
       .editor-image {
-        background-color: #002b4e;
-        padding: 10px;
+        background-color: #17355d;
+        padding: 20px 30px;
         text-align: center;
+        border-radius: 12px;
       }
 
       .editor-image img {
-        width: 150px;
-        border-radius: 8px;
+        width: 250px;
       }
 
       .modal-footer {
-        background-color: #002b4e;
+        background-color: #17355d;
         text-align: center;
       }
 
@@ -302,7 +315,7 @@
       }
 
       .modal-footer a:hover {
-        color: #f39c12;
+        color: #cc9933;
       }
       .arabica_editor-info4,
       .arabica_editor-info5 {
@@ -316,6 +329,38 @@
           flex-direction: column-reverse;
           width: 100%;
         }
+        .modal-footer a {
+          font-size: 13px;
+          font-weight: lighter;
+        }
+        .modal-editor-title,
+        .modal-editor-region,
+        .modal-editor-field,
+        .modal-separator {
+          font-size: 13px;
+          font-weight: lighter;
+          color: #747474;
+        }
+        .modal-editor-name {
+          font-size: 16px;
+          font-weight: 600;
+          margin: 5px 0 10px 0;
+        }
+        .editor-bio p {
+          margin: 0 0 10px;
+          color: #747474;
+          line-height: 1.6;
+          font-size: 14px;
+        }
+        .editor-details {
+          padding: 20px 30px 20px 20px;
+        }
+        .modal-separator {
+          padding: 0;
+        }
+        .editor-image img {
+          width: 200px;
+        }
       }
       @media (max-width: 767px) {
         .modal {
@@ -325,6 +370,17 @@
       .modal img {
         will-change: transform, opacity;
         transform: translateZ(0);
+      }
+      .contact-btn {
+        display: inline-flex; /* Keeps it inline and uses flexbox */
+        align-items: center; /* Centers items vertically */
+        text-decoration: none;
+        color: inherit;
+        gap: 10px; /* Adds space between text and icon */
+      }
+      .contact-btn i {
+        color: #cc9933;
+        font-size: 20px;
       }
     </style>
   </head>
@@ -986,12 +1042,28 @@
       <!-- The Modal -->
       <div id="editorModal" class="modal">
         <div class="modal-content">
-          <span class="close">&times;</span>
+          <button class="close">
+            <svg
+              class="menu-close-icon"
+              xmlns="http://www.w3.org/2000/svg"
+              width="22"
+              height="22"
+              viewBox="0 0 23.81 23.804"
+            >
+              <path
+                data-name="Icon ionic-ios-close"
+                d="M26.011,23.191l8.5-8.5A1.993,1.993,0,0,0,31.7,11.868l-8.5,8.5-8.5-8.5a1.993,1.993,0,1,0-2.818,2.818l8.5,8.5-8.5,8.5a1.993,1.993,0,0,0,2.818,2.818l8.5-8.5,8.5,8.5a1.993,1.993,0,0,0,2.818-2.818Z"
+                transform="translate(-11.285 -11.289)"
+                fill="#fff"
+              ></path>
+            </svg>
+          </button>
           <div class="editor-details">
-            <h2 id="editorName"></h2>
-            <h2 id="editorRegion"></h2>
-            <h4 id="editorTitle"></h4>
-            <h5 id="editorField"></h5>
+            <span id="editorField" class="modal-editor-field"></span>
+            <span class="modal-separator">|</span>
+            <span id="editorTitle" class="modal-editor-title"></span>
+            <span id="editorRegion" class="modal-editor-region"></span>
+            <span id="editorName" class="modal-editor-name"></span>
             <div class="editor-bio">
               <div id="editorBio"></div>
             </div>
@@ -1000,7 +1072,7 @@
             <img id="editorImage" src="" alt="" />
             <div class="modal-footer">
               <a id="editorEmail" href="#" target="_blank" class="contact-btn"
-                >✉️ Contact</a
+                >Contact</a
               >
             </div>
           </div>
@@ -1058,7 +1130,7 @@
             if (emailElement && emailElement.textContent.trim() !== "") {
               const email = emailElement.textContent;
               editorEmail.href = `mailto:${email}`;
-              editorEmail.innerHTML = `✉️ ${email}`;
+              editorEmail.innerHTML = `${email} <i class="fa-solid fa-envelope"></i>`;
             } else {
               editorEmail.href = "#";
               editorEmail.innerHTML = "";
