@@ -1672,11 +1672,13 @@ a.arabica_latest-article-more:hover {
 #h1-off {
   display: none;
 }
-.arabica_article-list,
-.arabica_editor-content {
+.arabica_article-list {
   padding: 80px 0 15px 0;
 }
 
+.arabica_editor-content {
+  padding: 100px 0 15px 0;
+}
 .arabica_article-list .arabica_featured-article {
   border-bottom: 1px solid #cccccc;
 
