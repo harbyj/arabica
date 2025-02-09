@@ -234,7 +234,7 @@
         padding-top: 20px;
       }
 
-      .close {
+      .modal-close {
         transition: color 0.3s ease;
         position: absolute;
         top: 24px;
@@ -248,13 +248,13 @@
         width: 35px;
       }
 
-      .editor-details {
+      .modal-editor-details {
         flex: 1;
         padding: 30px 40px 30px 30px;
         color: #333333;
       }
 
-      .editor-bio p {
+      .modal-editor-bio p {
         margin: 0 0 10px;
         color: #333333;
         line-height: 1.8;
@@ -284,14 +284,14 @@
       .modal-separator {
         font-size: 15px;
       }
-      .editor-image {
+      .modal-editor-image {
         background-color: #17355d;
         padding: 20px 30px;
         text-align: center;
         border-radius: 12px;
       }
 
-      .editor-image img {
+      .modal-editor-image img {
         width: 250px;
       }
 
@@ -338,25 +338,25 @@
           font-weight: 600;
           margin: 5px 0 15px 0;
         }
-        .editor-bio p {
+        .modal-editor-bio p {
           margin: 0 0 10px;
           color: #747474;
           line-height: 1.6;
           font-size: 13px;
         }
-        .editor-details {
+        .modal-editor-details {
           padding: 20px 30px 20px 20px;
         }
         .modal-separator {
           padding: 0;
         }
-        .editor-image img {
+        .modal-editor-image img {
           width: 200px;
         }
         .modal-footer {
           padding-top: 10px;
         }
-        .close {
+        .modal-close {
           top: 18px;
           left: 18px;
         }
@@ -370,14 +370,14 @@
         will-change: transform, opacity;
         transform: translateZ(0);
       }
-      .contact-btn {
+      .modal-contact-btn {
         display: inline-flex; /* Keeps it inline and uses flexbox */
         align-items: center; /* Centers items vertically */
         text-decoration: none;
         color: inherit;
         gap: 10px; /* Adds space between text and icon */
       }
-      .contact-btn i {
+      .modal-contact-btn i {
         color: #cc9933;
         font-size: 20px;
       }
@@ -1041,7 +1041,7 @@
       <!-- The Modal -->
       <div id="editorModal" class="modal">
         <div class="modal-content">
-          <button class="close">
+          <button class="modal-close">
             <svg
               class="modal-close-icon"
               xmlns="http://www.w3.org/2000/svg"
@@ -1057,20 +1057,24 @@
               ></path>
             </svg>
           </button>
-          <div class="editor-details">
+          <div class="modal-editor-details">
             <span id="editorField" class="modal-editor-field"></span>
             <span class="modal-separator">|</span>
             <span id="editorTitle" class="modal-editor-title"></span>
             <span id="editorRegion" class="modal-editor-region"></span>
             <span id="editorName" class="modal-editor-name"></span>
-            <div class="editor-bio">
+            <div class="modal-editor-bio">
               <div id="editorBio"></div>
             </div>
           </div>
-          <div class="editor-image">
+          <div class="modal-editor-image">
             <img id="editorImage" src="" alt="" />
             <div class="modal-footer">
-              <a id="editorEmail" href="#" target="_blank" class="contact-btn"
+              <a
+                id="editorEmail"
+                href="#"
+                target="_blank"
+                class="modal-contact-btn"
                 >Contact</a
               >
             </div>
@@ -1080,7 +1084,7 @@
 
       <script>
         const modal = document.getElementById("editorModal");
-        const closeModalBtn = document.querySelector(".close");
+        const closeModalBtn = document.querySelector(".modal-close");
         const editorElements = {
           editorName: document.getElementById("editorName"),
           editorRegion: document.getElementById("editorRegion"),
