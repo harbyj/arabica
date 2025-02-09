@@ -230,16 +230,8 @@
         transform: scale(1);
       }
 
-      .modal-header,
-      .modal-body,
       .modal-footer {
         padding-top: 20px;
-      }
-
-      .modal-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
       }
 
       .close {
@@ -309,7 +301,7 @@
       }
 
       .modal-footer a {
-        color: #fff;
+        color: #ffffff;
         text-decoration: none;
         font-size: 16px;
       }
@@ -330,27 +322,27 @@
           width: 100%;
         }
         .modal-footer a {
-          font-size: 13px;
+          font-size: 12px;
           font-weight: lighter;
         }
         .modal-editor-title,
         .modal-editor-region,
         .modal-editor-field,
         .modal-separator {
-          font-size: 13px;
+          font-size: 12px;
           font-weight: lighter;
           color: #747474;
         }
         .modal-editor-name {
-          font-size: 16px;
+          font-size: 15px;
           font-weight: 600;
-          margin: 5px 0 10px 0;
+          margin: 5px 0 15px 0;
         }
         .editor-bio p {
           margin: 0 0 10px;
           color: #747474;
           line-height: 1.6;
-          font-size: 14px;
+          font-size: 13px;
         }
         .editor-details {
           padding: 20px 30px 20px 20px;
@@ -360,6 +352,9 @@
         }
         .editor-image img {
           width: 200px;
+        }
+        .modal-footer {
+          padding-top: 10px;
         }
       }
       @media (max-width: 767px) {
@@ -1082,13 +1077,24 @@
       <script>
         const modal = document.getElementById("editorModal");
         const closeModalBtn = document.querySelector(".close");
-        const editorName = document.getElementById("editorName");
-        const editorRegion = document.getElementById("editorRegion");
-        const editorTitle = document.getElementById("editorTitle");
-        const editorField = document.getElementById("editorField");
-        const editorBio = document.getElementById("editorBio");
-        const editorImage = document.getElementById("editorImage");
-        const editorEmail = document.getElementById("editorEmail");
+        const editorElements = {
+          editorName: document.getElementById("editorName"),
+          editorRegion: document.getElementById("editorRegion"),
+          editorTitle: document.getElementById("editorTitle"),
+          editorField: document.getElementById("editorField"),
+          editorBio: document.getElementById("editorBio"),
+          editorImage: document.getElementById("editorImage"),
+          editorEmail: document.getElementById("editorEmail"),
+        };
+
+        // Function to hide empty or missing elements
+        const hideIfEmpty = (element, displayType) => {
+          if (!element || element.textContent.trim() === "") {
+            element.style.display = "none";
+          } else {
+            element.style.display = displayType;
+          }
+        };
 
         document.querySelectorAll(".editor-link").forEach((link) => {
           link.addEventListener("click", function (event) {
@@ -1096,47 +1102,86 @@
 
             const editorInfo = link.querySelector(".arabica_editor-info");
 
-            // Helper function to safely update content
-            const updateContent = (element, selector) => {
+            // Function to update content and set display type
+            const updateContent = (element, selector, displayType) => {
               const target = editorInfo.querySelector(selector);
               if (element && target && target.textContent.trim() !== "") {
                 element.textContent = target.textContent;
+                element.style.display = displayType;
               } else if (element) {
                 element.textContent = "";
+                element.style.display = "none";
               }
             };
 
-            updateContent(editorName, "#editor-name");
-            updateContent(editorRegion, "#editor-region");
-            updateContent(editorTitle, "#editor-title");
-            updateContent(editorField, "#editor-field");
+            updateContent(editorElements.editorName, "#editor-name", "block");
+            updateContent(
+              editorElements.editorRegion,
+              "#editor-region",
+              "inline-block"
+            );
+            updateContent(
+              editorElements.editorTitle,
+              "#editor-title",
+              "inline-block"
+            );
+            updateContent(
+              editorElements.editorField,
+              "#editor-field",
+              "inline-block"
+            );
 
+            // Handle Bio
             const bio = editorInfo.querySelector("#editor-bio");
-            editorBio.innerHTML =
-              bio && bio.textContent.trim() !== ""
-                ? `<p>${bio.textContent}</p>`
-                : "";
-
-            const image = link.querySelector("#editor-image");
-            if (image) {
-              editorImage.src = ""; // Temporarily clear src to force repaint
-              setTimeout(() => {
-                editorImage.src = image.src;
-                editorImage.alt = editorName.textContent || image.alt;
-              }, 50);
+            if (bio && bio.textContent.trim() !== "") {
+              editorElements.editorBio.innerHTML = `<p>${bio.textContent}</p>`;
+              editorElements.editorBio.style.display = "inline-block";
+            } else {
+              editorElements.editorBio.innerHTML = "";
+              editorElements.editorBio.style.display = "none";
             }
 
+            // Handle Image
+            const image = link.querySelector("#editor-image");
+            if (image) {
+              editorElements.editorImage.src = ""; // Clear previous image
+              setTimeout(() => {
+                editorElements.editorImage.src = image.src;
+                editorElements.editorImage.alt =
+                  editorElements.editorName.textContent || image.alt;
+                editorElements.editorImage.style.display = "inline-block";
+              }, 50);
+            } else {
+              editorElements.editorImage.style.display = "none";
+            }
+
+            // Handle Email (set to inline-flex)
             const emailElement = editorInfo.querySelector("#editor-email");
             if (emailElement && emailElement.textContent.trim() !== "") {
               const email = emailElement.textContent;
-              editorEmail.href = `mailto:${email}`;
-              editorEmail.innerHTML = `${email} <i class="fa-solid fa-envelope"></i>`;
+              editorElements.editorEmail.href = `mailto:${email}`;
+              editorElements.editorEmail.innerHTML = `${email} <i class="fa-solid fa-envelope"></i>`;
+              editorElements.editorEmail.style.display = "inline-flex";
+              editorElements.editorEmail.style.alignItems = "center"; // Ensure icon aligns with text
+              editorElements.editorEmail.style.gap = "10px"; // Add spacing between text and icon
             } else {
-              editorEmail.href = "#";
-              editorEmail.innerHTML = "";
+              editorElements.editorEmail.href = "#";
+              editorElements.editorEmail.innerHTML = "";
+              editorElements.editorEmail.style.display = "none";
             }
 
-            // Prevent body from scrolling and interactions when modal is open
+            // Hide empty elements
+            Object.entries(editorElements).forEach(([key, element]) => {
+              const displayType =
+                key === "editorName"
+                  ? "block"
+                  : key === "editorEmail"
+                  ? "inline-flex"
+                  : "inline-block";
+              hideIfEmpty(element, displayType);
+            });
+
+            // Prevent body scrolling when modal is open
             document.body.style.overflow = "hidden";
             document.body.classList.add("frozen");
 
@@ -1151,20 +1196,19 @@
           document.body.classList.remove("frozen"); // Enable interactions
         }
 
+        // Close modal on button click, background click, or ESC key
         closeModalBtn.addEventListener("click", closeModal);
-
-        window.addEventListener("click", function (event) {
-          if (event.target === modal) {
-            closeModal();
-          }
-        });
-
-        // Close modal with ESC key
-        window.addEventListener("keydown", function (event) {
-          if (event.key === "Escape" && modal.classList.contains("show")) {
-            closeModal();
-          }
-        });
+        window.addEventListener(
+          "click",
+          (event) => event.target === modal && closeModal()
+        );
+        window.addEventListener(
+          "keydown",
+          (event) =>
+            event.key === "Escape" &&
+            modal.classList.contains("show") &&
+            closeModal()
+        );
       </script>
     </div>
 
