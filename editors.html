@@ -31,6 +31,7 @@
 
       .arabica_editor-profile .arabica_editor-image-wrapper {
         width: 100%;
+        max-width: 250px;
         aspect-ratio: 1 / 1;
         border-radius: 50%;
         background-color: #17355d; /* Dark blue background */
@@ -227,6 +228,7 @@
         position: relative;
         transform: scale(0.8);
         transition: transform 0.4s ease;
+        flex-direction: row-reverse;
       }
 
       .modal.show .modal-content {
@@ -309,6 +311,11 @@
       .arabica_editor-info4,
       .arabica_editor-info5 {
         display: none !important;
+      }
+      @media (max-width: 991px) {
+        .modal-content {
+          flex-direction: column-reverse;
+        }
       }
     </style>
   </head>
@@ -594,7 +601,7 @@
                 <div class="arabica_editor-image-wrapper">
                   <img
                     id="editor-image"
-                    src="Assets/images/editor1_prev_ui.png"
+                    src="Assets/images/editor-colored.png"
                     alt="خالد الجبال"
                   />
                 </div>
@@ -608,9 +615,6 @@
                     >
                   </div>
                   <span class="arabica_editor-info3" id="editor-name"
-                    >خالد الجبال</span
-                  >
-                  <span class="arabica_editor-info3" id="editor-region"
                     >خالد الجبال</span
                   >
                   <span class="arabica_editor-info4" id="editor-email"
