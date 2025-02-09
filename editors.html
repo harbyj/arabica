@@ -356,6 +356,10 @@
         .modal-footer {
           padding-top: 10px;
         }
+        .close {
+          top: 18px;
+          left: 18px;
+        }
       }
       @media (max-width: 767px) {
         .modal {
@@ -1085,6 +1089,7 @@
           editorBio: document.getElementById("editorBio"),
           editorImage: document.getElementById("editorImage"),
           editorEmail: document.getElementById("editorEmail"),
+          separator: document.querySelector(".modal-separator"),
         };
 
         // Function to hide empty or missing elements
@@ -1096,10 +1101,21 @@
           }
         };
 
+        // Function to toggle the modal-separator visibility
+        const updateSeparator = () => {
+          const editorField = editorElements.editorField.textContent.trim();
+          const editorTitle = editorElements.editorTitle.textContent.trim();
+
+          if (editorField && editorTitle) {
+            editorElements.separator.style.display = "inline";
+          } else {
+            editorElements.separator.style.display = "none";
+          }
+        };
+
         document.querySelectorAll(".editor-link").forEach((link) => {
           link.addEventListener("click", function (event) {
             event.preventDefault();
-
             const editorInfo = link.querySelector(".arabica_editor-info");
 
             // Function to update content and set display type
@@ -1162,8 +1178,8 @@
               editorElements.editorEmail.href = `mailto:${email}`;
               editorElements.editorEmail.innerHTML = `${email} <i class="fa-solid fa-envelope"></i>`;
               editorElements.editorEmail.style.display = "inline-flex";
-              editorElements.editorEmail.style.alignItems = "center"; // Ensure icon aligns with text
-              editorElements.editorEmail.style.gap = "10px"; // Add spacing between text and icon
+              editorElements.editorEmail.style.alignItems = "center";
+              editorElements.editorEmail.style.gap = "10px";
             } else {
               editorElements.editorEmail.href = "#";
               editorElements.editorEmail.innerHTML = "";
@@ -1172,14 +1188,20 @@
 
             // Hide empty elements
             Object.entries(editorElements).forEach(([key, element]) => {
-              const displayType =
-                key === "editorName"
-                  ? "block"
-                  : key === "editorEmail"
-                  ? "inline-flex"
-                  : "inline-block";
-              hideIfEmpty(element, displayType);
+              if (key !== "separator") {
+                // Avoid hiding separator here
+                const displayType =
+                  key === "editorName"
+                    ? "block"
+                    : key === "editorEmail"
+                    ? "inline-flex"
+                    : "inline-block";
+                hideIfEmpty(element, displayType);
+              }
             });
+
+            // Check separator visibility after updates
+            updateSeparator();
 
             // Prevent body scrolling when modal is open
             document.body.style.overflow = "hidden";
