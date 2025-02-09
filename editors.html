@@ -313,6 +313,17 @@
       .arabica_editor-info5 {
         display: none !important;
       }
+      .modal-contact-btn {
+        display: inline-flex; /* Keeps it inline and uses flexbox */
+        align-items: center; /* Centers items vertically */
+        text-decoration: none;
+        color: inherit;
+        gap: 10px; /* Adds space between text and icon */
+      }
+      .modal-contact-btn i {
+        color: #cc9933;
+        font-size: 20px;
+      }
       @media (max-width: 991px) {
         .modal {
           align-items: flex-start;
@@ -332,6 +343,10 @@
           font-size: 12px;
           font-weight: lighter;
           color: #747474;
+        }
+        .modal-contact-btn i {
+          color: #cc9933;
+          font-size: 14px;
         }
         .modal-editor-name {
           font-size: 15px;
@@ -369,17 +384,6 @@
       .modal img {
         will-change: transform, opacity;
         transform: translateZ(0);
-      }
-      .modal-contact-btn {
-        display: inline-flex; /* Keeps it inline and uses flexbox */
-        align-items: center; /* Centers items vertically */
-        text-decoration: none;
-        color: inherit;
-        gap: 10px; /* Adds space between text and icon */
-      }
-      .modal-contact-btn i {
-        color: #cc9933;
-        font-size: 20px;
       }
     </style>
   </head>
