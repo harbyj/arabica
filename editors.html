@@ -13,17 +13,13 @@
     <style>
       .arabica_editor-container {
         display: grid;
-        grid-template-columns: repeat(3, 1fr); /* Default: 3 columns */
+        grid-template-columns: repeat(3, 1fr);
         row-gap: 60px;
-        column-gap: 80px;
-        padding: 20px 80px 120px 80px;
+        column-gap: 90px;
+        padding: 20px 90px 120px 90px;
       }
 
       .arabica_editor-profile {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: flex-start; /* Align items to the start */
         text-align: center;
         width: 100%;
         position: relative;
@@ -31,7 +27,6 @@
 
       .arabica_editor-profile .arabica_editor-image-wrapper {
         width: 100%;
-        max-width: 250px;
         aspect-ratio: 1 / 1;
         border-radius: 50%;
         background-color: #17355d; /* Dark blue background */
@@ -1032,8 +1027,11 @@
 
             const image = link.querySelector("#editor-image");
             if (image) {
-              editorImage.src = image.src;
-              editorImage.alt = editorName.textContent || image.alt; // Set alt to editor's name
+              editorImage.src = ""; // Temporarily clear src to force repaint
+              setTimeout(() => {
+                editorImage.src = image.src;
+                editorImage.alt = editorName.textContent || image.alt;
+              }, 50);
             }
 
             const emailElement = editorInfo.querySelector("#editor-email");
