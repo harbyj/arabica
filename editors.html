@@ -204,7 +204,8 @@
         opacity: 0;
         visibility: hidden;
         transition: opacity 0.4s ease, visibility 0.4s ease;
-        overflow: auto;
+        overflow-y: auto;
+        padding: 70px;
       }
 
       .modal.show {
@@ -217,7 +218,7 @@
         display: flex;
         border-radius: 12px;
         overflow: hidden;
-        max-width: 600px;
+        width: 1000px;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         direction: rtl;
         position: relative;
@@ -308,9 +309,22 @@
         display: none !important;
       }
       @media (max-width: 991px) {
+        .modal {
+          align-items: flex-start;
+        }
         .modal-content {
           flex-direction: column-reverse;
+          width: 100%;
         }
+      }
+      @media (max-width: 767px) {
+        .modal {
+          padding: 60px 30px;
+        }
+      }
+      .modal img {
+        will-change: transform, opacity;
+        transform: translateZ(0);
       }
     </style>
   </head>
@@ -616,8 +630,14 @@
                     >editor1@gmail.com</span
                   >
                   <p class="arabica_editor-info5" id="editor-bio">
-                    خالد الجبال هو محرر علمي متخصص في مجال الأحياء والكيمياء.
-                    لديه خبرة واسعة في هذا المجال.
+                    أول إعلامية صيداوية ميدانية ومراسلة مستقلة لصحيفة لبنانية
+                    وعربية في صيدا والجنوب وأول إعلامية في صيدا والجنوب مسجلة في
+                    إتحاد الصحافيين الدوليين منذ العام 2000 وأول إعلامية صيداوية
+                    تشغل منصب مديرة تحرير لمطبوعة لبنانية مرخصة في بيروت حتى عام
+                    2024. في صيدا والجنوب وأول إعلامية في صيدا والجنوب مسجلة في
+                    إتحاد الصحافيين الدوليين منذ العام 2000 وأول إعلامية صيداوية
+                    تشغل منصب مديرة تحرير لمطبوعة لبنانية مرخصة في بيروت حتى عام
+                    2024.
                   </p>
                 </div>
               </a>
