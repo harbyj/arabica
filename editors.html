@@ -208,6 +208,7 @@
         opacity: 0;
         visibility: hidden;
         transition: opacity 0.4s ease, visibility 0.4s ease;
+        overflow: auto;
       }
 
       .modal.show {
@@ -617,7 +618,8 @@
                   >
                   <p class="arabica_editor-info5" id="editor-bio">
                     خالد الجبال هو محرر علمي متخصص في مجال الأحياء والكيمياء.
-                    لديه خبرة واسعة في هذا المجال.
+                    لديه خبرة واسعة في هذا المجال.خالد الجبال هو محرر علمي متخصص
+                    في مجال الأحياء والكيمياء. لديه خبرة واسعة في هذا المجال.
                   </p>
                 </div>
               </a>
@@ -1041,6 +1043,10 @@
               editorEmail.innerHTML = "";
             }
 
+            // Prevent body from scrolling and interactions when modal is open
+            document.body.style.overflow = "hidden";
+            document.body.classList.add("frozen");
+
             // Show modal with animation
             modal.classList.add("show");
           });
@@ -1048,12 +1054,21 @@
 
         function closeModal() {
           modal.classList.remove("show");
+          document.body.style.overflow = "auto"; // Restore scrolling
+          document.body.classList.remove("frozen"); // Enable interactions
         }
 
         closeModalBtn.addEventListener("click", closeModal);
 
         window.addEventListener("click", function (event) {
           if (event.target === modal) {
+            closeModal();
+          }
+        });
+
+        // Close modal with ESC key
+        window.addEventListener("keydown", function (event) {
+          if (event.key === "Escape" && modal.classList.contains("show")) {
             closeModal();
           }
         });
