@@ -65,6 +65,10 @@ body {
   line-height: 1.6;
   background-color: #ffffff;
 }
+input,
+button {
+  font-family: "Bahij TheSansArabic";
+}
 
 ol,
 ul {
@@ -1780,7 +1784,7 @@ a.arabica_latest-article-more:hover {
   color: #999999;
 }
 
-.arabica_article-list .active {
+.arabica_list-grid .active {
   background-color: rgba(153, 153, 153, 0.15);
 }
 .arabica_featured-content {
