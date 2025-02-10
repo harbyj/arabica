@@ -72,27 +72,28 @@
         margin: 5px 0;
       }
 
-      .arabica_editor-info .arabica_editor-info1 {
+      .arabica_editor-info .arabica_editor-field {
         color: #17355d;
         font-size: 14px;
       }
 
-      .arabica_editor2 .arabica_editor-info .arabica_editor-info1 {
+      .arabica_editor-info .arabica_editor-region {
         color: #cc9933;
+        font-size: 14px;
       }
 
-      .arabica_editor-info .arabica_editor-info2 {
+      .arabica_editor-info .arabica_editor-title {
         color: #cc9933;
         font-size: 12px;
       }
 
-      .arabica_editor-info .arabica_editor-info3 {
+      .arabica_editor-info .arabica_editor-name {
         color: #17355d;
         font-size: 25px;
         font-weight: 600;
       }
 
-      .arabica_editor-profile .arabica_editor-info span.arabica_editor-info3 {
+      .arabica_editor-profile .arabica_editor-info span.arabica_editor-name {
         margin: 0;
       }
 
@@ -112,13 +113,13 @@
           align-items: center;
         }
 
-        .arabica_editor-info .arabica_editor-info1and2 {
+        .arabica_editor-info .arabica_editor-fieldand2 {
           display: flex;
           justify-content: space-between;
           width: 100%;
         }
 
-        .arabica_editor-info .arabica_editor-info3 {
+        .arabica_editor-info .arabica_editor-name {
           text-align: center;
           margin-top: 5px;
         }
@@ -130,13 +131,13 @@
           flex-direction: column;
         }
 
-        .arabica_editor-info .arabica_editor-info1and2 {
+        .arabica_editor-info .arabica_editor-fieldand2 {
           flex-direction: column;
           gap: 5px;
           font-weight: 600;
         }
 
-        .arabica_editor-info .arabica_editor-info3 {
+        .arabica_editor-info .arabica_editor-name {
           margin-top: 5px;
           font-size: 20px;
           font-weight: bold;
@@ -172,20 +173,21 @@
         .arabica_editor-profile .arabica_editor-image-wrapper {
           margin-bottom: 7px;
         }
-        .arabica_editor-info .arabica_editor-info3 {
+        .arabica_editor-info .arabica_editor-name {
           font-size: 15px;
         }
         .arabica_editor-profile .arabica_editor-info span {
           margin: 0;
         }
 
-        .arabica_editor-profile .arabica_editor-info span.arabica_editor-info3 {
+        .arabica_editor-profile .arabica_editor-info span.arabica_editor-name {
           margin-top: 5px;
         }
-        .arabica_editor-info .arabica_editor-info1 {
+        .arabica_editor-info .arabica_editor-field,
+        .arabica_editor-info .arabica_editor-region {
           font-size: 12px;
         }
-        .arabica_editor-info .arabica_editor-info2 {
+        .arabica_editor-info .arabica_editor-title {
           font-size: 11px;
         }
       }
@@ -200,7 +202,7 @@
         backdrop-filter: blur(5px);
         display: flex;
         justify-content: center;
-        align-items: center;
+        align-items: flex-start;
         opacity: 0;
         visibility: hidden;
         transition: opacity 0.4s ease, visibility 0.4s ease;
@@ -254,11 +256,11 @@
         color: #333333;
       }
 
-      .modal-editor-bio p {
-        margin: 0 0 10px;
+      .modal-editor-bio {
         color: #333333;
         line-height: 1.8;
-        font-size: 17px;
+        font-size: 16px;
+        margin-bottom: 10px;
       }
       .modal-editor-field {
         display: inline-flex;
@@ -309,8 +311,8 @@
       .modal-footer a:hover {
         color: #cc9933;
       }
-      .arabica_editor-info4,
-      .arabica_editor-info5 {
+      .arabica_editor-email,
+      .arabica_editor-bio {
         display: none !important;
       }
       .modal-contact-btn {
@@ -325,9 +327,6 @@
         font-size: 20px;
       }
       @media (max-width: 991px) {
-        .modal {
-          align-items: flex-start;
-        }
         .modal-content {
           flex-direction: column-reverse;
           width: 100%;
@@ -353,8 +352,7 @@
           font-weight: 600;
           margin: 5px 0 15px 0;
         }
-        .modal-editor-bio p {
-          margin: 0 0 10px;
+        .modal-editor-bio {
           color: #747474;
           line-height: 1.6;
           font-size: 13px;
@@ -665,69 +663,63 @@
           <div class="arabica_editor-container">
             <!-- Profile 1 -->
             <div class="arabica_editor-profile">
-              <a href="#" class="editor-link">
+              <a href="#" class="arabica_editor-link">
                 <div class="arabica_editor-image-wrapper">
                   <img
-                    id="editor-image"
+                    class="arabica_editor-image"
                     src="Assets/images/editor-colored.png"
                     alt="خالد الجبال"
                   />
                 </div>
                 <div class="arabica_editor-info">
-                  <div class="arabica_editor-info1and2">
-                    <span class="arabica_editor-info1" id="editor-field"
+                  <div class="arabica_editor-fieldand2">
+                    <span class="arabica_editor-field"
                       >علوم الأحياء والكيمياء</span
                     >
-                    <span class="arabica_editor-info2" id="editor-title"
-                      >محرر علمي</span
-                    >
+                    <span class="arabica_editor-title">محرر علمي</span>
                   </div>
-                  <span class="arabica_editor-info3" id="editor-name"
-                    >خالد الجبال</span
-                  >
-                  <span class="arabica_editor-info4" id="editor-email"
-                    >editor1@gmail.com</span
-                  >
-                  <p class="arabica_editor-info5" id="editor-bio">
-                    أول إعلامية صيداوية ميدانية ومراسلة مستقلة لصحيفة لبنانية
-                    وعربية في صيدا والجنوب وأول إعلامية في صيدا والجنوب مسجلة في
-                    إتحاد الصحافيين الدوليين منذ العام 2000 وأول إعلامية صيداوية
-                    تشغل منصب مديرة تحرير لمطبوعة لبنانية مرخصة في بيروت حتى عام
-                    2024. في صيدا والجنوب وأول إعلامية في صيدا والجنوب مسجلة في
-                    إتحاد الصحافيين الدوليين منذ العام 2000 وأول إعلامية صيداوية
-                    تشغل منصب مديرة تحرير لمطبوعة لبنانية مرخصة في بيروت حتى عام
-                    2024.
-                  </p>
+                  <span class="arabica_editor-name">خالد الجبال</span>
+                  <span class="arabica_editor-email">editor1@gmail.com</span>
+                  <div class="arabica_editor-bio">
+                    <p>
+                      أول إعلامية صيداوية ميدانية ومراسلة مستقلة لصحيفة
+                      <strong>لبنانية</strong>
+                      وعربية في صيدا والجنوب وأول إعلامية في صيدا والجنوب مسجلة
+                      في إتحاد الصحافيين الدوليين منذ العام 2000 وأول إعلامية
+                      صيداوية تشغل منصب مديرة تحرير لمطبوعة لبنانية مرخصة في
+                      بيروت حتى عام 2024.
+                    </p>
+                    <p>
+                      في صيدا والجنوب وأول إعلامية في صيدا والجنوب مسجلة في
+                      إتحاد الصحافيين الدوليين منذ العام 2000 وأول إعلامية
+                      صيداوية تشغل منصب مديرة تحرير لمطبوعة لبنانية مرخصة في
+                      بيروت حتى عام 2024.
+                    </p>
+                  </div>
                 </div>
               </a>
             </div>
 
             <!-- Profile 2 -->
             <div class="arabica_editor-profile">
-              <a href="#" class="editor-link">
+              <a href="#" class="arabica_editor-link">
                 <div class="arabica_editor-image-wrapper">
                   <img
-                    id="editor-image"
+                    class="arabica_editor-image"
                     src="Assets/images/editor2_prev_ui.png"
                     alt="لين الزهراوي"
                   />
                 </div>
                 <div class="arabica_editor-info">
-                  <div class="arabica_editor-info1and2">
-                    <span class="arabica_editor-info1" id="editor-field"
+                  <div class="arabica_editor-fieldand2">
+                    <span class="arabica_editor-field"
                       >المعلوماتية والحوسبة</span
                     >
-                    <span class="arabica_editor-info2" id="editor-title"
-                      >محرر علمي</span
-                    >
+                    <span class="arabica_editor-title">محرر علمي</span>
                   </div>
-                  <span class="arabica_editor-info3" id="editor-name"
-                    >لين الزهراوي</span
-                  >
-                  <span class="arabica_editor-info4" id="editor-email"
-                    >editor2@gmail.com</span
-                  >
-                  <p class="arabica_editor-info5" id="editor-bio">
+                  <span class="arabica_editor-name">لين الزهراوي</span>
+                  <span class="arabica_editor-email">editor2@gmail.com</span>
+                  <p class="arabica_editor-bio">
                     لين الزهراوي هي محررة علمية متخصصة في مجال المعلوماتية
                     والحوسبة، وتتمتع بخبرة طويلة.
                   </p>
@@ -737,30 +729,22 @@
 
             <!-- Profile 3 -->
             <div class="arabica_editor-profile">
-              <a href="#" class="editor-link">
+              <a href="#" class="arabica_editor-link">
                 <div class="arabica_editor-image-wrapper">
                   <img
-                    id="editor-image"
+                    class="arabica_editor-image"
                     src="Assets/images/editor3_prev_ui.png"
                     alt="خالد الزين"
                   />
                 </div>
                 <div class="arabica_editor-info">
-                  <div class="arabica_editor-info1and2">
-                    <span class="arabica_editor-info1" id="editor-field"
-                      >الطب والصيدلة</span
-                    >
-                    <span class="arabica_editor-info2" id="editor-title"
-                      >محرر علمي</span
-                    >
+                  <div class="arabica_editor-fieldand2">
+                    <span class="arabica_editor-field">الطب والصيدلة</span>
+                    <span class="arabica_editor-title">محرر علمي</span>
                   </div>
-                  <span class="arabica_editor-info3" id="editor-name"
-                    >خالد الزين</span
-                  >
-                  <span class="arabica_editor-info4" id="editor-email"
-                    >editor3@gmail.com</span
-                  >
-                  <p class="arabica_editor-info5" id="editor-bio">
+                  <span class="arabica_editor-name">خالد الزين</span>
+                  <span class="arabica_editor-email">editor3@gmail.com</span>
+                  <p class="arabica_editor-bio">
                     خالد الزين هو محرر علمي متخصص في الطب والصيدلة، يتمتع بمعرفة
                     عميقة في هذا المجال.
                   </p>
@@ -770,30 +754,22 @@
 
             <!-- Profile 4 -->
             <div class="arabica_editor-profile">
-              <a href="#" class="editor-link">
+              <a href="#" class="arabica_editor-link">
                 <div class="arabica_editor-image-wrapper">
                   <img
-                    id="editor-image"
+                    class="arabica_editor-image"
                     src="Assets/images/editor4_prev_ui.png"
                     alt="خالد الجبال"
                   />
                 </div>
                 <div class="arabica_editor-info">
-                  <div class="arabica_editor-info1and2">
-                    <span class="arabica_editor-info1" id="editor-field"
-                      >الرياضيات</span
-                    >
-                    <span class="arabica_editor-info2" id="editor-title"
-                      >محرر علمي</span
-                    >
+                  <div class="arabica_editor-fieldand2">
+                    <span class="arabica_editor-field">الرياضيات</span>
+                    <span class="arabica_editor-title">محرر علمي</span>
                   </div>
-                  <span class="arabica_editor-info3" id="editor-name"
-                    >خالد الجبال</span
-                  >
-                  <span class="arabica_editor-info4" id="editor-email"
-                    >editor4@gmail.com</span
-                  >
-                  <p class="arabica_editor-info5" id="editor-bio">
+                  <span class="arabica_editor-name">خالد الجبال</span>
+                  <span class="arabica_editor-email">editor4@gmail.com</span>
+                  <p class="arabica_editor-bio">
                     خالد الجبال هو محرر علمي مختص بالرياضيات، وله العديد من
                     الأبحاث في هذا المجال.
                   </p>
@@ -803,30 +779,22 @@
 
             <!-- Profile 5 -->
             <div class="arabica_editor-profile">
-              <a href="#" class="editor-link">
+              <a href="#" class="arabica_editor-link">
                 <div class="arabica_editor-image-wrapper">
                   <img
-                    id="editor-image"
+                    class="arabica_editor-image"
                     src="Assets/images/editor5_prev_ui.png"
                     alt="لين الزهراوي"
                   />
                 </div>
                 <div class="arabica_editor-info">
-                  <div class="arabica_editor-info1and2">
-                    <span class="arabica_editor-info1" id="editor-field"
-                      >التاريخ والآثار</span
-                    >
-                    <span class="arabica_editor-info2" id="editor-title"
-                      >محرر علمي</span
-                    >
+                  <div class="arabica_editor-fieldand2">
+                    <span class="arabica_editor-field">التاريخ والآثار</span>
+                    <span class="arabica_editor-title">محرر علمي</span>
                   </div>
-                  <span class="arabica_editor-info3" id="editor-name"
-                    >لين الزهراوي</span
-                  >
-                  <span class="arabica_editor-info4" id="editor-email"
-                    >editor5@gmail.com</span
-                  >
-                  <p class="arabica_editor-info5" id="editor-bio">
+                  <span class="arabica_editor-name">لين الزهراوي</span>
+                  <span class="arabica_editor-email">editor5@gmail.com</span>
+                  <p class="arabica_editor-bio">
                     لين الزهراوي هي محررة علمية في مجال التاريخ والآثار، شغوفة
                     بدراسة الحضارات القديمة.
                   </p>
@@ -836,30 +804,22 @@
 
             <!-- Profile 6 -->
             <div class="arabica_editor-profile">
-              <a href="#" class="editor-link">
+              <a href="#" class="arabica_editor-link">
                 <div class="arabica_editor-image-wrapper">
                   <img
-                    id="editor-image"
+                    class="arabica_editor-image"
                     src="Assets/images/editor6_prev_ui.png"
                     alt="خالد الزين"
                   />
                 </div>
                 <div class="arabica_editor-info">
-                  <div class="arabica_editor-info1and2">
-                    <span class="arabica_editor-info1" id="editor-field"
-                      >الطب والصيدلة</span
-                    >
-                    <span class="arabica_editor-info2" id="editor-title"
-                      >محرر علمي</span
-                    >
+                  <div class="arabica_editor-fieldand2">
+                    <span class="arabica_editor-field">الطب والصيدلة</span>
+                    <span class="arabica_editor-title">محرر علمي</span>
                   </div>
-                  <span class="arabica_editor-info3" id="editor-name"
-                    >خالد الزين</span
-                  >
-                  <span class="arabica_editor-info4" id="editor-email"
-                    >editor6@gmail.com</span
-                  >
-                  <p class="arabica_editor-info5" id="editor-bio">
+                  <span class="arabica_editor-name">خالد الزين</span>
+                  <span class="arabica_editor-email">editor6@gmail.com</span>
+                  <p class="arabica_editor-bio">
                     خالد الزين هو محرر علمي لديه خلفية قوية في الطب والصيدلة،
                     واهتمام خاص بالبحث العلمي.
                   </p>
@@ -878,25 +838,19 @@
           <div class="arabica_editor-container">
             <!-- Profile 1 (far right) -->
             <div class="arabica_editor-profile">
-              <a href="#" class="editor-link">
+              <a href="#" class="arabica_editor-link">
                 <div class="arabica_editor-image-wrapper">
                   <img
-                    id="editor-image"
+                    class="arabica_editor-image"
                     src="Assets/images/editor1_prev_ui.png"
                     alt="خالد الجبال"
                   />
                 </div>
                 <div class="arabica_editor-info">
-                  <span class="arabica_editor-info1" id="editor-region"
-                    >الأردن</span
-                  >
-                  <span class="arabica_editor-info3" id="editor-name"
-                    >خالد الجبال</span
-                  >
-                  <span class="arabica_editor-info4" id="editor-email"
-                    >editor1@gmail.com</span
-                  >
-                  <p class="arabica_editor-info5" id="editor-bio">
+                  <span class="arabica_editor-region">الأردن</span>
+                  <span class="arabica_editor-name">خالد الجبال</span>
+                  <span class="arabica_editor-email">editor1@gmail.com</span>
+                  <p class="arabica_editor-bio">
                     خالد الزين هو محرر علمي لديه خلفية قوية في الطب والصيدلة،
                     واهتمام خاص بالبحث العلمي.
                   </p>
@@ -906,25 +860,19 @@
 
             <!-- Profile 2 -->
             <div class="arabica_editor-profile">
-              <a href="#" class="editor-link">
+              <a href="#" class="arabica_editor-link">
                 <div class="arabica_editor-image-wrapper">
                   <img
-                    id="editor-image"
+                    class="arabica_editor-image"
                     src="Assets/images/editor2_prev_ui.png"
                     alt="لين الزهراوي"
                   />
                 </div>
                 <div class="arabica_editor-info">
-                  <span class="arabica_editor-info1" id="editor-region"
-                    >سوريا</span
-                  >
-                  <span class="arabica_editor-info3" id="editor-name"
-                    >لين الزهراوي</span
-                  >
-                  <span class="arabica_editor-info4" id="editor-email"
-                    >editor2@gmail.com</span
-                  >
-                  <p class="arabica_editor-info5" id="editor-bio">
+                  <span class="arabica_editor-region">سوريا</span>
+                  <span class="arabica_editor-name">لين الزهراوي</span>
+                  <span class="arabica_editor-email">editor2@gmail.com</span>
+                  <p class="arabica_editor-bio">
                     لين الزهراوي هي محررة علمية مهتمة بمجالات الحوسبة
                     والمعلوماتية.
                   </p>
@@ -934,25 +882,19 @@
 
             <!-- Profile 3 -->
             <div class="arabica_editor-profile">
-              <a href="#" class="editor-link">
+              <a href="#" class="arabica_editor-link">
                 <div class="arabica_editor-image-wrapper">
                   <img
-                    id="editor-image"
+                    class="arabica_editor-image"
                     src="Assets/images/editor3_prev_ui.png"
                     alt="خالد الزين"
                   />
                 </div>
                 <div class="arabica_editor-info">
-                  <span class="arabica_editor-info1" id="editor-region"
-                    >البحرين</span
-                  >
-                  <span class="arabica_editor-info3" id="editor-name"
-                    >خالد الزين</span
-                  >
-                  <span class="arabica_editor-info4" id="editor-email"
-                    >editor3@gmail.com</span
-                  >
-                  <p class="arabica_editor-info5" id="editor-bio">
+                  <span class="arabica_editor-region">البحرين</span>
+                  <span class="arabica_editor-name">خالد الزين</span>
+                  <span class="arabica_editor-email">editor3@gmail.com</span>
+                  <p class="arabica_editor-bio">
                     خالد الزين هو محرر علمي متخصص في الأبحاث الطبية والصيدلة.
                   </p>
                 </div>
@@ -961,25 +903,19 @@
 
             <!-- Profile 4 -->
             <div class="arabica_editor-profile">
-              <a href="#" class="editor-link">
+              <a href="#" class="arabica_editor-link">
                 <div class="arabica_editor-image-wrapper">
                   <img
-                    id="editor-image"
+                    class="arabica_editor-image"
                     src="Assets/images/editor4_prev_ui.png"
                     alt="خالد الجبال"
                   />
                 </div>
                 <div class="arabica_editor-info">
-                  <span class="arabica_editor-info1" id="editor-region"
-                    >السودان</span
-                  >
-                  <span class="arabica_editor-info3" id="editor-name"
-                    >خالد الجبال</span
-                  >
-                  <span class="arabica_editor-info4" id="editor-email"
-                    >editor4@gmail.com</span
-                  >
-                  <p class="arabica_editor-info5" id="editor-bio">
+                  <span class="arabica_editor-region">السودان</span>
+                  <span class="arabica_editor-name">خالد الجبال</span>
+                  <span class="arabica_editor-email">editor4@gmail.com</span>
+                  <p class="arabica_editor-bio">
                     خالد الجبال هو محرر علمي ذو اهتمام خاص بالدراسات التاريخية.
                   </p>
                 </div>
@@ -988,25 +924,19 @@
 
             <!-- Profile 5 -->
             <div class="arabica_editor-profile">
-              <a href="#" class="editor-link">
+              <a href="#" class="arabica_editor-link">
                 <div class="arabica_editor-image-wrapper">
                   <img
-                    id="editor-image"
+                    class="arabica_editor-image"
                     src="Assets/images/editor5_prev_ui.png"
                     alt="لين الزهراوي"
                   />
                 </div>
                 <div class="arabica_editor-info">
-                  <span class="arabica_editor-info1" id="editor-region"
-                    >العراق</span
-                  >
-                  <span class="arabica_editor-info3" id="editor-name"
-                    >لين الزهراوي</span
-                  >
-                  <span class="arabica_editor-info4" id="editor-email"
-                    >editor5@gmail.com</span
-                  >
-                  <p class="arabica_editor-info5" id="editor-bio">
+                  <span class="arabica_editor-region">العراق</span>
+                  <span class="arabica_editor-name">لين الزهراوي</span>
+                  <span class="arabica_editor-email">editor5@gmail.com</span>
+                  <p class="arabica_editor-bio">
                     لين الزهراوي تركز في أبحاثها على علوم الآثار والتاريخ.
                   </p>
                 </div>
@@ -1015,25 +945,19 @@
 
             <!-- Profile 6 (far left) -->
             <div class="arabica_editor-profile">
-              <a href="#" class="editor-link">
+              <a href="#" class="arabica_editor-link">
                 <div class="arabica_editor-image-wrapper">
                   <img
-                    id="editor-image"
+                    class="arabica_editor-image"
                     src="Assets/images/editor6_prev_ui.png"
                     alt="خالد الزين"
                   />
                 </div>
                 <div class="arabica_editor-info">
-                  <span class="arabica_editor-info1" id="editor-region"
-                    >السعودية</span
-                  >
-                  <span class="arabica_editor-info3" id="editor-name"
-                    >خالد الزين</span
-                  >
-                  <span class="arabica_editor-info4" id="editor-email"
-                    >editor6@gmail.com</span
-                  >
-                  <p class="arabica_editor-info5" id="editor-bio">
+                  <span class="arabica_editor-region">السعودية</span>
+                  <span class="arabica_editor-name">خالد الزين</span>
+                  <span class="arabica_editor-email">editor6@gmail.com</span>
+                  <p class="arabica_editor-bio">
                     خالد الزين هو باحث في مجالات الطب والصحة العامة.
                   </p>
                 </div>
@@ -1121,7 +1045,7 @@
           }
         };
 
-        document.querySelectorAll(".editor-link").forEach((link) => {
+        document.querySelectorAll(".arabica_editor-link").forEach((link) => {
           link.addEventListener("click", function (event) {
             event.preventDefault();
             const editorInfo = link.querySelector(".arabica_editor-info");
@@ -1138,27 +1062,31 @@
               }
             };
 
-            updateContent(editorElements.editorName, "#editor-name", "block");
+            updateContent(
+              editorElements.editorName,
+              ".arabica_editor-name",
+              "block"
+            );
             updateContent(
               editorElements.editorRegion,
-              "#editor-region",
+              ".arabica_editor-region",
               "inline-block"
             );
             updateContent(
               editorElements.editorTitle,
-              "#editor-title",
+              ".arabica_editor-title",
               "inline-block"
             );
             updateContent(
               editorElements.editorField,
-              "#editor-field",
+              ".arabica_editor-field",
               "inline-block"
             );
 
             // Handle Bio
-            const bio = editorInfo.querySelector("#editor-bio");
+            const bio = editorInfo.querySelector(".arabica_editor-bio");
             if (bio && bio.textContent.trim() !== "") {
-              editorElements.editorBio.innerHTML = `<p>${bio.textContent}</p>`;
+              editorElements.editorBio.innerHTML = bio.innerHTML;
               editorElements.editorBio.style.display = "inline-block";
             } else {
               editorElements.editorBio.innerHTML = "";
@@ -1166,7 +1094,7 @@
             }
 
             // Handle Image
-            const image = link.querySelector("#editor-image");
+            const image = link.querySelector(".arabica_editor-image");
             if (image) {
               editorElements.editorImage.src = ""; // Clear previous image
               setTimeout(() => {
@@ -1180,7 +1108,9 @@
             }
 
             // Handle Email (set to inline-flex)
-            const emailElement = editorInfo.querySelector("#editor-email");
+            const emailElement = editorInfo.querySelector(
+              ".arabica_editor-email"
+            );
             if (emailElement && emailElement.textContent.trim() !== "") {
               const email = emailElement.textContent;
               editorElements.editorEmail.href = `mailto:${email}`;
@@ -1212,8 +1142,8 @@
             updateSeparator();
 
             // Prevent body scrolling when modal is open
-            document.body.style.overflow = "hidden";
-            document.body.classList.add("frozen");
+
+            document.body.classList.add("no-scroll");
 
             // Show modal with animation
             modal.classList.add("show");
@@ -1222,8 +1152,7 @@
 
         function closeModal() {
           modal.classList.remove("show");
-          document.body.style.overflow = "auto"; // Restore scrolling
-          document.body.classList.remove("frozen"); // Enable interactions
+          document.body.classList.remove("no-scroll"); // Enable interactions
         }
 
         // Close modal on button click, background click, or ESC key
