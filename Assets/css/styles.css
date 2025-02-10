@@ -515,6 +515,9 @@ hr {
     justify-content: center;
     align-items: center;
   }
+  .arabica_footer-logo {
+    text-align: center;
+  }
   .arabica_footer-logo img,
   .arabica_footer-logo svg {
     height: 35px;
