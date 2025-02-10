@@ -94,7 +94,6 @@
       .dropdown {
         position: relative;
         display: inline-block;
-        width: 18%;
       }
 
       .dropdown button {
@@ -201,13 +200,11 @@
         .search-box {
           width: 100%;
         }
-        .dropdown {
-          width: 25%;
-        }
         .dropdown-content {
           min-width: 150px;
         }
         .switch {
+          margin-right: 10px;
           width: 32px;
           height: 16px;
         }
@@ -246,6 +243,9 @@
           height: 31px;
           font-size: 12px;
         }
+        .arabica_search-content {
+          margin-bottom: 30px;
+        }
       }
 
       @media (max-width: 767px) {
@@ -254,9 +254,6 @@
         }
         .arabica_search-content {
           margin-bottom: 20px;
-        }
-        .dropdown {
-          width: 40%;
         }
         .dropdown-content {
           max-height: 150px;
@@ -271,9 +268,10 @@
         }
         input:checked + .slider:before {
           border: 2px solid #cc9933;
-          transform: translateX(-15px) translateY(-50%);
+          transform: translateX(-9px) translateY(-50%);
         }
         .switch {
+          width: 26px;
           margin-left: 10px;
           margin-right: 0;
         }
@@ -282,12 +280,19 @@
         }
       }
       @media (min-width: 768px) {
+        .dropdown {
+          width: 25%;
+        }
         .switch-container {
           padding: 10px 15px 10px 15px; /* Space for left icon */
           background-color: #f3f3f3;
         }
       }
-
+      @media (min-width: 992px) {
+        .dropdown {
+          width: 18%;
+        }
+      }
       .dropdown-content::-webkit-scrollbar {
         width: 8px; /* Total width including track */
       }
@@ -553,11 +558,11 @@
 
             <div class="dropdown">
               <i class="fa fa-chevron-down"></i>
-              <button onclick="toggleDropdown(this)">البلدان العربية</button>
+              <button onclick="toggleDropdown(this)">الحقول المعرفية</button>
               <div class="dropdown-content">
                 <label class="select-all"
                   ><input type="checkbox" onclick="toggleSelectAll(this)" />
-                  تحديد الكل</label
+                  البلدان العربية</label
                 >
                 <label><input type="checkbox" /> قطر</label>
                 <label><input type="checkbox" /> البحرين</label>
@@ -574,7 +579,7 @@
 
             <div class="dropdown">
               <i class="fa fa-chevron-down"></i>
-              <button onclick="toggleDropdown(this)">الحقول المعرفية</button>
+              <button onclick="toggleDropdown(this)">البلدان العربية</button>
               <div class="dropdown-content">
                 <label class="select-all"
                   ><input type="checkbox" onclick="toggleSelectAll(this)" />
@@ -598,7 +603,7 @@
                 ><label class="switch">
                   <input type="checkbox" />
                   <span class="slider"></span> </label
-                >المقالات القصيرة
+                >المقالات القصيرة فقط
               </label>
             </div>
 
