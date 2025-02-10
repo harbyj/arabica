@@ -301,7 +301,7 @@
                   <div class="arabica_editor-fieldand2">
                     <span class="arabica_editor-field"
                       >علوم الأحياء والكيمياء</span
-                    ><span class="modal-separator">|</span>
+                    >
                     <span class="arabica_editor-title">محرر علمي</span>
                   </div>
                   <span class="arabica_editor-name">خالد الجبال</span>
@@ -794,6 +794,26 @@
             modal.classList.contains("show") &&
             closeModal()
         );
+
+        document.addEventListener("DOMContentLoaded", function () {
+          const pairs = document.querySelectorAll(".arabica_editor-field");
+
+          pairs.forEach((field) => {
+            const title = field.nextElementSibling;
+            if (
+              title &&
+              title.classList.contains("arabica_editor-title") &&
+              field.textContent.trim() &&
+              title.textContent.trim()
+            ) {
+              const separator = document.createElement("span");
+              separator.classList.add("editor-separator");
+              separator.textContent = "|";
+
+              field.insertAdjacentElement("afterend", separator);
+            }
+          });
+        });
       </script>
     </div>
 

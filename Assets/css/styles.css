@@ -2234,11 +2234,6 @@ a.arabica_latest-article-more:hover {
   min-height: 1em; /* Sets a minimum height */
 }
 
-.arabica_editor-profile .arabica_editor-info span::before {
-  content: "\200B"; /* Zero-width space to keep the element non-empty */
-  visibility: visible; /* Ensures it's still visible even if empty */
-}
-
 @media (min-width: 992px) {
   .arabica_editor-info {
     display: flex;
@@ -2400,7 +2395,8 @@ a.arabica_latest-article-more:hover {
   align-items: center;
   padding: 0 0 0 10px; /* Adds spacing */
 }
-.modal-separator {
+.modal-separator,
+.editor-separator {
   color: #cccccc;
   padding: 0 10px;
 }
@@ -2416,7 +2412,8 @@ a.arabica_latest-article-more:hover {
 .modal-editor-title,
 .modal-editor-region,
 .modal-editor-field,
-.modal-separator {
+.modal-separator,
+.editor-separator {
   font-size: 15px;
 }
 .modal-editor-image {
@@ -2475,6 +2472,9 @@ a.arabica_latest-article-more:hover {
     font-size: 12px;
     font-weight: lighter;
     color: #747474;
+  }
+  .editor-separator {
+    display: none !important;
   }
   .modal-contact-btn i {
     color: #cc9933;
