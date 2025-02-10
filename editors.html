@@ -296,11 +296,11 @@
                   />
                 </div>
                 <div class="arabica_editor-info">
-                  <div class="arabica_editor-fieldand2">
-                    <span class="arabica_editor-field"
+                  <div class="arabica_editor-title">
+                    <span class="arabica_editor-category"
                       >علوم الأحياء والكيمياء</span
                     >
-                    <span class="arabica_editor-title">محرر علمي</span>
+                    <span class="arabica_editor-job">محرر علمي</span>
                   </div>
                   <span class="arabica_editor-name">خالد الجبال</span>
                   <span class="arabica_editor-email">editor1@gmail.com</span>
@@ -335,11 +335,11 @@
                   />
                 </div>
                 <div class="arabica_editor-info">
-                  <div class="arabica_editor-fieldand2">
-                    <span class="arabica_editor-field"
+                  <div class="arabica_editor-title">
+                    <span class="arabica_editor-category"
                       >المعلوماتية والحوسبة</span
                     >
-                    <span class="arabica_editor-title">محرر علمي</span>
+                    <span class="arabica_editor-job">محرر علمي</span>
                   </div>
                   <span class="arabica_editor-name">لين الزهراوي</span>
                   <span class="arabica_editor-email">editor2@gmail.com</span>
@@ -362,9 +362,9 @@
                   />
                 </div>
                 <div class="arabica_editor-info">
-                  <div class="arabica_editor-fieldand2">
-                    <span class="arabica_editor-field">الطب والصيدلة</span>
-                    <span class="arabica_editor-title">محرر علمي</span>
+                  <div class="arabica_editor-title">
+                    <span class="arabica_editor-category">الطب والصيدلة</span>
+                    <span class="arabica_editor-job">محرر علمي</span>
                   </div>
                   <span class="arabica_editor-name">خالد الزين</span>
                   <span class="arabica_editor-email">editor3@gmail.com</span>
@@ -387,9 +387,9 @@
                   />
                 </div>
                 <div class="arabica_editor-info">
-                  <div class="arabica_editor-fieldand2">
-                    <span class="arabica_editor-field">الرياضيات</span>
-                    <span class="arabica_editor-title">محرر علمي</span>
+                  <div class="arabica_editor-title">
+                    <span class="arabica_editor-category">الرياضيات</span>
+                    <span class="arabica_editor-job">محرر علمي</span>
                   </div>
                   <span class="arabica_editor-name">خالد الجبال</span>
                   <span class="arabica_editor-email">editor4@gmail.com</span>
@@ -412,9 +412,9 @@
                   />
                 </div>
                 <div class="arabica_editor-info">
-                  <div class="arabica_editor-fieldand2">
-                    <span class="arabica_editor-field">التاريخ والآثار</span>
-                    <span class="arabica_editor-title">محرر علمي</span>
+                  <div class="arabica_editor-title">
+                    <span class="arabica_editor-category">التاريخ والآثار</span>
+                    <span class="arabica_editor-job">محرر علمي</span>
                   </div>
                   <span class="arabica_editor-name">لين الزهراوي</span>
                   <span class="arabica_editor-email">editor5@gmail.com</span>
@@ -437,9 +437,9 @@
                   />
                 </div>
                 <div class="arabica_editor-info">
-                  <div class="arabica_editor-fieldand2">
-                    <span class="arabica_editor-field">الطب والصيدلة</span>
-                    <span class="arabica_editor-title">محرر علمي</span>
+                  <div class="arabica_editor-title">
+                    <span class="arabica_editor-category">الطب والصيدلة</span>
+                    <span class="arabica_editor-job">محرر علمي</span>
                   </div>
                   <span class="arabica_editor-name">خالد الزين</span>
                   <span class="arabica_editor-email">editor6@gmail.com</span>
@@ -610,9 +610,9 @@
             </svg>
           </button>
           <div class="modal-editor-details">
-            <span id="editorField" class="modal-editor-field"></span>
+            <span id="editorField" class="modal-editor-category"></span>
             <span class="modal-separator">|</span>
-            <span id="editorTitle" class="modal-editor-title"></span>
+            <span id="editorTitle" class="modal-editor-job"></span>
             <span id="editorRegion" class="modal-editor-region"></span>
             <span id="editorName" class="modal-editor-name"></span>
             <div class="modal-editor-bio">
@@ -698,12 +698,12 @@
             );
             updateContent(
               editorElements.editorTitle,
-              ".arabica_editor-title",
+              ".arabica_editor-job",
               "inline-block"
             );
             updateContent(
               editorElements.editorField,
-              ".arabica_editor-field",
+              ".arabica_editor-category",
               "inline-block"
             );
 
@@ -794,13 +794,13 @@
         );
 
         document.addEventListener("DOMContentLoaded", function () {
-          const pairs = document.querySelectorAll(".arabica_editor-field");
+          const pairs = document.querySelectorAll(".arabica_editor-category");
 
           pairs.forEach((field) => {
             const title = field.nextElementSibling;
             if (
               title &&
-              title.classList.contains("arabica_editor-title") &&
+              title.classList.contains("arabica_editor-job") &&
               field.textContent.trim() &&
               title.textContent.trim()
             ) {

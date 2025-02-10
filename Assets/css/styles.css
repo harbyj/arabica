@@ -2218,8 +2218,8 @@ a.arabica_latest-article-more:hover {
   margin: 5px 0;
 }
 
-.arabica_editor-info .arabica_editor-field,
-.arabica_editor-info .arabica_editor-title,
+.arabica_editor-info .arabica_editor-category,
+.arabica_editor-info .arabica_editor-job,
 .arabica_editor-info .arabica_editor-region {
   color: #666666;
   font-size: 15px;
@@ -2246,7 +2246,7 @@ a.arabica_latest-article-more:hover {
     align-items: center;
   }
 
-  .arabica_editor-info .arabica_editor-fieldand2 {
+  .arabica_editor-info .arabica_editor-title {
     display: flex;
     justify-content: center;
     width: 100%;
@@ -2264,7 +2264,7 @@ a.arabica_latest-article-more:hover {
     flex-direction: column;
   }
 
-  .arabica_editor-info .arabica_editor-fieldand2 {
+  .arabica_editor-info .arabica_editor-title {
     flex-direction: column;
     gap: 5px;
     font-weight: 600;
@@ -2316,11 +2316,11 @@ a.arabica_latest-article-more:hover {
   .arabica_editor-profile .arabica_editor-info span.arabica_editor-name {
     margin-top: 5px;
   }
-  .arabica_editor-info .arabica_editor-field,
+  .arabica_editor-info .arabica_editor-category,
   .arabica_editor-info .arabica_editor-region {
     font-size: 12px;
   }
-  .arabica_editor-info .arabica_editor-title {
+  .arabica_editor-info .arabica_editor-job {
     font-size: 11px;
   }
 }
@@ -2386,16 +2386,16 @@ a.arabica_latest-article-more:hover {
 .modal-editor-details {
   flex: 1;
   padding: 30px 40px 30px 30px;
-  color: #333333;
+  color: #666666;
 }
 
 .modal-editor-bio {
-  color: #333333;
+  color: #666666;
   line-height: 1.8;
   font-size: 16px;
   margin-bottom: 10px;
 }
-.modal-editor-field {
+.modal-editor-category {
   display: inline-flex;
   align-items: center;
   padding: 0 0 0 10px; /* Adds spacing */
@@ -2405,18 +2405,19 @@ a.arabica_latest-article-more:hover {
   color: #cccccc;
   padding: 0 10px;
 }
-.modal-editor-title {
+.modal-editor-job {
   padding-right: 10px; /* Space between text and border */
 }
 .modal-editor-name {
-  font-size: 30px;
+  font-size: 25px;
   display: block;
   font-weight: 600;
   margin: 10px 0 20px 0;
+  color: #414042;
 }
-.modal-editor-title,
+.modal-editor-job,
 .modal-editor-region,
-.modal-editor-field,
+.modal-editor-category,
 .modal-separator,
 .editor-separator {
   font-size: 15px;
@@ -2468,15 +2469,12 @@ a.arabica_latest-article-more:hover {
   }
   .modal-footer a {
     font-size: 12px;
-    font-weight: lighter;
   }
-  .modal-editor-title,
+  .modal-editor-job,
   .modal-editor-region,
-  .modal-editor-field,
+  .modal-editor-category,
   .modal-separator {
     font-size: 12px;
-    font-weight: lighter;
-    color: #747474;
   }
   .editor-separator {
     display: none !important;
@@ -2487,7 +2485,7 @@ a.arabica_latest-article-more:hover {
   }
   .modal-editor-name {
     font-size: 15px;
-    font-weight: 600;
+    font-weight: bold;
     margin: 5px 0 15px 0;
   }
   .modal-editor-bio {
