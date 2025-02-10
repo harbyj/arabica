@@ -2136,6 +2136,9 @@ a.arabica_latest-article-more:hover {
   .arabica_editors-top h1 {
     padding: 0 10px;
   }
+  .arabica_editors-top p {
+    font-size: 14px;
+  }
 }
 @media (max-width: 767px) {
   .arabica_editors-info img {
@@ -2145,7 +2148,6 @@ a.arabica_latest-article-more:hover {
   }
   .arabica_editors-top p {
     text-align: center;
-    font-size: 14px;
   }
   .arabica_editors-top {
     padding: 50px 0 30px 0;
