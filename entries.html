@@ -14,7 +14,6 @@
       .arabica_search-content {
         display: flex;
         align-items: center;
-        justify-content: space-between; /* Push elements to both ends */
         flex-wrap: wrap; /* Ensure responsiveness */
         gap: 10px; /* Spacing between elements */
         margin-bottom: 40px;
@@ -31,7 +30,6 @@
       .search-box,
       .dropdown,
       .switch-container {
-        margin-left: auto; /* Push to the right */
         display: flex;
         align-items: center;
         color: #a2a2a2;
@@ -45,7 +43,7 @@
 
       .search-box {
         position: relative;
-        width: 250px;
+        width: 29%;
       }
 
       .search-box input,
@@ -96,6 +94,7 @@
       .dropdown {
         position: relative;
         display: inline-block;
+        width: 18%;
       }
 
       .dropdown button {
@@ -143,12 +142,21 @@
       .switch {
         position: relative;
         display: inline-block;
-        width: 35px;
-        height: 20px;
-        margin-left: 15px;
+        width: 35px; /* Fixed width */
+        height: 20px; /* Fixed height */
+        margin-right: 15px;
         margin-top: 2px;
+        box-sizing: border-box; /* Ensures consistent sizing */
+        flex-shrink: 0; /* Prevents resizing */
       }
-
+      .switch-container {
+        height: 39px;
+        border-radius: 20px;
+        font-size: 14px;
+        color: #a2a2a2;
+        border: 0px;
+        direction: initial;
+      }
       .switch input {
         opacity: 0;
         width: 0;
@@ -162,25 +170,30 @@
         right: 0;
         bottom: 0;
         left: 0;
+        width: 100%; /* Ensures consistent size */
+        height: 100%; /* Ensures consistent size */
         border: 2px solid #cc9933;
         border-radius: 20px;
         transition: 0.4s;
+        box-sizing: border-box; /* Prevents layout shifts */
       }
 
       .slider:before {
         position: absolute;
         content: "";
-        height: 8px;
-        width: 8px;
+        height: 12px; /* Slightly larger for better visibility */
+        width: 12px; /* Fixed width */
         border: 2px solid #cc9933;
         border-radius: 50%;
         transition: 0.4s;
         right: 2px;
-        top: 2px;
+        top: 50%;
+        transform: translateX(-15px) translateY(-50%); /* Centers the toggle vertically */
+        box-sizing: border-box; /* Keeps border size consistent */
       }
 
       input:checked + .slider:before {
-        transform: translateX(-15px);
+        transform: translateY(-50%);
         background: #cc9933;
       }
 
@@ -193,6 +206,45 @@
         }
         .dropdown-content {
           min-width: 150px;
+        }
+        .switch {
+          width: 32px;
+          height: 16px;
+        }
+        .slider:before {
+          height: 9px;
+          width: 9px;
+        }
+        .search-box,
+        .dropdown,
+        .switch-container {
+          font-size: 12px;
+        }
+        .search-box i,
+        .search-box svg,
+        .dropdown i,
+        .dropdown svg {
+          font-size: 12px;
+        }
+        .search-box svg,
+        .dropdown svg {
+          width: 12px;
+          height: 12px;
+        }
+        .search-box input,
+        .dropdown button {
+          height: 31px;
+          font-size: 12px;
+        }
+        .arabica_search-content .arabica_grid,
+        .arabica_list {
+          height: 31px;
+          width: 31px;
+          font-size: 23px;
+        }
+        .switch-container {
+          height: 31px;
+          font-size: 12px;
         }
       }
 
@@ -210,44 +262,29 @@
           max-height: 150px;
         }
         .slider {
-          position: absolute;
-          cursor: pointer;
-          top: 0;
-          right: 0;
-          bottom: 0;
-          left: 0;
           border: 2px solid #a2a2a2;
-          border-radius: 20px;
-          transition: 0.4s;
         }
 
         .slider:before {
-          position: absolute;
-          content: "";
-          height: 8px;
-          width: 8px;
           border: 2px solid #a2a2a2;
-          border-radius: 50%;
-          transition: 0.4s;
-          right: 2px;
-          top: 2px;
+          transform: translateY(-50%);
         }
         input:checked + .slider:before {
           border: 2px solid #cc9933;
+          transform: translateX(-15px) translateY(-50%);
+        }
+        .switch {
+          margin-left: 10px;
+          margin-right: 0;
+        }
+        .switch-container {
+          direction: inherit;
         }
       }
-
       @media (min-width: 768px) {
         .switch-container {
-          height: 39px;
           padding: 10px 15px 10px 15px; /* Space for left icon */
           background-color: #f3f3f3;
-          border-radius: 20px;
-          font-size: 14px;
-          color: #a2a2a2;
-          border: 0px;
-          display: flex;
-          align-items: center;
         }
       }
 
@@ -561,7 +598,7 @@
                 ><label class="switch">
                   <input type="checkbox" />
                   <span class="slider"></span> </label
-                >المقالات القصيرة فقط
+                >المقالات القصيرة
               </label>
             </div>
 
