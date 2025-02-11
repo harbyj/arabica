@@ -1055,12 +1055,14 @@ span.arabica_date {
   }
 
   .arabica_article-about,
-  .arabica_about-top,
-  .arabica_contribute-top {
+  .arabica_about-top {
     text-align: center;
     padding: 40px 0px 40px 0;
   }
-
+  .arabica_contribute-top {
+    text-align: center;
+    padding: 40px 0px 435px 0;
+  }
   .arabica_card {
     width: 75px;
   }
