@@ -59,16 +59,13 @@
   padding: 0;
   box-sizing: border-box;
   -webkit-tap-highlight-color: transparent;
+  font-family: "Bahij TheSansArabic";
 }
 
 body {
   font-family: "Bahij TheSansArabic";
   line-height: 1.6;
   background-color: #ffffff;
-}
-input,
-button {
-  font-family: "Bahij TheSansArabic";
 }
 
 ol,
@@ -215,6 +212,9 @@ h6 {
   }
   .arabica_about-info {
     padding: 50px 200px;
+  }
+  .arabica_contribute-info {
+    padding: 50px 200px 100px 200px;
   }
 }
 
@@ -815,6 +815,14 @@ hr.arabica_tab-show {
   background-size: cover; /* Ensures the image covers the entire background */
 }
 
+.arabica_contribute-top {
+  text-align: center;
+  padding: 30px 0px 185px 0;
+  background: #16365e url("./../images/about-top-bg.jpg") no-repeat center
+    center;
+  background-size: cover; /* Ensures the image covers the entire background */
+}
+
 .arabica_editors-top {
   padding: 110px 0 70px 0;
   background: #16365e;
@@ -856,7 +864,8 @@ hr.arabica_tab-show {
   color: #333333;
 }
 
-.arabica_about-top p {
+.arabica_about-top p,
+.arabica_contribute-top p {
   font-size: 21px;
   color: #ffffff;
 }
@@ -974,7 +983,8 @@ span.arabica_date {
   }
   .arabica_main-about p,
   .arabica_article-about p,
-  .arabica_about-top p {
+  .arabica_about-top p,
+  .arabica_contribute-top p {
     font-size: 14px;
   }
 }
@@ -1045,7 +1055,8 @@ span.arabica_date {
   }
 
   .arabica_article-about,
-  .arabica_about-top {
+  .arabica_about-top,
+  .arabica_contribute-top {
     text-align: center;
     padding: 40px 0px 40px 0;
   }
@@ -2071,7 +2082,8 @@ a.arabica_latest-article-more:hover {
   }
 }
 
-.arabica_about-top .arabica_title {
+.arabica_about-top .arabica_title,
+.arabica_contribute-top .arabica_title {
   color: #ffffff;
 }
 
