@@ -181,14 +181,16 @@
       .dropdown-content label.checked {
         color: #000000;
       }
-
+      .switch-label {
+        display: flex;
+        align-items: center;
+      }
       .switch {
         position: relative;
         display: inline-block;
         width: 35px; /* Fixed width */
         height: 20px; /* Fixed height */
         margin-right: 15px;
-        margin-top: 2px;
         box-sizing: border-box; /* Ensures consistent sizing */
         flex-shrink: 0; /* Prevents resizing */
       }
@@ -648,7 +650,7 @@
             </div>
 
             <div class="switch-container">
-              <label
+              <label class="switch-label"
                 ><label class="switch">
                   <input type="checkbox" />
                   <span class="slider"></span> </label
