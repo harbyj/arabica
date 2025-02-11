@@ -206,6 +206,11 @@ h6 {
 .arabica_about-info {
   padding: 20px 0px;
 }
+@media (min-width: 768px) {
+  .arabica_contribute-info {
+    padding: 0 30px;
+  }
+}
 @media (min-width: 992px) {
   .arabica_container {
     width: 970px;
@@ -817,7 +822,7 @@ hr.arabica_tab-show {
 
 .arabica_contribute-top {
   text-align: center;
-  padding: 30px 0px 185px 0;
+  padding: 30px 0px 230px 0;
   background: #16365e url("./../images/about-top-bg.jpg") no-repeat center
     center;
   background-size: cover; /* Ensures the image covers the entire background */
@@ -1061,7 +1066,7 @@ span.arabica_date {
   }
   .arabica_contribute-top {
     text-align: center;
-    padding: 40px 0px 435px 0;
+    padding: 40px 0px 345px 0;
   }
   .arabica_card {
     width: 75px;
@@ -1316,6 +1321,10 @@ a.arabica_latest-article-more:hover {
   }
   .arabica_article-list-title {
     text-align: center;
+  }
+
+  .arabica_contribute-top {
+    padding: 40px 0px 500px 0;
   }
 }
 @media (max-width: 991px) {
