@@ -115,6 +115,8 @@
         z-index: 1;
         margin-top: 10px;
         direction: ltr;
+        max-height: 0;
+        transition: max-height 0.3s ease-in-out;
       }
 
       .dropdown-content {
@@ -1149,15 +1151,27 @@
     <script>
       function toggleDropdown(button) {
         const currentDropdown = button.parentElement;
+        const dropdownWrapper = currentDropdown.querySelector(
+          ".dropdown-content-wrapper"
+        );
         const allDropdowns = document.querySelectorAll(".dropdown");
 
         allDropdowns.forEach((dropdown) => {
           if (dropdown !== currentDropdown) {
             dropdown.classList.remove("active");
+            dropdown.querySelector(
+              ".dropdown-content-wrapper"
+            ).style.maxHeight = null;
           }
         });
 
         currentDropdown.classList.toggle("active");
+
+        if (currentDropdown.classList.contains("active")) {
+          dropdownWrapper.style.maxHeight = dropdownWrapper.scrollHeight + "px";
+        } else {
+          dropdownWrapper.style.maxHeight = null;
+        }
       }
 
       function toggleSelectAll(checkbox) {
