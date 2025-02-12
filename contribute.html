@@ -162,9 +162,9 @@
     .contact-section {
       display: flex;
       align-items: flex-start;
-      gap: 15px;
-      padding: 15px 0;
-      border-bottom: 1px solid #ddd;
+      gap: 20px;
+      padding: 30px 0;
+      border-bottom: 1px solid rgba(112, 112, 112, 0.17);
     }
 
     .contact-section:last-child {
@@ -182,6 +182,7 @@
       font-size: 18px;
       color: #545454;
       font-weight: bold;
+      display: inline-block;
     }
 
     .contact-section p {
@@ -191,7 +192,7 @@
     }
     .arabica_contact-details {
       flex: 1;
-      padding: 30px 40px 30px 30px;
+      padding: 15px 60px 30px 60px;
       color: #747474;
     }
 
@@ -200,13 +201,29 @@
       height: 38px;
       flex-shrink: 0;
     }
-
+    .mobile-svg {
+      margin-left: 10px;
+    }
     /* Responsive Design */
+
     @media (max-width: 991px) {
+      .contact-section h3 {
+        font-size: 16px;
+      }
+      .contact-section p {
+        font-size: 14px;
+      }
+      .contact-section {
+        padding: 20px 0;
+      }
+      .arabica_contact-details {
+        padding: 20px 30px;
+      }
+    }
+    @media (max-width: 767px) {
       .contact-section {
         flex-direction: column;
-        align-items: flex-start;
-        gap: 10px;
+        gap: 0;
       }
 
       .contact-section i {
@@ -219,6 +236,19 @@
 
       .contact-section p {
         font-size: 14px;
+      }
+      .arabica_contact-details svg {
+        width: 32px;
+        height: 32px;
+      }
+      .tab-desktop-svg {
+        display: none;
+      }
+    }
+    /* Responsive Design */
+    @media (min-width: 768px) {
+      .mobile-svg {
+        display: none;
       }
     }
   </style>
@@ -448,6 +478,7 @@
           <div class="arabica_contact-details">
             <div class="contact-section">
               <svg
+                class="tab-desktop-svg"
                 xmlns="http://www.w3.org/2000/svg"
                 xmlns:xlink="http://www.w3.org/1999/xlink"
                 viewBox="0 0 38 37.243"
@@ -481,7 +512,6 @@
                     id="_01"
                     data-name="01"
                     transform="translate(183.04 1522.757)"
-                    clip-path="url(#clip-path)"
                   >
                     <path
                       id="Path_39"
@@ -508,6 +538,65 @@
               </svg>
 
               <div>
+                <svg
+                  class="mobile-svg"
+                  xmlns="http://www.w3.org/2000/svg"
+                  xmlns:xlink="http://www.w3.org/1999/xlink"
+                  viewBox="0 0 38 37.243"
+                >
+                  <defs>
+                    <clipPath id="clip-path">
+                      <rect
+                        id="Rectangle_31"
+                        data-name="Rectangle 31"
+                        width="36.96"
+                        height="36.96"
+                        fill="none"
+                      />
+                    </clipPath>
+                  </defs>
+                  <g
+                    id="Group_35"
+                    data-name="Group 35"
+                    transform="translate(-183 -1522.757)"
+                  >
+                    <rect
+                      id="Rectangle_37"
+                      data-name="Rectangle 37"
+                      width="38"
+                      height="37"
+                      rx="18.5"
+                      transform="translate(183 1523)"
+                      fill="#17355d"
+                    />
+                    <g
+                      id="_01"
+                      data-name="01"
+                      transform="translate(183.04 1522.757)"
+                    >
+                      <path
+                        id="Path_39"
+                        data-name="Path 39"
+                        d="M28.907,18.849c0,4.4-6.25,11.375-7.959,11.375S12.99,23.245,12.99,18.849a7.959,7.959,0,0,1,15.917,0Z"
+                        transform="translate(-2.473 -2.073)"
+                        fill="none"
+                        stroke="#fff"
+                        stroke-width="1"
+                      />
+                      <circle
+                        id="Ellipse_13"
+                        data-name="Ellipse 13"
+                        cx="3.554"
+                        cy="3.554"
+                        r="3.554"
+                        transform="translate(14.946 13.537)"
+                        fill="none"
+                        stroke="#fff"
+                        stroke-width="1"
+                      />
+                    </g>
+                  </g>
+                </svg>
                 <h3>العنوان</h3>
                 <p>
                   المركز العربي للأبحاث ودراسة السياسات<br />
@@ -519,6 +608,7 @@
 
             <div class="contact-section">
               <svg
+                class="tab-desktop-svg"
                 xmlns="http://www.w3.org/2000/svg"
                 xmlns:xlink="http://www.w3.org/1999/xlink"
                 viewBox="0 0 38 37.243"
@@ -552,7 +642,6 @@
                     id="_02"
                     data-name="02"
                     transform="translate(233.52 1522.757)"
-                    clip-path="url(#clip-path)"
                   >
                     <rect
                       id="Rectangle_32"
@@ -583,6 +672,69 @@
               </svg>
 
               <div>
+                <svg
+                  class="mobile-svg"
+                  xmlns="http://www.w3.org/2000/svg"
+                  xmlns:xlink="http://www.w3.org/1999/xlink"
+                  viewBox="0 0 38 37.243"
+                >
+                  <defs>
+                    <clipPath id="clip-path">
+                      <rect
+                        id="Rectangle_33"
+                        data-name="Rectangle 33"
+                        width="36.96"
+                        height="36.96"
+                        fill="none"
+                      />
+                    </clipPath>
+                  </defs>
+                  <g
+                    id="Group_34"
+                    data-name="Group 34"
+                    transform="translate(-233 -1522.757)"
+                  >
+                    <rect
+                      id="Rectangle_36"
+                      data-name="Rectangle 36"
+                      width="38"
+                      height="37"
+                      rx="18.5"
+                      transform="translate(233 1523)"
+                      fill="#17355d"
+                    />
+                    <g
+                      id="_02"
+                      data-name="02"
+                      transform="translate(233.52 1522.757)"
+                    >
+                      <rect
+                        id="Rectangle_32"
+                        data-name="Rectangle 32"
+                        width="18.031"
+                        height="12.331"
+                        rx="0.59"
+                        transform="translate(9.465 12.315)"
+                        fill="none"
+                        stroke="#fff"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="1"
+                      />
+                      <path
+                        id="Path_40"
+                        data-name="Path 40"
+                        d="M29.341,15.66l-8.55,5.805L12.12,15.66"
+                        transform="translate(-2.307 -2.981)"
+                        fill="none"
+                        stroke="#fff"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="1"
+                      />
+                    </g>
+                  </g>
+                </svg>
                 <h3>البريد الإلكتروني</h3>
                 <p>arabica@arabica.org</p>
               </div>
@@ -590,6 +742,7 @@
 
             <div class="contact-section">
               <svg
+                class="tab-desktop-svg"
                 xmlns="http://www.w3.org/2000/svg"
                 xmlns:xlink="http://www.w3.org/1999/xlink"
                 viewBox="0 0 38.321 37.243"
@@ -623,7 +776,6 @@
                     id="_03"
                     data-name="03"
                     transform="translate(284.679 1522.757)"
-                    clip-path="url(#clip-path)"
                   >
                     <path
                       id="Path_41"
@@ -663,6 +815,78 @@
               </svg>
 
               <div>
+                <svg
+                  class="mobile-svg"
+                  xmlns="http://www.w3.org/2000/svg"
+                  xmlns:xlink="http://www.w3.org/1999/xlink"
+                  viewBox="0 0 38.321 37.243"
+                >
+                  <defs>
+                    <clipPath id="clip-path">
+                      <rect
+                        id="Rectangle_34"
+                        data-name="Rectangle 34"
+                        width="36.96"
+                        height="36.96"
+                        fill="none"
+                      />
+                    </clipPath>
+                  </defs>
+                  <g
+                    id="Group_33"
+                    data-name="Group 33"
+                    transform="translate(-284.679 -1522.757)"
+                  >
+                    <rect
+                      id="Rectangle_35"
+                      data-name="Rectangle 35"
+                      width="38"
+                      height="37"
+                      rx="18.5"
+                      transform="translate(285 1523)"
+                      fill="#17355d"
+                    />
+                    <g
+                      id="_03"
+                      data-name="03"
+                      transform="translate(284.679 1522.757)"
+                    >
+                      <path
+                        id="Path_41"
+                        data-name="Path 41"
+                        d="M15.587,25.919c-3.595-3.894-4.461-7.141-4.672-8.623a1.846,1.846,0,0,1,.4-1.433,11.916,11.916,0,0,1,2.591-2.5.829.829,0,0,1,.955.065,8.081,8.081,0,0,1,1.668,2.445c.267.5.494.9.648,1.231a1.3,1.3,0,0,1-.146,1.32,11.04,11.04,0,0,1-1.077,1.255c0,2.016,4.1,5.886,5.886,5.886A11.041,11.041,0,0,1,23.1,24.486a1.329,1.329,0,0,1,1.328-.146c.332.154.729.381,1.223.648A8.081,8.081,0,0,1,28.1,26.656a.829.829,0,0,1,.065.955,11.53,11.53,0,0,1-2.5,2.591,1.828,1.828,0,0,1-1.433.4c-1.482-.2-4.736-1.077-8.623-4.672H15.6l-.008-.024Z"
+                        transform="translate(-2.074 -2.521)"
+                        fill="none"
+                        stroke="#fff"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="1"
+                      />
+                      <path
+                        id="Path_42"
+                        data-name="Path 42"
+                        d="M22.29,15.77a8.211,8.211,0,0,1,5.425,3.838,6.958,6.958,0,0,1,.729,2.251"
+                        transform="translate(-4.243 -3.002)"
+                        fill="none"
+                        stroke="#fff"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="1"
+                      />
+                      <path
+                        id="Path_43"
+                        data-name="Path 43"
+                        d="M22.88,10.94c1.085.243,6.064,1.465,8.469,5.991a10.576,10.576,0,0,1,1.133,3.506"
+                        transform="translate(-4.356 -2.083)"
+                        fill="none"
+                        stroke="#fff"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="1"
+                      />
+                    </g>
+                  </g>
+                </svg>
                 <h3>اتصل بنا</h3>
                 <p>
                   <span class="arabica_tel-type">رقم الهاتف</span>
