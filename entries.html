@@ -103,19 +103,27 @@
       .dropdown button i {
         transition: transform 0.3s ease;
       }
-
-      .dropdown-content {
+      .dropdown-content-wrapper {
         display: none;
         position: absolute;
         background: #f3f3f3;
         min-width: 220px;
-        z-index: 1;
         padding: 20px;
+        box-shadow: 4px 4px 9px #00000029;
+        overflow: hidden; /* Ensures the scrollbar does not overflow the radius */
+        display: none;
+        border-radius: 20px;
+        z-index: 1;
+
+        direction: ltr;
+      }
+
+      .dropdown-content {
         max-height: 200px;
         overflow-y: auto;
-        border-radius: 20px;
-        margin-top: 10px;
+        padding-right: 15px;
       }
+
       .dropdown-content input {
         vertical-align: middle;
         margin-top: -2px; /* Fine-tune if needed */
@@ -163,7 +171,7 @@
         padding-bottom: 5px;
       }
 
-      .dropdown.active .dropdown-content {
+      .dropdown.active .dropdown-content-wrapper {
         display: block;
       }
 
@@ -176,6 +184,7 @@
         align-items: center; /* Vertically align items */
         gap: 10px; /* Adjust spacing between checkbox and text */
         cursor: pointer;
+        direction: rtl;
       }
 
       .dropdown-content label.checked {
@@ -345,12 +354,12 @@
         }
       }
       .dropdown-content::-webkit-scrollbar {
-        width: 8px; /* Total width including track */
+        width: 4px; /* Total width including track */
       }
 
       .dropdown-content::-webkit-scrollbar-track {
-        background: #dddddd; /* 2px black line */
-        border-radius: 20px 0 0 20px;
+        background: #c9c9c9;
+        border-radius: 4px;
         width: 2px;
       }
 
@@ -358,6 +367,7 @@
         background: #cc9933; /* Color of the scroll thumb */
         border-radius: 4px;
         width: 4px; /* Makes it appear like it's on a black line */
+        cursor: pointer;
       }
 
       .dropdown-content::-webkit-scrollbar-button {
@@ -610,42 +620,46 @@
             <div class="dropdown">
               <i class="fa fa-chevron-down"></i>
               <button onclick="toggleDropdown(this)">الحقول المعرفية</button>
-              <div class="dropdown-content">
-                <label class="select-all"
-                  ><input type="checkbox" onclick="toggleSelectAll(this)" />
-                  البلدان العربية</label
-                >
-                <label><input type="checkbox" /> قطر</label>
-                <label><input type="checkbox" /> البحرين</label>
-                <label><input type="checkbox" /> لبنان</label>
-                <label><input type="checkbox" /> سوريا</label>
-                <label><input type="checkbox" /> مصر</label>
-                <label><input type="checkbox" /> الكويت</label>
-                <label><input type="checkbox" /> الإمارات</label>
-                <label><input type="checkbox" /> السعودية</label>
-                <label><input type="checkbox" /> العراق</label>
-                <label><input type="checkbox" /> السودان</label>
+              <div class="dropdown-content-wrapper">
+                <div class="dropdown-content">
+                  <label class="select-all"
+                    ><input type="checkbox" onclick="toggleSelectAll(this)" />
+                    البلدان العربية</label
+                  >
+                  <label><input type="checkbox" /> قطر</label>
+                  <label><input type="checkbox" /> البحرين</label>
+                  <label><input type="checkbox" /> لبنان</label>
+                  <label><input type="checkbox" /> سوريا</label>
+                  <label><input type="checkbox" /> مصر</label>
+                  <label><input type="checkbox" /> الكويت</label>
+                  <label><input type="checkbox" /> الإمارات</label>
+                  <label><input type="checkbox" /> السعودية</label>
+                  <label><input type="checkbox" /> العراق</label>
+                  <label><input type="checkbox" /> السودان</label>
+                </div>
               </div>
             </div>
 
             <div class="dropdown">
               <i class="fa fa-chevron-down"></i>
               <button onclick="toggleDropdown(this)">البلدان العربية</button>
-              <div class="dropdown-content">
-                <label class="select-all"
-                  ><input type="checkbox" onclick="toggleSelectAll(this)" />
-                  تحديد الكل</label
-                >
-                <label><input type="checkbox" /> الفلسفة</label>
-                <label><input type="checkbox" /> الدين</label>
-                <label><input type="checkbox" /> الاقتصاد</label>
-                <label><input type="checkbox" /> الكيمياء</label>
-                <label><input type="checkbox" /> البيولوجيا</label>
-                <label><input type="checkbox" /> العلوم الرياضية</label>
-                <label><input type="checkbox" /> الفيزياء</label>
-                <label><input type="checkbox" /> التاريخ</label>
-                <label><input type="checkbox" /> الجغرافيا</label>
-                <label><input type="checkbox" /> الفنون</label>
+              <div class="dropdown-content-wrapper">
+                <div class="dropdown-content">
+                  <label class="select-all"
+                    ><input type="checkbox" onclick="toggleSelectAll(this)" />
+                    تحديد الكل</label
+                  >
+                  <label><input type="checkbox" /> الفلسفة</label>
+                  <label><input type="checkbox" /> الدين</label>
+                  <label><input type="checkbox" /> الاقتصاد</label>
+                  <label><input type="checkbox" /> الكيمياء</label>
+                  <label><input type="checkbox" /> البيولوجيا</label>
+                  <label><input type="checkbox" /> العلوم الرياضية</label>
+                  <label><input type="checkbox" /> الفيزياء</label>
+                  <label><input type="checkbox" /> التاريخ</label>
+                  <label><input type="checkbox" /> الجغرافيا</label>
+                  <label><input type="checkbox" /> الفنون</label>
+                </div>
               </div>
             </div>
 

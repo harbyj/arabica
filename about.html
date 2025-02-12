@@ -11,6 +11,146 @@
       media="all"
     />
   </head>
+  <style>
+    .arabica_timeline {
+      position: relative;
+      margin: auto;
+    }
+
+    .arabica_timeline::after {
+      content: "";
+      position: absolute;
+      width: 2px;
+      background-color: #003366;
+      top: 60px;
+      bottom: var(--timeline-bottom, 40px); /* Adjusts dynamically */
+      right: 50%;
+      transform: translateX(50%);
+    }
+
+    .arabica_timeline-icon {
+      position: relative;
+      margin: 0 auto 60px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1;
+    }
+
+    .arabica_timeline-icon img,
+    .arabica_timeline-icon svg {
+      width: 126px;
+      height: 126px;
+    }
+
+    .arabica_timeline-container {
+      position: relative;
+      background-color: inherit;
+      width: 50%;
+    }
+
+    .arabica_timeline-container.timeline-right {
+      padding: 10px 0 10px 40px;
+      right: 4px;
+      left: auto;
+    }
+
+    .arabica_timeline-container.timeline-left {
+      padding: 10px 40px 10px 0;
+      right: 49.65%;
+      left: auto;
+    }
+
+    .content {
+      padding: 2px;
+      background-color: white;
+      position: relative;
+      border-radius: 10px;
+      box-shadow: 4px 4px 9px #00000029;
+      display: flex;
+      align-items: center;
+    }
+
+    .arabica_timeline-container::before,
+    .arabica_timeline-container::after {
+      content: "";
+      position: absolute;
+      top: 50%; /* Center vertically */
+      transform: translateY(-50%); /* Adjust for precise centering */
+    }
+
+    .arabica_timeline-container::before {
+      left: -10px;
+      width: 24px;
+      height: 24px;
+      background-color: #fff;
+      border: 2px solid #003366;
+      border-radius: 50%;
+      z-index: 1;
+    }
+
+    .arabica_timeline-container::after {
+      left: -4px;
+      width: 16px;
+      height: 16px;
+      background-color: #003366;
+      border-radius: 50%;
+      z-index: 2;
+    }
+
+    .timeline-left::before {
+      right: -10px;
+      left: auto;
+    }
+
+    .timeline-left::after {
+      right: -4px;
+      left: auto;
+    }
+
+    .timeline-right .content {
+      flex-direction: row-reverse;
+    }
+    .timeline-right .description {
+      border-left: 2px solid #cc9933;
+      border-right: 0;
+    }
+
+    .year {
+      font-size: 60px;
+      font-weight: 300;
+      color: #cc9933;
+      text-align: center;
+      line-height: 0;
+      padding: 10px 20px;
+    }
+
+    .description {
+      font-size: 16px;
+      color: #333;
+      padding: 10px;
+      border-right: 2px solid #cc9933;
+      text-align: justify;
+    }
+
+    @media screen and (max-width: 600px) {
+      .arabica_timeline-container {
+        width: 100%;
+        padding-right: 70px;
+        padding-left: 25px;
+      }
+
+      .arabica_timeline-container::before {
+        right: 60px;
+        left: auto;
+      }
+
+      .timeline-right {
+        right: 0;
+        left: auto;
+      }
+    }
+  </style>
   <body>
     <header class="header">
       <div class="arabica_header arabica_container">
@@ -232,8 +372,77 @@
           </div>
         </div>
       </div>
-      <div class="arabica_article-list">
-        <div class="arabica_fit-container arabica_container"></div>
+      <div class="arabica_featured">
+        <div class="arabica_fit-container arabica_container">
+          <div class="arabica_timeline">
+            <div class="arabica_timeline-icon">
+              <img src="Assets/images/Arabica-about-logo.png" alt="Logo" />
+            </div>
+
+            <div class="arabica_timeline-container timeline-right">
+              <div class="content">
+                <div class="year">2015</div>
+                <div class="description">
+                  هنا نص تجريبي يمكن استبداله بمحتوى آخر حسب الحاجة.
+                </div>
+              </div>
+            </div>
+
+            <div class="arabica_timeline-container timeline-left">
+              <div class="content">
+                <div class="year">2017</div>
+                <div class="description">
+                  هنا نص تجريبي يمكن استبداله بمحتوى آخر حسب الحاجة.
+                </div>
+              </div>
+            </div>
+
+            <div class="arabica_timeline-container timeline-right">
+              <div class="content">
+                <div class="year">2018</div>
+                <div class="description">
+                  هنا نص تجريبي يمكن استبداله بمحتوى آخر حسب الحاجة.
+                </div>
+              </div>
+            </div>
+
+            <div class="arabica_timeline-container timeline-left">
+              <div class="content">
+                <div class="year">2019</div>
+                <div class="description">
+                  هنا نص تجريبي يمكن استبداله بمحتوى آخر حسب الحاجة.
+                </div>
+              </div>
+            </div>
+
+            <div class="arabica_timeline-container timeline-right">
+              <div class="content">
+                <div class="year">2020</div>
+                <div class="description">
+                  هنا نص تجريبي يمكن استبداله بمحتوى آخر حسب الحاجة.
+                </div>
+              </div>
+            </div>
+
+            <div class="arabica_timeline-container timeline-left">
+              <div class="content">
+                <div class="year">2021</div>
+                <div class="description">
+                  هنا نص تجريبي يمكن استبداله بمحتوى آخر حسب الحاجة.
+                </div>
+              </div>
+            </div>
+
+            <div class="arabica_timeline-container timeline-right">
+              <div class="content">
+                <div class="year">2022</div>
+                <div class="description">
+                  هنا نص تجريبي يمكن استبداله بمحتوى آخر حسب الحاجة.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
 
