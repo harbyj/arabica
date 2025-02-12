@@ -107,19 +107,20 @@
         display: none;
         position: absolute;
         background: #f3f3f3;
-        min-width: 220px;
         padding: 20px;
         box-shadow: 4px 4px 9px #00000029;
         overflow: hidden; /* Ensures the scrollbar does not overflow the radius */
         display: none;
         border-radius: 20px;
         z-index: 1;
-
+        margin-top: 10px;
         direction: ltr;
       }
 
       .dropdown-content {
-        max-height: 200px;
+        max-height: 290px;
+        width: max-content; /* Expands based on the largest text */
+        white-space: nowrap;
         overflow-y: auto;
         padding-right: 15px;
       }
@@ -304,6 +305,9 @@
         .arabica_search-content {
           margin-bottom: 30px;
         }
+        .dropdown-content label {
+          margin-bottom: 3px;
+        }
       }
 
       @media (max-width: 767px) {
@@ -314,6 +318,7 @@
           margin-bottom: 15px;
         }
         .dropdown-content {
+          min-width: 130px;
           max-height: 150px;
         }
         .slider {
@@ -622,20 +627,23 @@
               <button onclick="toggleDropdown(this)">الحقول المعرفية</button>
               <div class="dropdown-content-wrapper">
                 <div class="dropdown-content">
-                  <label class="select-all"
-                    ><input type="checkbox" onclick="toggleSelectAll(this)" />
-                    البلدان العربية</label
-                  >
-                  <label><input type="checkbox" /> قطر</label>
-                  <label><input type="checkbox" /> البحرين</label>
-                  <label><input type="checkbox" /> لبنان</label>
-                  <label><input type="checkbox" /> سوريا</label>
-                  <label><input type="checkbox" /> مصر</label>
-                  <label><input type="checkbox" /> الكويت</label>
-                  <label><input type="checkbox" /> الإمارات</label>
-                  <label><input type="checkbox" /> السعودية</label>
-                  <label><input type="checkbox" /> العراق</label>
-                  <label><input type="checkbox" /> السودان</label>
+                  <label class="select-all">
+                    <input type="checkbox" onclick="toggleSelectAll(this)" />
+                    تحديد الكل
+                  </label>
+                  <label><input type="checkbox" /> الاقتصاد</label>
+                  <label><input type="checkbox" /> الفلسفة</label>
+                  <label><input type="checkbox" /> الكيمياء</label>
+                  <label><input type="checkbox" /> البيولوجيا</label>
+                  <label><input type="checkbox" /> العلوم الرياضية</label>
+                  <label><input type="checkbox" /> الفيزياء</label>
+                  <label><input type="checkbox" /> التاريخ</label>
+                  <label><input type="checkbox" /> الجغرافيا</label>
+                  <label><input type="checkbox" /> اللسانيات</label>
+                  <label><input type="checkbox" /> الديانات</label>
+                  <label><input type="checkbox" /> الشخصيات العامة</label>
+                  <label><input type="checkbox" /> الفلك</label>
+                  <label><input type="checkbox" /> العلوم الاجتماعية</label>
                 </div>
               </div>
             </div>
@@ -645,20 +653,30 @@
               <button onclick="toggleDropdown(this)">البلدان العربية</button>
               <div class="dropdown-content-wrapper">
                 <div class="dropdown-content">
-                  <label class="select-all"
-                    ><input type="checkbox" onclick="toggleSelectAll(this)" />
-                    تحديد الكل</label
-                  >
-                  <label><input type="checkbox" /> الفلسفة</label>
-                  <label><input type="checkbox" /> الدين</label>
-                  <label><input type="checkbox" /> الاقتصاد</label>
-                  <label><input type="checkbox" /> الكيمياء</label>
-                  <label><input type="checkbox" /> البيولوجيا</label>
-                  <label><input type="checkbox" /> العلوم الرياضية</label>
-                  <label><input type="checkbox" /> الفيزياء</label>
-                  <label><input type="checkbox" /> التاريخ</label>
-                  <label><input type="checkbox" /> الجغرافيا</label>
-                  <label><input type="checkbox" /> الفنون</label>
+                  <label class="select-all">
+                    <input type="checkbox" onclick="toggleSelectAll(this)" />
+                    تحديد الكل
+                  </label>
+                  <label><input type="checkbox" /> قطر</label>
+                  <label><input type="checkbox" /> البحرين</label>
+                  <label><input type="checkbox" /> الكويت</label>
+                  <label><input type="checkbox" /> الإمارات</label>
+                  <label><input type="checkbox" /> السعودية</label>
+                  <label><input type="checkbox" /> اليمن</label>
+                  <label><input type="checkbox" /> عمان</label>
+                  <label><input type="checkbox" /> الأردن</label>
+                  <label><input type="checkbox" /> سوريا</label>
+                  <label><input type="checkbox" /> لبنان</label>
+                  <label><input type="checkbox" /> فلسطين</label>
+                  <label><input type="checkbox" /> العراق</label>
+                  <label><input type="checkbox" /> السودان</label
+                  ><label><input type="checkbox" /> عمان</label>
+                  <label><input type="checkbox" /> الأردن</label>
+                  <label><input type="checkbox" /> سوريا</label>
+                  <label><input type="checkbox" /> لبنان</label>
+                  <label><input type="checkbox" /> فلسطين</label>
+                  <label><input type="checkbox" /> العراق</label>
+                  <label><input type="checkbox" /> السودان</label>
                 </div>
               </div>
             </div>
