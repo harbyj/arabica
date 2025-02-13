@@ -3,381 +3,154 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Article Entries Page - Arabica Picks</title>
+    <title>About Page - Arabica Picks</title>
     <link rel="stylesheet" href="Assets/css/styles.css" />
     <link
       rel="stylesheet"
       href="Assets/fonts/font-awesome/css/all.min.css"
       media="all"
     />
-    <style>
-      .arabica_search-content {
-        display: flex;
-        align-items: center;
-        flex-wrap: wrap; /* Ensure responsiveness */
-        gap: 10px; /* Spacing between elements */
-        margin-bottom: 40px;
-      }
-
-      .arabica_search-content .arabica_grid,
-      .arabica_list {
-        height: 39px;
-        width: 39px;
-        font-size: 29px;
-      }
-
-      /* Align elements to the right */
-      .search-box,
-      .dropdown,
-      .switch-container {
-        display: flex;
-        align-items: center;
-        color: #a2a2a2;
-      }
-
-      /* Align the arabica_list-grid to the left */
-      .arabica_search-content .arabica_list-grid {
-        margin-right: auto; /* Push to the left */
-        align-items: center;
-      }
-
-      .search-box {
-        position: relative;
-        width: 29%;
-      }
-
-      .search-box input,
-      .dropdown button {
-        width: 100%;
-        height: 39px;
-        padding: 10px 15px 10px 40px; /* Space for left icon */
-        background-color: #f3f3f3;
-        border-radius: 20px;
-        font-size: 14px;
-        color: #a2a2a2;
-        border: 0px;
-        display: flex;
-        align-items: center;
-      }
-
-      .search-box input::placeholder {
-        color: #a2a2a2; /* Brownish Gold */
-        opacity: 1; /* Ensures full opacity (default can be lower in some browsers) */
-        display: flex;
-        align-items: center;
-      }
-
-      .search-box input:focus,
-      .dropdown.active button {
-        border-color: #cc9933; /* Brownish Gold border */
-        outline: none; /* Remove default outline */
-        box-shadow: 0 0 5px rgba(204, 153, 51, 0.8); /* Glow effect */
-        background-color: #fdf6e3; /* Soft warm background */
-      }
-
-      .search-box i,
-      .search-box svg,
-      .dropdown i,
-      .dropdown svg {
-        position: absolute;
-        left: 15px;
-        top: 50%;
-        transform: translateY(-50%);
-        color: #cc9933;
-        font-size: 14px;
-      }
-      .search-box svg,
-      .dropdown svg {
-        width: 14px;
-        height: 14px;
-      }
-      .dropdown {
-        position: relative;
-        display: inline-block;
-      }
-
-      .dropdown button {
-        cursor: pointer;
-      }
-
-      .dropdown button i {
-        transition: transform 0.3s ease;
-      }
-      .dropdown-content-wrapper {
-        display: none;
-        position: absolute;
-        background: #f3f3f3;
-        padding: 20px;
-        box-shadow: 4px 4px 9px #00000029;
-        overflow: hidden; /* Ensures the scrollbar does not overflow the radius */
-        display: none;
-        border-radius: 20px;
-        z-index: 1;
-        margin-top: 10px;
-        max-height: 0;
-        transition: max-height 0.3s ease-in-out;
-      }
-
-      .dropdown-content {
-        max-height: 290px;
-        min-width: 180px;
-        width: max-content; /* Expands based on the largest text */
-        white-space: nowrap;
-        overflow-y: auto;
-        padding-left: 15px;
-      }
-
-      .dropdown-content input {
-        vertical-align: middle;
-        margin-top: -2px; /* Fine-tune if needed */
-        background-color: transparent;
-      }
-
-      .dropdown-content input[type="checkbox"] {
-        appearance: none; /* Remove default styles */
-        -webkit-appearance: none;
-        -moz-appearance: none;
-        width: 14px;
-        height: 14px;
-        border: 1px solid #bbbbbb;
-        border-radius: 3px; /* Rounded corners */
-        cursor: pointer;
-        position: relative;
-        display: inline-block;
-      }
-      /* When checkbox is checked */
-      .dropdown-content input[type="checkbox"]:checked {
-        background-color: #cc9933; /* Inside background when checked */
-        border-color: #cc9933; /* Border color when checked */
-      }
-
-      /* Add checkmark */
-      .dropdown-content input[type="checkbox"]::after {
-        content: "✔"; /* Unicode checkmark */
-        font-size: 10px;
-        color: white;
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        display: none;
-      }
-
-      /* Show checkmark when checked */
-      .dropdown-content input[type="checkbox"]:checked::after {
-        display: block;
-      }
-
-      .dropdown-content .select-all {
-        border-bottom: 1px solid #dddddd;
-        margin-bottom: 6px;
-        padding-bottom: 5px;
-      }
-
-      .dropdown.active .dropdown-content-wrapper {
-        display: block;
-      }
-
-      .dropdown.active button i {
-        transform: rotate(180deg);
-      }
-
-      .dropdown-content label {
-        display: flex; /* Align checkbox and text properly */
-        align-items: center; /* Vertically align items */
-        gap: 10px; /* Adjust spacing between checkbox and text */
-        cursor: pointer;
-        direction: rtl;
-      }
-
-      .dropdown-content label.checked {
-        color: #000000;
-      }
-      .switch-label {
-        display: flex;
-        align-items: center;
-      }
-      .switch {
-        position: relative;
-        display: inline-block;
-        width: 35px; /* Fixed width */
-        height: 20px; /* Fixed height */
-        margin-left: 10px;
-        box-sizing: border-box; /* Ensures consistent sizing */
-        flex-shrink: 0; /* Prevents resizing */
-      }
-      .switch-container {
-        height: 39px;
-        border-radius: 20px;
-        font-size: 14px;
-        color: #a2a2a2;
-        border: 0px;
-      }
-      .switch input {
-        opacity: 0;
-        width: 0;
-        height: 0;
-      }
-
-      .slider {
-        position: absolute;
-        cursor: pointer;
-        top: 0;
-        right: 0;
-        bottom: 0;
-        left: 0;
-        width: 100%; /* Ensures consistent size */
-        height: 100%; /* Ensures consistent size */
-        border: 2px solid #a2a2a2;
-        border-radius: 20px;
-        transition: 0.4s;
-        box-sizing: border-box; /* Prevents layout shifts */
-      }
-
-      .slider:before {
-        position: absolute;
-        content: "";
-        height: 12px; /* Slightly larger for better visibility */
-        width: 12px; /* Fixed width */
-        border: 2px solid #a2a2a2;
-        border-radius: 50%;
-        transition: 0.4s;
-        right: 2px;
-        top: 50%;
-        transform: translateY(-50%); /* Centers the toggle vertically */
-        box-sizing: border-box; /* Keeps border size consistent */
-      }
-
-      input:checked + .slider:before {
-        transform: translateX(-15px) translateY(-50%);
-        background: #cc9933;
-        border: 2px solid #cc9933;
-      }
-      .dropdown-content::-webkit-scrollbar {
-        width: 4px; /* Total width including track */
-      }
-
-      .dropdown-content::-webkit-scrollbar-track {
-        background: #c9c9c9;
-        border-radius: 4px;
-      }
-
-      .dropdown-content::-webkit-scrollbar-thumb {
-        background: #cc9933; /* Color of the scroll thumb */
-        border-radius: 4px;
-        cursor: pointer;
-      }
-
-      .dropdown-content::-webkit-scrollbar-button {
-        display: none; /* Hides the scrollbar arrows */
-      }
-      @media (max-width: 991px) {
-        .arabica_article-top {
-          padding: 30px 0 15px 0;
-        }
-        .search-box {
-          width: 100%;
-        }
-        .dropdown-content {
-          min-width: 150px;
-          max-height: 256px;
-        }
-        .switch {
-          width: 32px;
-          height: 16px;
-        }
-        .slider:before {
-          height: 9px;
-          width: 9px;
-        }
-        .search-box,
-        .dropdown,
-        .switch-container {
-          font-size: 12px;
-        }
-        .search-box i,
-        .search-box svg,
-        .dropdown i,
-        .dropdown svg {
-          font-size: 12px;
-        }
-        .search-box svg,
-        .dropdown svg {
-          width: 12px;
-          height: 12px;
-        }
-        .search-box input,
-        .dropdown button {
-          height: 33px;
-          font-size: 12px;
-        }
-        .arabica_search-content .arabica_grid,
-        .arabica_list {
-          height: 33px;
-          width: 33px;
-          font-size: 23px;
-        }
-        .switch-container {
-          height: 33px;
-          font-size: 12px;
-        }
-        .arabica_search-content {
-          margin-bottom: 30px;
-        }
-        .dropdown-content label {
-          margin-bottom: 4px;
-        }
-      }
-
-      @media (max-width: 767px) {
-        .search-box {
-          width: 100%;
-        }
-        .arabica_search-content {
-          margin-bottom: 15px;
-        }
-        .dropdown-content {
-          min-width: 130px;
-        }
-        .slider {
-          border: 1px solid #a2a2a2;
-          height: 90%;
-        }
-
-        .slider:before {
-          border: 1px solid #a2a2a2;
-          transform: translateY(-50%);
-        }
-        input:checked + .slider:before {
-          border: 1px solid #cc9933;
-          transform: translateX(-11px) translateY(-50%);
-        }
-        .switch {
-          width: 26px;
-          height: 15px;
-        }
-        .dropdown-content::-webkit-scrollbar {
-          width: 3px;
-        }
-        .dropdown-content::-webkit-scrollbar-thumb {
-          border-radius: 3px;
-        }
-      }
-      @media (min-width: 768px) {
-        .dropdown {
-          width: 25%;
-        }
-        .switch-container {
-          padding: 10px 10px 10px 0;
-        }
-      }
-      @media (min-width: 992px) {
-        .dropdown {
-          width: 18%;
-        }
-      }
-    </style>
   </head>
+  <style>
+    .arabica_timeline {
+      position: relative;
+      margin: auto;
+    }
+
+    .arabica_timeline::after {
+      content: "";
+      position: absolute;
+      width: 2px;
+      background-color: #003366;
+      top: 60px;
+      bottom: var(--timeline-bottom, 40px); /* Adjusts dynamically */
+      right: 50%;
+      transform: translateX(50%);
+    }
+
+    .arabica_timeline-icon {
+      position: relative;
+      margin: 0 auto 60px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1;
+    }
+
+    .arabica_timeline-icon img,
+    .arabica_timeline-icon svg {
+      width: 126px;
+      height: 126px;
+    }
+
+    .arabica_timeline-container {
+      position: relative;
+      background-color: inherit;
+      width: 50%;
+    }
+
+    .arabica_timeline-container.timeline-right {
+      padding: 10px 0 10px 40px;
+      right: 4px;
+      left: auto;
+    }
+
+    .arabica_timeline-container.timeline-left {
+      padding: 10px 40px 10px 0;
+      right: 49.65%;
+      left: auto;
+    }
+
+    .content {
+      padding: 2px;
+      background-color: white;
+      position: relative;
+      border-radius: 10px;
+      box-shadow: 4px 4px 9px #00000029;
+      display: flex;
+      align-items: center;
+    }
+
+    .arabica_timeline-container::before,
+    .arabica_timeline-container::after {
+      content: "";
+      position: absolute;
+      top: 50%; /* Center vertically */
+      transform: translateY(-50%); /* Adjust for precise centering */
+    }
+
+    .arabica_timeline-container::before {
+      left: -10px;
+      width: 24px;
+      height: 24px;
+      background-color: #fff;
+      border: 2px solid #003366;
+      border-radius: 50%;
+      z-index: 1;
+    }
+
+    .arabica_timeline-container::after {
+      left: -4px;
+      width: 16px;
+      height: 16px;
+      background-color: #003366;
+      border-radius: 50%;
+      z-index: 2;
+    }
+
+    .timeline-left::before {
+      right: -10px;
+      left: auto;
+    }
+
+    .timeline-left::after {
+      right: -4px;
+      left: auto;
+    }
+
+    .timeline-right .content {
+      flex-direction: row-reverse;
+    }
+    .timeline-right .description {
+      border-left: 2px solid #cc9933;
+      border-right: 0;
+    }
+
+    .year {
+      font-size: 60px;
+      font-weight: 300;
+      color: #cc9933;
+      text-align: center;
+      line-height: 0;
+      padding: 10px 20px;
+    }
+
+    .description {
+      font-size: 16px;
+      color: #333;
+      padding: 10px;
+      border-right: 2px solid #cc9933;
+      text-align: justify;
+    }
+
+    @media screen and (max-width: 600px) {
+      .arabica_timeline-container {
+        width: 100%;
+        padding-right: 70px;
+        padding-left: 25px;
+      }
+
+      .arabica_timeline-container::before {
+        right: 60px;
+        left: auto;
+      }
+
+      .timeline-right {
+        right: 0;
+        left: auto;
+      }
+    }
+  </style>
   <body>
     <header class="header">
       <div class="arabica_header arabica_container">
@@ -583,685 +356,96 @@
 
     <!-- Content Start -->
     <div class="arabica_main-wrapper">
-      <div class="arabica_article-about">
+      <div class="arabica_about-top">
         <div>
           <div class="arabica_fit-container arabica_container">
-            <h1 class="arabica_title">المداخل الموسوعية</h1>
-            <p>
-              صدر عن المركز العربي للأبحاث ودراسة السياسات كتاب اقتصاديات الطاقة
-              المتجددة في ألمانيا ومصر والعراق، للكاتب هيثم عبد الله سلمان.
-              ويأتي هذا الكتاب الذي يشتمل على 360 صفحةً من القطع الكبير في وقت
-              تشغل فيه مسألة الطاقة المتجددة صانعي القرار حول العالم. ويُعدّ هذا
-              الكتاب دراسةً في اقتصاديات الطاقة المتجددة، ودور الطاقة في تعزيز
-              مؤشرات التنمية المستدامة، في نطاق السعي نحو "الاقتصاد الأخضر"
-              وصانعي القرار حول العالم.
-            </p>
+            <div class="arabica_about-info">
+              <h1 class="arabica_title">الموسوعة العربية</h1>
+              <p>
+                صدر عن المركز العربي للأبحاث ودراسة السياسات كتاب اقتصاديات
+                الطاقة المتجددة في ألمانيا ومصر والعراق، للكاتب هيثم عبد الله
+                سلمان. ويأتي هذا الكتاب الذي يشتمل على 360 صفحةً من القطع الكبير
+                في وقت تشغل فيه مسألة الطاقة المتجددة صانعي القرار حول العالم.
+                ويُعدّ هذا الكتاب دراسةً في اقتصاديات الطاقة المتجددة.
+              </p>
+            </div>
           </div>
         </div>
       </div>
-      <div class="arabica_article-list arabica_article-top">
+      <div class="arabica_featured">
         <div class="arabica_fit-container arabica_container">
-          <div class="arabica_search-content">
-            <div class="search-box">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 14.025 13.925"
-              >
-                <g id="_11" data-name="11" transform="translate(0.1 -0.675)">
-                  <path
-                    id="Path_49"
-                    data-name="Path 49"
-                    d="M1.8,14.3a1.136,1.136,0,0,1-.8.3,1.33,1.33,0,0,1-.8-.3,1.217,1.217,0,0,1,0-1.6L3.5,9.4a5.212,5.212,0,0,1-.9-3.9A5.177,5.177,0,0,1,4.2,2.3,5.724,5.724,0,0,1,7.5.7a6.29,6.29,0,0,1,3.4.6,6.894,6.894,0,0,1,2.4,2.4,6.466,6.466,0,0,1,.6,3.4,5.724,5.724,0,0,1-1.6,3.3A5.754,5.754,0,0,1,9.1,12a5.575,5.575,0,0,1-4-.9ZM8.2,2.7a3.74,3.74,0,0,0-2.5,1,3.317,3.317,0,0,0-1,2.5,3.74,3.74,0,0,0,1,2.5,3.317,3.317,0,0,0,2.5,1,3.74,3.74,0,0,0,2.5-1,3.317,3.317,0,0,0,1-2.5,3.74,3.74,0,0,0-1-2.5A4.3,4.3,0,0,0,8.2,2.7Z"
-                    fill="#cc9a34"
-                  />
-                </g>
-              </svg>
-
-              <input type="text" placeholder="البحث" />
+          <div class="arabica_timeline">
+            <div class="arabica_timeline-icon">
+              <img src="Assets/images/Arabica-about-logo.png" alt="Logo" />
             </div>
 
-            <div class="dropdown">
-              <i class="fa fa-chevron-down"></i>
-              <button onclick="toggleDropdown(this)">الحقول المعرفية</button>
-              <div class="dropdown-content-wrapper">
-                <div class="dropdown-content">
-                  <label class="select-all">
-                    <input type="checkbox" onclick="toggleSelectAll(this)" />
-                    تحديد الكل
-                  </label>
-                  <label><input type="checkbox" /> الاقتصاد</label>
-                  <label><input type="checkbox" /> الفلسفة</label>
-                  <label><input type="checkbox" /> الكيمياء</label>
-                  <label><input type="checkbox" /> البيولوجيا</label>
-                  <label><input type="checkbox" /> العلوم الرياضية</label>
-                  <label><input type="checkbox" /> الفيزياء</label>
-                  <label><input type="checkbox" /> التاريخ</label>
-                  <label><input type="checkbox" /> الجغرافيا</label>
-                  <label><input type="checkbox" /> اللسانيات</label>
-                  <label><input type="checkbox" /> الديانات</label>
-                  <label><input type="checkbox" /> الشخصيات العامة</label>
-                  <label><input type="checkbox" /> الفلك</label>
-                  <label><input type="checkbox" /> العلوم الاجتماعية</label>
+            <div class="arabica_timeline-container timeline-right">
+              <div class="content">
+                <div class="year">2015</div>
+                <div class="description">
+                  هنا نص تجريبي يمكن استبداله بمحتوى آخر حسب الحاجة.
                 </div>
               </div>
             </div>
 
-            <div class="dropdown">
-              <i class="fa fa-chevron-down"></i>
-              <button onclick="toggleDropdown(this)">البلدان العربية</button>
-              <div class="dropdown-content-wrapper">
-                <div class="dropdown-content">
-                  <label class="select-all">
-                    <input type="checkbox" onclick="toggleSelectAll(this)" />
-                    تحديد الكل
-                  </label>
-                  <label><input type="checkbox" /> قطر</label>
-                  <label><input type="checkbox" /> البحرين</label>
-                  <label><input type="checkbox" /> الكويت</label>
-                  <label><input type="checkbox" /> الإمارات</label>
-                  <label><input type="checkbox" /> السعودية</label>
-                  <label><input type="checkbox" /> اليمن</label>
-                  <label><input type="checkbox" /> عمان</label>
-                  <label><input type="checkbox" /> الأردن</label>
-                  <label><input type="checkbox" /> سوريا</label>
-                  <label><input type="checkbox" /> لبنان</label>
-                  <label><input type="checkbox" /> فلسطين</label>
-                  <label><input type="checkbox" /> العراق</label>
-                  <label><input type="checkbox" /> السودان</label
-                  ><label><input type="checkbox" /> عمان</label>
-                  <label><input type="checkbox" /> الأردن</label>
-                  <label><input type="checkbox" /> سوريا</label>
-                  <label><input type="checkbox" /> لبنان</label>
-                  <label><input type="checkbox" /> فلسطين</label>
-                  <label><input type="checkbox" /> العراق</label>
-                  <label><input type="checkbox" /> السودان</label>
+            <div class="arabica_timeline-container timeline-left">
+              <div class="content">
+                <div class="year">2017</div>
+                <div class="description">
+                  هنا نص تجريبي يمكن استبداله بمحتوى آخر حسب الحاجة.
                 </div>
               </div>
             </div>
 
-            <div class="switch-container">
-              <label class="switch-label"
-                ><label class="switch">
-                  <input type="checkbox" />
-                  <span class="slider"></span> </label
-                >المقالات القصيرة فقط
-              </label>
-            </div>
-
-            <div class="arabica_list-grid">
-              <span class="arabica_list"
-                ><i class="fa-light fa-list-ul"></i
-              ></span>
-              <span class="arabica_grid"
-                ><i class="fa-light fa-grid-2"></i
-              ></span>
-            </div>
-          </div>
-          <div class="arabica_featured-content">
-            <div class="arabica_featured-article">
-              <div class="arabica_featured-article-inner">
-                <div class="arabica_featured-article-image arabica_post-image">
-                  <a href="single-article.html"
-                    ><img src="Assets/images/post-img9.jpg" alt="العلم"
-                  /></a>
-                  <a href="#" class="arabica_featured-article-category"
-                    >العلوم السياسية</a
-                  >
-                </div>
-                <div class="arabica_featured-article-content">
-                  <h2 class="arabica_article-title">
-                    <a href="single-article.html">محمد محمد مرسي عيسى العياط</a>
-                  </h2>
-                  <p class="arabica_article-subtitle">
-                    الرئيس الخامس لجمهورية مصر العربية
-                  </p>
-                  <div class="arabica_article-meta">
-                    <span class="arabica_article-author"
-                      ><i class="fa-light fa-user"></i
-                      ><a href="author.html">إبراهيم حسن</a></span
-                    >
-                    <span class="arabica_article-date"
-                      ><i class="fa-light fa-calendar-days"></i
-                      ><time datetime="YYYY-MM-DDTHH:MM:SSZ" class="doha_date">
-                        05 ديسمبر ، 2024
-                      </time>
-                    </span>
-                    <span class="arabica_article-read"
-                      ><i class="fa-light fa-timer"></i>مدة القراءة 5:05 د</span
-                    >
-                  </div>
-                  <p class="arabica_featured-article-text">
-                    محمد محمد مرسي عيسى العياط (8 أغسطس 1951 – 17 يونيو 2019)،
-                    مهندس فلزات، وأستاذ جامعي، وسياسي مصري وهو الرئيس الخامس
-                    لجمهورية مصر العربية[8] والأول بعد ثورة 25 يناير وهو أول
-                    رئيس مدني منتخب للبلاد وأول.
-                  </p>
-                  <div class="arabica_featured-article-actions">
-                    <a
-                      href="single-article.html"
-                      class="arabica_featured-article-button"
-                      >إقرأ المزيد</a
-                    >
-                    <div class="arabica_featured-article-share">
-                      <a
-                        href="#"
-                        class="arabica_share-link"
-                        data-share-title="علم الفلك في الحضارة الإسلامية"
-                        data-share-url="single-article.html"
-                        ><i class="fa-light fa-share"></i> شارك</a
-                      >
-                    </div>
-                  </div>
+            <div class="arabica_timeline-container timeline-right">
+              <div class="content">
+                <div class="year">2018</div>
+                <div class="description">
+                  هنا نص تجريبي يمكن استبداله بمحتوى آخر حسب الحاجة.
                 </div>
               </div>
             </div>
 
-            <div class="arabica_featured-article">
-              <div class="arabica_featured-article-inner">
-                <div class="arabica_featured-article-image arabica_post-image">
-                  <a href="single-article.html"
-                    ><img src="Assets/images/post-img10.jpg" alt="الكيمياء"
-                  /></a>
-                  <a href="#" class="arabica_featured-article-category"
-                    >الإسلام وعلومه</a
-                  >
-                </div>
-                <div class="arabica_featured-article-content">
-                  <h2 class="arabica_article-title">
-                    <a href="single-article.html"
-                      >عن اللاساميّة ومظاهرات الطلاب</a
-                    >
-                  </h2>
-                  <p class="arabica_article-subtitle">
-                    حين تستغني عالمة اجتماع إسرائيلية عن أدوات الاستنتاج
-                    العقلاني وتلجأ إلى اللاوعي
-                  </p>
-                  <div class="arabica_article-meta">
-                    <span class="arabica_article-author"
-                      ><i class="fa-light fa-user"></i
-                      ><a href="author.html">إبراهيم حسن</a></span
-                    >
-                    <span class="arabica_article-date"
-                      ><i class="fa-light fa-calendar-days"></i
-                      ><time datetime="YYYY-MM-DDTHH:MM:SSZ" class="doha_date">
-                        05 ديسمبر ، 2024
-                      </time>
-                    </span>
-                    <span class="arabica_article-read"
-                      ><i class="fa-light fa-timer"></i>مدة القراءة 5:05 د</span
-                    >
-                  </div>
-                  <p class="arabica_featured-article-text">
-                    رسل إليّ أحد الأصدقاء مقالًا لعالمة الاجتماع الإسرائيلية،
-                    إيڤا إيلّوز، التي لم أسمع بها من قبل لجهلي بنجوم هذه الأيام
-                    في الأكاديمية الإسرائيلية، الذين تحتضنهم الأكاديميات
-                    الغربية. وقد نُشر المقال في جريدة زودويتشه تسايتونغ[1]
-                    الألمانية. المقال يردّ بالإيجاب عن السؤال.
-                  </p>
-                  <div class="arabica_featured-article-actions">
-                    <a
-                      href="single-article.html"
-                      class="arabica_featured-article-button"
-                      >إقرأ المزيد</a
-                    >
-                    <div class="arabica_featured-article-share">
-                      <a
-                        href="#"
-                        class="arabica_share-link"
-                        data-share-title="توجيه الدواء"
-                        data-share-url="single-article.html"
-                        ><i class="fa-light fa-share"></i> شارك</a
-                      >
-                    </div>
-                  </div>
+            <div class="arabica_timeline-container timeline-left">
+              <div class="content">
+                <div class="year">2019</div>
+                <div class="description">
+                  هنا نص تجريبي يمكن استبداله بمحتوى آخر حسب الحاجة.
                 </div>
               </div>
             </div>
 
-            <div class="arabica_featured-article">
-              <div class="arabica_featured-article-inner">
-                <div class="arabica_featured-article-image arabica_post-image">
-                  <a href="single-article.html"
-                    ><img src="Assets/images/post-img11.jpg" alt="العلم"
-                  /></a>
-                  <a href="#" class="arabica_featured-article-category"
-                    >العلوم الرياضية والفيزياء</a
-                  >
-                </div>
-                <div class="arabica_featured-article-content">
-                  <h2 class="arabica_article-title">
-                    <a href="single-article.html">رفيق الحريري</a>
-                  </h2>
-                  <p class="arabica_article-subtitle">رئيس الوزراء</p>
-                  <div class="arabica_article-meta">
-                    <span class="arabica_article-author"
-                      ><i class="fa-light fa-user"></i
-                      ><a href="author.html">إبراهيم حسن</a></span
-                    >
-                    <span class="arabica_article-date"
-                      ><i class="fa-light fa-calendar-days"></i
-                      ><time datetime="YYYY-MM-DDTHH:MM:SSZ" class="doha_date">
-                        05 ديسمبر ، 2024
-                      </time>
-                    </span>
-                    <span class="arabica_article-read"
-                      ><i class="fa-light fa-timer"></i>مدة القراءة 5:05 د</span
-                    >
-                  </div>
-                  <p class="arabica_featured-article-text">
-                    ساهم الحريري بشكل كبير في إعمار لبنان بعد الحرب الأهلية، وقد
-                    شكل اغتياله عام 2005 محطة فارقة، إذ دخلت البلاد في أزمة
-                    سياسية بعد انقسام الأحزاب إلى موالاة ومعارضة، حظي كل منهما
-                    بدعم أطراف إقليمية.
-                  </p>
-                  <div class="arabica_featured-article-actions">
-                    <a
-                      href="single-article.html"
-                      class="arabica_featured-article-button"
-                      >إقرأ المزيد</a
-                    >
-                    <div class="arabica_featured-article-share">
-                      <a
-                        href="#"
-                        class="arabica_share-link"
-                        data-share-title="علم الفلك في الحضارة الإسلامية"
-                        data-share-url="single-article.html"
-                        ><i class="fa-light fa-share"></i> شارك</a
-                      >
-                    </div>
-                  </div>
+            <div class="arabica_timeline-container timeline-right">
+              <div class="content">
+                <div class="year">2020</div>
+                <div class="description">
+                  هنا نص تجريبي يمكن استبداله بمحتوى آخر حسب الحاجة.
                 </div>
               </div>
             </div>
 
-            <div class="arabica_featured-article">
-              <div class="arabica_featured-article-inner">
-                <div class="arabica_featured-article-image arabica_post-image">
-                  <a href="single-article.html"
-                    ><img src="Assets/images/post-img12.jpg" alt="الكيمياء"
-                  /></a>
-                  <a href="#" class="arabica_featured-article-category"
-                    >الإسلام وعلومه</a
-                  >
-                </div>
-                <div class="arabica_featured-article-content">
-                  <h2 class="arabica_article-title">
-                    <a href="single-article.html">مرايا متقابلة</a>
-                  </h2>
-                  <p class="arabica_article-subtitle">أوباما ودبلوماسيّوه</p>
-                  <div class="arabica_article-meta">
-                    <span class="arabica_article-author"
-                      ><i class="fa-light fa-user"></i
-                      ><a href="author.html">إبراهيم حسن</a></span
-                    >
-                    <span class="arabica_article-date"
-                      ><i class="fa-light fa-calendar-days"></i
-                      ><time datetime="YYYY-MM-DDTHH:MM:SSZ" class="doha_date">
-                        05 ديسمبر ، 2024
-                      </time>
-                    </span>
-                    <span class="arabica_article-read"
-                      ><i class="fa-light fa-timer"></i>مدة القراءة 5:05 د</span
-                    >
-                  </div>
-                  <p class="arabica_featured-article-text">
-                    يسارع نفر غير قليل من المعلقين والباحثين في قولهم إن الرئيس
-                    الأميركي الجديد جو بايدن، سيعود، في سياسته الخارجية على
-                    الأقل، إلى السير في الطريق الذي شقّه الرئيس الأسبق باراك
-                    أوباما. ويضرب عدد منهم رغبته في التفاوض مع إيران.
-                  </p>
-                  <div class="arabica_featured-article-actions">
-                    <a
-                      href="single-article.html"
-                      class="arabica_featured-article-button"
-                      >إقرأ المزيد</a
-                    >
-                    <div class="arabica_featured-article-share">
-                      <a
-                        href="#"
-                        class="arabica_share-link"
-                        data-share-title="توجيه الدواء"
-                        data-share-url="single-article.html"
-                        ><i class="fa-light fa-share"></i> شارك</a
-                      >
-                    </div>
-                  </div>
+            <div class="arabica_timeline-container timeline-left">
+              <div class="content">
+                <div class="year">2021</div>
+                <div class="description">
+                  هنا نص تجريبي يمكن استبداله بمحتوى آخر حسب الحاجة.
                 </div>
               </div>
             </div>
 
-            <div class="arabica_featured-article">
-              <div class="arabica_featured-article-inner">
-                <div class="arabica_featured-article-image arabica_post-image">
-                  <a href="single-article.html"
-                    ><img src="Assets/images/post-img1.jpg" alt="العلم"
-                  /></a>
-                  <a href="#" class="arabica_featured-article-category"
-                    >العلوم الرياضية والفيزياء</a
-                  >
-                </div>
-                <div class="arabica_featured-article-content">
-                  <h2 class="arabica_article-title">
-                    <a href="single-article.html"
-                      >علم الفلك في الحضارة الإسلامية</a
-                    >
-                  </h2>
-                  <p class="arabica_article-subtitle">
-                    الرئيس الخامس لجمهورية مصر العربية
-                  </p>
-                  <div class="arabica_article-meta">
-                    <span class="arabica_article-author"
-                      ><i class="fa-light fa-user"></i
-                      ><a href="author.html">إبراهيم حسن</a></span
-                    >
-                    <span class="arabica_article-date"
-                      ><i class="fa-light fa-calendar-days"></i
-                      ><time datetime="YYYY-MM-DDTHH:MM:SSZ" class="doha_date">
-                        05 ديسمبر ، 2024
-                      </time>
-                    </span>
-                    <span class="arabica_article-read"
-                      ><i class="fa-light fa-timer"></i>مدة القراءة 5:05 د</span
-                    >
-                  </div>
-                  <p class="arabica_featured-article-text">
-                    محمد محمد مرسي عيسى العياط (8 أغسطس 1951 – 17 يونيو 2019)،
-                    مهندس فلزات، وأستاذ جامعي، وصدر عن المركز العربي للأبحاث
-                    ودراسة السياسات كتاب اقتصاديات الطاقة المتجددة في ألمانيا
-                    ومصر والعراق، للكاتب هيثم عبد الله سلمان. ويأتي هذا الكتاب
-                    الذي يشتمل على 360 صفحةً من القطع الكبير في وقت تشغل فيه
-                    مسألة الطاقة المتجددة .
-                  </p>
-                  <div class="arabica_featured-article-actions">
-                    <a
-                      href="single-article.html"
-                      class="arabica_featured-article-button"
-                      >إقرأ المزيد</a
-                    >
-                    <div class="arabica_featured-article-share">
-                      <a
-                        href="#"
-                        class="arabica_share-link"
-                        data-share-title="علم الفلك في الحضارة الإسلامية"
-                        data-share-url="single-article.html"
-                        ><i class="fa-light fa-share"></i> شارك</a
-                      >
-                    </div>
-                  </div>
+            <div class="arabica_timeline-container timeline-right">
+              <div class="content">
+                <div class="year">2022</div>
+                <div class="description">
+                  هنا نص تجريبي يمكن استبداله بمحتوى آخر حسب الحاجة.
                 </div>
               </div>
             </div>
-
-            <div class="arabica_featured-article">
-              <div class="arabica_featured-article-inner">
-                <div class="arabica_featured-article-image arabica_post-image">
-                  <a href="single-article.html"
-                    ><img src="Assets/images/post-img2.jpg" alt="الكيمياء"
-                  /></a>
-                  <a href="#" class="arabica_featured-article-category"
-                    >الإسلام وعلومه</a
-                  >
-                </div>
-                <div class="arabica_featured-article-content">
-                  <h2 class="arabica_article-title">
-                    <a href="single-article.html">توجيه الدواء</a>
-                  </h2>
-                  <p class="arabica_article-subtitle">
-                    الرئيس الخامس لجمهورية مصر العربية
-                  </p>
-                  <div class="arabica_article-meta">
-                    <span class="arabica_article-author"
-                      ><i class="fa-light fa-user"></i
-                      ><a href="author.html">إبراهيم حسن</a></span
-                    >
-                    <span class="arabica_article-date"
-                      ><i class="fa-light fa-calendar-days"></i
-                      ><time datetime="YYYY-MM-DDTHH:MM:SSZ" class="doha_date">
-                        05 ديسمبر ، 2024
-                      </time>
-                    </span>
-                    <span class="arabica_article-read"
-                      ><i class="fa-light fa-timer"></i>مدة القراءة 5:05 د</span
-                    >
-                  </div>
-                  <p class="arabica_featured-article-text">
-                    محمد محمد مرسي عيسى العياط (8 أغسطس 1951 – 17 يونيو 2019)،
-                    مهندس فلزات، وأستاذ جامعي، وسياسي مصري وهو الرئيس الخامس
-                    لجمهورية مصر العربية[8] والأول بعد ثورة 25 يناير وهو أول
-                    رئيس مدني منتخب للبلاد وأول.
-                  </p>
-                  <div class="arabica_featured-article-actions">
-                    <a
-                      href="single-article.html"
-                      class="arabica_featured-article-button"
-                      >إقرأ المزيد</a
-                    >
-                    <div class="arabica_featured-article-share">
-                      <a
-                        href="#"
-                        class="arabica_share-link"
-                        data-share-title="توجيه الدواء"
-                        data-share-url="single-article.html"
-                        ><i class="fa-light fa-share"></i> شارك</a
-                      >
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="arabica_pagination">
-            <a href="#" class="page-prev"
-              ><i class="fa-light fa-chevron-left"></i
-            ></a>
-            <a href="#" class="page-numbers">1</a>
-            <span class="page-numbers current">2</span>
-            <a href="#" class="page-numbers">3</a>
-            <span class="ellipsis">...</span>
-            <a href="#" class="page-numbers">5</a>
-            <a href="#" class="page-next"
-              ><i class="fa-light fa-chevron-right"></i
-            ></a>
           </div>
         </div>
       </div>
     </div>
 
-    <script>
-      document.addEventListener("DOMContentLoaded", function () {
-        var gridButton = document.querySelector(".arabica_grid");
-        var listButton = document.querySelector(".arabica_list");
-        var contentContainer = document.querySelector(
-          ".arabica_featured-content"
-        );
-
-        // Load saved preference
-        var savedLayout = localStorage.getItem("layoutPreference") || "list";
-
-        // Apply the saved layout preference immediately
-        if (savedLayout === "grid") {
-          contentContainer.classList.add("grid-posts");
-          gridButton.classList.add("active");
-          listButton.classList.remove("active");
-        } else {
-          contentContainer.classList.remove("grid-posts");
-          listButton.classList.add("active");
-          gridButton.classList.remove("active");
-        }
-
-        // Function to switch layouts with animation
-        function applyLayout(isGrid) {
-          // Prevent switching if the current layout is already active
-          if (
-            (isGrid && contentContainer.classList.contains("grid-posts")) ||
-            (!isGrid && !contentContainer.classList.contains("grid-posts"))
-          ) {
-            return;
-          }
-
-          // Add fade-out effect before switching
-          contentContainer.classList.add("fade-out");
-
-          setTimeout(function () {
-            // Remove fade-out
-            contentContainer.classList.remove("fade-out");
-
-            if (isGrid) {
-              contentContainer.classList.add("grid-posts");
-              gridButton.classList.add("active");
-              listButton.classList.remove("active");
-              localStorage.setItem("layoutPreference", "grid");
-            } else {
-              contentContainer.classList.remove("grid-posts");
-              listButton.classList.add("active");
-              gridButton.classList.remove("active");
-              localStorage.setItem("layoutPreference", "list");
-            }
-
-            // Force reflow to restart animation
-            void contentContainer.offsetWidth;
-
-            // Add fade-in effect
-            contentContainer.classList.add("fade-in");
-
-            // Remove fade-in after animation completes
-            setTimeout(function () {
-              contentContainer.classList.remove("fade-in");
-            }, 400); // Matches CSS transition time
-          }, 300); // Matches fade-out transition time
-        }
-
-        // Add event listeners for layout switching
-        gridButton.addEventListener("click", function () {
-          applyLayout(true);
-        });
-        listButton.addEventListener("click", function () {
-          applyLayout(false);
-        });
-      });
-    </script>
-    <script>
-      function toggleDropdown(button) {
-        const currentDropdown = button.parentElement;
-        const dropdownWrapper = currentDropdown.querySelector(
-          ".dropdown-content-wrapper"
-        );
-        const allDropdowns = document.querySelectorAll(".dropdown");
-
-        allDropdowns.forEach((dropdown) => {
-          if (dropdown !== currentDropdown) {
-            dropdown.classList.remove("active");
-            dropdown.querySelector(
-              ".dropdown-content-wrapper"
-            ).style.maxHeight = null;
-          }
-        });
-
-        currentDropdown.classList.toggle("active");
-
-        if (currentDropdown.classList.contains("active")) {
-          dropdownWrapper.style.maxHeight = dropdownWrapper.scrollHeight + "px";
-        } else {
-          dropdownWrapper.style.maxHeight = null;
-        }
-      }
-
-      // Function to handle "Select All" checkbox
-      function toggleSelectAll(selectAllCheckbox) {
-        const dropdownContent = selectAllCheckbox.closest(".dropdown-content");
-        const checkboxes = dropdownContent.querySelectorAll(
-          'input[type="checkbox"]:not(.select-all input)'
-        );
-        const selectAllLabel = selectAllCheckbox.closest("label");
-
-        checkboxes.forEach((checkbox) => {
-          checkbox.checked = selectAllCheckbox.checked;
-          const label = checkbox.closest("label");
-          if (selectAllCheckbox.checked) {
-            label.classList.add("checked");
-          } else {
-            label.classList.remove("checked");
-          }
-        });
-
-        // Ensure "Select All" label follows the checked state
-        if (selectAllCheckbox.checked) {
-          selectAllLabel.classList.add("checked");
-        } else {
-          selectAllLabel.classList.remove("checked");
-        }
-      }
-
-      // Function to handle individual checkbox changes
-      function handleCheckboxChange(event) {
-        const dropdownContent = event.target.closest(".dropdown-content");
-        const checkboxes = dropdownContent.querySelectorAll(
-          'input[type="checkbox"]:not(.select-all input)'
-        );
-        const selectAllCheckbox =
-          dropdownContent.querySelector(".select-all input");
-        const selectAllLabel = selectAllCheckbox.closest("label");
-        const checkbox = event.target;
-        const label = checkbox.closest("label");
-
-        // Toggle .checked class for individual checkboxes
-        if (checkbox.checked) {
-          label.classList.add("checked");
-        } else {
-          label.classList.remove("checked");
-        }
-
-        // Check if all individual checkboxes are selected
-        const allChecked = Array.from(checkboxes).every((cb) => cb.checked);
-
-        if (allChecked) {
-          selectAllCheckbox.checked = true;
-          selectAllLabel.classList.add("checked");
-        } else {
-          selectAllCheckbox.checked = false;
-          selectAllLabel.classList.remove("checked");
-        }
-      }
-
-      // Initialize event listeners
-      document.addEventListener("DOMContentLoaded", function () {
-        // Set all checkboxes to checked by default
-        document
-          .querySelectorAll(".dropdown-content")
-          .forEach((dropdownContent) => {
-            const selectAllCheckbox =
-              dropdownContent.querySelector(".select-all input");
-            selectAllCheckbox.checked = true;
-            selectAllCheckbox.closest("label").classList.add("checked");
-
-            const checkboxes = dropdownContent.querySelectorAll(
-              'input[type="checkbox"]:not(.select-all input)'
-            );
-            checkboxes.forEach((checkbox) => {
-              checkbox.checked = true;
-              checkbox.closest("label").classList.add("checked");
-
-              checkbox.addEventListener("change", handleCheckboxChange);
-            });
-
-            selectAllCheckbox.addEventListener("click", function () {
-              toggleSelectAll(selectAllCheckbox);
-            });
-          });
-      });
-
-      // Close dropdown when clicking outside
-      window.onclick = function (event) {
-        if (
-          !event.target.closest(".dropdown") &&
-          !event.target.matches('input[type="checkbox"]')
-        ) {
-          document.querySelectorAll(".dropdown").forEach((dropdown) => {
-            dropdown.classList.remove("active");
-          });
-        }
-      };
-    </script>
     <!-- Content End -->
     <footer class="arabica_footer">
       <div class="arabica_footer-container">
