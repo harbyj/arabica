@@ -518,7 +518,7 @@ hr {
   height: auto;
   text-align: right;
 }
-@media (max-width: 767px) {
+@media (max-width: 991px) {
   .arabica_footer-logo.arabica_footer-logo-left {
     display: flex;
     justify-content: center;
@@ -543,24 +543,9 @@ hr.arabica_tab-show {
   .arabica_footer-left {
     text-align: right;
   }
-  .arabica_footer_logo_copy {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-
-  .arabica_footer-logo.arabica_footer-logo-left {
-    order: 1;
-    margin-right: 100px;
-  }
 
   .arabica_footer_copyright {
-    order: 2;
-    margin-left: 100px;
-  }
-
-  .arabica_footer_copyright {
-    text-align: right;
+    text-align: center;
   }
 
   hr.arabica_tab-hide {
