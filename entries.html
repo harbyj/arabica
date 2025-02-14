@@ -10,373 +10,6 @@
       href="Assets/fonts/font-awesome/css/all.min.css"
       media="all"
     />
-    <style>
-      .arabica_search-content {
-        display: flex;
-        align-items: center;
-        flex-wrap: wrap; /* Ensure responsiveness */
-        gap: 10px; /* Spacing between elements */
-        margin-bottom: 40px;
-      }
-
-      .arabica_search-content .arabica_grid,
-      .arabica_list {
-        height: 39px;
-        width: 39px;
-        font-size: 29px;
-      }
-
-      /* Align elements to the right */
-      .search-box,
-      .dropdown,
-      .switch-container {
-        display: flex;
-        align-items: center;
-        color: #a2a2a2;
-      }
-
-      /* Align the arabica_list-grid to the left */
-      .arabica_search-content .arabica_list-grid {
-        margin-right: auto; /* Push to the left */
-        align-items: center;
-      }
-
-      .search-box {
-        position: relative;
-        width: 29%;
-      }
-
-      .search-box input,
-      .dropdown button {
-        width: 100%;
-        height: 39px;
-        padding: 10px 15px 10px 40px; /* Space for left icon */
-        background-color: #f3f3f3;
-        border-radius: 20px;
-        font-size: 14px;
-        color: #a2a2a2;
-        border: 0px;
-        display: flex;
-        align-items: center;
-      }
-
-      .search-box input::placeholder {
-        color: #a2a2a2; /* Brownish Gold */
-        opacity: 1; /* Ensures full opacity (default can be lower in some browsers) */
-        display: flex;
-        align-items: center;
-      }
-
-      .search-box input:focus,
-      .dropdown.active button {
-        border-color: #cc9933; /* Brownish Gold border */
-        outline: none; /* Remove default outline */
-        box-shadow: 0 0 5px rgba(204, 153, 51, 0.8); /* Glow effect */
-        background-color: #fdf6e3; /* Soft warm background */
-      }
-
-      .search-box i,
-      .search-box svg,
-      .dropdown i,
-      .dropdown svg {
-        position: absolute;
-        left: 15px;
-        top: 50%;
-        transform: translateY(-50%);
-        color: #cc9933;
-        font-size: 14px;
-      }
-      .search-box svg,
-      .dropdown svg {
-        width: 14px;
-        height: 14px;
-      }
-      .dropdown {
-        position: relative;
-        display: inline-block;
-      }
-
-      .dropdown button {
-        cursor: pointer;
-      }
-
-      .dropdown button i {
-        transition: transform 0.3s ease;
-      }
-      .dropdown-content-wrapper {
-        display: none;
-        position: absolute;
-        background: #f3f3f3;
-        padding: 20px;
-        box-shadow: 4px 4px 9px #00000029;
-        overflow: hidden; /* Ensures the scrollbar does not overflow the radius */
-        display: none;
-        border-radius: 20px;
-        z-index: 1;
-        margin-top: 10px;
-        max-height: 0;
-        transition: max-height 0.3s ease-in-out;
-      }
-
-      .dropdown-content {
-        max-height: 290px;
-        min-width: 180px;
-        width: max-content; /* Expands based on the largest text */
-        white-space: nowrap;
-        overflow-y: auto;
-        padding-left: 15px;
-      }
-
-      .dropdown-content input {
-        vertical-align: middle;
-        margin-top: -2px; /* Fine-tune if needed */
-        background-color: transparent;
-      }
-
-      .dropdown-content input[type="checkbox"] {
-        appearance: none; /* Remove default styles */
-        -webkit-appearance: none;
-        -moz-appearance: none;
-        width: 14px;
-        height: 14px;
-        border: 1px solid #bbbbbb;
-        border-radius: 3px; /* Rounded corners */
-        cursor: pointer;
-        position: relative;
-        display: inline-block;
-      }
-      /* When checkbox is checked */
-      .dropdown-content input[type="checkbox"]:checked {
-        background-color: #cc9933; /* Inside background when checked */
-        border-color: #cc9933; /* Border color when checked */
-      }
-
-      /* Add checkmark */
-      .dropdown-content input[type="checkbox"]::after {
-        content: "✔"; /* Unicode checkmark */
-        font-size: 10px;
-        color: white;
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        display: none;
-      }
-
-      /* Show checkmark when checked */
-      .dropdown-content input[type="checkbox"]:checked::after {
-        display: block;
-      }
-
-      .dropdown-content .select-all {
-        border-bottom: 1px solid #dddddd;
-        margin-bottom: 6px;
-        padding-bottom: 5px;
-      }
-
-      .dropdown.active .dropdown-content-wrapper {
-        display: block;
-      }
-
-      .dropdown.active button i {
-        transform: rotate(180deg);
-      }
-
-      .dropdown-content label {
-        display: flex; /* Align checkbox and text properly */
-        align-items: center; /* Vertically align items */
-        gap: 10px; /* Adjust spacing between checkbox and text */
-        cursor: pointer;
-        direction: rtl;
-      }
-
-      .dropdown-content label.checked {
-        color: #000000;
-      }
-      .switch-label {
-        display: flex;
-        align-items: center;
-      }
-      .switch {
-        position: relative;
-        display: inline-block;
-        width: 35px; /* Fixed width */
-        height: 20px; /* Fixed height */
-        margin-left: 10px;
-        box-sizing: border-box; /* Ensures consistent sizing */
-        flex-shrink: 0; /* Prevents resizing */
-      }
-      .switch-container {
-        height: 39px;
-        border-radius: 20px;
-        font-size: 14px;
-        color: #a2a2a2;
-        border: 0px;
-      }
-      .switch input {
-        opacity: 0;
-        width: 0;
-        height: 0;
-      }
-
-      .slider {
-        position: absolute;
-        cursor: pointer;
-        top: 0;
-        right: 0;
-        bottom: 0;
-        left: 0;
-        width: 100%; /* Ensures consistent size */
-        height: 100%; /* Ensures consistent size */
-        border: 2px solid #a2a2a2;
-        border-radius: 20px;
-        transition: 0.4s;
-        box-sizing: border-box; /* Prevents layout shifts */
-      }
-
-      .slider:before {
-        position: absolute;
-        content: "";
-        height: 12px; /* Slightly larger for better visibility */
-        width: 12px; /* Fixed width */
-        border: 2px solid #a2a2a2;
-        border-radius: 50%;
-        transition: 0.4s;
-        right: 2px;
-        top: 50%;
-        transform: translateY(-50%); /* Centers the toggle vertically */
-        box-sizing: border-box; /* Keeps border size consistent */
-      }
-
-      input:checked + .slider:before {
-        transform: translateX(-15px) translateY(-50%);
-        background: #cc9933;
-        border: 2px solid #cc9933;
-      }
-      .dropdown-content::-webkit-scrollbar {
-        width: 4px; /* Total width including track */
-      }
-
-      .dropdown-content::-webkit-scrollbar-track {
-        background: #c9c9c9;
-        border-radius: 4px;
-      }
-
-      .dropdown-content::-webkit-scrollbar-thumb {
-        background: #cc9933; /* Color of the scroll thumb */
-        border-radius: 4px;
-        cursor: pointer;
-      }
-
-      .dropdown-content::-webkit-scrollbar-button {
-        display: none; /* Hides the scrollbar arrows */
-      }
-      @media (max-width: 991px) {
-        .arabica_article-top {
-          padding: 30px 0 15px 0;
-        }
-        .search-box {
-          width: 100%;
-        }
-        .dropdown-content {
-          min-width: 150px;
-          max-height: 256px;
-        }
-        .switch {
-          width: 32px;
-          height: 16px;
-        }
-        .slider:before {
-          height: 9px;
-          width: 9px;
-        }
-        .search-box,
-        .dropdown,
-        .switch-container {
-          font-size: 12px;
-        }
-        .search-box i,
-        .search-box svg,
-        .dropdown i,
-        .dropdown svg {
-          font-size: 12px;
-        }
-        .search-box svg,
-        .dropdown svg {
-          width: 12px;
-          height: 12px;
-        }
-        .search-box input,
-        .dropdown button {
-          height: 33px;
-          font-size: 12px;
-        }
-        .arabica_search-content .arabica_grid,
-        .arabica_list {
-          height: 33px;
-          width: 33px;
-          font-size: 23px;
-        }
-        .switch-container {
-          height: 33px;
-          font-size: 12px;
-        }
-        .arabica_search-content {
-          margin-bottom: 30px;
-        }
-        .dropdown-content label {
-          margin-bottom: 4px;
-        }
-      }
-
-      @media (max-width: 767px) {
-        .search-box {
-          width: 100%;
-        }
-        .arabica_search-content {
-          margin-bottom: 15px;
-        }
-        .dropdown-content {
-          min-width: 130px;
-        }
-        .slider {
-          border: 1px solid #a2a2a2;
-          height: 90%;
-        }
-
-        .slider:before {
-          border: 1px solid #a2a2a2;
-          transform: translateY(-50%);
-        }
-        input:checked + .slider:before {
-          border: 1px solid #cc9933;
-          transform: translateX(-11px) translateY(-50%);
-        }
-        .switch {
-          width: 26px;
-          height: 15px;
-        }
-        .dropdown-content::-webkit-scrollbar {
-          width: 3px;
-        }
-        .dropdown-content::-webkit-scrollbar-thumb {
-          border-radius: 3px;
-        }
-      }
-      @media (min-width: 768px) {
-        .dropdown {
-          width: 25%;
-        }
-        .switch-container {
-          padding: 10px 10px 10px 0;
-        }
-      }
-      @media (min-width: 992px) {
-        .dropdown {
-          width: 18%;
-        }
-      }
-    </style>
   </head>
   <body>
     <header class="header">
@@ -602,7 +235,7 @@
       <div class="arabica_article-list arabica_article-top">
         <div class="arabica_fit-container arabica_container">
           <div class="arabica_search-content">
-            <div class="search-box">
+            <div class="arabica_search-box">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 14.025 13.925"
@@ -620,11 +253,11 @@
               <input type="text" placeholder="البحث" />
             </div>
 
-            <div class="dropdown">
+            <div class="arabica_dropdown">
               <i class="fa fa-chevron-down"></i>
               <button onclick="toggleDropdown(this)">الحقول المعرفية</button>
-              <div class="dropdown-content-wrapper">
-                <div class="dropdown-content">
+              <div class="arabica_dropdown-content-wrapper">
+                <div class="arabica_dropdown-content">
                   <label class="select-all">
                     <input type="checkbox" onclick="toggleSelectAll(this)" />
                     تحديد الكل
@@ -646,11 +279,11 @@
               </div>
             </div>
 
-            <div class="dropdown">
+            <div class="arabica_dropdown">
               <i class="fa fa-chevron-down"></i>
               <button onclick="toggleDropdown(this)">البلدان العربية</button>
-              <div class="dropdown-content-wrapper">
-                <div class="dropdown-content">
+              <div class="arabica_dropdown-content-wrapper">
+                <div class="arabica_dropdown-content">
                   <label class="select-all">
                     <input type="checkbox" onclick="toggleSelectAll(this)" />
                     تحديد الكل
@@ -679,11 +312,11 @@
               </div>
             </div>
 
-            <div class="switch-container">
-              <label class="switch-label"
-                ><label class="switch">
+            <div class="arabica_switch-container">
+              <label class="arabica_switch-label"
+                ><label class="arabica_switch">
                   <input type="checkbox" />
-                  <span class="slider"></span> </label
+                  <span class="arabica_toggle"></span> </label
                 >المقالات القصيرة فقط
               </label>
             </div>
@@ -1144,15 +777,15 @@
       function toggleDropdown(button) {
         const currentDropdown = button.parentElement;
         const dropdownWrapper = currentDropdown.querySelector(
-          ".dropdown-content-wrapper"
+          ".arabica_dropdown-content-wrapper"
         );
-        const allDropdowns = document.querySelectorAll(".dropdown");
+        const allDropdowns = document.querySelectorAll(".arabica_dropdown");
 
         allDropdowns.forEach((dropdown) => {
           if (dropdown !== currentDropdown) {
             dropdown.classList.remove("active");
             dropdown.querySelector(
-              ".dropdown-content-wrapper"
+              ".arabica_dropdown-content-wrapper"
             ).style.maxHeight = null;
           }
         });
@@ -1168,7 +801,9 @@
 
       // Function to handle "Select All" checkbox
       function toggleSelectAll(selectAllCheckbox) {
-        const dropdownContent = selectAllCheckbox.closest(".dropdown-content");
+        const dropdownContent = selectAllCheckbox.closest(
+          ".arabica_dropdown-content"
+        );
         const checkboxes = dropdownContent.querySelectorAll(
           'input[type="checkbox"]:not(.select-all input)'
         );
@@ -1194,7 +829,9 @@
 
       // Function to handle individual checkbox changes
       function handleCheckboxChange(event) {
-        const dropdownContent = event.target.closest(".dropdown-content");
+        const dropdownContent = event.target.closest(
+          ".arabica_dropdown-content"
+        );
         const checkboxes = dropdownContent.querySelectorAll(
           'input[type="checkbox"]:not(.select-all input)'
         );
@@ -1227,7 +864,7 @@
       document.addEventListener("DOMContentLoaded", function () {
         // Set all checkboxes to checked by default
         document
-          .querySelectorAll(".dropdown-content")
+          .querySelectorAll(".arabica_dropdown-content")
           .forEach((dropdownContent) => {
             const selectAllCheckbox =
               dropdownContent.querySelector(".select-all input");
@@ -1253,10 +890,10 @@
       // Close dropdown when clicking outside
       window.onclick = function (event) {
         if (
-          !event.target.closest(".dropdown") &&
+          !event.target.closest(".arabica_dropdown") &&
           !event.target.matches('input[type="checkbox"]')
         ) {
-          document.querySelectorAll(".dropdown").forEach((dropdown) => {
+          document.querySelectorAll(".arabica_dropdown").forEach((dropdown) => {
             dropdown.classList.remove("active");
           });
         }
