@@ -267,13 +267,15 @@
 
 
 .toc-section {
-    border-bottom: 1px solid #ddd;
+    border-bottom: 1px solid #ccc;
     margin-bottom: 10px;
     padding-bottom: 5px;
 }
 
 .toc-section:last-child {
     border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
 }
 
 .toc-link {
@@ -301,6 +303,177 @@
     font-weight: normal;
     color: #4d4d4f;
     padding-right: 35px;
+}
+
+
+
+/* Slider container */
+.arabica_article_slider {
+        position: relative;
+        overflow: hidden;
+      }
+      /* Slider wrapper (normal flex-direction row) */
+      .arabica_article_slider_wrapper {
+        display: flex;
+        transition: transform 0.3s ease-in-out;
+        flex-direction: row-reverse;
+      }
+      /* Each slide occupies full width */
+      .arabica_article_image-gallery {
+        flex: 0 0 100%;
+        box-sizing: border-box;
+      }
+      /* Images (for both slider items and single-image case) */
+      .arabica_article_image-gallery img,
+      .arabica_article-image > a img {
+        width: 100%;
+        height: auto;
+        cursor: pointer;
+        border: 2px solid #ccc;
+        border-radius: 5px;
+      }
+      /* Slider navigation buttons */
+      .arabica_article_slider-nav {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        background: rgba(0, 0, 0, 0.5);
+        border: none;
+        padding: 10px;
+        cursor: pointer;
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        transition: background 0.3s ease;
+        z-index: 10;
+      }
+      .arabica_article_slider-nav:hover {
+        background: rgba(0, 0, 0, 0.8);
+      }
+      /* In LTR, place Prev on the left and Next on the right */
+      .arabica_article_slider-prev {
+        left: 10px;
+      }
+      .arabica_article_slider-next {
+        right: 10px;
+      }
+      /* ================================
+         Lightbox Global Styles
+      ================================ */
+      .arabica_article_lightbox {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.8);
+        backdrop-filter: blur(5px);
+        justify-content: center;
+        align-items: center;
+        z-index: 1000;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+      }
+      .arabica_article_lightbox.active {
+        display: flex;
+        opacity: 1;
+      }
+      .arabica_article_lightbox-content {
+        position: relative;
+        max-width: 90%;
+        max-height: 90%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      .arabica_article_lightbox-content img {
+        max-width: 100%;
+        max-height: 80vh;
+        cursor: pointer;
+      }
+      .arabica_article_lightbox-caption {
+        text-align: center;
+        color: #fff;
+        margin-top: 10px;
+        font-size: 16px;
+      }
+      .arabica_article_lightbox-nav {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        background: rgba(0, 0, 0, 0.5);
+        border: none;
+        padding: 10px;
+        cursor: pointer;
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        transition: background 0.3s ease;
+      }
+      .arabica_article_lightbox-nav:hover {
+        background: rgba(0, 0, 0, 0.8);
+      }
+      /* In LTR lightbox, place Prev on left, Next on right */
+      .arabica_article_lightbox-nav-prev {
+        left: -50px;
+      }
+      .arabica_article_lightbox-nav-next {
+        right: -50px;
+      }
+      .arabica_article_lightbox-gallery-grid {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        display: flex;
+        gap: 10px;
+        background: rgba(0, 0, 0, 0.5);
+        padding: 10px;
+        border-radius: 5px;
+        flex-direction: row-reverse;
+      }
+      .arabica_article_lightbox-gallery-grid img {
+        width: 50px;
+        height: 50px;
+        object-fit: cover;
+        border-radius: 5px;
+        cursor: pointer;
+        opacity: 0.7;
+        transition: opacity 0.3s ease;
+      }
+      .arabica_article_lightbox-gallery-grid img:hover {
+        opacity: 1;
+      }
+      .arabica_article_lightbox-gallery-grid img.active {
+        opacity: 1;
+        border: 2px solid #fff;
+      }
+      .arabica_article_close-btn {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        cursor: pointer;
+        background: rgba(0, 0, 0, 0.7);
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        transition: background 0.3s ease;
+      }
+      .arabica_article_close-btn:hover {
+        background: rgba(0, 0, 0, 0.9);
+      }
+      #lightbox-img {
+  transition: opacity 0.3s ease;
+  opacity: 1;
 }
 
     </style>
@@ -636,10 +809,9 @@
                 إحدى جلسات محاكمته بقضية التخابر
               </p>
               <div class="arabica_article-image">
-                <img
-                  src="Assets/images/article-img1.jpg"
-                  alt="article image 1"
-                />
+                <a href="Assets/images/article-img1.jpg">
+                  <img src="Assets/images/article-img1.jpg" alt="article image 1" />
+                </a>
                 <figcaption>
                   لقاء السيد مرسي مع مجموعة من الفنانيين المصريين في دار الأوبرا
                 </figcaption>
@@ -658,15 +830,27 @@
                 رئاسة محمد مرسي العديد
               </p>
 
-              <p> <div class="arabica_article-image">
-                <img
-                  src="Assets/images/article-img1.jpg"
-                  alt="article image 1"
-                />
-                <figcaption>
-                  لقاء السيد مرسي مع مجموعة من الفنانيين المصريين في دار الأوبرا
-                </figcaption>
-              </div>
+              <p> <!-- Example 1: Multi-Image Gallery (Slider + Lightbox) -->
+                <div class="arabica_article-image not-full">
+                  <div class="arabica_article_image-gallery">
+                    <a href="Assets/images/article-img1.jpg">
+                      <img src="Assets/images/article-img1.jpg" alt="article image 1" />
+                    </a>
+                    <figcaption>صورة 1</figcaption>
+                  </div>
+                  <div class="arabica_article_image-gallery">
+                    <a href="Assets/images/post-img2.jpg">
+                      <img src="Assets/images/post-img2.jpg" alt="article image 2" />
+                    </a>
+                    <figcaption>صورة 2</figcaption>
+                  </div>
+                  <div class="arabica_article_image-gallery">
+                    <a href="Assets/images/post-img3.jpg">
+                      <img src="Assets/images/post-img3.jpg" alt="article image 3" />
+                    </a>
+                    <figcaption>صورة 3</figcaption>
+                  </div>
+                </div>
                 من الاحتجاجات والمظاهرات،[16][17] أزيح عن السلطة في انقلاب 3
                 يوليو 2013 في مصر والذي جاء بعد مظاهرات 30 يونيو من نفس العام
                 بعد حدوث عدة أزمات اقتصادية منها أزمة انقطاع الكهرباء وعدم توفر
@@ -1191,7 +1375,344 @@
         });
       });
     </script>
+ <script>
+  document.addEventListener("DOMContentLoaded", () => {
+    /* ------------------------------
+       GLOBAL LIGHTBOX SETUP
+    ------------------------------ */
+    const lightbox = document.createElement("div");
+    lightbox.classList.add("arabica_article_lightbox");
 
+    const lightboxContent = document.createElement("div");
+    lightboxContent.classList.add("arabica_article_lightbox-content");
+
+    const closeBtn = document.createElement("span");
+    closeBtn.classList.add("arabica_article_close-btn");
+    closeBtn.innerHTML = `
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+        <path fill="#ffffff" d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+      </svg>
+    `;
+
+    const lightboxImg = document.createElement("img");
+    lightboxImg.id = "lightbox-img";
+
+    const lightboxCaption = document.createElement("div");
+    lightboxCaption.classList.add("arabica_article_lightbox-caption");
+    lightboxCaption.id = "lightbox-caption";
+
+    const prevLightboxBtn = document.createElement("button");
+    prevLightboxBtn.classList.add(
+      "arabica_article_lightbox-nav",
+      "arabica_article_lightbox-nav-prev"
+    );
+    prevLightboxBtn.innerHTML = `
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+        <path fill="#ffffff" d="M15.41 16.59L10.83 12l4.58-4.59L14 6l-6 6 6 6z"/>
+      </svg>
+    `;
+
+    const nextLightboxBtn = document.createElement("button");
+    nextLightboxBtn.classList.add(
+      "arabica_article_lightbox-nav",
+      "arabica_article_lightbox-nav-next"
+    );
+    nextLightboxBtn.innerHTML = `
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+        <path fill="#ffffff" d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6z"/>
+      </svg>
+    `;
+
+    const galleryGrid = document.createElement("div");
+    galleryGrid.classList.add("arabica_article_lightbox-gallery-grid");
+
+    lightbox.appendChild(closeBtn);
+    lightboxContent.appendChild(lightboxImg);
+    lightboxContent.appendChild(lightboxCaption);
+    lightboxContent.appendChild(galleryGrid);
+    lightbox.appendChild(lightboxContent);
+    document.body.appendChild(lightbox);
+
+    let currentGallery = [];
+    let currentIndex = 0;
+    let lbTouchStartX = 0;
+    let lbTouchEndX = 0;
+
+    function openLightbox(imgSrc, imgAlt, caption, gallery = []) {
+      lightboxImg.setAttribute("src", imgSrc);
+      lightboxImg.setAttribute("alt", imgAlt);
+      lightboxCaption.textContent = caption;
+      lightbox.classList.add("active");
+      document.body.classList.add("no-scroll");
+
+      if (gallery.length > 0) {
+        currentGallery = gallery;
+        currentIndex = gallery.findIndex((item) => item.src === imgSrc);
+        updateGalleryGrid(gallery);
+        nextLightboxBtn.style.display = "";
+        prevLightboxBtn.style.display = "";
+        galleryGrid.style.display = "";
+      } else {
+        currentGallery = [];
+        galleryGrid.innerHTML = "";
+        nextLightboxBtn.style.display = "none";
+        prevLightboxBtn.style.display = "none";
+        galleryGrid.style.display = "none";
+      }
+    }
+
+    function closeLightbox() {
+      lightbox.classList.remove("active");
+      document.body.classList.remove("no-scroll");
+      currentGallery = [];
+      galleryGrid.innerHTML = "";
+    }
+
+    function updateGalleryGrid(gallery) {
+      galleryGrid.innerHTML = gallery
+        .map(
+          (item, index) =>
+            `<img src="${item.src}" alt="${
+              item.alt
+            }" data-index="${index}" class="${
+              index === currentIndex ? "active" : ""
+            }">`
+        )
+        .join("");
+      const activeImg = galleryGrid.querySelector(
+        `[data-index="${currentIndex}"]`
+      );
+      if (activeImg) {
+        activeImg.classList.add("active");
+      }
+    }
+
+    function showNextImage() {
+      if (currentGallery.length > 0) {
+        currentIndex = (currentIndex + 1) % currentGallery.length;
+        updateLightboxContent();
+      }
+    }
+
+    function showPrevImage() {
+      if (currentGallery.length > 0) {
+        currentIndex =
+          (currentIndex - 1 + currentGallery.length) %
+          currentGallery.length;
+        updateLightboxContent();
+      }
+    }
+
+    function updateLightboxContent() {
+  const { src, alt, caption } = currentGallery[currentIndex];
+  // Fade out the image
+  lightboxImg.style.opacity = 0;
+  
+  // After a short delay, update the image and fade in
+  setTimeout(() => {
+    lightboxImg.setAttribute("src", src);
+    lightboxImg.setAttribute("alt", alt);
+    lightboxCaption.textContent = caption;
+    updateGalleryGrid(currentGallery);
+    lightboxImg.style.opacity = 1;
+  }, 300); // delay should match the CSS transition duration
+}
+
+
+    closeBtn.addEventListener("click", closeLightbox);
+    lightbox.addEventListener("click", (e) => {
+      if (e.target === lightbox) {
+        closeLightbox();
+      }
+    });
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") {
+        closeLightbox();
+      }
+      if (e.key === "ArrowRight") {
+        showNextImage();
+      } else if (e.key === "ArrowLeft") {
+        showPrevImage();
+      }
+    });
+    nextLightboxBtn.addEventListener("click", showNextImage);
+    prevLightboxBtn.addEventListener("click", showPrevImage);
+    galleryGrid.addEventListener("click", (e) => {
+      if (e.target.tagName === "IMG") {
+        const index = e.target.getAttribute("data-index");
+        currentIndex = index;
+        updateLightboxContent();
+      }
+    });
+    lightboxImg.addEventListener("touchstart", (e) => {
+      lbTouchStartX = e.touches[0].clientX;
+    });
+    lightboxImg.addEventListener("touchmove", (e) => {
+      lbTouchEndX = e.touches[0].clientX;
+    });
+    lightboxImg.addEventListener("touchend", () => {
+      if (lbTouchStartX - lbTouchEndX > 50) {
+        showNextImage();
+      } else if (lbTouchEndX - lbTouchStartX > 50) {
+        showPrevImage();
+      }
+    });
+
+    /* ------------------------------
+       SETUP EACH GALLERY INSTANCE
+       (Supports multiple independent instances)
+    ------------------------------ */
+    document
+      .querySelectorAll(".arabica_article-image")
+      .forEach((container) => {
+        // Check if this container has multi-image items.
+        const multiItems = container.querySelectorAll(
+          ".arabica_article_image-gallery"
+        );
+        if (multiItems.length > 0) {
+          // Multi-image instance: Build slider structure.
+          const slider = document.createElement("div");
+          slider.className = "arabica_article_slider";
+          const sliderWrapper = document.createElement("div");
+          sliderWrapper.className = "arabica_article_slider_wrapper";
+
+          multiItems.forEach((item) => {
+            sliderWrapper.appendChild(item);
+          });
+          slider.appendChild(sliderWrapper);
+
+          const prevSliderBtn = document.createElement("button");
+          prevSliderBtn.className =
+            "arabica_article_slider-nav arabica_article_slider-prev";
+          prevSliderBtn.innerHTML = `
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+            <path fill="#ffffff" d="M15.41 16.59L10.83 12l4.58-4.59L14 6l-6 6 6 6z"/>
+          </svg>
+        `;
+          const nextSliderBtn = document.createElement("button");
+          nextSliderBtn.className =
+            "arabica_article_slider-nav arabica_article_slider-next";
+          nextSliderBtn.innerHTML = `
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+            <path fill="#ffffff" d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6z"/>
+          </svg>
+        `;
+          slider.appendChild(prevSliderBtn);
+          slider.appendChild(nextSliderBtn);
+
+          container.innerHTML = "";
+          container.appendChild(slider);
+
+          let currentSlide = 0;
+          let sliderWidth = slider.offsetWidth;
+          let startX = 0;
+          let isDragging = false;
+
+          const setSliderPosition = () => {
+            sliderWrapper.style.transform = `translateX(-${
+              currentSlide * sliderWidth
+            }px)`;
+          };
+
+          window.addEventListener("resize", () => {
+            sliderWidth = slider.offsetWidth;
+            setSliderPosition();
+          });
+
+          const nextSlide = () => {
+            currentSlide = (currentSlide + 1) % multiItems.length;
+            sliderWrapper.style.transition = "transform 0.3s ease-in-out";
+            setSliderPosition();
+          };
+
+          const prevSlide = () => {
+            currentSlide =
+              (currentSlide - 1 + multiItems.length) % multiItems.length;
+            sliderWrapper.style.transition = "transform 0.3s ease-in-out";
+            setSliderPosition();
+          };
+
+          nextSliderBtn.addEventListener("click", nextSlide);
+          prevSliderBtn.addEventListener("click", prevSlide);
+
+          // Touch swipe functionality (mouse events removed)
+          sliderWrapper.addEventListener("touchstart", (event) => {
+            isDragging = true;
+            startX = event.touches[0].clientX;
+            sliderWrapper.style.transition = "none";
+          });
+          sliderWrapper.addEventListener("touchmove", (event) => {
+            if (!isDragging) return;
+            const currentX = event.touches[0].clientX;
+            const deltaX = currentX - startX;
+            sliderWrapper.style.transform = `translateX(-${
+              currentSlide * sliderWidth - deltaX
+            }px)`;
+          });
+          sliderWrapper.addEventListener("touchend", (event) => {
+            if (!isDragging) return;
+            isDragging = false;
+            const endX = event.changedTouches[0].clientX;
+            const deltaX = endX - startX;
+            if (deltaX < -50) {
+              nextSlide();
+            } else if (deltaX > 50) {
+              prevSlide();
+            } else {
+              setSliderPosition();
+            }
+            sliderWrapper.style.transition = "transform 0.3s ease-in-out";
+          });
+
+          // Attach lightbox open event to each anchor in this multi-image instance.
+          sliderWrapper.querySelectorAll("a").forEach((link) => {
+            link.addEventListener("click", (e) => {
+              const href = link.getAttribute("href");
+              // Only open lightbox if href is an image link.
+              if (/\.(jpg|jpeg|png|gif|webp)$/i.test(href)) {
+                e.preventDefault();
+                const img = link.querySelector("img");
+                const caption = link.nextElementSibling
+                  ? link.nextElementSibling.textContent
+                  : "";
+                const gallery = Array.from(
+                  container.querySelectorAll("a")
+                ).map((a) => ({
+                  src: a.getAttribute("href"),
+                  alt: a.querySelector("img").getAttribute("alt"),
+                  caption: a.nextElementSibling
+                    ? a.nextElementSibling.textContent
+                    : "",
+                }));
+                openLightbox(
+                  href,
+                  img.getAttribute("alt"),
+                  caption,
+                  gallery
+                );
+              }
+            });
+          });
+        } else {
+          // Single-image instance.
+          const anchor = container.querySelector("a");
+          if (anchor) {
+            anchor.addEventListener("click", (e) => {
+              const href = anchor.getAttribute("href");
+              // Only open lightbox if the href is an image link.
+              if (/\.(jpg|jpeg|png|gif|webp)$/i.test(href)) {
+                e.preventDefault();
+                const img = anchor.querySelector("img");
+                const captionElem = container.querySelector("figcaption");
+                const caption = captionElem ? captionElem.textContent : "";
+                openLightbox(href, img.getAttribute("alt"), caption, []);
+              }
+            });
+          }
+        }
+      });
+  });
+</script>
 
 
     <!-- Content End -->
