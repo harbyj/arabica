@@ -656,12 +656,6 @@
           transition: right 0.3s ease-in-out;
           z-index: 30;
           padding: 1.5rem;
-          max-height: 100vh;
-          overflow-y: auto;
-          direction: ltr;
-        }
-        .arabica_article-table-content {
-          direction: rtl;
         }
         .arabica_show-content {
           right: 0;
@@ -679,6 +673,8 @@
           transition: opacity 0.3s ease-in-out;
           pointer-events: none;
           z-index: 29;
+          max-height: 100%;
+          overflow-y: auto;
         }
 
         .arabica_show-overlay {
@@ -1386,13 +1382,14 @@
           </div>
         </div>
         <div class="arabica_right-column-25">
-          <div class="arabica_overlay"></div>
-          <div class="arabica_table-of-content arabica_side-content">
-            <button id="arabica_closeBtn" class="arabica_close-button">
-              Close
-            </button>
-            <h2>المحتويات</h2>
-            <div class="arabica_article-table-content"></div>
+          <div class="arabica_overlay">
+            <div class="arabica_table-of-content arabica_side-content">
+              <button id="arabica_closeBtn" class="arabica_close-button">
+                Close
+              </button>
+              <h2>المحتويات</h2>
+              <div class="arabica_article-table-content"></div>
+            </div>
           </div>
         </div>
       </div>
