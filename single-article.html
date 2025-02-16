@@ -11,31 +11,36 @@
       media="all"
     />
     <style>
-      .arabica_column-container {
-        display: flex;
-        flex-direction: row-reverse;
-        gap: 30px; /* Adjust the gap size */
-        padding-top: 60px;
-        padding-bottom: 60px;
-      }
+      @media (min-width: 992px) {
+        .arabica_column-container {
+          display: flex;
+          flex-direction: row-reverse;
+          gap: 30px; /* Adjust the gap size */
+          padding-top: 60px;
+          padding-bottom: 60px;
+        }
 
-      .arabica_left-column {
-        flex: 1; /* Takes up the remaining space */
-      }
+        .arabica_left-column {
+          flex: 1; /* Takes up the remaining space */
+        }
+        .arabica_right-column-15 {
+          width: 15%;
+        }
+        .arabica_right-column-20 {
+          width: 20%;
+        }
 
-      .arabica_right-column-15 {
-        width: 15%;
-      }
-      .arabica_right-column-20 {
-        width: 20%;
-      }
+        .arabica_right-column-25 {
+          width: 25%;
+        }
 
-      .arabica_right-column-25 {
-        width: 25%;
-      }
-
-      .arabica_right-column-30 {
-        width: 30%;
+        .arabica_right-column-30 {
+          width: 30%;
+        }
+        .arabica_floating-btn,
+        .arabica_close-button {
+          display: none;
+        }
       }
       .arabica_table-of-content {
         border: 1px solid #c7c8ca;
@@ -532,9 +537,6 @@
           margin-left: 0;
           margin-bottom: 15px;
         }
-        .arabica_right-column-25 {
-          display: none;
-        }
         .arabica_article-content p > img {
           width: 100% !important;
           height: auto !important;
@@ -552,7 +554,7 @@
       }
 
       /* Style for the reference icon that replaces {ref=[...]} */
-      .ref-icon {
+      .arabica_ref-icon {
         display: inline-block;
         color: #cc9933;
         line-height: 18px;
@@ -563,7 +565,7 @@
       }
 
       /* The dropdown container */
-      .ref-dropdown {
+      .arabica_ref-dropdown {
         position: absolute;
         min-width: 270px;
         max-width: 370px;
@@ -577,14 +579,14 @@
         transform: translateY(10px);
         transition: opacity 0.3s ease, transform 0.3s ease;
       }
-      .ref-dropdown.open {
+      .arabica_ref-dropdown.open {
         opacity: 1;
         pointer-events: auto;
         transform: translateY(0);
       }
 
       /* The arrow pointing to the icon */
-      .ref-dropdown::before {
+      .arabica_ref-dropdown::before {
         content: "";
         position: absolute;
         top: -10px; /* Just above the dropdown */
@@ -596,34 +598,33 @@
       }
 
       /* Reference text itself */
-      .ref-text {
+      .arabica_ref-text {
         font-size: 14px;
         color: #333333;
         margin-bottom: 10px;
       }
 
       /* Icons container at bottom of dropdown */
-      .ref-actions {
+      .arabica_ref-actions {
         display: flex;
         justify-content: flex-end;
         gap: 10px;
       }
-      .ref-close-icon,
-      .ref-copy-icon {
+      .arabica_ref-close-icon,
+      .arabica_ref-copy-icon {
         width: 24px;
         height: 24px;
         cursor: pointer;
         text-align: center;
-        line-height: 24px;
         border-radius: 4px;
         color: #cc9933;
         transition: background-color 0.3s ease;
         user-select: none;
-        font-size: 14px;
+        font-size: 16px;
       }
-      .ref-close-icon:hover,
-      .ref-copy-icon:hover {
-        background-color: #eee;
+      .arabica_ref-close-icon:hover,
+      .arabica_ref-copy-icon:hover {
+        background-color: #f3f3f3;
       }
 
       /* "Copied" text replacement style */
@@ -640,6 +641,90 @@
       }
       .copied-text.show {
         display: inline-block;
+      }
+      @media (max-width: 991px) {
+        .arabica_side-content {
+          position: fixed;
+          top: 0;
+          right: -100%;
+          width: 50%;
+          height: auto;
+          background: #ffffff 0% 0% no-repeat padding-box;
+          box-shadow: -3px 5px 17px #00000029;
+          border: 0;
+          border-radius: 16px;
+          transition: right 0.3s ease-in-out;
+          z-index: 1003;
+          padding: 1.5rem;
+          max-height: 100vh;
+          -ms-overflow-style: none; /* IE and Edge */
+          scrollbar-width: none; /* Firefox */
+        }
+
+        /* Hide scrollbar for WebKit-based browsers (Chrome, Safari) */
+        .arabica_side-content::-webkit-scrollbar {
+          display: none;
+        }
+
+        .arabica_show-content {
+          right: 0;
+        }
+
+        /* Blurred overlay styling with given UI properties */
+        .arabica_overlay {
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          opacity: 0;
+          backdrop-filter: none;
+          transition: opacity 0.3s ease-in-out;
+          pointer-events: none;
+          z-index: 1002;
+        }
+
+        .arabica_show-overlay {
+          opacity: 1;
+          backdrop-filter: blur(4px);
+          pointer-events: all;
+        }
+
+        /* Floating button styling with Font Awesome icon */
+        .arabica_floating-btn {
+          position: fixed;
+          bottom: 20px;
+          right: 20px;
+          background-color: #17355d;
+          color: #ffffff;
+          width: 50px;
+          height: 50px;
+          border-radius: 5px;
+          box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+          cursor: pointer;
+          z-index: 1001;
+          border: none;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 16px; /* Adjust icon size as needed */
+          transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+        .arabica_close-button {
+          cursor: pointer;
+          text-align: left;
+        }
+        /* When hidden, the toggle button fades & slides down */
+        .arabica_floating-btn.hidden {
+          opacity: 0;
+          transform: translateY(20px);
+          pointer-events: none;
+        }
+      }
+      @media (max-width: 767px) {
+        .arabica_side-content {
+          width: 80%;
+        }
       }
     </style>
   </head>
@@ -937,6 +1022,76 @@
                 عزله، حتى وفاته في 17 يونيو 2019. بعد توجيه عدة تهم إليه من
                 ضمنها التخابر مع قطر وحركة حماس وإفشاء أسرار الأمن القومي أثناء
                 فترة رئاسته
+              </p>
+              <h3>الدراسة والوظائف</h3>
+              <p>
+                الدراسة والوظائف: ولى رئاسة حزب الحرية والعدالة بعد تأسيسه بعد
+                أن كان عضواً في مكتب إرشاد جماعة الإخوان المسلمين. وكان نائبًا
+                سابقًا في مجلس الشعب المصري دورة 2000 - 2005.{[05]} وهو مهندس
+                ميكانيكي وأستاذ جامعي ويحمل شهادة الدكتوراه في هندسة المواد، في
+                15 فبراير 2012 هدد محمد مرسي بإعادة النظر في معاهدة كامب ديفيد
+                ردًا علي تلويح أمريكا بوقف معونتها المادية لمصر بسبب قضية
+                التمويل الأجنبي.{[06]}
+              </p>
+              <h3>الدراسة والوظائف</h3>
+              <p>
+                الدراسة والوظائف: ولى رئاسة حزب الحرية والعدالة بعد تأسيسه بعد
+                أن كان عضواً في مكتب إرشاد جماعة الإخوان المسلمين. وكان نائبًا
+                سابقًا في مجلس الشعب المصري دورة 2000 - 2005.{[05]} وهو مهندس
+                ميكانيكي وأستاذ جامعي ويحمل شهادة الدكتوراه في هندسة المواد، في
+                15 فبراير 2012 هدد محمد مرسي بإعادة النظر في معاهدة كامب ديفيد
+                ردًا علي تلويح أمريكا بوقف معونتها المادية لمصر بسبب قضية
+                التمويل الأجنبي.{[06]}
+              </p>
+              <h3>الدراسة والوظائف</h3>
+              <p>
+                الدراسة والوظائف: ولى رئاسة حزب الحرية والعدالة بعد تأسيسه بعد
+                أن كان عضواً في مكتب إرشاد جماعة الإخوان المسلمين. وكان نائبًا
+                سابقًا في مجلس الشعب المصري دورة 2000 - 2005.{[05]} وهو مهندس
+                ميكانيكي وأستاذ جامعي ويحمل شهادة الدكتوراه في هندسة المواد، في
+                15 فبراير 2012 هدد محمد مرسي بإعادة النظر في معاهدة كامب ديفيد
+                ردًا علي تلويح أمريكا بوقف معونتها المادية لمصر بسبب قضية
+                التمويل الأجنبي.{[06]}
+              </p>
+              <h3>الدراسة والوظائف</h3>
+              <p>
+                الدراسة والوظائف: ولى رئاسة حزب الحرية والعدالة بعد تأسيسه بعد
+                أن كان عضواً في مكتب إرشاد جماعة الإخوان المسلمين. وكان نائبًا
+                سابقًا في مجلس الشعب المصري دورة 2000 - 2005.{[05]} وهو مهندس
+                ميكانيكي وأستاذ جامعي ويحمل شهادة الدكتوراه في هندسة المواد، في
+                15 فبراير 2012 هدد محمد مرسي بإعادة النظر في معاهدة كامب ديفيد
+                ردًا علي تلويح أمريكا بوقف معونتها المادية لمصر بسبب قضية
+                التمويل الأجنبي.{[06]}
+              </p>
+              <h3>الدراسة والوظائف</h3>
+              <p>
+                الدراسة والوظائف: ولى رئاسة حزب الحرية والعدالة بعد تأسيسه بعد
+                أن كان عضواً في مكتب إرشاد جماعة الإخوان المسلمين. وكان نائبًا
+                سابقًا في مجلس الشعب المصري دورة 2000 - 2005.{[05]} وهو مهندس
+                ميكانيكي وأستاذ جامعي ويحمل شهادة الدكتوراه في هندسة المواد، في
+                15 فبراير 2012 هدد محمد مرسي بإعادة النظر في معاهدة كامب ديفيد
+                ردًا علي تلويح أمريكا بوقف معونتها المادية لمصر بسبب قضية
+                التمويل الأجنبي.{[06]}
+              </p>
+              <h3>الدراسة والوظائف</h3>
+              <p>
+                الدراسة والوظائف: ولى رئاسة حزب الحرية والعدالة بعد تأسيسه بعد
+                أن كان عضواً في مكتب إرشاد جماعة الإخوان المسلمين. وكان نائبًا
+                سابقًا في مجلس الشعب المصري دورة 2000 - 2005.{[05]} وهو مهندس
+                ميكانيكي وأستاذ جامعي ويحمل شهادة الدكتوراه في هندسة المواد، في
+                15 فبراير 2012 هدد محمد مرسي بإعادة النظر في معاهدة كامب ديفيد
+                ردًا علي تلويح أمريكا بوقف معونتها المادية لمصر بسبب قضية
+                التمويل الأجنبي.{[06]}
+              </p>
+              <h3>الدراسة والوظائف</h3>
+              <p>
+                الدراسة والوظائف: ولى رئاسة حزب الحرية والعدالة بعد تأسيسه بعد
+                أن كان عضواً في مكتب إرشاد جماعة الإخوان المسلمين. وكان نائبًا
+                سابقًا في مجلس الشعب المصري دورة 2000 - 2005.{[05]} وهو مهندس
+                ميكانيكي وأستاذ جامعي ويحمل شهادة الدكتوراه في هندسة المواد، في
+                15 فبراير 2012 هدد محمد مرسي بإعادة النظر في معاهدة كامب ديفيد
+                ردًا علي تلويح أمريكا بوقف معونتها المادية لمصر بسبب قضية
+                التمويل الأجنبي.{[06]}
               </p>
               <h3>الدراسة والوظائف</h3>
               <p>
@@ -1279,7 +1434,11 @@
           </div>
         </div>
         <div class="arabica_right-column-25">
-          <div class="arabica_table-of-content">
+          <div class="arabica_overlay"></div>
+          <div class="arabica_table-of-content arabica_side-content">
+            <button id="arabica_closeBtn" class="arabica_close-button">
+              Close
+            </button>
             <h2>المحتويات</h2>
             <div class="arabica_article-table-content"></div>
           </div>
@@ -1297,6 +1456,11 @@
         <div class="arabica_right-column-25"></div>
       </div>
     </div>
+
+    <!-- Floating Button using Font Awesome Icon -->
+    <button class="arabica_floating-btn">
+      <i class="fa-light fa-list-ul"></i>
+    </button>
 
     <script>
       document.addEventListener("DOMContentLoaded", function () {
@@ -1393,7 +1557,7 @@
           referenceElement.innerHTML = referenceElement.innerHTML.replace(
             /\{\[(\d+)\]\}/g,
             (match, number) => {
-              return `<a href="#cite${number}" class="ref-link" id="ref${number}">[${number}]</a>${match.replace(
+              return `<a href="#cite${number}" class="arabica_ref-link" id="ref${number}">[${number}]</a>${match.replace(
                 "{[" + number + "]}",
                 ""
               )}`;
@@ -1452,21 +1616,22 @@
             const fullMatch = match[0];
             const refText = match[1];
             const dropdownId =
-              "ref-dropdown-" + Math.random().toString(36).substring(2, 9);
+              "arabica_ref-dropdown-" +
+              Math.random().toString(36).substring(2, 9);
             // Create the replacement: a ref-icon plus a hidden dropdown
             const replacement = `
-          <span class="ref-icon" data-ref-id="${dropdownId}" data-reference="${escapeAttr(
+          <span class="arabica_ref-icon" data-ref-id="${dropdownId}" data-reference="${escapeAttr(
               refText
             )}">
             <i class="fa-light fa-circle-info"></i>
           </span>
-          <div id="${dropdownId}" class="ref-dropdown">
-            <div class="ref-actions">
-              <span class="ref-copy-icon" title="Copy"><i class="fa-regular fa-copy"></i></span>
+          <div id="${dropdownId}" class="arabica_ref-dropdown">
+            <div class="arabica_ref-actions">
+              <span class="arabica_ref-copy-icon" title="Copy"><i class="fa-regular fa-copy"></i></span>
               <span class="copied-text">✓ تم النسخ</span>
-              <span class="ref-close-icon" title="Close"><i class="fa-regular fa-circle-xmark"></i></span>
+              <span class="arabica_ref-close-icon" title="Close"><i class="fa-regular fa-circle-xmark"></i></span>
             </div>
-            <div class="ref-text"><span dir="rtl">${refText}</span></div>
+            <div class="arabica_ref-text"><span dir="rtl">${refText}</span></div>
           </div>
         `;
             html = html.replace(fullMatch, replacement);
@@ -1475,7 +1640,7 @@
         });
 
         // Attach event listeners for each ref-icon and its dropdown
-        const refIcons = article.querySelectorAll(".ref-icon");
+        const refIcons = article.querySelectorAll(".arabica_ref-icon");
         refIcons.forEach((icon) => {
           const dropdownId = icon.getAttribute("data-ref-id");
           const dropdownEl = document.getElementById(dropdownId);
@@ -1517,7 +1682,7 @@
           });
 
           // Close button inside the dropdown
-          const closeIcon = dropdownEl.querySelector(".ref-close-icon");
+          const closeIcon = dropdownEl.querySelector(".arabica_ref-close-icon");
           closeIcon.addEventListener("click", function (e) {
             e.stopPropagation();
             dropdownEl.classList.remove("open");
@@ -1526,11 +1691,11 @@
           });
 
           // Copy button functionality inside the dropdown
-          const copyIcon = dropdownEl.querySelector(".ref-copy-icon");
+          const copyIcon = dropdownEl.querySelector(".arabica_ref-copy-icon");
           const copiedText = dropdownEl.querySelector(".copied-text");
           copyIcon.addEventListener("click", function (e) {
             e.stopPropagation();
-            const refTextEl = dropdownEl.querySelector(".ref-text");
+            const refTextEl = dropdownEl.querySelector(".arabica_ref-text");
             const htmlContent = refTextEl.innerHTML.trim();
             const plainContent = refTextEl.innerText
               .trim()
@@ -1561,11 +1726,16 @@
         });
 
         function closeAllDropdowns() {
-          const allDropdowns = document.querySelectorAll(".ref-dropdown.open");
+          const allDropdowns = document.querySelectorAll(
+            ".arabica_ref-dropdown.open"
+          );
           allDropdowns.forEach((d) => {
             d.classList.remove("open");
             const parentIcon = d.previousElementSibling;
-            if (parentIcon && parentIcon.classList.contains("ref-icon")) {
+            if (
+              parentIcon &&
+              parentIcon.classList.contains("arabica_ref-icon")
+            ) {
               const iconInner = parentIcon.querySelector("i");
               iconInner.classList.remove("fa-solid");
               iconInner.classList.add("fa-light");
@@ -2226,6 +2396,68 @@
               }
             }
           });
+      });
+    </script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        /* ========= Side Content Open/Close ========= */
+        const toggleBtn = document.querySelector(".arabica_floating-btn");
+        const sideContent = document.querySelector(".arabica_side-content");
+        const closeBtn = document.querySelector(".arabica_close-button");
+        const overlay = document.querySelector(".arabica_overlay");
+
+        function openSideContent() {
+          sideContent.classList.add("arabica_show-content");
+          overlay.classList.add("arabica_show-overlay");
+          // Prevent body scroll when side content is open
+          document.body.classList.add("no-scroll");
+        }
+
+        function closeSideContent() {
+          sideContent.classList.remove("arabica_show-content");
+          overlay.classList.remove("arabica_show-overlay");
+          // Restore body scroll when side content is closed
+          document.body.classList.remove("no-scroll");
+        }
+
+        // Open/close when clicking toggle, close button, or overlay
+        toggleBtn.addEventListener("click", openSideContent);
+        closeBtn.addEventListener("click", closeSideContent);
+        overlay.addEventListener("click", closeSideContent);
+
+        // Close side content when pressing the Esc key
+        document.addEventListener("keydown", (event) => {
+          if (event.key === "Escape") {
+            closeSideContent();
+          }
+        });
+
+        // Close side content when any link (<a>) inside it is clicked
+        sideContent.addEventListener("click", function (e) {
+          if (e.target.closest("a")) {
+            closeSideContent();
+          }
+        });
+
+        /* ========= Toggle Button Hide/Show on Scroll ========= */
+        // This element is the footer wrapper
+        const footerWrapper = document.querySelector(".arabica_footer");
+
+        function checkToggleBtnVisibility() {
+          if (!footerWrapper) return;
+          const footerRect = footerWrapper.getBoundingClientRect();
+          // If the footer is visible in the viewport, hide the toggle button; otherwise, show it.
+          if (footerRect.top < window.innerHeight) {
+            toggleBtn.classList.add("hidden");
+          } else {
+            toggleBtn.classList.remove("hidden");
+          }
+        }
+
+        // Check visibility on scroll and on resize, and run once on load
+        window.addEventListener("scroll", checkToggleBtnVisibility);
+        window.addEventListener("resize", checkToggleBtnVisibility);
+        checkToggleBtnVisibility();
       });
     </script>
 
