@@ -2005,7 +2005,8 @@ a.arabica_latest-article-more:hover {
   width: 100%;
   height: auto;
   display: block;
-  margin: 5px 0;
+  margin-top: 5px;
+  margin-bottom: 5px;
 }
 
 /* Image Captions */

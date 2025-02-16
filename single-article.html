@@ -339,8 +339,6 @@
       .arabica_article-image > a img {
         width: 100%;
         height: 100%;
-        border: 2px solid #ccc;
-        border-radius: 5px;
         object-fit: cover;
       }
       /* Slider navigation buttons */
@@ -349,17 +347,17 @@
         top: 50%;
         transform: translateY(-50%);
         background: rgba(0, 0, 0, 0.5);
-        border: none;
-        padding: 10px;
+        padding: 4px;
         cursor: pointer;
         border-radius: 50%;
-        width: 40px;
-        height: 40px;
+        width: 30px;
+        height: 30px;
         display: flex;
         justify-content: center;
         align-items: center;
-        transition: background 0.3s ease;
+        transition: background 0.3sease;
         z-index: 10;
+        border: 1px solid #ffffff;
       }
       .arabica_article_slider-nav:hover {
         background: rgba(0, 0, 0, 0.8);
@@ -375,7 +373,6 @@
          Lightbox Global Styles
       ================================ */
       .arabica_article_lightbox {
-        display: none;
         position: fixed;
         top: 0;
         left: 0;
@@ -387,11 +384,13 @@
         align-items: center;
         z-index: 1000;
         opacity: 0;
-        transition: opacity 0.3s ease;
+        visibility: hidden;
+        transition: opacity 0.4s ease-in-out, visibility 0.4s ease-in-out;
       }
       .arabica_article_lightbox.active {
         display: flex;
         opacity: 1;
+        visibility: visible;
       }
       .arabica_article_lightbox-content {
         position: relative;
@@ -400,6 +399,8 @@
         display: flex;
         flex-direction: column;
         align-items: center;
+        transform: scale(0.9);
+        transition: transform 0.4s ease-in-out;
       }
       .arabica_article_lightbox-content img {
         max-width: 100%;
@@ -519,7 +520,12 @@
         width: 50%;
         margin-right: 1em; /* optional spacing between text and image */
       }
-
+      .arabica_article-content p > img {
+        float: right;
+        max-width: 100%;
+        height: auto;
+        margin: 7px 0 15px 15px !important;
+      }
       @media (max-width: 991px) {
         .float-right-45 {
           width: 100%;
@@ -529,12 +535,111 @@
         .arabica_right-column-25 {
           display: none;
         }
+        .arabica_article-content p > img {
+          width: 100% !important;
+          height: auto !important;
+          margin: 0 0 15px 0 !important;
+        }
       }
       @media (max-width: 767px) {
         .arabica_article .arabica_article-date,
         .arabica_article .arabica_article-read {
           display: block;
         }
+      }
+      .arabica_article_lightbox.active .arabica_article_lightbox-content {
+        transform: scale(1);
+      }
+
+      /* Style for the reference icon that replaces {ref=[...]} */
+      .ref-icon {
+        display: inline-block;
+        color: #cc9933;
+        line-height: 18px;
+        cursor: pointer;
+        vertical-align: middle;
+        user-select: none;
+        transition: background-color 0.3s ease;
+      }
+
+      /* The dropdown container */
+      .ref-dropdown {
+        position: absolute;
+        min-width: 270px;
+        max-width: 370px;
+        background-color: #ffffff;
+        border-radius: 20px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.25);
+        padding: 10px 14px;
+        z-index: 9999; /* Stay above other content */
+        opacity: 0;
+        pointer-events: none;
+        transform: translateY(10px);
+        transition: opacity 0.3s ease, transform 0.3s ease;
+      }
+      .ref-dropdown.open {
+        opacity: 1;
+        pointer-events: auto;
+        transform: translateY(0);
+      }
+
+      /* The arrow pointing to the icon */
+      .ref-dropdown::before {
+        content: "";
+        position: absolute;
+        top: -10px; /* Just above the dropdown */
+        left: 50%;
+        transform: translateX(-50%);
+        border-left: 8px solid transparent;
+        border-right: 8px solid transparent;
+        border-bottom: 10px solid #ffffff; /* same as dropdown background */
+      }
+
+      /* Reference text itself */
+      .ref-text {
+        font-size: 14px;
+        color: #333333;
+        margin-bottom: 10px;
+      }
+
+      /* Icons container at bottom of dropdown */
+      .ref-actions {
+        display: flex;
+        justify-content: flex-end;
+        gap: 10px;
+      }
+      .ref-close-icon,
+      .ref-copy-icon {
+        width: 24px;
+        height: 24px;
+        cursor: pointer;
+        text-align: center;
+        line-height: 24px;
+        border-radius: 4px;
+        color: #cc9933;
+        transition: background-color 0.3s ease;
+        user-select: none;
+        font-size: 14px;
+      }
+      .ref-close-icon:hover,
+      .ref-copy-icon:hover {
+        background-color: #eee;
+      }
+
+      /* "Copied" text replacement style */
+      .copied-text {
+        display: none;
+        width: auto;
+        padding: 0 6px;
+        height: 24px;
+        line-height: 24px;
+        border-radius: 4px;
+        background-color: #fdf6e3;
+        color: #cc9933;
+        font-size: 14px;
+      }
+      .copied-text.show {
+        display: inline-block;
       }
     </style>
   </head>
@@ -800,24 +905,38 @@
                 فلزات، وأستاذ جامعي، وسياسي مصري وهو الرئيس الخامس لجمهورية مصر
                 العربية{[01]} والأول بعد ثورة 25 يناير وهو أول رئيس مدني منتخب
                 للبلاد وأول رئيسٍ ذي خلفية سياسية إسلامية،أُعلن فوزه في 24 يونيو
-                2012 بنسبة 51.73 % من أصوات الناخبين المشاركين[12] بدأت فترته
-                الرئاسية مع الإعلان في 24 يونيو 2012 عن فوزه في انتخابات الرئاسة
-                المصرية .
+                2012 بنسبة 51.73 % من أصوات الناخبين المشاركين {ref=[المرشيد،
+                إبراهيم <b>وشكراني</b>، الحسين ومنصوري، إبراهيم (تشرين الثاني/
+                نوفمبر 2023) 'نحو بناء مؤشر إحصائي لقياس الثقافة السياسية في
+                البلدان العربية: أيّ منهجية في حقل العلوم السياسية؟'، سياسات
+                عربية، 11 (64)، ص 73-98. https://doi.org/10.31430/HKXN5310.]}
+                بدأت فترته الرئاسية مع الإعلان في 24 يونيو 2012 عن فوزه في
+                انتخابات الرئاسة المصرية .
               </p>
               <h2>حياته وأسرته</h2>
               <p>
-                المشاركين{[02]} بدأت فترته الرئاسية مع الإعلان في 24 يونيو 2012
-                عن فوزه في انتخابات الرئاسة المصرية 2012، وتولّى مهام منصبه في
-                30 يونيو 2012 بعد أدائه اليمين الدستورية.رفض مرسي العيش في
-                القصور الرئاسية كباقي رؤساء مصر السابقين وقال أنه يسكن في شقة
-                إيجار على حسابه،{[03]} شهدت فترة رئاسة محمد مرسي العديد من
-                الاحتجاجات والمظاهرات أزيح عن السلطة في انقلاب 3 يوليو 2013 في
-                مصر والذي جاء بعد مظاهرات 30 يونيو من نفس العام بعد حدوث عدة
-                أزمات اقتصادية منها أزمة انقطاع الكهرباء وعدم توفر وقود السيارات
-                واسطوانات البوتجاز وأزمة القمامة والإنفلات الأمني، في حين رأى
-                البعض أنها كانت مفتعلة.{[04]} وبقي معتقلاً منذ تاريخ عزله، حتى
-                وفاته في 17 يونيو 2019. بعد توجيه عدة تهم إليه من ضمنها التخابر
-                مع قطر وحركة حماس وإفشاء أسرار الأمن القومي أثناء فترة رئاسته
+                {ref=[المرشيد، إبراهيم والحسين شكراني وإبراهيم منصوري. "نحو بناء
+                مؤشر إحصائي لقياس الثقافة السياسية في البلدان العربية: أيّ
+                منهجية في حقل العلوم السياسية؟". <b>سياسات عربية</b>. مج 11،
+                العدد 64 (تشرين&nbsp;الثاني/ نوفمبر 2023). ص 73-98.
+                https://doi.org/10.31430/HKXN5310]} المشاركين{[02]} بدأت فترته
+                الرئاسية مع الإعلان في 24 يونيو 2012 عن فوزه في انتخابات الرئاسة
+                المصرية 2012، وتولّى مهام منصبه في 30 يونيو 2012 بعد أدائه
+                اليمين الدستورية.رفض مرسي العيش في القصور الرئاسية كباقي رؤساء
+                مصر السابقين وقال أنه يسكن في شقة إيجار على حسابه،{[03]} شهدت
+                فترة رئاسة محمد مرسي العديد من الاحتجاجات والمظاهرات أزيح عن
+                السلطة في انقلاب 3 يوليو 2013 في مصر والذي جاء بعد مظاهرات 30
+                يونيو من نفس {ref=[المرشيد، إبراهيم والحسين شكراني وإبراهيم
+                منصوري. نحو بناء مؤشر إحصائي لقياس الثقافة السياسية في البلدان
+                العربية: أيّ منهجية في حقل العلوم السياسية؟.
+                <b>سياسات عربية</b>. مج 11، العدد 64 (تشرين الثاني/ نوفمبر
+                2023). ص 73-98. https://doi.org/10.31430/HKXN5310]} العام بعد
+                حدوث عدة أزمات اقتصادية منها أزمة انقطاع الكهرباء وعدم توفر وقود
+                السيارات واسطوانات البوتجاز وأزمة القمامة والإنفلات الأمني، في
+                حين رأى البعض أنها كانت مفتعلة.{[04]} وبقي معتقلاً منذ تاريخ
+                عزله، حتى وفاته في 17 يونيو 2019. بعد توجيه عدة تهم إليه من
+                ضمنها التخابر مع قطر وحركة حماس وإفشاء أسرار الأمن القومي أثناء
+                فترة رئاسته
               </p>
               <h3>الدراسة والوظائف</h3>
               <p>
@@ -904,20 +1023,18 @@
                   <figcaption>صورة 1</figcaption>
                 </div>
                 <div class="arabica_article-image-gallery">
-                  <a
-                    href="https://siyasatarabiya.dohainstitute.org/ar/PublishingImages/IssueCovers/Siyassat51-2021-Cover.png"
-                  >
+                  <a href="Assets/images/slider-img1.jpg">
                     <img
-                      src="https://siyasatarabiya.dohainstitute.org/ar/PublishingImages/IssueCovers/Siyassat51-2021-Cover.png"
+                      src="Assets/images/slider-img1.jpg"
                       alt="article image 2"
                     />
                   </a>
                   <figcaption>صورة 2</figcaption>
                 </div>
                 <div class="arabica_article-image-gallery">
-                  <a href="Assets/images/post-img3.jpg">
+                  <a href="Assets/images/slider-img2.jpg">
                     <img
-                      src="Assets/images/post-img3.jpg"
+                      src="Assets/images/slider-img2.jpg"
                       alt="article image 3"
                     />
                   </a>
@@ -981,6 +1098,26 @@
                 معتقلاً منذ تاريخ عزله، حتى وفاته في 17 يونيو 2019. بعد توجيه
                 عدة تهم إليه من ضمنها التخابر مع قطر وحركة حماس وإفشاء أسرار
                 الأمن القومي أثناء فترة بعد توجيه عدة تهم إليه من ضمنه.
+              </p>
+              <p>
+                انتمى للإخوان المسلمين فكرًا عام 1977 وتنظيميًا أواخر عام 1979
+                وعمل عضوًا بالقسم السياسي بالجماعة منذ نشأته عام 1992. ترشح
+                لانتخابات مجلس الشعب 1995، وانتخابات 2000 ونجح فيها وانتخب عضوًا
+                بمجلس الشعب المصري عن جماعة الإخوان وشغل موقع المتحدث الرسمي
+                باسم الكتلة البرلمانية للإخوان. وفي انتخابات مجلس الشعب • 2005
+                حصل على أعلى الأصوات وبفارق كبير عن أقرب منافسيه[37] ولكن تم
+                إجراء جولة إعادة أعلن بعدها فوز منافسه. كان من أنشط أعضاء مجلس
+                الشعب وصاحب أشهر استجواب في مجلس الشعب عن حادثة قطار الصعيد،
+                وأدان الحكومة وخرجت الصحف الحكومية في اليوم التالي تشيد
+                باستجوابه.[14]وقد اختير د. مرسي عضوًا بلجنة مقاومة الصهيونية
+                بمحافظة الشرقية، كما اختير عضوًا بالمؤتمر الدولي للأحزاب والقوى
+                السياسية والنقابات المهنية، وهو عضو مؤسس باللجنة المصرية لمقاومة
+                المشروع الصهيوني.[15] شارك في تأسيس الجبهة الوطنية للتغيير مع د.
+                عزيز صدقي عام 2004؛ كما شارك في تأسيس التحالف الديمقراطي من أجل
+                مصر والذي ضم 40 حزبًا وتيارًا سياسيًا 2011، انتخبه مجلس شورى
+                الإخوان في 30 أبريل 2011 رئيسًا لحزب الحرية والعدالة الذي أنشأته
+                الجماعة بجانب انتخاب عصام العريان نائبًا له ومحمد سعد الكتاتني
+                أمينًا عامًّا للحزب.
               </p>
               <h3>قمة عدم الانحياز 2012</h3>
               <p>
@@ -1218,8 +1355,11 @@
         }
       });
     </script>
+
     <script>
       document.addEventListener("DOMContentLoaded", function () {
+        /* ==================== Citation Conversion & DOM Rearrangement ==================== */
+
         function convertReferences() {
           let contentElement = document.querySelector(
             ".arabica_article-content"
@@ -1228,17 +1368,16 @@
             ".arabica_article-references"
           );
 
-          // Create a temporary working copy without references
+          // Create a temporary working copy without the references section
           let tempContent = contentElement.cloneNode(true);
           let referencesClone = tempContent.querySelector(
             ".arabica_article-references"
           );
-
           if (referencesClone) {
-            referencesClone.remove(); // Remove references from the copy
+            referencesClone.remove();
           }
 
-          // Replace citations in the modified content (excluding references)
+          // Replace citation markers in content: {[number]} → citation link
           tempContent.innerHTML = tempContent.innerHTML.replace(
             /\{\[(\d+)\]\}/g,
             (match, number) => {
@@ -1246,11 +1385,11 @@
             }
           );
 
-          // Apply the transformed content back to .arabica_article-content, but preserve .arabica_article-references
+          // Apply the transformed content back, then re‑append the reference section
           contentElement.innerHTML = tempContent.innerHTML;
-          contentElement.appendChild(referenceElement); // Re-add the reference section
+          contentElement.appendChild(referenceElement);
 
-          // Replace citations in .arabica_article-references
+          // Replace citation markers in the references section
           referenceElement.innerHTML = referenceElement.innerHTML.replace(
             /\{\[(\d+)\]\}/g,
             (match, number) => {
@@ -1262,21 +1401,6 @@
           );
         }
 
-        function smoothScroll() {
-          document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
-            anchor.addEventListener("click", function (event) {
-              event.preventDefault();
-              const target = document.querySelector(this.getAttribute("href"));
-              if (target) {
-                window.scrollTo({
-                  top: target.offsetTop - 20,
-                  behavior: "smooth",
-                });
-              }
-            });
-          });
-        }
-
         function moveReferences() {
           const references = document.querySelector(
             ".arabica_article-references"
@@ -1284,9 +1408,7 @@
           const newReferenceContainer = document.querySelector(
             ".arabica_foot-reference"
           );
-
           if (references && newReferenceContainer) {
-            // Move the references inside .arabica_foot-reference
             newReferenceContainer.appendChild(references);
           }
         }
@@ -1296,19 +1418,184 @@
           const newSourceContainer = document.querySelector(
             ".arabica_foot-source"
           );
-
           if (sources && newSourceContainer) {
-            // Move the references inside .arabica_foot-source
             newSourceContainer.appendChild(sources);
           }
         }
 
+        // Run conversion and move operations
         convertReferences();
-        smoothScroll();
         moveReferences();
         moveSources();
+
+        /* ==================== Reference Tooltip / Dropdown Code ==================== */
+
+        // Helper function to escape special characters in attribute values
+        function escapeAttr(text) {
+          return text
+            .replace(/&/g, "&amp;")
+            .replace(/"/g, "&quot;")
+            .replace(/'/g, "&#39;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;");
+        }
+
+        // Process {ref=[...]} markers in all paragraphs
+        const refPattern = /\{ref=\[([\s\S]*?)\]\}/g;
+        const article = document.querySelector(".arabica_article-content");
+        const paragraphs = article.querySelectorAll("p");
+
+        paragraphs.forEach((paragraph) => {
+          let html = paragraph.innerHTML;
+          const matches = [...html.matchAll(refPattern)];
+          matches.forEach((match) => {
+            const fullMatch = match[0];
+            const refText = match[1];
+            const dropdownId =
+              "ref-dropdown-" + Math.random().toString(36).substring(2, 9);
+            // Insert the Font Awesome icon and dropdown container.
+            // Note: escapeAttr() is used for data-reference so that any quotes are safely encoded.
+            const replacement = `
+          <span class="ref-icon" data-ref-id="${dropdownId}" data-reference="${escapeAttr(
+              refText
+            )}">
+            <i class="fa-light fa-circle-info"></i>
+          </span>
+          <div id="${dropdownId}" class="ref-dropdown">
+            <div class="ref-actions">
+              <span class="ref-copy-icon" title="Copy"><i class="fa-regular fa-copy"></i></span>
+              <span class="copied-text">✓ تم النسخ</span>
+              <span class="ref-close-icon" title="Close"><i class="fa-regular fa-circle-xmark"></i></span>
+            </div>
+            <div class="ref-text"><span dir="rtl">${refText}</span></div>
+          </div>
+        `;
+            html = html.replace(fullMatch, replacement);
+          });
+          paragraph.innerHTML = html;
+        });
+
+        // Attach event listeners to the newly inserted reference icons and their dropdowns
+        const refIcons = article.querySelectorAll(".ref-icon");
+        refIcons.forEach((icon) => {
+          const dropdownId = icon.getAttribute("data-ref-id");
+          const dropdownEl = document.getElementById(dropdownId);
+          const iconInner = icon.querySelector("i");
+
+          // Prevent clicks inside the dropdown from bubbling up (so it remains open)
+          dropdownEl.addEventListener("click", function (e) {
+            e.stopPropagation();
+          });
+
+          // Toggle dropdown on icon click and update icon style accordingly
+          icon.addEventListener("click", function (e) {
+            e.stopPropagation();
+            if (dropdownEl.classList.contains("open")) {
+              dropdownEl.classList.remove("open");
+              iconInner.classList.remove("fa-solid");
+              iconInner.classList.add("fa-light");
+            } else {
+              closeAllDropdowns();
+              positionDropdown(icon, dropdownEl);
+              dropdownEl.classList.add("open");
+              iconInner.classList.remove("fa-light");
+              iconInner.classList.add("fa-solid");
+            }
+          });
+
+          // On hover, switch to solid style if dropdown isn't open
+          icon.addEventListener("mouseenter", function () {
+            if (!dropdownEl.classList.contains("open")) {
+              iconInner.classList.remove("fa-light");
+              iconInner.classList.add("fa-solid");
+            }
+          });
+          // On mouse leave, revert to light style if dropdown isn't open
+          icon.addEventListener("mouseleave", function () {
+            if (!dropdownEl.classList.contains("open")) {
+              iconInner.classList.remove("fa-solid");
+              iconInner.classList.add("fa-light");
+            }
+          });
+
+          // Close button inside the dropdown
+          const closeIcon = dropdownEl.querySelector(".ref-close-icon");
+          closeIcon.addEventListener("click", function (e) {
+            e.stopPropagation();
+            dropdownEl.classList.remove("open");
+            iconInner.classList.remove("fa-solid");
+            iconInner.classList.add("fa-light");
+          });
+
+          // Copy button inside the dropdown
+          const copyIcon = dropdownEl.querySelector(".ref-copy-icon");
+          const copiedText = dropdownEl.querySelector(".copied-text");
+          copyIcon.addEventListener("click", function (e) {
+            e.stopPropagation();
+            const refTextEl = dropdownEl.querySelector(".ref-text");
+            const htmlContent = refTextEl.innerHTML.trim();
+            const plainContent = refTextEl.innerText
+              .trim()
+              .replace(/\s+/g, " ");
+            const clipboardItem = new ClipboardItem({
+              "text/html": new Blob([htmlContent], { type: "text/html" }),
+              "text/plain": new Blob([plainContent], { type: "text/plain" }),
+            });
+            navigator.clipboard
+              .write([clipboardItem])
+              .then(() => {
+                copyIcon.style.display = "none";
+                copiedText.classList.add("show");
+                setTimeout(() => {
+                  copyIcon.style.display = "inline-block";
+                  copiedText.classList.remove("show");
+                }, 5000);
+              })
+              .catch((err) => {
+                console.error("Failed to copy text: ", err);
+              });
+          });
+        });
+
+        // Close any open dropdown when clicking outside
+        document.addEventListener("click", function () {
+          closeAllDropdowns();
+        });
+
+        function closeAllDropdowns() {
+          const allDropdowns = document.querySelectorAll(".ref-dropdown.open");
+          allDropdowns.forEach((d) => {
+            d.classList.remove("open");
+            const parentIcon = d.previousElementSibling;
+            if (parentIcon && parentIcon.classList.contains("ref-icon")) {
+              const iconInner = parentIcon.querySelector("i");
+              iconInner.classList.remove("fa-solid");
+              iconInner.classList.add("fa-light");
+            }
+          });
+        }
+
+        // Position the dropdown relative to its icon within the article container
+        function positionDropdown(icon, dropdown) {
+          const parent = icon.offsetParent;
+          if (!parent) return;
+          dropdown.style.top = "";
+          dropdown.style.left = "";
+          const iconRect = icon.getBoundingClientRect();
+          const parentRect = parent.getBoundingClientRect();
+          const dropRect = dropdown.getBoundingClientRect();
+          const top = iconRect.bottom - parentRect.top + 10; // 10px below the icon
+          const left =
+            iconRect.left -
+            parentRect.left +
+            iconRect.width / 2 -
+            dropRect.width / 2;
+          dropdown.style.top = top + "px";
+          dropdown.style.left = left + "px";
+        }
       });
     </script>
+
     <script>
       document.addEventListener("DOMContentLoaded", function () {
         // Function to create and inject controls
@@ -1605,7 +1892,7 @@
         lightbox.appendChild(closeBtn);
         lightboxContent.appendChild(lightboxImg);
         lightboxContent.appendChild(lightboxCaption);
-        lightboxContent.appendChild(galleryGrid);
+        lightbox.appendChild(galleryGrid);
         lightbox.appendChild(lightboxContent);
         document.body.appendChild(lightbox);
 
@@ -1625,23 +1912,21 @@
             currentGallery = gallery;
             currentIndex = gallery.findIndex((item) => item.src === imgSrc);
             updateGalleryGrid(gallery);
-            nextLightboxBtn.style.display = "";
-            prevLightboxBtn.style.display = "";
-            galleryGrid.style.display = "";
           } else {
             currentGallery = [];
             galleryGrid.innerHTML = "";
-            nextLightboxBtn.style.display = "none";
-            prevLightboxBtn.style.display = "none";
-            galleryGrid.style.display = "none";
           }
         }
 
         function closeLightbox() {
           lightbox.classList.remove("active");
           document.body.classList.remove("no-scroll");
-          currentGallery = [];
-          galleryGrid.innerHTML = "";
+
+          // Delay removal of gallery content to match transition duration
+          setTimeout(() => {
+            currentGallery = [];
+            galleryGrid.innerHTML = "";
+          }, 400); // Matches the CSS transition duration
         }
 
         function updateGalleryGrid(gallery) {

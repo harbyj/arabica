@@ -56,3 +56,27 @@ function openShareDialog(event) {
 document.querySelectorAll(".arabica_share-link").forEach((link) => {
   link.addEventListener("click", openShareDialog);
 });
+
+document.addEventListener("click", function (event) {
+  // Check if the clicked element or its parent is an anchor with an href starting with "#"
+  const anchor = event.target.closest('a[href^="#"]');
+  if (!anchor) return; // Not a link, ignore
+
+  const targetId = anchor.getAttribute("href").slice(1); // remove the '#'
+  if (!targetId) return; // href is just '#' or empty
+
+  const targetElement = document.getElementById(targetId);
+  if (targetElement) {
+    event.preventDefault(); // Prevent the default jump
+
+    // Optional: adjust the offset if you have fixed headers, etc.
+    const offset = 20;
+    const targetPosition =
+      targetElement.getBoundingClientRect().top + window.pageYOffset - offset;
+
+    window.scrollTo({
+      top: targetPosition,
+      behavior: "smooth",
+    });
+  }
+});
