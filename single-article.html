@@ -588,7 +588,7 @@
         content: "";
         position: absolute;
         top: -10px; /* Just above the dropdown */
-        left: 50%;
+        left: var(--arrow-left, 50%);
         transform: translateX(-50%);
         border-left: 8px solid transparent;
         border-right: 8px solid transparent;
@@ -1361,16 +1361,16 @@
         /* ==================== Citation Conversion & DOM Rearrangement ==================== */
 
         function convertReferences() {
-          let contentElement = document.querySelector(
+          const contentElement = document.querySelector(
             ".arabica_article-content"
           );
-          let referenceElement = document.querySelector(
+          const referenceElement = document.querySelector(
             ".arabica_article-references"
           );
 
           // Create a temporary working copy without the references section
-          let tempContent = contentElement.cloneNode(true);
-          let referencesClone = tempContent.querySelector(
+          const tempContent = contentElement.cloneNode(true);
+          const referencesClone = tempContent.querySelector(
             ".arabica_article-references"
           );
           if (referencesClone) {
@@ -1423,14 +1423,14 @@
           }
         }
 
-        // Run conversion and move operations
+        // Run citation conversion and move operations first
         convertReferences();
         moveReferences();
         moveSources();
 
         /* ==================== Reference Tooltip / Dropdown Code ==================== */
 
-        // Helper function to escape special characters in attribute values
+        // Helper: escape special characters for attribute values
         function escapeAttr(text) {
           return text
             .replace(/&/g, "&amp;")
@@ -1440,11 +1440,11 @@
             .replace(/>/g, "&gt;");
         }
 
-        // Process {ref=[...]} markers in all paragraphs
         const refPattern = /\{ref=\[([\s\S]*?)\]\}/g;
         const article = document.querySelector(".arabica_article-content");
         const paragraphs = article.querySelectorAll("p");
 
+        // Process each paragraph for {ref=[...]} markers
         paragraphs.forEach((paragraph) => {
           let html = paragraph.innerHTML;
           const matches = [...html.matchAll(refPattern)];
@@ -1453,8 +1453,7 @@
             const refText = match[1];
             const dropdownId =
               "ref-dropdown-" + Math.random().toString(36).substring(2, 9);
-            // Insert the Font Awesome icon and dropdown container.
-            // Note: escapeAttr() is used for data-reference so that any quotes are safely encoded.
+            // Create the replacement: a ref-icon plus a hidden dropdown
             const replacement = `
           <span class="ref-icon" data-ref-id="${dropdownId}" data-reference="${escapeAttr(
               refText
@@ -1475,19 +1474,19 @@
           paragraph.innerHTML = html;
         });
 
-        // Attach event listeners to the newly inserted reference icons and their dropdowns
+        // Attach event listeners for each ref-icon and its dropdown
         const refIcons = article.querySelectorAll(".ref-icon");
         refIcons.forEach((icon) => {
           const dropdownId = icon.getAttribute("data-ref-id");
           const dropdownEl = document.getElementById(dropdownId);
           const iconInner = icon.querySelector("i");
 
-          // Prevent clicks inside the dropdown from bubbling up (so it remains open)
+          // Prevent clicks inside the dropdown from bubbling up (so it stays open)
           dropdownEl.addEventListener("click", function (e) {
             e.stopPropagation();
           });
 
-          // Toggle dropdown on icon click and update icon style accordingly
+          // Toggle the dropdown on icon click and update icon style
           icon.addEventListener("click", function (e) {
             e.stopPropagation();
             if (dropdownEl.classList.contains("open")) {
@@ -1503,14 +1502,13 @@
             }
           });
 
-          // On hover, switch to solid style if dropdown isn't open
+          // On hover, switch icon style to solid (if not open)
           icon.addEventListener("mouseenter", function () {
             if (!dropdownEl.classList.contains("open")) {
               iconInner.classList.remove("fa-light");
               iconInner.classList.add("fa-solid");
             }
           });
-          // On mouse leave, revert to light style if dropdown isn't open
           icon.addEventListener("mouseleave", function () {
             if (!dropdownEl.classList.contains("open")) {
               iconInner.classList.remove("fa-solid");
@@ -1527,7 +1525,7 @@
             iconInner.classList.add("fa-light");
           });
 
-          // Copy button inside the dropdown
+          // Copy button functionality inside the dropdown
           const copyIcon = dropdownEl.querySelector(".ref-copy-icon");
           const copiedText = dropdownEl.querySelector(".copied-text");
           copyIcon.addEventListener("click", function (e) {
@@ -1575,23 +1573,45 @@
           });
         }
 
-        // Position the dropdown relative to its icon within the article container
+        /* ==================== Dynamic Dropdown Positioning ==================== */
+
+        // This function positions the dropdown relative to its icon while preventing overflow.
+        // It also computes an arrow offset (set via a CSS variable) so the arrow always points to the icon.
         function positionDropdown(icon, dropdown) {
           const parent = icon.offsetParent;
           if (!parent) return;
+
+          // Reset inline styles for top and left
           dropdown.style.top = "";
           dropdown.style.left = "";
+
           const iconRect = icon.getBoundingClientRect();
           const parentRect = parent.getBoundingClientRect();
           const dropRect = dropdown.getBoundingClientRect();
-          const top = iconRect.bottom - parentRect.top + 10; // 10px below the icon
-          const left =
+
+          // Compute initial left value to center the dropdown over the icon.
+          let left =
             iconRect.left -
             parentRect.left +
             iconRect.width / 2 -
             dropRect.width / 2;
-          dropdown.style.top = top + "px";
+
+          // Clamp the left value so the dropdown does not overflow the parent's boundaries.
+          if (left < 0) {
+            left = 0;
+          } else if (left + dropRect.width > parentRect.width) {
+            left = parentRect.width - dropRect.width;
+          }
           dropdown.style.left = left + "px";
+
+          // Position dropdown 10px below the icon.
+          const top = iconRect.bottom - parentRect.top + 10;
+          dropdown.style.top = top + "px";
+
+          // Compute the arrow offset relative to the dropdown's left edge.
+          const arrowLeft =
+            iconRect.left - parentRect.left + iconRect.width / 2 - left;
+          dropdown.style.setProperty("--arrow-left", arrowLeft + "px");
         }
       });
     </script>
