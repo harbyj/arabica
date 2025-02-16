@@ -45,7 +45,7 @@
       }
       .arabica_table-of-content h2 {
         font-weight: bold;
-        color: #4d4d4f
+        color: #4d4d4f;
       }
       .arabica_article-category {
         font-weight: bold;
@@ -86,12 +86,20 @@
       .arabica_article .arabica_article-date {
         margin-left: 30px;
       }
-      .arabica_article-content hr,  .arabica_news-content hr {margin-bottom: 15px;}
-      .arabica_article-foot-wrapper {background-color: #f8f8f8;
-      color: #333333;}
-.arabica_article-video, .arabica_article-image, .arabica_news-video, .arabica_news-image {margin-bottom: 15px;}
-
-
+      .arabica_article-content hr,
+      .arabica_news-content hr {
+        margin-bottom: 15px;
+      }
+      .arabica_article-foot-wrapper {
+        background-color: #f8f8f8;
+        color: #333333;
+      }
+      .arabica_article-video,
+      .arabica_article-image,
+      .arabica_news-video,
+      .arabica_news-image {
+        margin-bottom: 15px;
+      }
 
       .video-container {
         background-color: #000000;
@@ -245,70 +253,73 @@
         direction: ltr;
         text-align: left;
       }
-.arabica_article-foot-wrapper p, .arabica_article-foot-wrapper li, .arabica_article-sources li, .arabica_article-references p {
-  margin-bottom: 7px;
-  font-size: 14px;
-}
-.arabica_article-foot-wrapper h2, .arabica_article-sources h2, .arabica_article-references h2 {color: #333333}
+      .arabica_article-foot-wrapper p,
+      .arabica_article-foot-wrapper li,
+      .arabica_article-sources li,
+      .arabica_article-references p {
+        margin-bottom: 7px;
+        font-size: 14px;
+      }
+      .arabica_article-foot-wrapper h2,
+      .arabica_article-sources h2,
+      .arabica_article-references h2 {
+        color: #333333;
+      }
       .arabica_article-sources ol {
-  list-style-type: none; /* Remove default numbering */
-  counter-reset: list-counter; /* Initialize counter */
-  padding: 0; /* Remove default padding */
-}
+        list-style-type: none; /* Remove default numbering */
+        counter-reset: list-counter; /* Initialize counter */
+        padding: 0; /* Remove default padding */
+      }
 
-.arabica_article-sources li {
-  counter-increment: list-counter; /* Increment counter */
-  position: relative;
-}
+      .arabica_article-sources li {
+        counter-increment: list-counter; /* Increment counter */
+        position: relative;
+      }
 
-.arabica_article-sources li::before {
-  content: counter(list-counter) "- ";
-}
+      .arabica_article-sources li::before {
+        content: counter(list-counter) "- ";
+      }
 
+      .toc-section {
+        border-bottom: 1px solid #ccc;
+        margin-bottom: 10px;
+        padding-bottom: 5px;
+      }
 
-.toc-section {
-    border-bottom: 1px solid #ccc;
-    margin-bottom: 10px;
-    padding-bottom: 5px;
-}
+      .toc-section:last-child {
+        border-bottom: none;
+        margin-bottom: 0;
+        padding-bottom: 0;
+      }
 
-.toc-section:last-child {
-    border-bottom: none;
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
+      .toc-link {
+        display: block;
+        font-size: 16px;
+        font-weight: bold;
+        color: #4d4d4f;
+        text-decoration: none;
+        padding: 3px 0;
+        position: relative;
+      }
 
-.toc-link {
-    display: block;
-    font-size: 16px;
-    font-weight: bold;
-    color: #4d4d4f;
-    text-decoration: none;
-    padding: 3px 0;
-    position: relative;
-}
+      .toc-link:not(.toc-indent)::before {
+        content: "\f053"; /* Font Awesome right chevron */
+        font-family: "Font Awesome 6 Pro";
+        font-weight: 900;
+        font-size: 11px;
+        color: #4d4d4f;
+        padding: 0 0 0 13px;
+      }
 
-.toc-link:not(.toc-indent)::before {
-  content: "\f053"; /* Font Awesome right chevron */
-    font-family: "Font Awesome 6 Pro";
-    font-weight: 900;
-    font-size: 11px;
-    color: #4d4d4f;
-    padding: 0 0 0 13px;
-}
+      .toc-indent {
+        font-size: 14px;
+        font-weight: normal;
+        color: #4d4d4f;
+        padding-right: 35px;
+      }
 
-
-.toc-indent {
-    font-size: 14px;
-    font-weight: normal;
-    color: #4d4d4f;
-    padding-right: 35px;
-}
-
-
-
-/* Slider container */
-.arabica_article_slider {
+      /* Slider container */
+      .arabica_article_slider {
         position: relative;
         overflow: hidden;
       }
@@ -318,19 +329,19 @@
         transition: transform 0.3s ease-in-out;
         flex-direction: row-reverse;
       }
-      /* Each slide occupies full width */
-      .arabica_article_image-gallery {
+      .arabica_article-image-gallery {
         flex: 0 0 100%;
-        box-sizing: border-box;
+        box-sizing: border-box; /* Set your desired width */
+        aspect-ratio: 177 / 90;
       }
       /* Images (for both slider items and single-image case) */
-      .arabica_article_image-gallery img,
+      .arabica_article-image-gallery img,
       .arabica_article-image > a img {
         width: 100%;
-        height: auto;
-        cursor: pointer;
+        height: 100%;
         border: 2px solid #ccc;
         border-radius: 5px;
+        object-fit: cover;
       }
       /* Slider navigation buttons */
       .arabica_article_slider-nav {
@@ -472,10 +483,53 @@
         background: rgba(0, 0, 0, 0.9);
       }
       #lightbox-img {
-  transition: opacity 0.3s ease;
-  opacity: 1;
-}
+        transition: opacity 0.3s ease;
+        opacity: 1;
+      }
 
+      .float-right-40 {
+        float: right;
+        width: 40%;
+        margin-left: 1em;
+        margin-bottom: 0;
+      }
+      .float-right-45 {
+        float: right;
+        width: 45%;
+        margin-left: 1em;
+        margin-bottom: 3px;
+      }
+      .float-right-50 {
+        float: right;
+        width: 50%;
+        margin-left: 1em; /* optional spacing between text and image */
+      }
+      .float-left-40 {
+        float: left;
+        width: 40%;
+        margin-right: 1em; /* optional spacing between text and image */
+      }
+      .float-left-45 {
+        float: left;
+        width: 45%;
+        margin-right: 1em; /* optional spacing between text and image */
+      }
+      .float-left-50 {
+        float: left;
+        width: 50%;
+        margin-right: 1em; /* optional spacing between text and image */
+      }
+
+      @media (max-width: 991px) {
+        .float-right-45 {
+          width: 100%;
+          margin-left: 0;
+          margin-bottom: 15px;
+        }
+        .arabica_right-column-25 {
+          display: none;
+        }
+      }
     </style>
   </head>
   <body>
@@ -746,14 +800,14 @@
               </p>
               <h2>حياته وأسرته</h2>
               <p>
-                المشاركين{[02]} بدأت فترته الرئاسية مع الإعلان في 24 يونيو 2012 عن
-                فوزه في انتخابات الرئاسة المصرية 2012، وتولّى مهام منصبه في 30
-                يونيو 2012 بعد أدائه اليمين الدستورية.رفض مرسي العيش في القصور
-                الرئاسية كباقي رؤساء مصر السابقين وقال أنه يسكن في شقة إيجار على
-                حسابه،{[03]} شهدت فترة رئاسة محمد مرسي العديد من الاحتجاجات
-                والمظاهرات أزيح عن السلطة في انقلاب 3 يوليو 2013 في مصر والذي
-                جاء بعد مظاهرات 30 يونيو من نفس العام بعد حدوث عدة أزمات
-                اقتصادية منها أزمة انقطاع الكهرباء وعدم توفر وقود السيارات
+                المشاركين{[02]} بدأت فترته الرئاسية مع الإعلان في 24 يونيو 2012
+                عن فوزه في انتخابات الرئاسة المصرية 2012، وتولّى مهام منصبه في
+                30 يونيو 2012 بعد أدائه اليمين الدستورية.رفض مرسي العيش في
+                القصور الرئاسية كباقي رؤساء مصر السابقين وقال أنه يسكن في شقة
+                إيجار على حسابه،{[03]} شهدت فترة رئاسة محمد مرسي العديد من
+                الاحتجاجات والمظاهرات أزيح عن السلطة في انقلاب 3 يوليو 2013 في
+                مصر والذي جاء بعد مظاهرات 30 يونيو من نفس العام بعد حدوث عدة
+                أزمات اقتصادية منها أزمة انقطاع الكهرباء وعدم توفر وقود السيارات
                 واسطوانات البوتجاز وأزمة القمامة والإنفلات الأمني، في حين رأى
                 البعض أنها كانت مفتعلة.{[04]} وبقي معتقلاً منذ تاريخ عزله، حتى
                 وفاته في 17 يونيو 2019. بعد توجيه عدة تهم إليه من ضمنها التخابر
@@ -778,12 +832,12 @@
                 بنوبة إغماء؛ توفي على إثرها، ونقل لمستشفى السجن.تولى رئاسة حزب
                 الحريةة حماس وإفشاء أسرار الأمن القومي أثناء فترة رئاسته.{[08]}
               </p>
-              <h3>  تعرضه للتضييق</h3>
+              <h3>تعرضه للتضييق</h3>
               <p>
                 تولى رئاسة حزب الحرية والعدالة بعد تأسيسه بعد أن كان عضواً في
                 مكتب إرشاد جماعة الإخوان المسلمين.توفي محمد مرسي أثناء حضوره إح
               </p>
-<h3>ترشحه للرئاسة</h3>
+              <h3>ترشحه للرئاسة</h3>
               <p>
                 تتعرضه للتضييق:ولى رئاسة حزب الحرية والعدالة بعد تأسيسه بعد أن
                 كان عضواً في مكتب إرشاد جماعة الإخوان المسلمين. وكان نائبًا
@@ -797,12 +851,12 @@
               <p>
                 توليه منصب رئيس الجمهورية: توفي محمد مرسي أثناء حضوره إحدى جلسات
                 محاكمته بقضية التخابر مع حماس في محكمة جنايات القاهرة المنعقدة
-                في معهد أمناء الشرطة بمجمع سجون طرة في 17 يونيو 2019،{[07]} وأعلن
-                التليفزيون الرسمي إصابته بنوبة إغماء؛ توفي على إثرها، ونقل
+                في معهد أمناء الشرطة بمجمع سجون طرة في 17 يونيو 2019،{[07]}
+                وأعلن التليفزيون الرسمي إصابته بنوبة إغماء؛ توفي على إثرها، ونقل
                 لمستشفى السجن.تولى رئاسة حزب الحرية حماس وإفشاء أسرار الأمن
                 القومي أثناء فترة رئاسته.{[08]}
               </p>
-              <h3> تطبيق الشريعة</h3>
+              <h3>تطبيق الشريعة</h3>
               <p>
                 تولى رئاسة حزب الحرية والعدالة بعد تأسيسه بعد أن كان عضواً في
                 مكتب إرشاد جماعة الإخوان المسلمين.توفي محمد مرسي أثناء حضوره
@@ -810,7 +864,10 @@
               </p>
               <div class="arabica_article-image">
                 <a href="Assets/images/article-img1.jpg">
-                  <img src="Assets/images/article-img1.jpg" alt="article image 1" />
+                  <img
+                    src="Assets/images/article-img1.jpg"
+                    alt="article image 1"
+                  />
                 </a>
                 <figcaption>
                   لقاء السيد مرسي مع مجموعة من الفنانيين المصريين في دار الأوبرا
@@ -830,35 +887,46 @@
                 رئاسة محمد مرسي العديد
               </p>
 
-              <p> <!-- Example 1: Multi-Image Gallery (Slider + Lightbox) -->
-                <div class="arabica_article-image not-full">
-                  <div class="arabica_article_image-gallery">
-                    <a href="Assets/images/article-img1.jpg">
-                      <img src="Assets/images/article-img1.jpg" alt="article image 1" />
-                    </a>
-                    <figcaption>صورة 1</figcaption>
-                  </div>
-                  <div class="arabica_article_image-gallery">
-                    <a href="Assets/images/post-img2.jpg">
-                      <img src="Assets/images/post-img2.jpg" alt="article image 2" />
-                    </a>
-                    <figcaption>صورة 2</figcaption>
-                  </div>
-                  <div class="arabica_article_image-gallery">
-                    <a href="Assets/images/post-img3.jpg">
-                      <img src="Assets/images/post-img3.jpg" alt="article image 3" />
-                    </a>
-                    <figcaption>صورة 3</figcaption>
-                  </div>
+              <div class="arabica_article-image float-right-45">
+                <div class="arabica_article-image-gallery">
+                  <a href="Assets/images/article-img1.jpg">
+                    <img
+                      src="Assets/images/article-img1.jpg"
+                      alt="article image 1"
+                    />
+                  </a>
+                  <figcaption>صورة 1</figcaption>
                 </div>
+                <div class="arabica_article-image-gallery">
+                  <a
+                    href="https://siyasatarabiya.dohainstitute.org/ar/PublishingImages/IssueCovers/Siyassat51-2021-Cover.png"
+                  >
+                    <img
+                      src="https://siyasatarabiya.dohainstitute.org/ar/PublishingImages/IssueCovers/Siyassat51-2021-Cover.png"
+                      alt="article image 2"
+                    />
+                  </a>
+                  <figcaption>صورة 2</figcaption>
+                </div>
+                <div class="arabica_article-image-gallery">
+                  <a href="Assets/images/post-img3.jpg">
+                    <img
+                      src="Assets/images/post-img3.jpg"
+                      alt="article image 3"
+                    />
+                  </a>
+                  <figcaption>صورة 3</figcaption>
+                </div>
+              </div>
+              <p>
                 من الاحتجاجات والمظاهرات،[16][17] أزيح عن السلطة في انقلاب 3
                 يوليو 2013 في مصر والذي جاء بعد مظاهرات 30 يونيو من نفس العام
                 بعد حدوث عدة أزمات اقتصادية منها أزمة انقطاع الكهرباء وعدم توفر
                 وقود السيارات واسطوانات البوتجاز وأزمة القمامة والإنفلات
-                الأمني،[12] في حين رأى البعض أنها كانت مفتعلة..{[10]} وبقي معتقلاً
-                منذ تاريخ عزله، حتى وفاته في 17 يونيو 2019. بعد توجيه عدة تهم
-                إليه من ضمنها التخابر مع قطر وحركة حماس وإفشاء أسرار الأمن
-                القومي أثناء فترة بعد توجيه عدة تهم إليه من ضمنه.
+                الأمني،[12] في حين رأى البعض أنها كانت مفتعلة..{[10]} وبقي
+                معتقلاً منذ تاريخ عزله، حتى وفاته في 17 يونيو 2019. بعد توجيه
+                عدة تهم إليه من ضمنها التخابر مع قطر وحركة حماس وإفشاء أسرار
+                الأمن القومي أثناء فترة بعد توجيه عدة تهم إليه من ضمنه.
               </p>
 
               <p>
@@ -897,106 +965,185 @@
                 أمينًا عامًّا للحزب.
               </p>
               <h3>القمة الإسلامية الثانية عشر 2013</h3>
-              
-      <p>        من الاحتجاجات والمظاهرات،[16][17] أزيح عن السلطة في انقلاب 3 يوليو 2013 في مصر والذي جاء بعد مظاهرات 30 يونيو من نفس العام بعد حدوث عدة أزمات اقتصادية منها أزمة انقطاع الكهرباء وعدم توفر وقود السيارات واسطوانات البوتجاز وأزمة القمامة والإنفلات الأمني،[12] في حين رأى البعض أنها كانت مفتعلة..{[09]}{[10]} وبقي معتقلاً منذ تاريخ عزله، حتى وفاته في 17 يونيو 2019. بعد توجيه عدة تهم إليه من ضمنها التخابر مع قطر وحركة حماس وإفشاء أسرار الأمن القومي أثناء فترة  بعد توجيه عدة تهم إليه من ضمنه.
-    </p><h3>قمة عدم الانحياز 2012</h3>
-    <p>   تولى رئاسة حزب الحرية والعدالة بعد تأسيسه بعد أن كان عضواً في مكتب إرشاد جماعة الإخوان المسلمين..[11] وكان نائبًا سابقًا في مجلس الشعب المصري دورة 2000 - 2005. وهو مهندس ميكانيكي وأستاذ جامعي ويحمل شهادة الدكتوراه في هندسة المواد، في 15 فبراير 2012 هدد محمد مرسي بإعادة النظر في معاهدة كامب ديفيد       ردًا علي تلويح أمريكا بوقف معونتها المادية لمصر بسبب قضية التمويل الأجنبي.[12]
-    </p>
-    <p> توفي محمد مرسي أثناء حضوره إحدى جلسات محاكمته بقضية التخابر مع حماس في محكمة جنايات القاهرة المنعقدة في معهد أمناء الشرطة بمجمع سجون طرة في 17 يونيو 2019، [13] وأعلن التليفزيون الرسمي إصابته بنوبة إغماء؛ توفي على إثرها، ونقل لمستشفى السجن.
 
-    </p>
-    <h2>
+              <p>
+                من الاحتجاجات والمظاهرات،[16][17] أزيح عن السلطة في انقلاب 3
+                يوليو 2013 في مصر والذي جاء بعد مظاهرات 30 يونيو من نفس العام
+                بعد حدوث عدة أزمات اقتصادية منها أزمة انقطاع الكهرباء وعدم توفر
+                وقود السيارات واسطوانات البوتجاز وأزمة القمامة والإنفلات
+                الأمني،[12] في حين رأى البعض أنها كانت مفتعلة..{[09]}{[10]} وبقي
+                معتقلاً منذ تاريخ عزله، حتى وفاته في 17 يونيو 2019. بعد توجيه
+                عدة تهم إليه من ضمنها التخابر مع قطر وحركة حماس وإفشاء أسرار
+                الأمن القومي أثناء فترة بعد توجيه عدة تهم إليه من ضمنه.
+              </p>
+              <h3>قمة عدم الانحياز 2012</h3>
+              <p>
+                تولى رئاسة حزب الحرية والعدالة بعد تأسيسه بعد أن كان عضواً في
+                مكتب إرشاد جماعة الإخوان المسلمين..[11] وكان نائبًا سابقًا في
+                مجلس الشعب المصري دورة 2000 - 2005. وهو مهندس ميكانيكي وأستاذ
+                جامعي ويحمل شهادة الدكتوراه في هندسة المواد، في 15 فبراير 2012
+                هدد محمد مرسي بإعادة النظر في معاهدة كامب ديفيد ردًا علي تلويح
+                أمريكا بوقف معونتها المادية لمصر بسبب قضية التمويل الأجنبي.[12]
+              </p>
+              <p>
+                توفي محمد مرسي أثناء حضوره إحدى جلسات محاكمته بقضية التخابر مع
+                حماس في محكمة جنايات القاهرة المنعقدة في معهد أمناء الشرطة بمجمع
+                سجون طرة في 17 يونيو 2019، [13] وأعلن التليفزيون الرسمي إصابته
+                بنوبة إغماء؛ توفي على إثرها، ونقل لمستشفى السجن.
+              </p>
+              <h2>حركة تمرد</h2>
+              <p>
+                انتمى للإخوان المسلمين فكرًا عام 1977 وتنظيميًا أواخر عام 1979
+                وعمل عضوًا بالقسم السياسي بالجماعة منذ نشأته عام 1992. ترشح
+                لانتخابات مجلس الشعب 1995، وانتخابات 2000 ونجح فيها وانتخب عضوًا
+                بمجلس الشعب المصري عن جماعة الإخوان وشغل موقع المتحدث الرسمي
+                باسم الكتلة البرلمانية للإخوان. وفي انتخابات مجلس الشعب • 2005
+                حصل على أعلى الأصوات وبفارق كبير عن أقرب منافسيه[37] ولكن تم
+                إجراء جولة إعادة أعلن بعدها فوز منافسه. كان من أنشط أعضاء مجلس
+                الشعب وصاحب أشهر استجواب في مجلس الشعب عن حادثة قطار الصعيد،
+                وأدان الحكومة وخرجت الصحف الحكومية في اليوم التالي تشيد
+                باستجوابه.[14]وقد اختير د. مرسي عضوًا بلجنة مقاومة الصهيونية
+                بمحافظة الشرقية، كما اختير عضوًا بالمؤتمر الدولي للأحزاب والقوى
+                السياسية والنقابات المهنية، وهو عضو مؤسس باللجنة المصرية لمقاومة
+                المشروع الصهيوني.[15] شارك في تأسيس الجبهة الوطنية للتغيير مع د.
+                عزيز صدقي عام 2004؛ كما شارك في تأسيس التحالف الديمقراطي من أجل
+                مصر والذي ضم 40 حزبًا وتيارًا سياسيًا 2011، انتخبه مجلس شورى
+                الإخوان في 30 أبريل 2011 رئيسًا لحزب الحرية والعدالة الذي أنشأته
+                الجماعة بجانب انتخاب عصام العريان نائبًا له ومحمد سعد الكتاتني
+                أمينًا عامًّا للحزب
+              </p>
 
- 
-حركة تمرد
-</h2>
-<p>    انتمى للإخوان المسلمين فكرًا عام 1977 وتنظيميًا أواخر عام 1979 وعمل عضوًا بالقسم السياسي بالجماعة منذ نشأته عام  1992. ترشح لانتخابات مجلس الشعب 1995، وانتخابات 2000 ونجح فيها وانتخب عضوًا بمجلس الشعب المصري عن جماعة الإخوان وشغل موقع المتحدث الرسمي باسم الكتلة البرلمانية للإخوان. وفي انتخابات مجلس الشعب • 2005 حصل على أعلى الأصوات وبفارق كبير عن أقرب منافسيه[37] ولكن تم إجراء جولة إعادة أعلن بعدها فوز منافسه. كان من أنشط أعضاء مجلس الشعب وصاحب أشهر استجواب في مجلس الشعب عن حادثة قطار الصعيد، وأدان الحكومة وخرجت الصحف الحكومية في اليوم التالي تشيد باستجوابه.[14]وقد اختير د. مرسي عضوًا بلجنة مقاومة الصهيونية بمحافظة الشرقية، كما اختير عضوًا بالمؤتمر الدولي للأحزاب والقوى السياسية والنقابات المهنية، وهو عضو مؤسس باللجنة المصرية لمقاومة المشروع الصهيوني.[15] شارك في تأسيس الجبهة الوطنية للتغيير مع د. عزيز صدقي عام 2004؛ كما شارك في تأسيس التحالف الديمقراطي من أجل مصر والذي ضم 40 حزبًا وتيارًا سياسيًا 2011، انتخبه مجلس شورى الإخوان في 30 أبريل 2011 رئيسًا لحزب الحرية والعدالة الذي أنشأته الجماعة بجانب انتخاب عصام العريان نائبًا له ومحمد سعد الكتاتني أمينًا عامًّا للحزب
-</p>   
+              <div class="arabica_article-video">
+                <div class="video-container">
+                  <video id="video">
+                    <source
+                      src="Assets/videos/article-vid1.mp4"
+                      type="video/mp4"
+                    />
+                    Your browser does not support the video tag.
+                  </video>
+                </div>
+                <figcaption>
+                  فيديو للحظات الأولى بعد اعتقال الرئيس المصري محمد مرسي -مصر
+                  /سجن المنصورة
+                </figcaption>
+              </div>
+              <div class="arabica_article-video">
+                <div class="video-container">
+                  <iframe
+                    src="https://www.youtube.com/embed/tgbNymZ7vqY"
+                    title="YouTube video player"
+                    frameborder="0"
+                    width="100%"
+                    height="400"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen
+                  >
+                  </iframe>
+                </div>
+                <figcaption>
+                  فيديو للحظات الأولى بعد اعتقال الرئيس المصري محمد مرسي -مصر
+                  /سجن المنصورة
+                </figcaption>
+              </div>
 
-<div class="arabica_article-video">
-<div class="video-container">
-  <video id="video">
-    <source src="Assets/videos/article-vid1.mp4" type="video/mp4" />
-    Your browser does not support the video tag.
-  </video>
-</div>
-<figcaption>
-  فيديو للحظات الأولى بعد اعتقال الرئيس المصري محمد مرسي -مصر /سجن المنصورة
-
-</figcaption>
-</div>
-<div class="arabica_article-video">
-  <div class="video-container">
-<iframe src="https://www.youtube.com/embed/tgbNymZ7vqY" 
-  title="YouTube video player" 
-  frameborder="0" width="100%" height="400"
-  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-  allowfullscreen>
-</iframe>
-</div>
-<figcaption>
-  فيديو للحظات الأولى بعد اعتقال الرئيس المصري محمد مرسي -مصر /سجن المنصورة
-
-</figcaption>
-</div>
-
-<div class="arabica_article-references">
-  <h2>المصادر</h2>
-  <p lang="en">
-    {[01]} Tim Berners-Lee. (1994). <i>The birth of the web: The story of how it all began</i>. MIT Press.
-  </p>
-  <p lang="en">
-    {[02]} Håkon Wium Lie. (1996). <i>Cascading style sheets: Designing for the Web with HTML and CSS</i>. Addison-Wesley.
-  </p>
-  <p lang="en">
-    {[03]} Brendan Eich. (2005). <i>JavaScript: The first 10 years and the evolution of web programming</i>. Mozilla Foundation.
-  </p>
-  <p lang="en">
-    {[04]} Dan Abramov. (2015). <i>React and modern UI development: Building dynamic and interactive web applications</i>. O'Reilly Media.
-  </p>
-  <p>
-    {[05]} تيم بيرنرز لي. (1994). <i>ولادة الويب: القصة الكاملة عن كيف بدأ كل شيء</i>. معهد ماساتشوستس للتكنولوجيا.
-  </p>
-  <p>
-    {[06]} هاكون فيوم لي. (1996). <i>تصميم أوراق الأنماط المتتالية للويب باستخدام HTML و CSS</i>. أديسون ويسلي.
-  </p>
-  <p lang="en">
-    {[07]} Brendan Eich. (2005). <i>JavaScript: The first 10 years and the evolution of web programming</i>. Mozilla Foundation.
-  </p>
-  <p lang="en">
-    {[08]} Dan Abramov. (2015). <i>React and modern UI development: Building dynamic and interactive web applications</i>. O'Reilly Media.
-  </p>
-  <p>
-    {[09]} تيم بيرنرز لي. (1994). <i>ولادة الويب: القصة الكاملة عن كيف بدأ كل شيء</i>. معهد ماساتشوستس للتكنولوجيا.
-  </p>
-  <p>
-    {[10]} هاكون فيوم لي. (1996). <i>تصميم أوراق الأنماط المتتالية للويب باستخدام HTML و CSS</i>. أديسون ويسلي.
-  </p>
-</div>
-<div class="arabica_article-sources">
-  <h2>المراجع</h2>
-  <ol>
-    <li lang="en">“Tout dans notre vie quotidienne depend du pétrole.” See: Alexendre de Marenches, <i>Atlas Géopolitique</i> (Paris: Stock, 1988), p. 29.</li>
-    <li lang="en">US Geological Survey, March 2010, at: <a href="https://www.usgs.gov" target="_blank">https://www.usgs.gov</a></li>
-    <li lang="en"><i>L'orient Le Jour</i>, 15/10/2012.</li>
-    <li>جريدة السفير، 25/4/2013.</li>
-    <li>جريدة الأخبار، 12/5/2017.</li>
-    <li>جريدة النهار، 7/7/2010.</li>
-    <li>جريدة النهار، 30/5/2013.</li>
-    <li>الإذاعة الإسرائيلية، 20/1/2000. Healy, 1993, p. 22.</li>
-  </ol>
-</div>
-       </div>
+              <div class="arabica_article-references">
+                <h2>المصادر</h2>
+                <p lang="en">
+                  {[01]} Tim Berners-Lee. (1994).
+                  <i>The birth of the web: The story of how it all began</i>.
+                  MIT Press.
+                </p>
+                <p lang="en">
+                  {[02]} Håkon Wium Lie. (1996).
+                  <i
+                    >Cascading style sheets: Designing for the Web with HTML and
+                    CSS</i
+                  >. Addison-Wesley.
+                </p>
+                <p lang="en">
+                  {[03]} Brendan Eich. (2005).
+                  <i
+                    >JavaScript: The first 10 years and the evolution of web
+                    programming</i
+                  >. Mozilla Foundation.
+                </p>
+                <p lang="en">
+                  {[04]} Dan Abramov. (2015).
+                  <i
+                    >React and modern UI development: Building dynamic and
+                    interactive web applications</i
+                  >. O'Reilly Media.
+                </p>
+                <p>
+                  {[05]} تيم بيرنرز لي. (1994).
+                  <i>ولادة الويب: القصة الكاملة عن كيف بدأ كل شيء</i>. معهد
+                  ماساتشوستس للتكنولوجيا.
+                </p>
+                <p>
+                  {[06]} هاكون فيوم لي. (1996).
+                  <i>تصميم أوراق الأنماط المتتالية للويب باستخدام HTML و CSS</i
+                  >. أديسون ويسلي.
+                </p>
+                <p lang="en">
+                  {[07]} Brendan Eich. (2005).
+                  <i
+                    >JavaScript: The first 10 years and the evolution of web
+                    programming</i
+                  >. Mozilla Foundation.
+                </p>
+                <p lang="en">
+                  {[08]} Dan Abramov. (2015).
+                  <i
+                    >React and modern UI development: Building dynamic and
+                    interactive web applications</i
+                  >. O'Reilly Media.
+                </p>
+                <p>
+                  {[09]} تيم بيرنرز لي. (1994).
+                  <i>ولادة الويب: القصة الكاملة عن كيف بدأ كل شيء</i>. معهد
+                  ماساتشوستس للتكنولوجيا.
+                </p>
+                <p>
+                  {[10]} هاكون فيوم لي. (1996).
+                  <i>تصميم أوراق الأنماط المتتالية للويب باستخدام HTML و CSS</i
+                  >. أديسون ويسلي.
+                </p>
+              </div>
+              <div class="arabica_article-sources">
+                <h2>المراجع</h2>
+                <ol>
+                  <li lang="en">
+                    “Tout dans notre vie quotidienne depend du pétrole.” See:
+                    Alexendre de Marenches, <i>Atlas Géopolitique</i> (Paris:
+                    Stock, 1988), p. 29.
+                  </li>
+                  <li lang="en">
+                    US Geological Survey, March 2010, at:
+                    <a href="https://www.usgs.gov" target="_blank"
+                      >https://www.usgs.gov</a
+                    >
+                  </li>
+                  <li lang="en"><i>L'orient Le Jour</i>, 15/10/2012.</li>
+                  <li>جريدة السفير، 25/4/2013.</li>
+                  <li>جريدة الأخبار، 12/5/2017.</li>
+                  <li>جريدة النهار، 7/7/2010.</li>
+                  <li>جريدة النهار، 30/5/2013.</li>
+                  <li>الإذاعة الإسرائيلية، 20/1/2000. Healy, 1993, p. 22.</li>
+                </ol>
+              </div>
+            </div>
           </div>
         </div>
         <div class="arabica_right-column-25">
-          <div class="arabica_table-of-content"><h2>المحتويات</h2>
-          <div class="arabica_article-table-content"></div>
+          <div class="arabica_table-of-content">
+            <h2>المحتويات</h2>
+            <div class="arabica_article-table-content"></div>
           </div>
         </div>
       </div>
-      </div>
-      <div class="arabica_article-foot-wrapper">
+    </div>
+    <div class="arabica_article-foot-wrapper">
       <div
         class="arabica_fit-container arabica_container arabica_column-container"
       >
@@ -1004,150 +1151,164 @@
           <div class="arabica_foot-reference"></div>
           <div class="arabica_foot-source"></div>
         </div>
-        <div class="arabica_right-column-25">
-          </div>
-          </div>
+        <div class="arabica_right-column-25"></div>
+      </div>
     </div>
-    
-   <script>document.addEventListener("DOMContentLoaded", function () {
-    const contentContainer = document.querySelector(".arabica_article-content");
-    const tocContainer = document.querySelector(".arabica_article-table-content");
-  
-    if (contentContainer && tocContainer) {
-      const headings = contentContainer.querySelectorAll("h2, h3");
-      let tocHTML = "";
-      let currentSection = "";
-  
-      headings.forEach((heading, index) => {
-        if (!heading.id) {
-          heading.id = "heading-" + index;
-        }
-  
-        if (heading.tagName === "H2") {
-          // Close previous section if it exists
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const contentContainer = document.querySelector(
+          ".arabica_article-content"
+        );
+        const tocContainer = document.querySelector(
+          ".arabica_article-table-content"
+        );
+
+        if (contentContainer && tocContainer) {
+          const headings = contentContainer.querySelectorAll("h2, h3");
+          let tocHTML = "";
+          let currentSection = "";
+
+          headings.forEach((heading, index) => {
+            if (!heading.id) {
+              heading.id = "heading-" + index;
+            }
+
+            if (heading.tagName === "H2") {
+              // Close previous section if it exists
+              if (currentSection) {
+                tocHTML += "</div>";
+              }
+
+              // Start a new section
+              currentSection = `<div class="toc-section"><a href="#${heading.id}" class="toc-link">${heading.innerText}</a>`;
+              tocHTML += currentSection;
+            } else if (heading.tagName === "H3") {
+              // Add H3 inside the current section
+              tocHTML += `<a href="#${heading.id}" class="toc-link toc-indent">${heading.innerText}</a>`;
+            }
+          });
+
+          // Close the last open section
           if (currentSection) {
             tocHTML += "</div>";
           }
-  
-          // Start a new section
-          currentSection = `<div class="toc-section"><a href="#${heading.id}" class="toc-link">${heading.innerText}</a>`;
-          tocHTML += currentSection;
-        } else if (heading.tagName === "H3") {
-          // Add H3 inside the current section
-          tocHTML += `<a href="#${heading.id}" class="toc-link toc-indent">${heading.innerText}</a>`;
-        }
-      });
-  
-      // Close the last open section
-      if (currentSection) {
-        tocHTML += "</div>";
-      }
-  
-      tocContainer.innerHTML = tocHTML;
-  
-      // Apply smooth scrolling to TOC links
-      const tocLinks = document.querySelectorAll(".toc-link");
-      tocLinks.forEach((link) => {
-        link.addEventListener("click", function (event) {
-          event.preventDefault(); // Prevent default jump
-          const targetId = this.getAttribute("href").substring(1);
-          const targetElement = document.getElementById(targetId);
-  
-          if (targetElement) {
-            smoothScroll(targetElement);
-          }
-        });
-      });
-    }
-  });
-   </script>
-   <script>
-    document.addEventListener("DOMContentLoaded", function () {
-      function convertReferences() {
-        let contentElement = document.querySelector(".arabica_article-content");
-        let referenceElement = document.querySelector(".arabica_article-references");
-  
-        // Create a temporary working copy without references
-        let tempContent = contentElement.cloneNode(true);
-        let referencesClone = tempContent.querySelector(".arabica_article-references");
-        
-        if (referencesClone) {
-          referencesClone.remove(); // Remove references from the copy
-        }
-  
-        // Replace citations in the modified content (excluding references)
-        tempContent.innerHTML = tempContent.innerHTML.replace(/\{\[(\d+)\]\}/g, (match, number) => {
-          return `<a href="#ref${number}" class="cite-link" id="cite${number}">[${number}]</a>`;
-        });
-  
-        // Apply the transformed content back to .arabica_article-content, but preserve .arabica_article-references
-        contentElement.innerHTML = tempContent.innerHTML;
-        contentElement.appendChild(referenceElement); // Re-add the reference section
-  
-        // Replace citations in .arabica_article-references
-        referenceElement.innerHTML = referenceElement.innerHTML.replace(/\{\[(\d+)\]\}/g, (match, number) => {
-          return `<a href="#cite${number}" class="ref-link" id="ref${number}">[${number}]</a>${match.replace(
-            "{[" + number + "]}",
-            ""
-          )}`;
-        });
-      }
-  
-      function smoothScroll() {
-        document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
-          anchor.addEventListener("click", function (event) {
-            event.preventDefault();
-            const target = document.querySelector(this.getAttribute("href"));
-            if (target) {
-              window.scrollTo({
-                top: target.offsetTop - 20,
-                behavior: "smooth",
-              });
-            }
+
+          tocContainer.innerHTML = tocHTML;
+
+          // Apply smooth scrolling to TOC links
+          const tocLinks = document.querySelectorAll(".toc-link");
+          tocLinks.forEach((link) => {
+            link.addEventListener("click", function (event) {
+              event.preventDefault(); // Prevent default jump
+              const targetId = this.getAttribute("href").substring(1);
+              const targetElement = document.getElementById(targetId);
+
+              if (targetElement) {
+                smoothScroll(targetElement);
+              }
+            });
           });
-        });
-      }
-  
-      function moveReferences() {
-        const references = document.querySelector(
-          ".arabica_article-references"
-        );
-        const newReferenceContainer = document.querySelector(
-          ".arabica_foot-reference"
-        );
-  
-        if (references && newReferenceContainer) {
-          // Move the references inside .arabica_foot-reference
-          newReferenceContainer.appendChild(references);
         }
-      }
-  
-      function moveSources() {
-        const sources = document.querySelector(
-          ".arabica_article-sources"
-        );
-        const newSourceContainer = document.querySelector(
-          ".arabica_foot-source"
-        );
-  
-        if (sources && newSourceContainer) {
-          // Move the references inside .arabica_foot-source
-          newSourceContainer.appendChild(sources);
+      });
+    </script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        function convertReferences() {
+          let contentElement = document.querySelector(
+            ".arabica_article-content"
+          );
+          let referenceElement = document.querySelector(
+            ".arabica_article-references"
+          );
+
+          // Create a temporary working copy without references
+          let tempContent = contentElement.cloneNode(true);
+          let referencesClone = tempContent.querySelector(
+            ".arabica_article-references"
+          );
+
+          if (referencesClone) {
+            referencesClone.remove(); // Remove references from the copy
+          }
+
+          // Replace citations in the modified content (excluding references)
+          tempContent.innerHTML = tempContent.innerHTML.replace(
+            /\{\[(\d+)\]\}/g,
+            (match, number) => {
+              return `<a href="#ref${number}" class="cite-link" id="cite${number}">[${number}]</a>`;
+            }
+          );
+
+          // Apply the transformed content back to .arabica_article-content, but preserve .arabica_article-references
+          contentElement.innerHTML = tempContent.innerHTML;
+          contentElement.appendChild(referenceElement); // Re-add the reference section
+
+          // Replace citations in .arabica_article-references
+          referenceElement.innerHTML = referenceElement.innerHTML.replace(
+            /\{\[(\d+)\]\}/g,
+            (match, number) => {
+              return `<a href="#cite${number}" class="ref-link" id="ref${number}">[${number}]</a>${match.replace(
+                "{[" + number + "]}",
+                ""
+              )}`;
+            }
+          );
         }
-      }
-  
-      convertReferences();
-      smoothScroll();
-      moveReferences();
-      moveSources();
-    });
-  </script>
+
+        function smoothScroll() {
+          document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+            anchor.addEventListener("click", function (event) {
+              event.preventDefault();
+              const target = document.querySelector(this.getAttribute("href"));
+              if (target) {
+                window.scrollTo({
+                  top: target.offsetTop - 20,
+                  behavior: "smooth",
+                });
+              }
+            });
+          });
+        }
+
+        function moveReferences() {
+          const references = document.querySelector(
+            ".arabica_article-references"
+          );
+          const newReferenceContainer = document.querySelector(
+            ".arabica_foot-reference"
+          );
+
+          if (references && newReferenceContainer) {
+            // Move the references inside .arabica_foot-reference
+            newReferenceContainer.appendChild(references);
+          }
+        }
+
+        function moveSources() {
+          const sources = document.querySelector(".arabica_article-sources");
+          const newSourceContainer = document.querySelector(
+            ".arabica_foot-source"
+          );
+
+          if (sources && newSourceContainer) {
+            // Move the references inside .arabica_foot-source
+            newSourceContainer.appendChild(sources);
+          }
+        }
+
+        convertReferences();
+        smoothScroll();
+        moveReferences();
+        moveSources();
+      });
+    </script>
     <script>
       document.addEventListener("DOMContentLoaded", function () {
         // Function to create and inject controls
         function injectControls() {
           const videoContainer = document.querySelector(".video-container");
-    
+
           // Fullscreen button
           const fullscreenBtn = document.createElement("button");
           fullscreenBtn.className = "fullscreen-btn";
@@ -1158,7 +1319,7 @@
             </svg>
           `;
           videoContainer.appendChild(fullscreenBtn);
-    
+
           // Rewind indicator
           const rewindIndicator = document.createElement("div");
           rewindIndicator.className = "skip-indicator left-indicator";
@@ -1170,7 +1331,7 @@
             <span>10s</span>
           `;
           videoContainer.appendChild(rewindIndicator);
-    
+
           // Forward indicator
           const forwardIndicator = document.createElement("div");
           forwardIndicator.className = "skip-indicator right-indicator";
@@ -1182,7 +1343,7 @@
             <span>10s</span>
           `;
           videoContainer.appendChild(forwardIndicator);
-    
+
           // Play/Pause indicator
           const playPauseIndicator = document.createElement("div");
           playPauseIndicator.className = "play-pause-indicator";
@@ -1193,11 +1354,11 @@
             </svg>
           `;
           videoContainer.appendChild(playPauseIndicator);
-    
+
           // Controls container
           const controls = document.createElement("div");
           controls.className = "controls";
-    
+
           // Play/Pause button
           const playPauseBtn = document.createElement("button");
           playPauseBtn.className = "play-btn";
@@ -1208,7 +1369,7 @@
             </svg>
           `;
           controls.appendChild(playPauseBtn);
-    
+
           // Restart button
           const restartBtn = document.createElement("button");
           restartBtn.className = "restart-btn";
@@ -1219,13 +1380,13 @@
             </svg>
           `;
           controls.appendChild(restartBtn);
-    
+
           // Current time
           const currentTime = document.createElement("span");
           currentTime.className = "time";
           currentTime.innerHTML = `<span id="currentTime">0:00</span>`;
           controls.appendChild(currentTime);
-    
+
           // Progress bar
           const progressContainer = document.createElement("div");
           progressContainer.className = "progress-container";
@@ -1235,13 +1396,13 @@
           progressBar.id = "progressBar";
           progressContainer.appendChild(progressBar);
           controls.appendChild(progressContainer);
-    
+
           // Duration
           const duration = document.createElement("span");
           duration.className = "time";
           duration.innerHTML = `<span id="duration">0:00</span>`;
           controls.appendChild(duration);
-    
+
           // Volume button
           const volumeBtn = document.createElement("button");
           volumeBtn.className = "volume-btn";
@@ -1253,14 +1414,14 @@
             </svg>
           `;
           controls.appendChild(volumeBtn);
-    
+
           // Append controls to video container
           videoContainer.appendChild(controls);
         }
-    
+
         // Inject controls on page load
         injectControls();
-    
+
         // Video player logic
         const video = document.getElementById("video");
         const playPauseBtn = document.getElementById("playPause");
@@ -1272,21 +1433,22 @@
         const durationEl = document.getElementById("duration");
         const rewindIndicator = document.getElementById("rewind");
         const forwardIndicator = document.getElementById("forward");
-        const playPauseIndicator = document.getElementById("playPauseIndicator");
+        const playPauseIndicator =
+          document.getElementById("playPauseIndicator");
         const playPauseIcon = playPauseIndicator.querySelector("path");
         const playBtnIcon = playPauseBtn.querySelector("path");
         const volumeBtn = document.getElementById("volume");
-    
+
         // Update duration as soon as metadata is loaded
         video.addEventListener("loadedmetadata", () => {
           durationEl.textContent = formatTime(video.duration);
         });
-    
+
         playPauseBtn.addEventListener("click", togglePlay);
         video.addEventListener("click", togglePlay);
         playPauseIndicator.addEventListener("click", togglePlay);
         volumeBtn.addEventListener("click", toggleMute);
-    
+
         function togglePlay() {
           if (video.paused) {
             video.play();
@@ -1299,29 +1461,29 @@
           }
           showPlayPauseIndicator();
         }
-    
+
         function toggleMute() {
           video.muted = !video.muted;
           updateVolumeButton();
         }
-    
+
         function updateVolumeButton() {
           volumeBtn.classList.toggle("muted", video.muted);
         }
-    
+
         function showPlayPauseIndicator() {
           playPauseIndicator.style.display = "block";
           setTimeout(() => {
             playPauseIndicator.style.display = "none";
           }, 1000);
         }
-    
+
         restartBtn.addEventListener("click", () => {
           video.currentTime = 0;
           video.play();
           playBtnIcon.setAttribute("d", "M6 19h4V5H6v14zm8-14v14h4V5h-4z");
         });
-    
+
         fullscreenBtn.addEventListener("click", () => {
           if (document.fullscreenElement) {
             document.exitFullscreen();
@@ -1329,44 +1491,52 @@
             video.requestFullscreen();
           }
         });
-    
+
         video.addEventListener("timeupdate", () => {
-          progressBar.style.width = `${(video.currentTime / video.duration) * 100}%`;
+          progressBar.style.width = `${
+            (video.currentTime / video.duration) * 100
+          }%`;
           currentTimeEl.textContent = formatTime(video.currentTime);
         });
-    
+
         progressContainer.addEventListener("click", (e) => {
-          video.currentTime = (e.offsetX / progressContainer.offsetWidth) * video.duration;
+          video.currentTime =
+            (e.offsetX / progressContainer.offsetWidth) * video.duration;
         });
-    
+
         function formatTime(time) {
           const minutes = Math.floor(time / 60);
-          const seconds = Math.floor(time % 60).toString().padStart(2, "0");
+          const seconds = Math.floor(time % 60)
+            .toString()
+            .padStart(2, "0");
           return `${minutes}:${seconds}`;
         }
-    
+
         video.addEventListener("ended", () => {
           playBtnIcon.setAttribute("d", "M8 5v14l11-7z");
         });
-    
+
         video.addEventListener("dblclick", (e) => {
           const rect = video.getBoundingClientRect();
           if (e.clientX < rect.width / 2) {
             video.currentTime = Math.max(0, video.currentTime - 10);
             showIndicator(rewindIndicator);
           } else {
-            video.currentTime = Math.min(video.duration, video.currentTime + 10);
+            video.currentTime = Math.min(
+              video.duration,
+              video.currentTime + 10
+            );
             showIndicator(forwardIndicator);
           }
         });
-    
+
         function showIndicator(indicator) {
           indicator.style.display = "flex";
           setTimeout(() => {
             indicator.style.display = "none";
           }, 800);
         }
-    
+
         // Ensure the volume button state is updated when exiting fullscreen
         document.addEventListener("fullscreenchange", () => {
           if (!document.fullscreenElement) {
@@ -1375,345 +1545,378 @@
         });
       });
     </script>
- <script>
-  document.addEventListener("DOMContentLoaded", () => {
-    /* ------------------------------
-       GLOBAL LIGHTBOX SETUP
-    ------------------------------ */
-    const lightbox = document.createElement("div");
-    lightbox.classList.add("arabica_article_lightbox");
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        /* ------------------------------
+     GLOBAL LIGHTBOX SETUP
+  ------------------------------ */
+        const lightbox = document.createElement("div");
+        lightbox.classList.add("arabica_article_lightbox");
 
-    const lightboxContent = document.createElement("div");
-    lightboxContent.classList.add("arabica_article_lightbox-content");
+        const lightboxContent = document.createElement("div");
+        lightboxContent.classList.add("arabica_article_lightbox-content");
 
-    const closeBtn = document.createElement("span");
-    closeBtn.classList.add("arabica_article_close-btn");
-    closeBtn.innerHTML = `
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
-        <path fill="#ffffff" d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
-      </svg>
-    `;
+        const closeBtn = document.createElement("span");
+        closeBtn.classList.add("arabica_article_close-btn");
+        closeBtn.innerHTML = `
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+      <path fill="#ffffff" d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+    </svg>
+  `;
 
-    const lightboxImg = document.createElement("img");
-    lightboxImg.id = "lightbox-img";
+        const lightboxImg = document.createElement("img");
+        lightboxImg.id = "lightbox-img";
 
-    const lightboxCaption = document.createElement("div");
-    lightboxCaption.classList.add("arabica_article_lightbox-caption");
-    lightboxCaption.id = "lightbox-caption";
+        const lightboxCaption = document.createElement("div");
+        lightboxCaption.classList.add("arabica_article_lightbox-caption");
+        lightboxCaption.id = "lightbox-caption";
 
-    const prevLightboxBtn = document.createElement("button");
-    prevLightboxBtn.classList.add(
-      "arabica_article_lightbox-nav",
-      "arabica_article_lightbox-nav-prev"
-    );
-    prevLightboxBtn.innerHTML = `
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
-        <path fill="#ffffff" d="M15.41 16.59L10.83 12l4.58-4.59L14 6l-6 6 6 6z"/>
-      </svg>
-    `;
-
-    const nextLightboxBtn = document.createElement("button");
-    nextLightboxBtn.classList.add(
-      "arabica_article_lightbox-nav",
-      "arabica_article_lightbox-nav-next"
-    );
-    nextLightboxBtn.innerHTML = `
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
-        <path fill="#ffffff" d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6z"/>
-      </svg>
-    `;
-
-    const galleryGrid = document.createElement("div");
-    galleryGrid.classList.add("arabica_article_lightbox-gallery-grid");
-
-    lightbox.appendChild(closeBtn);
-    lightboxContent.appendChild(lightboxImg);
-    lightboxContent.appendChild(lightboxCaption);
-    lightboxContent.appendChild(galleryGrid);
-    lightbox.appendChild(lightboxContent);
-    document.body.appendChild(lightbox);
-
-    let currentGallery = [];
-    let currentIndex = 0;
-    let lbTouchStartX = 0;
-    let lbTouchEndX = 0;
-
-    function openLightbox(imgSrc, imgAlt, caption, gallery = []) {
-      lightboxImg.setAttribute("src", imgSrc);
-      lightboxImg.setAttribute("alt", imgAlt);
-      lightboxCaption.textContent = caption;
-      lightbox.classList.add("active");
-      document.body.classList.add("no-scroll");
-
-      if (gallery.length > 0) {
-        currentGallery = gallery;
-        currentIndex = gallery.findIndex((item) => item.src === imgSrc);
-        updateGalleryGrid(gallery);
-        nextLightboxBtn.style.display = "";
-        prevLightboxBtn.style.display = "";
-        galleryGrid.style.display = "";
-      } else {
-        currentGallery = [];
-        galleryGrid.innerHTML = "";
-        nextLightboxBtn.style.display = "none";
-        prevLightboxBtn.style.display = "none";
-        galleryGrid.style.display = "none";
-      }
-    }
-
-    function closeLightbox() {
-      lightbox.classList.remove("active");
-      document.body.classList.remove("no-scroll");
-      currentGallery = [];
-      galleryGrid.innerHTML = "";
-    }
-
-    function updateGalleryGrid(gallery) {
-      galleryGrid.innerHTML = gallery
-        .map(
-          (item, index) =>
-            `<img src="${item.src}" alt="${
-              item.alt
-            }" data-index="${index}" class="${
-              index === currentIndex ? "active" : ""
-            }">`
-        )
-        .join("");
-      const activeImg = galleryGrid.querySelector(
-        `[data-index="${currentIndex}"]`
-      );
-      if (activeImg) {
-        activeImg.classList.add("active");
-      }
-    }
-
-    function showNextImage() {
-      if (currentGallery.length > 0) {
-        currentIndex = (currentIndex + 1) % currentGallery.length;
-        updateLightboxContent();
-      }
-    }
-
-    function showPrevImage() {
-      if (currentGallery.length > 0) {
-        currentIndex =
-          (currentIndex - 1 + currentGallery.length) %
-          currentGallery.length;
-        updateLightboxContent();
-      }
-    }
-
-    function updateLightboxContent() {
-  const { src, alt, caption } = currentGallery[currentIndex];
-  // Fade out the image
-  lightboxImg.style.opacity = 0;
-  
-  // After a short delay, update the image and fade in
-  setTimeout(() => {
-    lightboxImg.setAttribute("src", src);
-    lightboxImg.setAttribute("alt", alt);
-    lightboxCaption.textContent = caption;
-    updateGalleryGrid(currentGallery);
-    lightboxImg.style.opacity = 1;
-  }, 300); // delay should match the CSS transition duration
-}
-
-
-    closeBtn.addEventListener("click", closeLightbox);
-    lightbox.addEventListener("click", (e) => {
-      if (e.target === lightbox) {
-        closeLightbox();
-      }
-    });
-    document.addEventListener("keydown", (e) => {
-      if (e.key === "Escape") {
-        closeLightbox();
-      }
-      if (e.key === "ArrowRight") {
-        showNextImage();
-      } else if (e.key === "ArrowLeft") {
-        showPrevImage();
-      }
-    });
-    nextLightboxBtn.addEventListener("click", showNextImage);
-    prevLightboxBtn.addEventListener("click", showPrevImage);
-    galleryGrid.addEventListener("click", (e) => {
-      if (e.target.tagName === "IMG") {
-        const index = e.target.getAttribute("data-index");
-        currentIndex = index;
-        updateLightboxContent();
-      }
-    });
-    lightboxImg.addEventListener("touchstart", (e) => {
-      lbTouchStartX = e.touches[0].clientX;
-    });
-    lightboxImg.addEventListener("touchmove", (e) => {
-      lbTouchEndX = e.touches[0].clientX;
-    });
-    lightboxImg.addEventListener("touchend", () => {
-      if (lbTouchStartX - lbTouchEndX > 50) {
-        showNextImage();
-      } else if (lbTouchEndX - lbTouchStartX > 50) {
-        showPrevImage();
-      }
-    });
-
-    /* ------------------------------
-       SETUP EACH GALLERY INSTANCE
-       (Supports multiple independent instances)
-    ------------------------------ */
-    document
-      .querySelectorAll(".arabica_article-image")
-      .forEach((container) => {
-        // Check if this container has multi-image items.
-        const multiItems = container.querySelectorAll(
-          ".arabica_article_image-gallery"
+        const prevLightboxBtn = document.createElement("button");
+        prevLightboxBtn.classList.add(
+          "arabica_article_lightbox-nav",
+          "arabica_article_lightbox-nav-prev"
         );
-        if (multiItems.length > 0) {
-          // Multi-image instance: Build slider structure.
-          const slider = document.createElement("div");
-          slider.className = "arabica_article_slider";
-          const sliderWrapper = document.createElement("div");
-          sliderWrapper.className = "arabica_article_slider_wrapper";
+        prevLightboxBtn.innerHTML = `
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+      <path fill="#ffffff" d="M15.41 16.59L10.83 12l4.58-4.59L14 6l-6 6 6 6z"/>
+    </svg>
+  `;
 
-          multiItems.forEach((item) => {
-            sliderWrapper.appendChild(item);
-          });
-          slider.appendChild(sliderWrapper);
+        const nextLightboxBtn = document.createElement("button");
+        nextLightboxBtn.classList.add(
+          "arabica_article_lightbox-nav",
+          "arabica_article_lightbox-nav-next"
+        );
+        nextLightboxBtn.innerHTML = `
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+      <path fill="#ffffff" d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6z"/>
+    </svg>
+  `;
 
-          const prevSliderBtn = document.createElement("button");
-          prevSliderBtn.className =
-            "arabica_article_slider-nav arabica_article_slider-prev";
-          prevSliderBtn.innerHTML = `
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
-            <path fill="#ffffff" d="M15.41 16.59L10.83 12l4.58-4.59L14 6l-6 6 6 6z"/>
-          </svg>
-        `;
-          const nextSliderBtn = document.createElement("button");
-          nextSliderBtn.className =
-            "arabica_article_slider-nav arabica_article_slider-next";
-          nextSliderBtn.innerHTML = `
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
-            <path fill="#ffffff" d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6z"/>
-          </svg>
-        `;
-          slider.appendChild(prevSliderBtn);
-          slider.appendChild(nextSliderBtn);
+        const galleryGrid = document.createElement("div");
+        galleryGrid.classList.add("arabica_article_lightbox-gallery-grid");
 
-          container.innerHTML = "";
-          container.appendChild(slider);
+        lightbox.appendChild(closeBtn);
+        lightboxContent.appendChild(lightboxImg);
+        lightboxContent.appendChild(lightboxCaption);
+        lightboxContent.appendChild(galleryGrid);
+        lightbox.appendChild(lightboxContent);
+        document.body.appendChild(lightbox);
 
-          let currentSlide = 0;
-          let sliderWidth = slider.offsetWidth;
-          let startX = 0;
-          let isDragging = false;
+        let currentGallery = [];
+        let currentIndex = 0;
+        let lbTouchStartX = 0;
+        let lbTouchEndX = 0;
 
-          const setSliderPosition = () => {
-            sliderWrapper.style.transform = `translateX(-${
-              currentSlide * sliderWidth
-            }px)`;
-          };
+        function openLightbox(imgSrc, imgAlt, caption, gallery = []) {
+          lightboxImg.setAttribute("src", imgSrc);
+          lightboxImg.setAttribute("alt", imgAlt);
+          lightboxCaption.textContent = caption;
+          lightbox.classList.add("active");
+          document.body.classList.add("no-scroll");
 
-          window.addEventListener("resize", () => {
-            sliderWidth = slider.offsetWidth;
-            setSliderPosition();
-          });
-
-          const nextSlide = () => {
-            currentSlide = (currentSlide + 1) % multiItems.length;
-            sliderWrapper.style.transition = "transform 0.3s ease-in-out";
-            setSliderPosition();
-          };
-
-          const prevSlide = () => {
-            currentSlide =
-              (currentSlide - 1 + multiItems.length) % multiItems.length;
-            sliderWrapper.style.transition = "transform 0.3s ease-in-out";
-            setSliderPosition();
-          };
-
-          nextSliderBtn.addEventListener("click", nextSlide);
-          prevSliderBtn.addEventListener("click", prevSlide);
-
-          // Touch swipe functionality (mouse events removed)
-          sliderWrapper.addEventListener("touchstart", (event) => {
-            isDragging = true;
-            startX = event.touches[0].clientX;
-            sliderWrapper.style.transition = "none";
-          });
-          sliderWrapper.addEventListener("touchmove", (event) => {
-            if (!isDragging) return;
-            const currentX = event.touches[0].clientX;
-            const deltaX = currentX - startX;
-            sliderWrapper.style.transform = `translateX(-${
-              currentSlide * sliderWidth - deltaX
-            }px)`;
-          });
-          sliderWrapper.addEventListener("touchend", (event) => {
-            if (!isDragging) return;
-            isDragging = false;
-            const endX = event.changedTouches[0].clientX;
-            const deltaX = endX - startX;
-            if (deltaX < -50) {
-              nextSlide();
-            } else if (deltaX > 50) {
-              prevSlide();
-            } else {
-              setSliderPosition();
-            }
-            sliderWrapper.style.transition = "transform 0.3s ease-in-out";
-          });
-
-          // Attach lightbox open event to each anchor in this multi-image instance.
-          sliderWrapper.querySelectorAll("a").forEach((link) => {
-            link.addEventListener("click", (e) => {
-              const href = link.getAttribute("href");
-              // Only open lightbox if href is an image link.
-              if (/\.(jpg|jpeg|png|gif|webp)$/i.test(href)) {
-                e.preventDefault();
-                const img = link.querySelector("img");
-                const caption = link.nextElementSibling
-                  ? link.nextElementSibling.textContent
-                  : "";
-                const gallery = Array.from(
-                  container.querySelectorAll("a")
-                ).map((a) => ({
-                  src: a.getAttribute("href"),
-                  alt: a.querySelector("img").getAttribute("alt"),
-                  caption: a.nextElementSibling
-                    ? a.nextElementSibling.textContent
-                    : "",
-                }));
-                openLightbox(
-                  href,
-                  img.getAttribute("alt"),
-                  caption,
-                  gallery
-                );
-              }
-            });
-          });
-        } else {
-          // Single-image instance.
-          const anchor = container.querySelector("a");
-          if (anchor) {
-            anchor.addEventListener("click", (e) => {
-              const href = anchor.getAttribute("href");
-              // Only open lightbox if the href is an image link.
-              if (/\.(jpg|jpeg|png|gif|webp)$/i.test(href)) {
-                e.preventDefault();
-                const img = anchor.querySelector("img");
-                const captionElem = container.querySelector("figcaption");
-                const caption = captionElem ? captionElem.textContent : "";
-                openLightbox(href, img.getAttribute("alt"), caption, []);
-              }
-            });
+          if (gallery.length > 0) {
+            currentGallery = gallery;
+            currentIndex = gallery.findIndex((item) => item.src === imgSrc);
+            updateGalleryGrid(gallery);
+            nextLightboxBtn.style.display = "";
+            prevLightboxBtn.style.display = "";
+            galleryGrid.style.display = "";
+          } else {
+            currentGallery = [];
+            galleryGrid.innerHTML = "";
+            nextLightboxBtn.style.display = "none";
+            prevLightboxBtn.style.display = "none";
+            galleryGrid.style.display = "none";
           }
         }
-      });
-  });
-</script>
 
+        function closeLightbox() {
+          lightbox.classList.remove("active");
+          document.body.classList.remove("no-scroll");
+          currentGallery = [];
+          galleryGrid.innerHTML = "";
+        }
+
+        function updateGalleryGrid(gallery) {
+          galleryGrid.innerHTML = gallery
+            .map(
+              (item, index) =>
+                `<img src="${item.src}" alt="${
+                  item.alt
+                }" data-index="${index}" class="${
+                  index === currentIndex ? "active" : ""
+                }">`
+            )
+            .join("");
+          const activeImg = galleryGrid.querySelector(
+            `[data-index="${currentIndex}"]`
+          );
+          if (activeImg) {
+            activeImg.classList.add("active");
+          }
+        }
+
+        function showNextImage() {
+          if (currentGallery.length > 0) {
+            currentIndex = (currentIndex + 1) % currentGallery.length;
+            updateLightboxContent();
+          }
+        }
+
+        function showPrevImage() {
+          if (currentGallery.length > 0) {
+            currentIndex =
+              (currentIndex - 1 + currentGallery.length) %
+              currentGallery.length;
+            updateLightboxContent();
+          }
+        }
+
+        function updateLightboxContent() {
+          const { src, alt, caption } = currentGallery[currentIndex];
+          // Fade out the image
+          lightboxImg.style.opacity = 0;
+          // After a short delay, update the image and fade in
+          setTimeout(() => {
+            lightboxImg.setAttribute("src", src);
+            lightboxImg.setAttribute("alt", alt);
+            lightboxCaption.textContent = caption;
+            updateGalleryGrid(currentGallery);
+            lightboxImg.style.opacity = 1;
+          }, 300); // delay should match the CSS transition duration
+        }
+
+        closeBtn.addEventListener("click", closeLightbox);
+        lightbox.addEventListener("click", (e) => {
+          if (e.target === lightbox) {
+            closeLightbox();
+          }
+        });
+        document.addEventListener("keydown", (e) => {
+          if (e.key === "Escape") {
+            closeLightbox();
+          }
+          if (e.key === "ArrowRight") {
+            showNextImage();
+          } else if (e.key === "ArrowLeft") {
+            showPrevImage();
+          }
+        });
+        nextLightboxBtn.addEventListener("click", showNextImage);
+        prevLightboxBtn.addEventListener("click", showPrevImage);
+        galleryGrid.addEventListener("click", (e) => {
+          if (e.target.tagName === "IMG") {
+            const index = e.target.getAttribute("data-index");
+            currentIndex = parseInt(index, 10);
+            updateLightboxContent();
+          }
+        });
+        lightboxImg.addEventListener("touchstart", (e) => {
+          lbTouchStartX = e.touches[0].clientX;
+        });
+        lightboxImg.addEventListener("touchmove", (e) => {
+          lbTouchEndX = e.touches[0].clientX;
+        });
+        lightboxImg.addEventListener("touchend", () => {
+          if (lbTouchStartX - lbTouchEndX > 50) {
+            showNextImage();
+          } else if (lbTouchEndX - lbTouchStartX > 50) {
+            showPrevImage();
+          }
+        });
+
+        /* ------------------------------
+     SETUP EACH GALLERY INSTANCE
+     (Supports multiple independent instances)
+  ------------------------------ */
+        document
+          .querySelectorAll(".arabica_article-image")
+          .forEach((container) => {
+            // Check if this container has multi-image items.
+            const multiItems = container.querySelectorAll(
+              ".arabica_article-image-gallery"
+            );
+            if (multiItems.length > 0) {
+              // Multi-image instance: Build slider structure.
+              const slider = document.createElement("div");
+              slider.className = "arabica_article_slider";
+              const sliderWrapper = document.createElement("div");
+              sliderWrapper.className = "arabica_article_slider_wrapper";
+
+              multiItems.forEach((item) => {
+                sliderWrapper.appendChild(item);
+              });
+              slider.appendChild(sliderWrapper);
+
+              const prevSliderBtn = document.createElement("button");
+              prevSliderBtn.className =
+                "arabica_article_slider-nav arabica_article_slider-prev";
+              prevSliderBtn.innerHTML = `
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+          <path fill="#ffffff" d="M15.41 16.59L10.83 12l4.58-4.59L14 6l-6 6 6 6z"/>
+        </svg>
+      `;
+              const nextSliderBtn = document.createElement("button");
+              nextSliderBtn.className =
+                "arabica_article_slider-nav arabica_article_slider-next";
+              nextSliderBtn.innerHTML = `
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+          <path fill="#ffffff" d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6z"/>
+        </svg>
+      `;
+              slider.appendChild(prevSliderBtn);
+              slider.appendChild(nextSliderBtn);
+
+              container.innerHTML = "";
+              container.appendChild(slider);
+
+              let currentSlide = 0;
+              let sliderWidth = slider.offsetWidth;
+              let startX = 0;
+              let isDragging = false;
+
+              const setSliderPosition = () => {
+                sliderWrapper.style.transform = `translateX(-${
+                  currentSlide * sliderWidth
+                }px)`;
+              };
+
+              // Update slider height based on the entire slide container (image + figcaption)
+              function updateSliderHeight() {
+                const currentSlideElement =
+                  sliderWrapper.children[currentSlide];
+                if (currentSlideElement) {
+                  slider.style.height = currentSlideElement.offsetHeight + "px";
+                }
+              }
+
+              // Function to center the nav buttons based on the current image’s vertical center.
+              function updateNavButtonsPosition() {
+                const currentSlideElement =
+                  sliderWrapper.children[currentSlide];
+                if (currentSlideElement) {
+                  const imgEl = currentSlideElement.querySelector("img");
+                  if (imgEl) {
+                    const imageHeight = imgEl.offsetHeight;
+                    const imageRect = imgEl.getBoundingClientRect();
+                    const sliderRect = slider.getBoundingClientRect();
+                    const navCenter =
+                      imageRect.top - sliderRect.top + imageHeight / 2;
+                    prevSliderBtn.style.top = navCenter + "px";
+                    nextSliderBtn.style.top = navCenter + "px";
+                  }
+                }
+              }
+
+              // Combined function to update layout (width, height, and nav button positions)
+              function updateSliderLayout() {
+                sliderWidth = slider.offsetWidth;
+                setSliderPosition();
+                updateSliderHeight();
+                updateNavButtonsPosition();
+              }
+
+              // Initial layout update.
+              updateSliderLayout();
+              window.addEventListener("resize", updateSliderLayout);
+
+              const nextSlide = () => {
+                currentSlide = (currentSlide + 1) % multiItems.length;
+                sliderWrapper.style.transition = "transform 0.3s ease-in-out";
+                setSliderPosition();
+                updateSliderLayout();
+              };
+
+              const prevSlide = () => {
+                currentSlide =
+                  (currentSlide - 1 + multiItems.length) % multiItems.length;
+                sliderWrapper.style.transition = "transform 0.3s ease-in-out";
+                setSliderPosition();
+                updateSliderLayout();
+              };
+
+              nextSliderBtn.addEventListener("click", nextSlide);
+              prevSliderBtn.addEventListener("click", prevSlide);
+
+              // Touch swipe functionality
+              sliderWrapper.addEventListener("touchstart", (event) => {
+                isDragging = true;
+                startX = event.touches[0].clientX;
+                sliderWrapper.style.transition = "none";
+              });
+              sliderWrapper.addEventListener("touchmove", (event) => {
+                if (!isDragging) return;
+                const currentX = event.touches[0].clientX;
+                const deltaX = currentX - startX;
+                sliderWrapper.style.transform = `translateX(-${
+                  currentSlide * sliderWidth - deltaX
+                }px)`;
+              });
+              sliderWrapper.addEventListener("touchend", (event) => {
+                if (!isDragging) return;
+                isDragging = false;
+                const endX = event.changedTouches[0].clientX;
+                const deltaX = endX - startX;
+                if (deltaX < -50) {
+                  nextSlide();
+                } else if (deltaX > 50) {
+                  prevSlide();
+                } else {
+                  setSliderPosition();
+                }
+                sliderWrapper.style.transition = "transform 0.3s ease-in-out";
+              });
+
+              // Attach lightbox open event to each anchor in this multi-image instance.
+              sliderWrapper.querySelectorAll("a").forEach((link) => {
+                link.addEventListener("click", (e) => {
+                  const href = link.getAttribute("href");
+                  // Only open lightbox if href is an image link.
+                  if (/\.(jpg|jpeg|png|gif|webp)$/i.test(href)) {
+                    e.preventDefault();
+                    const img = link.querySelector("img");
+                    const caption = link.nextElementSibling
+                      ? link.nextElementSibling.textContent
+                      : "";
+                    const gallery = Array.from(
+                      container.querySelectorAll("a")
+                    ).map((a) => ({
+                      src: a.getAttribute("href"),
+                      alt: a.querySelector("img").getAttribute("alt"),
+                      caption: a.nextElementSibling
+                        ? a.nextElementSibling.textContent
+                        : "",
+                    }));
+                    openLightbox(
+                      href,
+                      img.getAttribute("alt"),
+                      caption,
+                      gallery
+                    );
+                  }
+                });
+              });
+            } else {
+              // Single-image instance.
+              const anchor = container.querySelector("a");
+              if (anchor) {
+                anchor.addEventListener("click", (e) => {
+                  const href = anchor.getAttribute("href");
+                  // Only open lightbox if the href is an image link.
+                  if (/\.(jpg|jpeg|png|gif|webp)$/i.test(href)) {
+                    e.preventDefault();
+                    const img = anchor.querySelector("img");
+                    const captionElem = container.querySelector("figcaption");
+                    const caption = captionElem ? captionElem.textContent : "";
+                    openLightbox(href, img.getAttribute("alt"), caption, []);
+                  }
+                });
+              }
+            }
+          });
+      });
+    </script>
 
     <!-- Content End -->
     <footer class="arabica_footer">
@@ -2234,8 +2437,7 @@
                   />
                 </svg>
               </a>
-            </li> 
-            
+            </li>
           </ul>
         </div>
       </div>

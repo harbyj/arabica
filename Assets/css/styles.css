@@ -2005,7 +2005,7 @@ a.arabica_latest-article-more:hover {
   width: 100%;
   height: auto;
   display: block;
-  margin: 10px 0;
+  margin: 5px 0;
 }
 
 /* Image Captions */
@@ -2062,8 +2062,7 @@ a.arabica_latest-article-more:hover {
     white-space: nowrap;
   }
 
-  .arabica_news,
-  .arabica_article {
+  .arabica_news {
     margin: 50px 0;
   }
   .arabica_news-content p,
@@ -3175,5 +3174,10 @@ input:checked + .arabica_toggle:before {
 @media (min-width: 992px) {
   .arabica_dropdown {
     width: 18%;
+  }
+}
+@media (max-width: 485px) {
+  .arabica_dropdown {
+    width: 48.4%;
   }
 }
