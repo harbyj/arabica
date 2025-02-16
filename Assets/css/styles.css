@@ -3184,7 +3184,7 @@ input:checked + .arabica_toggle:before {
 /* Feedback message container */
 .arabica_contact-feedback {
   display: none;
-  text-align: right;
+  text-align: center;
   margin-top: 20px;
   font-size: 14px;
 }
