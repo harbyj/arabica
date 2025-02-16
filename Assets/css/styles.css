@@ -2080,22 +2080,27 @@ a.arabica_latest-article-more:hover {
 
   .arabica_news-content h2,
   .arabica_article-content h2 {
-    font-size: 18px;
-    font-weight: bold;
+    font-size: 24px;
+    font-weight: 600;
   }
   .arabica_news-content h3,
   .arabica_article-content h3 {
-    font-size: 16px;
-    font-weight: bold;
+    font-size: 22px;
+    font-weight: 600;
   }
+
   .arabica_news-content h4,
+  .arabica_article-content h4 {
+    font-size: 20px;
+    font-weight: 600;
+  }
+
   .arabica_news-content h5,
   .arabica_news-content h6,
-  .arabica_article-content h4,
   .arabica_article-content h5,
   .arabica_article-content h6 {
-    font-size: 14px;
-    font-weight: bold;
+    font-size: 18px;
+    font-weight: 600;
   }
 
   .arabica_news-content p,
