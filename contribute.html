@@ -658,7 +658,7 @@
           </div>
           <div class="arabica_contact-form">
             <h2>تحدث إلينا</h2>
-            <form>
+            <form id="contactForm">
               <div class="form-group">
                 <input type="text" placeholder="الاسم" required />
                 <input type="text" placeholder="الوظيفة" required />
@@ -675,12 +675,42 @@
               />
               <textarea placeholder="الرسالة"></textarea>
               <button type="submit">إرسال</button>
+              <div class="arabica_contact-feedback" id="feedback"></div>
             </form>
           </div>
         </div>
       </div>
     </div>
+    <script>
+      // Handle form submission
+      document
+        .getElementById("contactForm")
+        .addEventListener("submit", function (e) {
+          e.preventDefault(); // Prevent the default form submission
 
+          // For demo: randomly choose success or error (replace with your own logic)
+          const isSuccess = Math.random() > 0.5;
+          const feedbackEl = document.getElementById("feedback");
+
+          // Show feedback container
+          feedbackEl.style.display = "block";
+
+          if (isSuccess) {
+            feedbackEl.textContent = "تم الإرسال بنجاح!";
+            feedbackEl.classList.remove("error");
+            feedbackEl.classList.add("success");
+          } else {
+            feedbackEl.textContent = "فشل في إرسال الرسالة!";
+            feedbackEl.classList.remove("success");
+            feedbackEl.classList.add("error");
+          }
+
+          // Optionally hide the feedback after 3 seconds
+          setTimeout(() => {
+            feedbackEl.style.display = "none";
+          }, 3000);
+        });
+    </script>
     <!-- Content End -->
     <footer class="arabica_footer">
       <div class="arabica_footer-container">

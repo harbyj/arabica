@@ -3181,3 +3181,58 @@ input:checked + .arabica_toggle:before {
     width: 48.4%;
   }
 }
+/* Feedback message container */
+.arabica_contact-feedback {
+  display: none;
+  text-align: right;
+  margin-top: 20px;
+  font-size: 14px;
+}
+
+/* Success styling */
+.arabica_contact-feedback.success {
+  color: #28a745;
+  animation: successAnim 0.5s forwards;
+}
+
+/* Error styling */
+.arabica_contact-feedback.error {
+  color: #dc3545;
+  animation: errorAnim 0.5s forwards;
+}
+
+/* Keyframe for success animation */
+@keyframes successAnim {
+  0% {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* Keyframe for error animation */
+@keyframes errorAnim {
+  0% {
+    opacity: 0;
+    transform: translateX(-10px);
+  }
+  50% {
+    opacity: 1;
+    transform: translateX(10px);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+@media (max-width: 991px) {
+  .arabica_contact-feedback {
+    font-size: 12px;
+    margin-top: 15px;
+  }
+}
