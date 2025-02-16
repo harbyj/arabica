@@ -1356,7 +1356,8 @@ a.arabica_latest-article-more:hover {
     font-size: 18px;
     font-weight: 600;
   }
-  .arabica_news h1 {
+  .arabica_news h1,
+  .arabica_article h1 {
     font-weight: bold;
     font-size: 20px;
   }
@@ -2073,7 +2074,7 @@ a.arabica_latest-article-more:hover {
   }
   .arabica_news-content figcaption,
   .arabica_article-content figcaption {
-    font-size: 10px;
+    font-size: 11px;
     margin-top: 3px;
   }
 
