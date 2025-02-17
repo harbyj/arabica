@@ -111,9 +111,16 @@
         position: relative;
         overflow: hidden;
         margin-bottom: 10px;
+        width: 100%;
       }
 
-      video {
+      .video-container iframe {
+        width: 100%;
+        aspect-ratio: 16 / 9;
+        display: block;
+      }
+
+      #video {
         width: 100%;
         display: block;
         cursor: pointer;
@@ -168,15 +175,6 @@
 
       .time {
         font-size: 14px;
-      }
-
-      .fullscreen-btn {
-        position: absolute;
-        top: 10px;
-        right: 10px;
-        background: rgba(0, 0, 0, 0.5);
-        padding: 5px;
-        border-radius: 5px;
       }
 
       .skip-indicator {
@@ -719,6 +717,7 @@
         .arabica_side-header-container h2 {
           margin-bottom: 0;
           padding-bottom: 0;
+          font-size: 24px;
         }
         .arabica_article {
           margin: 30px 0 40px 0;
@@ -741,7 +740,7 @@
           padding: 20px 20px 15px 20px;
         }
         .arabica_ref-text {
-          font-size: 10px;
+          font-size: 11px;
           margin-bottom: 0;
         }
         .arabica_ref-dropdown {
@@ -757,10 +756,6 @@
           font-size: 24px;
           font-weight: 600;
           padding-bottom: 0;
-        }
-        .arabica_article_slider-nav {
-          width: 25px;
-          height: 25px;
         }
         .arabica_article_lightbox-caption {
           font-size: 13px;
@@ -783,10 +778,17 @@
         .fullscreen-btn {
           padding: 0;
         }
+        .controls svg {
+          height: 16px;
+          width: 16px;
+        }
+        .progress-container {
+          height: 3px;
+        }
       }
       @media (max-width: 767px) {
         .arabica_side-content {
-          width: 85%;
+          width: 80%;
         }
         .arabica_article .arabica_article-date {
           display: block;
@@ -1354,8 +1356,6 @@
                     src="https://www.youtube.com/embed/tgbNymZ7vqY"
                     title="YouTube video player"
                     frameborder="0"
-                    width="100%"
-                    height="400"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                     allowfullscreen
                   >
@@ -1462,8 +1462,8 @@
                 <span class="arabica_close-button">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    width="17"
-                    height="17"
+                    width="14"
+                    height="14"
                     viewBox="0 0 23.81 23.804"
                   >
                     <path
@@ -1830,17 +1830,6 @@
         function injectControls() {
           const videoContainer = document.querySelector(".video-container");
 
-          // Fullscreen button
-          const fullscreenBtn = document.createElement("button");
-          fullscreenBtn.className = "fullscreen-btn";
-          fullscreenBtn.id = "fullscreen";
-          fullscreenBtn.innerHTML = `
-            <svg class="icon" viewBox="0 0 24 24">
-              <path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/>
-            </svg>
-          `;
-          videoContainer.appendChild(fullscreenBtn);
-
           // Rewind indicator
           const rewindIndicator = document.createElement("div");
           rewindIndicator.className = "skip-indicator left-indicator";
@@ -1935,6 +1924,17 @@
             </svg>
           `;
           controls.appendChild(volumeBtn);
+
+          // Fullscreen button
+          const fullscreenBtn = document.createElement("button");
+          fullscreenBtn.className = "fullscreen-btn";
+          fullscreenBtn.id = "fullscreen";
+          fullscreenBtn.innerHTML = `
+            <svg class="icon" viewBox="0 0 24 24">
+              <path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/>
+            </svg>
+          `;
+          controls.appendChild(fullscreenBtn);
 
           // Append controls to video container
           videoContainer.appendChild(controls);
