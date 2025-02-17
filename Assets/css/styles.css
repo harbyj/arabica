@@ -1962,18 +1962,18 @@ a.arabica_latest-article-more:hover {
 .arabica_article-content h5,
 .arabica_article-content h6 {
   color: #17355d;
-  margin-top: 25px;
+  margin-top: 20px;
   margin-bottom: 10px;
 }
 
 .arabica_news-content h2,
 .arabica_article-content h2 {
-  font-size: 24px;
+  font-size: 32px;
   font-weight: 600;
 }
 .arabica_news-content h3,
 .arabica_article-content h3 {
-  font-size: 21px;
+  font-size: 26px;
   font-weight: 600;
 }
 .arabica_news-content h4,
@@ -1982,7 +1982,7 @@ a.arabica_latest-article-more:hover {
 .arabica_article-content h4,
 .arabica_article-content h5,
 .arabica_article-content h6 {
-  font-size: 18px;
+  font-size: 20px;
   font-weight: 600;
 }
 
@@ -3242,4 +3242,18 @@ input:checked + .arabica_toggle:before {
     font-size: 12px;
     margin-top: 15px;
   }
+}
+.arabica_featured-article,
+.arabica_short-article {
+  overflow: hidden;
+  transition: max-height 0.5s ease, opacity 0.5s ease;
+  max-height: 1000px; /* Large enough to display full content */
+  opacity: 1;
+}
+
+/* This class will collapse the element */
+.arabica_featured-article.hidden,
+.arabica_short-article.hidden {
+  max-height: 0;
+  opacity: 0;
 }
