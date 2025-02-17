@@ -3249,6 +3249,7 @@ input:checked + .arabica_toggle:before {
   transition: max-height 0.5s ease, opacity 0.5s ease;
   max-height: 1000px; /* Large enough to display full content */
   opacity: 1;
+  display: block;
 }
 
 /* This class will collapse the element */
@@ -3256,4 +3257,5 @@ input:checked + .arabica_toggle:before {
 .arabica_short-article.hidden {
   max-height: 0;
   opacity: 0;
+  display: none;
 }
