@@ -1730,28 +1730,26 @@
             e.stopPropagation();
             if (dropdownEl.classList.contains("open")) {
               dropdownEl.classList.remove("open");
-              iconInner.classList.remove("fa-solid");
-              iconInner.classList.add("fa-light");
+              // Immediately swap classes without a gap
+              iconInner.classList.replace("fa-solid", "fa-light");
             } else {
               closeAllDropdowns();
               positionDropdown(icon, dropdownEl);
               dropdownEl.classList.add("open");
-              iconInner.classList.remove("fa-light");
-              iconInner.classList.add("fa-solid");
+              // Immediately swap classes without a gap
+              iconInner.classList.replace("fa-light", "fa-solid");
             }
           });
 
           // On hover, switch icon style to solid (if not open)
           icon.addEventListener("mouseenter", function () {
             if (!dropdownEl.classList.contains("open")) {
-              iconInner.classList.remove("fa-light");
-              iconInner.classList.add("fa-solid");
+              iconInner.classList.replace("fa-light", "fa-solid");
             }
           });
           icon.addEventListener("mouseleave", function () {
             if (!dropdownEl.classList.contains("open")) {
-              iconInner.classList.remove("fa-solid");
-              iconInner.classList.add("fa-light");
+              iconInner.classList.replace("fa-solid", "fa-light");
             }
           });
 
