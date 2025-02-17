@@ -388,7 +388,7 @@
         z-index: 40;
         opacity: 0;
         visibility: hidden;
-        transition: opacity 0.4s ease-in-out, visibility 0.4s ease-in-out;
+        transition: opacity 0.4s ease, transform 0.4s ease;
       }
       .arabica_article_lightbox.active {
         display: flex;
@@ -541,10 +541,13 @@
           margin: 0 0 15px 0 !important;
         }
       }
+      .arabica_article_lightbox.active {
+        transform: translateY(0);
+      }
+
       .arabica_article_lightbox.active .arabica_article_lightbox-content {
         transform: scale(1);
       }
-
       /* Style for the reference icon that replaces {ref=[...]} */
       .arabica_ref-icon {
         display: inline-block;
@@ -816,6 +819,13 @@
           display: block;
           margin: 0 0 5px 0;
         }
+      }
+
+      .arabica_article_lightbox.closing {
+        opacity: 0;
+        transform: translateY(
+          -50px
+        ); /* Adjust this value to control the exit motion */
       }
     </style>
   </head>
@@ -2167,14 +2177,16 @@
         }
 
         function closeLightbox() {
-          lightbox.classList.remove("active");
+          // Add a class that triggers a smooth closing animation
+          lightbox.classList.add("closing");
           document.body.classList.remove("no-scroll");
 
-          // Delay removal of gallery content to match transition duration
+          // After the transition, remove both classes and clear the gallery
           setTimeout(() => {
+            lightbox.classList.remove("active", "closing");
             currentGallery = [];
             galleryGrid.innerHTML = "";
-          }, 400); // Matches the CSS transition duration
+          }, 400); // Make sure this matches your CSS transition duration
         }
 
         function updateGalleryGrid(gallery) {
