@@ -407,7 +407,7 @@
       }
       .arabica_article_lightbox-content img {
         max-width: 100%;
-        max-height: 80vh;
+        height: 65vh;
         cursor: pointer;
       }
       .arabica_article_lightbox-caption {
@@ -445,7 +445,6 @@
       .arabica_article_lightbox-gallery-grid {
         position: fixed;
         bottom: 20px;
-        right: 20px;
         display: flex;
         gap: 10px;
         background: rgba(0, 0, 0, 0.5);
@@ -556,7 +555,29 @@
         cursor: pointer;
         vertical-align: middle;
         user-select: none;
-        transition: background-color 0.3s ease;
+        display: inline-grid;
+        align-items: center;
+        justify-items: center;
+      }
+
+      /* Place both icons in the same grid cell */
+      .arabica_ref-icon i {
+        grid-area: 1 / 1;
+        transition: none; /* Remove any transitions */
+      }
+
+      /* Visible icon */
+      .icon-light.active,
+      .icon-solid.active {
+        opacity: 1;
+        pointer-events: auto;
+      }
+
+      /* Hidden icon */
+      .icon-light.inactive,
+      .icon-solid.inactive {
+        opacity: 0;
+        pointer-events: none;
       }
 
       /* The dropdown container */
@@ -1084,7 +1105,7 @@
                     </time>
                   </span>
                   <span class="arabica_article-read"
-                    ><i class="fa-light fa-timer"></i>مدة القراءة 5:05 د</span
+                    ><i class="fa-light fa-timer"></i>مدة القراءة: 5:05 د</span
                   >
                 </div>
               </div>
@@ -1535,7 +1556,6 @@
       </div>
     </div>
 
-    <!-- Floating Button using Font Awesome Icon -->
     <span class="arabica_floating-btn">
       <i class="fa-light fa-list-ul"></i>
     </span>
@@ -1696,22 +1716,28 @@
             const dropdownId =
               "arabica_ref-dropdown-" +
               Math.random().toString(36).substring(2, 9);
-            // Create the replacement: a ref-icon plus a hidden dropdown
+            // Create the replacement with overlapping icons.
+            // The inline styles ensure the icons overlap (you can move these to your CSS if preferred).
             const replacement = `
-          <span class="arabica_ref-icon" data-ref-id="${dropdownId}" data-reference="${escapeAttr(
+             <span class="arabica_ref-icon" data-ref-id="${dropdownId}" data-reference="${escapeAttr(
               refText
             )}">
-            <i class="fa-light fa-circle-info"></i>
+            <i class="fa-light fa-circle-info icon-light active"></i>
+            <i class="fa-solid fa-circle-info icon-solid inactive"></i>
           </span>
           <div id="${dropdownId}" class="arabica_ref-dropdown">
             <div class="arabica_ref-actions">
-              <span class="arabica_ref-copy-icon" title="Copy"><i class="fa-regular fa-copy"></i></span>
+              <span class="arabica_ref-copy-icon" title="Copy">
+                <i class="fa-regular fa-copy"></i>
+              </span>
               <span class="copied-text">✓ تم النسخ</span>
-              <span class="arabica_ref-close-icon" title="Close"><i class="fa-regular fa-circle-xmark"></i></span>
+              <span class="arabica_ref-close-icon" title="Close">
+                <i class="fa-regular fa-circle-xmark"></i>
+              </span>
             </div>
             <div class="arabica_ref-text"><span dir="rtl">${refText}</span></div>
           </div>
-        `;
+          `;
             html = html.replace(fullMatch, replacement);
           });
           paragraph.innerHTML = html;
@@ -1722,7 +1748,6 @@
         refIcons.forEach((icon) => {
           const dropdownId = icon.getAttribute("data-ref-id");
           const dropdownEl = document.getElementById(dropdownId);
-          const iconInner = icon.querySelector("i");
 
           // Prevent clicks inside the dropdown from bubbling up (so it stays open)
           dropdownEl.addEventListener("click", function (e) {
@@ -1734,26 +1759,38 @@
             e.stopPropagation();
             if (dropdownEl.classList.contains("open")) {
               dropdownEl.classList.remove("open");
-              // Immediately swap classes without a gap
-              iconInner.classList.replace("fa-solid", "fa-light");
+              // Switch back to light icon
+              icon.querySelector(".icon-solid").classList.remove("active");
+              icon.querySelector(".icon-solid").classList.add("inactive");
+              icon.querySelector(".icon-light").classList.remove("inactive");
+              icon.querySelector(".icon-light").classList.add("active");
             } else {
               closeAllDropdowns();
               positionDropdown(icon, dropdownEl);
               dropdownEl.classList.add("open");
-              // Immediately swap classes without a gap
-              iconInner.classList.replace("fa-light", "fa-solid");
+              // Switch to solid icon
+              icon.querySelector(".icon-light").classList.remove("active");
+              icon.querySelector(".icon-light").classList.add("inactive");
+              icon.querySelector(".icon-solid").classList.remove("inactive");
+              icon.querySelector(".icon-solid").classList.add("active");
             }
           });
 
           // On hover, switch icon style to solid (if not open)
           icon.addEventListener("mouseenter", function () {
             if (!dropdownEl.classList.contains("open")) {
-              iconInner.classList.replace("fa-light", "fa-solid");
+              icon.querySelector(".icon-light").classList.remove("active");
+              icon.querySelector(".icon-light").classList.add("inactive");
+              icon.querySelector(".icon-solid").classList.remove("inactive");
+              icon.querySelector(".icon-solid").classList.add("active");
             }
           });
           icon.addEventListener("mouseleave", function () {
             if (!dropdownEl.classList.contains("open")) {
-              iconInner.classList.replace("fa-solid", "fa-light");
+              icon.querySelector(".icon-solid").classList.remove("active");
+              icon.querySelector(".icon-solid").classList.add("inactive");
+              icon.querySelector(".icon-light").classList.remove("inactive");
+              icon.querySelector(".icon-light").classList.add("active");
             }
           });
 
@@ -1762,8 +1799,10 @@
           closeIcon.addEventListener("click", function (e) {
             e.stopPropagation();
             dropdownEl.classList.remove("open");
-            iconInner.classList.remove("fa-solid");
-            iconInner.classList.add("fa-light");
+            icon.querySelector(".icon-solid").classList.remove("active");
+            icon.querySelector(".icon-solid").classList.add("inactive");
+            icon.querySelector(".icon-light").classList.remove("inactive");
+            icon.querySelector(".icon-light").classList.add("active");
           });
 
           // Copy button functionality inside the dropdown
@@ -1812,9 +1851,14 @@
               parentIcon &&
               parentIcon.classList.contains("arabica_ref-icon")
             ) {
-              const iconInner = parentIcon.querySelector("i");
-              iconInner.classList.remove("fa-solid");
-              iconInner.classList.add("fa-light");
+              parentIcon
+                .querySelector(".icon-solid")
+                .classList.remove("active");
+              parentIcon.querySelector(".icon-solid").classList.add("inactive");
+              parentIcon
+                .querySelector(".icon-light")
+                .classList.remove("inactive");
+              parentIcon.querySelector(".icon-light").classList.add("active");
             }
           });
         }
