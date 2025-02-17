@@ -407,7 +407,7 @@
       }
       .arabica_article_lightbox-content img {
         max-width: 100%;
-        height: 65vh;
+        max-height: 65vh;
         cursor: pointer;
       }
       .arabica_article_lightbox-caption {
@@ -1917,20 +1917,28 @@
           rewindIndicator.className = "skip-indicator left-indicator";
           rewindIndicator.id = "rewind";
           rewindIndicator.innerHTML = `<span>10s</span>
-          <svg class="icon" fill="none" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="m6.46967 10.4697c-.29289.2929-.29289.7677 0 1.0606s.76777.2929 1.06066 0zm1.78033 5.5303c0 .4142.33579.75.75.75s.75-.3358.75-.75zm-5.5-4c0-.4142-.33579-.75-.75-.75s-.75.3358-.75.75zm3.24903-8 .4505.59962zm-1.99903 1.99903.54801.51204.02745-.02939.02416-.03215zm.01269-4.99568c.00185-.414213-.33244-.751495-.74665-.753343s-.75149.332437-.75334.746647zm-.75885 1.98236-.75-.00334zm3.68 3.68.00334.75zm1.98906.74114c.41421-.00185.74849-.33913.74664-.75334s-.33913-.7485-.75334-.74665zm-5.26052-1.50418-.59312.45902zm.3545.3545-.45902.59312zm12.23312 5.74283v2h1.5v-2zm-2.5 2v-2h-1.5v2zm1.25 1.25c-.6904 0-1.25-.5596-1.25-1.25h-1.5c0 1.5188 1.2312 2.75 2.75 2.75zm1.25-1.25c0 .6904-.5596 1.25-1.25 1.25v1.5c1.5188 0 2.75-1.2312 2.75-2.75zm-1.25-3.25c.6904 0 1.25.5596 1.25 1.25h1.5c0-1.5188-1.2312-2.75-2.75-2.75zm0-1.5c-1.5188 0-2.75 1.2312-2.75 2.75h1.5c0-.6904.5596-1.25 1.25-1.25zm-13.75 2.75c0 5.9371 4.81294 10.75 10.75 10.75v-1.5c-5.10863 0-9.25-4.1414-9.25-9.25zm10.75 10.75c5.9371 0 10.75-4.8129 10.75-10.75h-1.5c0 5.1086-4.1414 9.25-9.25 9.25zm10.75-10.75c0-5.93706-4.8129-10.75-10.75-10.75v1.5c5.1086 0 9.25 4.14137 9.25 9.25zm-10.75-10.75c-2.41966 0-4.65456.80032-6.45148 2.15038l.90101 1.19924c1.54606-1.16158 3.46683-1.84962 5.55047-1.84962zm-6.45148 2.15038c-.81333.61107-1.53707 1.33481-2.14814 2.14814l1.19924.90101c.5262-.70037 1.14954-1.32371 1.84991-1.84991zm-3.03582-2.403726-.00886 1.985716 1.49999.00669.00886-1.98571zm4.42448 6.419056 1.98572-.00886-.0067-1.49999-1.98571.00886zm-4.43334-4.43334c-.00345.77414-.00746 1.41813.04887 1.93398.05798.53093.18758 1.02026.51655 1.44534l1.18625-.91804c-.09017-.11652-.16839-.29389-.21166-.69014-.04492-.41134-.04363-.95503-.04002-1.76445zm4.42665 2.93335c-.80942.00361-1.3531.0049-1.76445-.04002-.39625-.04327-.57362-.12149-.69014-.21166l-.91804 1.18625c.42508.32897.91441.45857 1.44534.51655.51585.05633 1.15984.05232 1.93398.04887zm.53918 3.55395-1 1.00003 1.06066 1.0606 1-1zm.78033 2.53033v4h1.5v-4zm0-1.5858v.0858h1.5v-.0858zm0 .0858v1.5h1.5v-1.5zm-5.18074-4.13831c.08838.1142.18558.2211.29066.31976l1.02669-1.09358c-.04739-.04449-.09123-.0927-.1311-.14422zm.29066.31976c.0632.05933.12925.11569.19794.16884l.91804-1.18625c-.03099-.02399-.06078-.0494-.08929-.07616zm.09207-1.19447-.12673.13563 1.09601 1.0241.12674-.13564zm5.07834 5.04332c-.0184.0184-.0508.0375-.09038.0443-.03548.0062-.06566.0008-.08858-.0087s-.04806-.027-.0688-.0564c-.02313-.0329-.03257-.0693-.03257-.0953h1.5c0-1.19004-1.43883-1.78603-2.28033-.94453z" fill="#ffffff"/></svg>
-          `;
+          <svg class="icon" fill="none" height="24" viewBox="0 0 24 24" width="24"
+            xmlns="http://www.w3.org/2000/svg">
+            <path d="m6.46967 10.4697c-.29289.2929-.29289.7677 0 1.0606s.76777.2929 1.06066 0zm1.78033 5.5303c0 .4142.33579.75.75.75s.75-.3358.75-.75zm-5.5-4c0-.4142-.33579-.75-.75-.75s-.75.3358-.75.75zm3.24903-8 .4505.59962zm-1.99903 1.99903.54801.51204.02745-.02939.02416-.03215zm.01269-4.99568c.00185-.414213-.33244-.751495-.74665-.753343s-.75149.332437-.75334.746647zm-.75885 1.98236-.75-.00334zm3.68 3.68.00334.75zm1.98906.74114c.41421-.00185.74849-.33913.74664-.75334s-.33913-.7485-.75334-.74665zm-5.26052-1.50418-.59312.45902zm.3545.3545-.45902.59312zm12.23312 5.74283v2h1.5v-2zm-2.5 2v-2h-1.5v2zm1.25 1.25c-.6904 0-1.25-.5596-1.25-1.25h-1.5c0 1.5188 1.2312 2.75 2.75 2.75zm1.25-1.25c0 .6904-.5596 1.25-1.25 1.25v1.5c1.5188 0 2.75-1.2312 2.75-2.75zm-1.25-3.25c.6904 0 1.25.5596 1.25 1.25h1.5c0-1.5188-1.2312-2.75-2.75-2.75zm0-1.5c-1.5188 0-2.75 1.2312-2.75 2.75h1.5c0-.6904.5596-1.25 1.25-1.25zm-13.75 2.75c0 5.9371 4.81294 10.75 10.75 10.75v-1.5c-5.10863 0-9.25-4.1414-9.25-9.25zm10.75 10.75c5.9371 0 10.75-4.8129 10.75-10.75h-1.5c0 5.1086-4.1414 9.25-9.25 9.25zm10.75-10.75c0-5.93706-4.8129-10.75-10.75-10.75v1.5c5.1086 0 9.25 4.14137 9.25 9.25zm-10.75-10.75c-2.41966 0-4.65456.80032-6.45148 2.15038l.90101 1.19924c1.54606-1.16158 3.46683-1.84962 5.55047-1.84962zm-6.45148 2.15038c-.81333.61107-1.53707 1.33481-2.14814 2.14814l1.19924.90101c.5262-.70037 1.14954-1.32371 1.84991-1.84991zm-3.03582-2.403726-.00886 1.985716 1.49999.00669.00886-1.98571zm4.42448 6.419056 1.98572-.00886-.0067-1.49999-1.98571.00886zm-4.43334-4.43334c-.00345.77414-.00746 1.41813.04887 1.93398.05798.53093.18758 1.02026.51655 1.44534l1.18625-.91804c-.09017-.11652-.16839-.29389-.21166-.69014-.04492-.41134-.04363-.95503-.04002-1.76445zm4.42665 2.93335c-.80942.00361-1.3531.0049-1.76445-.04002-.39625-.04327-.57362-.12149-.69014-.21166l-.91804 1.18625c.42508.32897.91441.45857 1.44534.51655.51585.05633 1.15984.05232 1.93398.04887zm.53918 3.55395-1 1.00003 1.06066 1.0606 1-1zm.78033 2.53033v4h1.5v-4zm0-1.5858v.0858h1.5v-.0858zm0 .0858v1.5h1.5v-1.5zm-5.18074-4.13831c.08838.1142.18558.2211.29066.31976l1.02669-1.09358c-.04739-.04449-.09123-.0927-.1311-.14422zm.29066.31976c.0632.05933.12925.11569.19794.16884l.91804-1.18625c-.03099-.02399-.06078-.0494-.08929-.07616zm.09207-1.19447-.12673.13563 1.09601 1.0241.12674-.13564zm5.07834 5.04332c-.0184.0184-.0508.0375-.09038.0443-.03548.0062-.06566.0008-.08858-.0087s-.04806-.027-.0688-.0564c-.02313-.0329-.03257-.0693-.03257-.0953h1.5c0-1.19004-1.43883-1.78603-2.28033-.94453z" fill="#ffffff"/>
+          </svg>`;
           videoContainer.appendChild(rewindIndicator);
 
           // Forward indicator
           const forwardIndicator = document.createElement("div");
           forwardIndicator.className = "skip-indicator right-indicator";
           forwardIndicator.id = "forward";
-          forwardIndicator.innerHTML = `<svg class="icon" fill="none" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><g fill="#ffffff"><path d="m21.4873.996654c-.0019-.414209-.3391-.748494-.7533-.746646-.4143.001848-.7485.339129-.7467.753342l.0089 1.98571c.0036.80942.0049 1.35311-.04 1.76445l-.0017.01526c-.4565-.50181-.9598-.96023-1.503-1.36839-1.7969-1.35006-4.0318-2.15038-6.4515-2.15038-5.93706 0-10.75 4.81294-10.75 10.75 0 5.9371 4.81294 10.75 10.75 10.75 5.9371 0 10.75-4.8129 10.75-10.75 0-.4142-.3358-.75-.75-.75s-.75.3358-.75.75c0 5.1086-4.1414 9.25-9.25 9.25-5.10863 0-9.25-4.1414-9.25-9.25 0-5.10863 4.14137-9.25 9.25-9.25 2.0836 0 4.0044.68804 5.5505 1.84962.4989.37489.9588.79909 1.3723 1.26532-.0283.00379-.0579.00738-.0888.01076-.4114.04492-.9551.04363-1.7645.04002l-1.9857-.00886c-.4142-.00185-.7515.33244-.7533.74665-.0019.41421.3324.75149.7466.75334l2.029.00905c.7549.00339 1.3845.00621 1.8907-.04906.5309-.05798 1.0203-.18758 1.4453-.51655.0678-.05245.133-.10802.1955-.1665.106-.0993.2041-.20699.2931-.3221.329-.42508.4586-.91441.5166-1.44534.0553-.50618.0524-1.13575.0491-1.89062z"/><path d="m9.75 10.4142c0-1.19004-1.43883-1.78603-2.28033-.94453l-1 1.00003c-.29289.2929-.29289.7677 0 1.0606s.76777.2929 1.06066 0l.71967-.7196v5.1893c0 .4142.33579.75.75.75s.75-.3358.75-.75z"/><path clip-rule="evenodd" d="m15 9.25c-1.5188 0-2.75 1.2312-2.75 2.75v2c0 1.5188 1.2312 2.75 2.75 2.75s2.75-1.2312 2.75-2.75v-2c0-1.5188-1.2312-2.75-2.75-2.75zm-1.25 2.75c0-.6904.5596-1.25 1.25-1.25s1.25.5596 1.25 1.25v2c0 .6904-.5596 1.25-1.25 1.25s-1.25-.5596-1.25-1.25z" fill-rule="evenodd"/></g></svg>
-            <span>10s</span>
-          `;
+          forwardIndicator.innerHTML = `<svg class="icon" fill="none" height="24" viewBox="0 0 24 24" width="24"
+            xmlns="http://www.w3.org/2000/svg">
+            <g fill="#ffffff">
+              <path d="m21.4873.996654c-.0019-.414209-.3391-.748494-.7533-.746646-.4143.001848-.7485.339129-.7467.753342l.0089 1.98571c.0036.80942.0049 1.35311-.04 1.76445l-.0017.01526c-.4565-.50181-.9598-.96023-1.503-1.36839-1.7969-1.35006-4.0318-2.15038-6.4515-2.15038-5.93706 0-10.75 4.81294-10.75 10.75 0 5.9371 4.81294 10.75 10.75 10.75 5.9371 0 10.75-4.8129 10.75-10.75 0-.4142-.3358-.75-.75-.75s-.75.3358-.75.75c0 5.1086-4.1414 9.25-9.25 9.25-5.10863 0-9.25-4.1414-9.25-9.25 0-5.10863 4.14137-9.25 9.25-9.25 2.0836 0 4.0044.68804 5.5505 1.84962.4989.37489.9588.79909 1.3723 1.26532-.0283.00379-.0579.00738-.0888.01076-.4114.04492-.9551.04363-1.7645.04002l-1.9857-.00886c-.4142-.00185-.7515.33244-.7533.74665-.0019.41421.3324.75149.7466.75334l2.029.00905c.7549.00339 1.3845.00621 1.8907-.04906.5309-.05798 1.0203-.18758 1.4453-.51655.0678-.05245.133-.10802.1955-.1665.106-.0993.2041-.20699.2931-.3221.329-.42508.4586-.91441.5166-1.44534.0553-.50618.0524-1.13575.0491-1.89062z"/>
+              <path d="m9.75 10.4142c0-1.19004-1.43883-1.78603-2.28033-.94453l-1 1.00003c-.29289.2929-.29289.7677 0 1.0606s.76777.2929 1.06066 0l.71967-.7196v5.1893c0 .4142.33579.75.75.75s.75-.3358.75-.75z"/>
+              <path clip-rule="evenodd" d="m15 9.25c-1.5188 0-2.75 1.2312-2.75 2.75v2c0 1.5188 1.2312 2.75 2.75 2.75s2.75-1.2312 2.75-2.75v-2c0-1.5188-1.2312-2.75-2.75-2.75zm-1.25 2.75c0-.6904.5596-1.25 1.25-1.25s1.25.5596 1.25 1.25v2c0 .6904-.5596 1.25-1.25 1.25s-1.25-.5596-1.25-1.25z" fill-rule="evenodd"/>
+            </g>
+          </svg>
+            <span>10s</span>`;
           videoContainer.appendChild(forwardIndicator);
 
-          // Play/Pause indicator
+          // Large overlay indicator (for transient play/pause feedback)
           const playPauseIndicator = document.createElement("div");
           playPauseIndicator.className = "play-pause-indicator";
           playPauseIndicator.id = "playPauseIndicator";
@@ -2032,32 +2040,61 @@
         const forwardIndicator = document.getElementById("forward");
         const playPauseIndicator =
           document.getElementById("playPauseIndicator");
-        const playPauseIcon = playPauseIndicator.querySelector("path");
         const playBtnIcon = playPauseBtn.querySelector("path");
         const volumeBtn = document.getElementById("volume");
 
-        // Update duration as soon as metadata is loaded
-        video.addEventListener("loadedmetadata", () => {
-          durationEl.textContent = formatTime(video.duration);
-        });
+        // Define SVG path values for play and pause icons
+        const playIconPath = "M8 5v14l11-7z"; // Play icon
+        const pauseIconPath = "M6 19h4V5H6v14zm8-14v14h4V5h-4z"; // Pause icon
+
+        // --- New Function: Show Overlay with Animation ---
+        // Displays the overlay indicator with the provided icon, then fades it out.
+        function showOverlay(iconPath) {
+          playPauseIndicator.style.display = "block";
+          playPauseIndicator.style.opacity = "1";
+          playPauseIndicator.querySelector("path").setAttribute("d", iconPath);
+          // After 1 second, fade out the overlay.
+          setTimeout(() => {
+            playPauseIndicator.style.transition = "opacity 0.5s ease-out";
+            playPauseIndicator.style.opacity = "0";
+            setTimeout(() => {
+              playPauseIndicator.style.display = "none";
+              playPauseIndicator.style.transition = "";
+            }, 500);
+          }, 1000);
+        }
+        // --- End New Function ---
+
+        // On page load, show the overlay (play icon) permanently so users know it's a video.
+        if (video.paused) {
+          playPauseIndicator.style.display = "block";
+          playPauseIndicator.style.opacity = "1";
+          playPauseIndicator
+            .querySelector("path")
+            .setAttribute("d", playIconPath);
+        }
+
+        // Modified togglePlay function:
+        // • When paused and clicking to play, show the **play** icon overlay.
+        // • When playing and clicking to pause, show the **pause** icon overlay.
+        function togglePlay() {
+          if (video.paused) {
+            // Video is paused: user clicks to play.
+            showOverlay(playIconPath);
+            video.play();
+            playBtnIcon.setAttribute("d", pauseIconPath);
+          } else {
+            // Video is playing: user clicks to pause.
+            showOverlay(pauseIconPath);
+            video.pause();
+            playBtnIcon.setAttribute("d", playIconPath);
+          }
+        }
 
         playPauseBtn.addEventListener("click", togglePlay);
         video.addEventListener("click", togglePlay);
         playPauseIndicator.addEventListener("click", togglePlay);
         volumeBtn.addEventListener("click", toggleMute);
-
-        function togglePlay() {
-          if (video.paused) {
-            video.play();
-            playBtnIcon.setAttribute("d", "M6 19h4V5H6v14zm8-14v14h4V5h-4z");
-            playPauseIcon.setAttribute("d", "M8 5v14l11-7z");
-          } else {
-            video.pause();
-            playBtnIcon.setAttribute("d", "M8 5v14l11-7z");
-            playPauseIcon.setAttribute("d", "M6 19h4V5H6v14zm8-14v14h4V5h-4z");
-          }
-          showPlayPauseIndicator();
-        }
 
         function toggleMute() {
           video.muted = !video.muted;
@@ -2068,17 +2105,11 @@
           volumeBtn.classList.toggle("muted", video.muted);
         }
 
-        function showPlayPauseIndicator() {
-          playPauseIndicator.style.display = "block";
-          setTimeout(() => {
-            playPauseIndicator.style.display = "none";
-          }, 1000);
-        }
-
         restartBtn.addEventListener("click", () => {
           video.currentTime = 0;
           video.play();
-          playBtnIcon.setAttribute("d", "M6 19h4V5H6v14zm8-14v14h4V5h-4z");
+          playBtnIcon.setAttribute("d", pauseIconPath);
+          showOverlay(playIconPath);
         });
 
         fullscreenBtn.addEventListener("click", () => {
@@ -2110,7 +2141,7 @@
         }
 
         video.addEventListener("ended", () => {
-          playBtnIcon.setAttribute("d", "M8 5v14l11-7z");
+          playBtnIcon.setAttribute("d", playIconPath);
         });
 
         video.addEventListener("dblclick", (e) => {
@@ -2142,11 +2173,12 @@
         });
       });
     </script>
+
     <script>
       document.addEventListener("DOMContentLoaded", () => {
         /* ------------------------------
-     GLOBAL LIGHTBOX SETUP
-  ------------------------------ */
+       GLOBAL LIGHTBOX SETUP
+      ------------------------------ */
         const lightbox = document.createElement("div");
         lightbox.classList.add("arabica_article_lightbox");
 
@@ -2156,10 +2188,10 @@
         const closeBtn = document.createElement("span");
         closeBtn.classList.add("arabica_article_close-btn");
         closeBtn.innerHTML = `
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
-      <path fill="#ffffff" d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
-    </svg>
-  `;
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+          <path fill="#ffffff" d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+        </svg>
+      `;
 
         const lightboxImg = document.createElement("img");
         lightboxImg.id = "lightbox-img";
@@ -2174,10 +2206,10 @@
           "arabica_article_lightbox-nav-prev"
         );
         prevLightboxBtn.innerHTML = `
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
-      <path fill="#ffffff" d="M15.41 16.59L10.83 12l4.58-4.59L14 6l-6 6 6 6z"/>
-    </svg>
-  `;
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+          <path fill="#ffffff" d="M15.41 16.59L10.83 12l4.58-4.59L14 6l-6 6 6 6z"/>
+        </svg>
+      `;
 
         const nextLightboxBtn = document.createElement("button");
         nextLightboxBtn.classList.add(
@@ -2185,13 +2217,15 @@
           "arabica_article_lightbox-nav-next"
         );
         nextLightboxBtn.innerHTML = `
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
-      <path fill="#ffffff" d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6z"/>
-    </svg>
-  `;
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+          <path fill="#ffffff" d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6z"/>
+        </svg>
+      `;
 
         const galleryGrid = document.createElement("div");
         galleryGrid.classList.add("arabica_article_lightbox-gallery-grid");
+        // Initially hide the gallery grid.
+        galleryGrid.style.display = "none";
 
         lightbox.appendChild(closeBtn);
         lightboxContent.appendChild(lightboxImg);
@@ -2212,13 +2246,16 @@
           lightbox.classList.add("active");
           document.body.classList.add("no-scroll");
 
-          if (gallery.length > 0) {
+          // Only display the gallery grid if more than one image exists.
+          if (gallery.length > 1) {
             currentGallery = gallery;
             currentIndex = gallery.findIndex((item) => item.src === imgSrc);
             updateGalleryGrid(gallery);
+            galleryGrid.style.display = "flex";
           } else {
             currentGallery = [];
             galleryGrid.innerHTML = "";
+            galleryGrid.style.display = "none";
           }
         }
 
@@ -2274,14 +2311,14 @@
           const { src, alt, caption } = currentGallery[currentIndex];
           // Fade out the image
           lightboxImg.style.opacity = 0;
-          // After a short delay, update the image and fade in
+          // After a short (faster) delay, update the image and fade in
           setTimeout(() => {
             lightboxImg.setAttribute("src", src);
             lightboxImg.setAttribute("alt", alt);
             lightboxCaption.textContent = caption;
             updateGalleryGrid(currentGallery);
             lightboxImg.style.opacity = 1;
-          }, 300); // delay should match the CSS transition duration
+          }, 150); // Reduced delay for a snappier animation
         }
 
         closeBtn.addEventListener("click", closeLightbox);
@@ -2324,9 +2361,9 @@
         });
 
         /* ------------------------------
-     SETUP EACH GALLERY INSTANCE
-     (Supports multiple independent instances)
-  ------------------------------ */
+       SETUP EACH GALLERY INSTANCE
+       (Supports multiple independent instances)
+      ------------------------------ */
         document
           .querySelectorAll(".arabica_article-image")
           .forEach((container) => {
@@ -2350,18 +2387,18 @@
               prevSliderBtn.className =
                 "arabica_article_slider-nav arabica_article_slider-prev";
               prevSliderBtn.innerHTML = `
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
-          <path fill="#ffffff" d="M15.41 16.59L10.83 12l4.58-4.59L14 6l-6 6 6 6z"/>
-        </svg>
-      `;
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+              <path fill="#ffffff" d="M15.41 16.59L10.83 12l4.58-4.59L14 6l-6 6 6 6z"/>
+            </svg>
+          `;
               const nextSliderBtn = document.createElement("button");
               nextSliderBtn.className =
                 "arabica_article_slider-nav arabica_article_slider-next";
               nextSliderBtn.innerHTML = `
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
-          <path fill="#ffffff" d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6z"/>
-        </svg>
-      `;
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+              <path fill="#ffffff" d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6z"/>
+            </svg>
+          `;
               slider.appendChild(prevSliderBtn);
               slider.appendChild(nextSliderBtn);
 
@@ -2514,6 +2551,7 @@
           });
       });
     </script>
+
     <script>
       document.addEventListener("DOMContentLoaded", function () {
         /* ========= Side Content Open/Close ========= */
