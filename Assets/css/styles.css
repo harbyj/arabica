@@ -169,7 +169,7 @@ h6 {
 
 /* Disable scrolling on the body */
 .no-scroll {
-  overflow: hidden;
+  /* overflow: hidden; */
 }
 
 .header {
