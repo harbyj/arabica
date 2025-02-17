@@ -114,13 +114,14 @@
         width: 100%;
       }
 
-      .video-container iframe {
+      .video-container iframe,
+      .video-container video {
         width: 100%;
         aspect-ratio: 16 / 9;
         display: block;
       }
 
-      #video {
+      video {
         width: 100%;
         display: block;
         cursor: pointer;
@@ -136,7 +137,6 @@
         flex-direction: row-reverse;
         position: relative;
         z-index: 2;
-        margin-top: -50px;
       }
 
       .play-btn,
@@ -772,15 +772,16 @@
           padding: 0px;
         }
         .time {
-          font-size: 12px;
+          font-size: 13px;
           font-weight: 300;
+          height: 16px;
         }
         .play-btn,
         .restart-btn,
         .fullscreen-btn,
         .volume-btn,
         .fullscreen-btn {
-          padding: 0;
+          padding: 3px;
         }
         .controls svg {
           height: 16px;
