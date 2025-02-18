@@ -2130,6 +2130,7 @@
       shortArticles.forEach((article, index) => {
         if (index >= 6) {
           article.classList.add("hidden");
+          article.style.display = "none"; // Completely remove from layout initially
         }
       });
 
@@ -2137,6 +2138,27 @@
       plusIcon2.style.display = "inline-block";
       minusIcon2.style.display = "none";
       loadingIcon2.style.display = "none";
+
+      // Function to show an article with animation
+      function showArticle(article) {
+        article.style.display = "block"; // Restore to layout
+        void article.offsetWidth; // Force reflow for transition
+        article.classList.remove("hidden");
+      }
+
+      // Function to hide an article with animation and remove it from layout
+      function hideArticle(article) {
+        article.classList.add("hidden");
+        article.addEventListener(
+          "transitionend",
+          () => {
+            if (article.classList.contains("hidden")) {
+              article.style.display = "none"; // Remove from layout after transition
+            }
+          },
+          { once: true } // Ensures the event listener runs once per transition
+        );
+      }
 
       // Button click event with a simulated loading delay and animation
       loadMoreBtn2.addEventListener("click", function (event) {
@@ -2148,18 +2170,18 @@
         loadingIcon2.style.display = "inline-block";
         loadMoreBtn2.style.pointerEvents = "none"; // Prevent multiple clicks
 
-        // Simulate a loading delay (2 seconds)
+        // Simulate a loading delay (0ms for instant effect)
         setTimeout(() => {
           if (!expandedShort) {
-            // Expand: remove the 'hidden' class to animate showing the extra articles
+            // Expand: show extra articles with animation
             for (let i = 6; i < shortArticles.length; i++) {
-              shortArticles[i].classList.remove("hidden");
+              showArticle(shortArticles[i]);
             }
             minusIcon2.style.display = "inline-block";
           } else {
-            // Collapse: add the 'hidden' class to animate hiding the extra articles
+            // Collapse: hide extra articles with animation
             for (let i = 6; i < shortArticles.length; i++) {
-              shortArticles[i].classList.add("hidden");
+              hideArticle(shortArticles[i]);
             }
             plusIcon2.style.display = "inline-block";
           }

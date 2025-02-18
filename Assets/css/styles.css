@@ -3255,10 +3255,3 @@ input:checked + .arabica_toggle:before {
 .arabica_short-article.hidden {
   max-height: 0;
 }
-
-.arabica_short:has(.arabica_short-article.hidden) .arabica_short-pager {
-  margin-top: 40px;
-}
-.arabica_short {
-  transition: margin-top 0.5s ease;
-}
