@@ -3246,7 +3246,7 @@ input:checked + .arabica_toggle:before {
 .arabica_featured-article,
 .arabica_short-article {
   overflow: hidden;
-  transition: max-height 0.5s ease;
+  transition: max-height 1s ease;
   max-height: 1000px; /* Large enough to display full content */
 }
 
