@@ -3246,16 +3246,19 @@ input:checked + .arabica_toggle:before {
 .arabica_featured-article,
 .arabica_short-article {
   overflow: hidden;
-  transition: max-height 0.5s ease, opacity 0.5s ease;
+  transition: max-height 0.5s ease;
   max-height: 1000px; /* Large enough to display full content */
-  opacity: 1;
-  display: block;
 }
 
 /* This class will collapse the element */
 .arabica_featured-article.hidden,
 .arabica_short-article.hidden {
   max-height: 0;
-  opacity: 0;
-  display: none;
+}
+
+.arabica_short:has(.arabica_short-article.hidden) .arabica_short-pager {
+  margin-top: 40px;
+}
+.arabica_short {
+  transition: margin-top 0.5s ease;
 }
