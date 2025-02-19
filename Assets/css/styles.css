@@ -959,8 +959,7 @@ span.arabica_date {
 
   .arabica_main-about h3,
   .arabica_title,
-  .arabica_about-inner h2,
-  .arabica_timeline h2 {
+  .arabica_about-inner {
     font-size: 21px;
     font-weight: bold;
   }
@@ -3316,7 +3315,7 @@ input:checked + .arabica_toggle:before {
     margin-top: 15px;
   }
   .arabica_about {
-    padding: 40px 0 50px 0;
+    padding: 40px 0;
   }
   .arabica_about-inner {
     text-align: center;
