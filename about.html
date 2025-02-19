@@ -47,6 +47,7 @@
     .arabica_timeline-icon img {
       max-width: 100%;
       height: auto;
+      margin: 0;
     }
 
     /* Vertical line using a CSS variable for its height */
@@ -218,7 +219,7 @@
         left: auto;
         border: 6px solid #17355d;
         z-index: 3;
-        top: calc(50% - 20px);
+        top: 42px;
       }
       .arabica_timeline-items
         .arabica_timeline-item:nth-child(odd)
@@ -235,7 +236,7 @@
         width: 18px;
         height: 18px;
         position: absolute;
-        top: calc(50% - 20px);
+        top: 42px;
         transform: translateY(-50%);
         z-index: 2;
       }
@@ -301,12 +302,12 @@
         padding: 20px 20px 15px 20px;
       }
       .arabica_timeline-container::before {
-        top: 67px;
+        top: 60px;
         right: 26px;
         width: 2px;
       }
       .arabica_timeline-icon {
-        margin: 0 0 10px;
+        margin: 0 0 15px;
         width: 55px;
       }
       .arabica_timeline-item {
@@ -321,7 +322,7 @@
         .arabica_timeline-content::before {
         right: -30px;
         border: 5px solid #17355d;
-        top: calc(50% - 20px);
+        top: 36px;
       }
       .arabica_timeline-items
         .arabica_timeline-item:nth-child(odd)
@@ -334,7 +335,7 @@
         border: 1px solid #17355d;
         width: 16px;
         height: 16px;
-        top: calc(50% - 20px);
+        top: 36px;
       }
 
       .arabica_timeline-item .arabica_timeline-year {
@@ -1346,12 +1347,26 @@
         );
         const containerRect = container.getBoundingClientRect();
         const lastRect = lastContent.getBoundingClientRect();
-        // Calculate the target bottom position: half the height of the last content added to its top,
-        // relative to the container.
-        const targetBottom =
-          lastRect.top - containerRect.top + lastRect.height / 2;
-        // The vertical line starts at 100px; subtract that offset.
-        const newHeight = targetBottom - 95;
+
+        const viewportWidth = window.innerWidth;
+        let targetBottom;
+        let startOffset;
+
+        if (viewportWidth <= 767) {
+          // Mobile view: height ends at 36px of the last content; line starts at 60px.
+          targetBottom = lastRect.top - containerRect.top + 36;
+          startOffset = 60;
+        } else if (viewportWidth <= 991) {
+          // Tablet view: height ends at 42px of the last content; line starts at 70px.
+          targetBottom = lastRect.top - containerRect.top + 42;
+          startOffset = 70;
+        } else {
+          // Desktop view (min-width 992px): default behavior.
+          targetBottom = lastRect.top - containerRect.top + lastRect.height / 2;
+          startOffset = 100;
+        }
+
+        const newHeight = targetBottom - startOffset;
         container.style.setProperty("--line-height", newHeight + "px");
       }
 
