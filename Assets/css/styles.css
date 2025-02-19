@@ -800,7 +800,7 @@ hr.arabica_tab-show {
 .arabica_about-top {
   text-align: center;
   padding: 70px 0px 70px 0;
-  background: #16365e url("./../images/about-top-bg.jpg") no-repeat center
+  background: #17355d url("./../images/about-top-bg.jpg") no-repeat center
     center;
   background-size: cover; /* Ensures the image covers the entire background */
 }
@@ -808,14 +808,14 @@ hr.arabica_tab-show {
 .arabica_contribute-top {
   text-align: center;
   padding: 30px 0px 230px 0;
-  background: #16365e url("./../images/about-top-bg.jpg") no-repeat center
+  background: #17355d url("./../images/about-top-bg.jpg") no-repeat center
     center;
   background-size: cover; /* Ensures the image covers the entire background */
 }
 
 .arabica_about-bottom {
   text-align: center;
-  padding: 70px 0;
+  padding: 100px 0 70px 0;
   background: #f3f3f3;
 }
 .arabica_about-inner {
@@ -825,7 +825,7 @@ hr.arabica_tab-show {
 
 .arabica_editors-top {
   padding: 110px 0 70px 0;
-  background: #16365e;
+  background: #17355d;
   color: #ffffff;
 }
 .arabica_editors-top h1 {
@@ -1263,13 +1263,13 @@ a.arabica_latest-article-more:hover {
 
 .arabica_featured-article-share {
   font-size: 14px;
-  color: #16365e;
+  color: #17355d;
   display: flex;
   align-items: center;
 }
 
 .arabica_featured-article-share a {
-  color: #16365e;
+  color: #17355d;
 }
 
 .arabica_featured-article-author {

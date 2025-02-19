@@ -13,143 +13,137 @@
   </head>
   <style>
     .arabica_timeline {
+      width: 100%;
+      padding-top: 60px;
+    }
+    .arabica_timeline h2 {
+      text-align: center;
+    }
+    .arabica_timeline h2 span {
+      display: block;
+      font-size: 16px;
+    }
+
+    /* Timeline container */
+    .arabica_timeline-container {
       position: relative;
-      margin: auto;
-      display: none;
+      margin: 0 auto;
+      padding: 10px 0;
+      overflow: hidden; /* clears floated items */
+      width: 100%;
     }
 
-    .arabica_timeline::after {
-      content: "";
-      position: absolute;
-      width: 2px;
-      background-color: #003366;
-      top: 60px;
-      bottom: var(--timeline-bottom, 40px); /* Adjusts dynamically */
-      right: 50%;
-      transform: translateX(50%);
-    }
-
+    /* Icon at the top (centered) */
     .arabica_timeline-icon {
       position: relative;
       margin: 0 auto 60px;
+      width: 100px;
+      border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
-      z-index: 1;
-    }
-
-    .arabica_timeline-icon img,
-    .arabica_timeline-icon svg {
-      width: 126px;
-      height: 126px;
-    }
-
-    .arabica_timeline-container {
-      position: relative;
-      background-color: inherit;
-      width: 50%;
-    }
-
-    .arabica_timeline-container.timeline-right {
-      padding: 10px 0 10px 40px;
-      right: 4px;
-      left: auto;
-    }
-
-    .arabica_timeline-container.timeline-left {
-      padding: 10px 40px 10px 0;
-      right: 49.65%;
-      left: auto;
-    }
-
-    .content {
-      padding: 2px;
-      background-color: white;
-      position: relative;
-      border-radius: 10px;
-      box-shadow: 4px 4px 9px #00000029;
-      display: flex;
-      align-items: center;
-    }
-
-    .arabica_timeline-container::before,
-    .arabica_timeline-container::after {
-      content: "";
-      position: absolute;
-      top: 50%; /* Center vertically */
-      transform: translateY(-50%); /* Adjust for precise centering */
-    }
-
-    .arabica_timeline-container::before {
-      left: -10px;
-      width: 24px;
-      height: 24px;
-      background-color: #fff;
-      border: 2px solid #003366;
-      border-radius: 50%;
-      z-index: 1;
-    }
-
-    .arabica_timeline-container::after {
-      left: -4px;
-      width: 16px;
-      height: 16px;
-      background-color: #003366;
-      border-radius: 50%;
       z-index: 2;
     }
-
-    .timeline-left::before {
-      right: -10px;
-      left: auto;
+    .arabica_timeline-icon img {
+      max-width: 100%;
+      height: auto;
     }
 
-    .timeline-left::after {
-      right: -4px;
-      left: auto;
+    /* Vertical line using a CSS variable for its height */
+    .arabica_timeline-container::before {
+      content: "";
+      position: absolute;
+      top: 100px; /* line starts below the icon */
+      left: 50%; /* center of container */
+      width: 4px;
+      height: var(--line-height, 100%);
+      background: #17355d;
+      transform: translateX(-50%);
+      z-index: 1;
     }
 
-    .timeline-right .content {
-      flex-direction: row-reverse;
-    }
-    .timeline-right .description {
-      border-left: 2px solid #cc9933;
-      border-right: 0;
+    /* Wrap timeline items in a dedicated container */
+    .arabica_timeline-items {
+      position: relative;
     }
 
-    .year {
-      font-size: 60px;
-      font-weight: 300;
-      color: #cc9933;
-      text-align: center;
-      line-height: 0;
-      padding: 10px 20px;
+    /* Timeline items (zigzag layout) */
+    .arabica_timeline-item {
+      position: relative;
+      width: calc(50% + 70px);
+      padding: 20px;
+    }
+    /* Odd items (left side) */
+    .arabica_timeline-items .arabica_timeline-item:nth-child(odd) {
+      float: left;
+      clear: both;
+      text-align: right;
+    }
+    /* Even items (right side) */
+    .arabica_timeline-items .arabica_timeline-item:nth-child(even) {
+      float: right;
+      clear: both;
+      text-align: left;
     }
 
-    .description {
-      font-size: 16px;
-      color: #333;
-      padding: 10px;
-      border-right: 2px solid #cc9933;
-      text-align: justify;
+    /* Content box inside timeline items */
+    .arabica_timeline-item .arabica_timeline-content {
+      background: #fff;
+      border-radius: 15px;
+      position: relative;
+    }
+    /* Padding for content in even items */
+    .arabica_timeline-items
+      .arabica_timeline-item:nth-child(even)
+      .arabica_timeline-content {
+      padding: 20px 30px 20px 100px;
+      box-shadow: -9px 9px 15px rgba(0, 0, 0, 0.2);
+    }
+    /* Padding for content in odd items */
+    .arabica_timeline-items
+      .arabica_timeline-item:nth-child(odd)
+      .arabica_timeline-content {
+      padding: 20px 100px 20px 30px;
+      box-shadow: 9px 9px 15px rgba(0, 0, 0, 0.2);
     }
 
-    @media screen and (max-width: 600px) {
-      .arabica_timeline-container {
-        width: 100%;
-        padding-right: 70px;
-        padding-left: 25px;
-      }
+    /* Arrows for odd (left side) items */
+    .arabica_timeline-items
+      .arabica_timeline-item:nth-child(odd)
+      .arabica_timeline-content::before {
+      content: "";
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      right: 42px;
+      border: 8px solid #17355d;
+      border-radius: 50%;
+    }
 
-      .arabica_timeline-container::before {
-        right: 60px;
-        left: auto;
-      }
+    /* Arrows for even (right side) items */
+    .arabica_timeline-items
+      .arabica_timeline-item:nth-child(even)
+      .arabica_timeline-content::before {
+      content: "";
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      left: 42px;
+      border: 8px solid #17355d;
+      border-radius: 50%;
+    }
 
-      .timeline-right {
-        right: 0;
-        left: auto;
-      }
+    /* Year styling */
+    .arabica_timeline-item .arabica_timeline-year {
+      color: #cb9932;
+      font-size: 45px;
+      font-weight: lighter;
+      line-height: 1.4;
+    }
+    .arabica_timeline-content p {
+      font-size: 14px;
+      line-height: 1.4;
+      margin-bottom: 10px;
     }
 
     .arabica_stats-container {
@@ -194,6 +188,80 @@
     }
     /* Responsive: 2 columns on smaller screens */
     @media (max-width: 991px) {
+      .arabica_timeline {
+        padding-top: 20px;
+      }
+      .arabica_timeline-container {
+        padding: 10px 0;
+      }
+      .arabica_timeline-container::before {
+        top: 70px;
+        right: 28px;
+        width: 2px;
+      }
+      .arabica_timeline-icon {
+        margin: 0 0 20px;
+        width: 60px;
+      }
+      .arabica_timeline-item {
+        width: calc(100% - 45px);
+        padding: 10px;
+      }
+      .arabica_timeline-items
+        .arabica_timeline-item:nth-child(odd)
+        .arabica_timeline-content::before,
+      .arabica_timeline-items
+        .arabica_timeline-item:nth-child(even)
+        .arabica_timeline-content::before {
+        right: -31px;
+        left: auto;
+        border: 6px solid #17355d;
+        z-index: 3;
+        top: calc(50% - 20px);
+      }
+      .arabica_timeline-items
+        .arabica_timeline-item:nth-child(odd)
+        .arabica_timeline-content::after,
+      .arabica_timeline-items
+        .arabica_timeline-item:nth-child(even)
+        .arabica_timeline-content::after {
+        content: "";
+        right: -35px;
+        left: auto;
+        border: 1px solid #17355d;
+        border-radius: 50%;
+        background-color: #ffffff;
+        width: 18px;
+        height: 18px;
+        position: absolute;
+        top: calc(50% - 20px);
+        transform: translateY(-50%);
+        z-index: 2;
+      }
+
+      .arabica_timeline-items .arabica_timeline-item:nth-child(even) {
+        float: left;
+        text-align: right;
+      }
+      .arabica_timeline-item .arabica_timeline-content {
+        border-radius: 10px;
+      }
+      .arabica_timeline-items
+        .arabica_timeline-item:nth-child(odd)
+        .arabica_timeline-content,
+      .arabica_timeline-items
+        .arabica_timeline-item:nth-child(even)
+        .arabica_timeline-content {
+        padding: 20px 30px 15px 30px;
+        box-shadow: 4px 4px 9px rgba(0, 0, 0, 0.2);
+      }
+      .arabica_timeline-item .arabica_timeline-year {
+        font-size: 35px;
+      }
+      .arabica_timeline-content p {
+        font-size: 12px;
+        margin-bottom: 5px;
+      }
       .arabica_stats-container {
         grid-template-columns: repeat(2, 1fr); /* 2 columns on mobile */
       }
@@ -222,6 +290,14 @@
     @media (max-width: 767px) {
       .arabica_stats-container {
         gap: 40px;
+      }
+      .arabica_timeline-items
+        .arabica_timeline-item:nth-child(odd)
+        .arabica_timeline-content,
+      .arabica_timeline-items
+        .arabica_timeline-item:nth-child(even)
+        .arabica_timeline-content {
+        padding: 20px 20px 15px 20px;
       }
     }
     .cls-10 {
@@ -493,72 +569,67 @@
               ويُعدّ هذا الكتاب دراسةً في اقتصاديات الطاقة المتجددة، ودور الطاقة
               في .
             </p>
-          </div>
-
-          <div class="arabica_timeline">
-            <div class="arabica_timeline-icon">
-              <img src="Assets/images/Arabica-about-logo.png" alt="Logo" />
-            </div>
-
-            <div class="arabica_timeline-container timeline-right">
-              <div class="content">
-                <div class="year">2015</div>
-                <div class="description">
-                  هنا نص تجريبي يمكن استبداله بمحتوى آخر حسب الحاجة.
+            <div class="arabica_timeline">
+              <h2>الخط الزمنيي <span> لتطور العمل في الموسوعة</span></h2>
+              <div class="arabica_timeline-container">
+                <!-- Top Icon -->
+                <div class="arabica_timeline-icon">
+                  <img src="Assets/images/Arabica-about-logo.png" alt="Logo" />
                 </div>
-              </div>
-            </div>
 
-            <div class="arabica_timeline-container timeline-left">
-              <div class="content">
-                <div class="year">2017</div>
-                <div class="description">
-                  هنا نص تجريبي يمكن استبداله بمحتوى آخر حسب الحاجة.
-                </div>
-              </div>
-            </div>
+                <!-- Timeline Items Wrapper -->
+                <div class="arabica_timeline-items">
+                  <!-- Timeline Item 1 (automatically odd → left) -->
+                  <div class="arabica_timeline-item">
+                    <div class="arabica_timeline-content">
+                      <div class="arabica_timeline-year">2022</div>
+                      <p>
+                        حصد المركز العربي للأدب بالتعاون مع وزارة الثقافة كأس
+                        التصفيات الثقافية المتحدة في المعرض الدولي وهذه هي المرة
+                        الأولى التي تحصدها التصفيات الثقافية على مستوى دول آسيا
+                        ودول عربية وصور عديدة.
+                      </p>
+                    </div>
+                  </div>
 
-            <div class="arabica_timeline-container timeline-right">
-              <div class="content">
-                <div class="year">2018</div>
-                <div class="description">
-                  هنا نص تجريبي يمكن استبداله بمحتوى آخر حسب الحاجة.
-                </div>
-              </div>
-            </div>
+                  <!-- Timeline Item 2 (automatically even → right) -->
+                  <div class="arabica_timeline-item">
+                    <div class="arabica_timeline-content">
+                      <div class="arabica_timeline-year">2022</div>
+                      <p>
+                        حصد المركز العربي للأدب بالتعاون مع وزارة الثقافة كأس
+                        التصفيات الثقافية المتحدة في المعرض الدولي وهذه هي المرة
+                        الأولى التي تحصدها التصفيات الثقافية على مستوى دول آسيا
+                        ودول عربية وصور عديدة.
+                      </p>
+                    </div>
+                  </div>
 
-            <div class="arabica_timeline-container timeline-left">
-              <div class="content">
-                <div class="year">2019</div>
-                <div class="description">
-                  هنا نص تجريبي يمكن استبداله بمحتوى آخر حسب الحاجة.
-                </div>
-              </div>
-            </div>
+                  <!-- Timeline Item 3 (odd → left) -->
+                  <div class="arabica_timeline-item">
+                    <div class="arabica_timeline-content">
+                      <div class="arabica_timeline-year">2022</div>
+                      <p>
+                        حصد المركز العربي للأدب بالتعاون مع وزارة الثقافة كأس
+                        التصفيات الثقافية المتحدة في المعرض الدولي وهذه هي المرة
+                        الأولى التي تحصدها التصفيات الثقافية على مستوى دول آسيا
+                        ودول عربية وصور عديدة.
+                      </p>
+                    </div>
+                  </div>
 
-            <div class="arabica_timeline-container timeline-right">
-              <div class="content">
-                <div class="year">2020</div>
-                <div class="description">
-                  هنا نص تجريبي يمكن استبداله بمحتوى آخر حسب الحاجة.
-                </div>
-              </div>
-            </div>
-
-            <div class="arabica_timeline-container timeline-left">
-              <div class="content">
-                <div class="year">2021</div>
-                <div class="description">
-                  هنا نص تجريبي يمكن استبداله بمحتوى آخر حسب الحاجة.
-                </div>
-              </div>
-            </div>
-
-            <div class="arabica_timeline-container timeline-right">
-              <div class="content">
-                <div class="year">2022</div>
-                <div class="description">
-                  هنا نص تجريبي يمكن استبداله بمحتوى آخر حسب الحاجة.
+                  <!-- Timeline Item 4 (even → right) -->
+                  <div class="arabica_timeline-item">
+                    <div class="arabica_timeline-content">
+                      <div class="arabica_timeline-year">2022</div>
+                      <p>
+                        حصد المركز العربي للأدب بالتعاون مع وزارة الثقافة كأس
+                        التصفيات الثقافية المتحدة في المعرض الدولي وهذه هي المرة
+                        الأولى التي تحصدها التصفيات الثقافية على مستوى دول آسيا
+                        ودول عربية وصور عديدة.
+                      </p>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -1225,6 +1296,27 @@
         </div>
       </div>
     </div>
+    <script>
+      function updateLineHeight() {
+        const container = document.querySelector(".arabica_timeline-container");
+        // Select the last timeline item's content element.
+        const lastContent = container.querySelector(
+          ".arabica_timeline-items .arabica_timeline-item:last-of-type .arabica_timeline-content"
+        );
+        const containerRect = container.getBoundingClientRect();
+        const lastRect = lastContent.getBoundingClientRect();
+        // Calculate the target bottom position: half the height of the last content added to its top,
+        // relative to the container.
+        const targetBottom =
+          lastRect.top - containerRect.top + lastRect.height / 2;
+        // The vertical line starts at 100px; subtract that offset.
+        const newHeight = targetBottom - 100;
+        container.style.setProperty("--line-height", newHeight + "px");
+      }
+
+      window.addEventListener("load", updateLineHeight);
+      window.addEventListener("resize", updateLineHeight);
+    </script>
 
     <!-- Content End -->
     <footer class="arabica_footer">
