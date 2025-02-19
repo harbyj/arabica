@@ -144,6 +144,7 @@
       font-size: 14px;
       line-height: 1.4;
       margin-bottom: 10px;
+      color: #787878;
     }
 
     .arabica_stats-container {
@@ -298,6 +299,46 @@
         .arabica_timeline-item:nth-child(even)
         .arabica_timeline-content {
         padding: 20px 20px 15px 20px;
+      }
+      .arabica_timeline-container::before {
+        top: 65px;
+        right: 23px;
+        width: 2px;
+      }
+      .arabica_timeline-icon {
+        margin: 0 0 10px;
+        width: 50px;
+      }
+      .arabica_timeline-item {
+        width: calc(100% - 40px);
+        padding: 10px;
+      }
+      .arabica_timeline-items
+        .arabica_timeline-item:nth-child(odd)
+        .arabica_timeline-content::before,
+      .arabica_timeline-items
+        .arabica_timeline-item:nth-child(even)
+        .arabica_timeline-content::before {
+        right: -29px;
+        border: 4px solid #17355d;
+        top: calc(50% - 20px);
+      }
+      .arabica_timeline-items
+        .arabica_timeline-item:nth-child(odd)
+        .arabica_timeline-content::after,
+      .arabica_timeline-items
+        .arabica_timeline-item:nth-child(even)
+        .arabica_timeline-content::after {
+        content: "";
+        right: -33px;
+        border: 1px solid #17355d;
+        width: 14px;
+        height: 14px;
+        top: calc(50% - 20px);
+      }
+
+      .arabica_timeline-item .arabica_timeline-year {
+        font-size: 30px;
       }
     }
     .cls-10 {
@@ -1310,7 +1351,7 @@
         const targetBottom =
           lastRect.top - containerRect.top + lastRect.height / 2;
         // The vertical line starts at 100px; subtract that offset.
-        const newHeight = targetBottom - 100;
+        const newHeight = targetBottom - 93;
         container.style.setProperty("--line-height", newHeight + "px");
       }
 
