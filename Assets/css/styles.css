@@ -938,6 +938,13 @@ span.arabica_date {
 }
 /* Responsive Adjustments */
 @media (max-width: 991px) {
+  .arabica_about {
+    padding: 40px 0 50px 0;
+  }
+  .arabica_about-inner {
+    text-align: center;
+    padding: 50px 0;
+  }
   .arabica_footer-text {
     font-size: 12px;
   }
