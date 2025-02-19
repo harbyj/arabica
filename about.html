@@ -384,6 +384,70 @@
     .cls-12 {
       fill: #ca9831;
     }
+
+    .arabica_stages-container {
+      width: 80%;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    /* Top icon circle */
+    .arabica_stages-icon {
+      position: relative;
+      width: 100px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 20px;
+    }
+
+    /* Each box in the flowchart */
+    .arabica_stages-box {
+      margin: 0 auto;
+      margin-bottom: 10px;
+      padding: 10px;
+      border: 2px solid #0a3f5f;
+      border-radius: 14px;
+      color: #0a3f5f;
+      font-size: 1.2rem;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .arabica_stages-text {
+      background-color: #ffffff;
+      text-align: center;
+      padding: 10px;
+      color: #cb9932;
+      font-size: 12px;
+      border-radius: 7px;
+      box-shadow: 4px 4px 9px rgba(0, 0, 0, 0.2);
+      font-weight: bold;
+    }
+
+    /* Connector: line + arrow */
+    .arabica_stages-connector {
+      margin: 0 auto 10px;
+      text-align: center;
+    }
+
+    /* Straight vertical line */
+    .arabica_stages-line {
+      width: 4px;
+      background-color: #0a3f5f;
+      height: 15px;
+      margin: 0 auto;
+    }
+
+    /* Downward arrow */
+    .arabica_stages-arrow {
+      width: 0;
+      height: 0;
+      margin: 0 auto;
+      border-left: 8px solid transparent;
+      border-right: 8px solid transparent;
+      border-top: 12px solid #0a3f5f;
+    }
   </style>
   <body>
     <header class="header">
@@ -718,6 +782,51 @@
         <div class="arabica_fit-container arabica_container">
           <h2>مراحل انتاج المداخل اموسوعية</h2>
           <div class="arabica_about-stages">
+            <div class="arabica_stages-container">
+              <!-- Top Icon -->
+              <div class="arabica_stages-icon">
+                <img src="Assets/images/Arabica-about-logo.png" alt="Logo" />
+              </div>
+
+              <!-- Box 1 -->
+              <div class="arabica_stages-box">
+                <div class="arabica_stages-text">تكليف الكاتب المختص</div>
+              </div>
+
+              <!-- Connector (Line + Arrow) -->
+              <div class="arabica_stages-connector">
+                <div class="arabica_stages-line"></div>
+                <div class="arabica_stages-arrow"></div>
+              </div>
+
+              <!-- Box 2 -->
+              <div class="arabica_stages-box">
+                <div class="arabica_stages-text">تكليف الكاتب المختص</div>
+              </div>
+
+              <!-- Connector (Line + Arrow) -->
+              <div class="arabica_stages-connector">
+                <div class="arabica_stages-line"></div>
+                <div class="arabica_stages-arrow"></div>
+              </div>
+
+              <!-- Box 3 -->
+              <div class="arabica_stages-box">
+                <div class="arabica_stages-text">تكليف الكاتب المختص</div>
+              </div>
+
+              <!-- Connector (Line + Arrow) -->
+              <div class="arabica_stages-connector">
+                <div class="arabica_stages-line"></div>
+                <div class="arabica_stages-arrow"></div>
+              </div>
+
+              <!-- Box 4 -->
+              <div class="arabica_stages-box">
+                <div class="arabica_stages-text">تكليف الكاتب المختص</div>
+              </div>
+            </div>
+
             <svg
               class="arabica_stages"
               xmlns="http://www.w3.org/2000/svg"
