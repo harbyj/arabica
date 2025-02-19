@@ -16,8 +16,11 @@
       width: 100%;
       padding-top: 60px;
     }
-    .arabica_timeline h2 {
-      text-align: center;
+    @media (min-width: 992px) {
+      .arabica_timeline h2 {
+        text-align: center;
+        margin: 0 0 20px 0;
+      }
     }
     .arabica_timeline h2 span {
       display: block;
@@ -36,7 +39,7 @@
     /* Icon at the top (centered) */
     .arabica_timeline-icon {
       position: relative;
-      margin: 0 auto 60px;
+      margin: 0 auto;
       width: 100px;
       border-radius: 50%;
       display: flex;
@@ -54,7 +57,7 @@
     .arabica_timeline-container::before {
       content: "";
       position: absolute;
-      top: 100px; /* line starts below the icon */
+      top: 125px; /* line starts below the icon */
       left: 50%; /* center of container */
       width: 4px;
       height: var(--line-height, 100%);
@@ -188,8 +191,21 @@
         max-width: 70%;
       }
     }
+    .header-row {
+      margin-bottom: 60px;
+    }
     /* Responsive: 2 columns on smaller screens */
     @media (max-width: 991px) {
+      .header-row {
+        margin-bottom: 20px;
+      }
+      .arabica_timeline h2 {
+        font-size: 21px;
+        font-weight: bold;
+      }
+      .arabica_timeline h2 span {
+        font-size: 12px;
+      }
       .arabica_timeline {
         padding-top: 20px;
       }
@@ -202,7 +218,7 @@
         width: 2px;
       }
       .arabica_timeline-icon {
-        margin: 0 0 20px;
+        margin: 0 0 0 15px;
         width: 60px;
       }
       .arabica_timeline-item {
@@ -288,8 +304,21 @@
       .arabica_about-bottom {
         padding: 60px 0;
       }
+      .header-row {
+        display: flex;
+        align-items: center;
+        flex-direction: row-reverse;
+        float: right;
+      }
+
+      .header-row h2 {
+        margin: 0; /* optional: remove default margins */
+      }
     }
     @media (max-width: 767px) {
+      .header-row {
+        margin-bottom: 15px;
+      }
       .arabica_stats-container {
         gap: 40px;
       }
@@ -310,7 +339,6 @@
         width: 2px;
       }
       .arabica_timeline-icon {
-        margin: 0 0 15px;
         width: 55px;
       }
       .arabica_timeline-item {
@@ -615,11 +643,16 @@
               في .
             </p>
             <div class="arabica_timeline">
-              <h2>الخط الزمنيي <span> لتطور العمل في الموسوعة</span></h2>
               <div class="arabica_timeline-container">
                 <!-- Top Icon -->
-                <div class="arabica_timeline-icon">
-                  <img src="Assets/images/Arabica-about-logo.png" alt="Logo" />
+                <div class="header-row">
+                  <h2>الخط الزمنيي <span> لتطور العمل في الموسوعة</span></h2>
+                  <div class="arabica_timeline-icon">
+                    <img
+                      src="Assets/images/Arabica-about-logo.png"
+                      alt="Logo"
+                    />
+                  </div>
                 </div>
 
                 <!-- Timeline Items Wrapper -->
@@ -1366,7 +1399,7 @@
         } else {
           // Desktop view (min-width 992px): default behavior.
           targetBottom = lastRect.top - containerRect.top + lastRect.height / 2;
-          startOffset = 100;
+          startOffset = 125;
         }
 
         const newHeight = targetBottom - startOffset;

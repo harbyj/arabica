@@ -959,7 +959,8 @@ span.arabica_date {
 
   .arabica_main-about h3,
   .arabica_title,
-  .arabica_about-inner h2 {
+  .arabica_about-inner h2,
+  .arabica_timeline h2 {
     font-size: 21px;
     font-weight: bold;
   }
