@@ -4728,6 +4728,10 @@ video {
   }
 }
 @media (max-width: 767px) {
+  .arabica_article_lightbox-gallery-grid {
+    gap: 5px;
+    padding: 5px;
+  }
   .arabica_side-content {
     width: 80%;
   }

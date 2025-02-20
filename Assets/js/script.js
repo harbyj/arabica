@@ -80,26 +80,45 @@ document.addEventListener("click", function (event) {
     });
   }
 });
-
 (function () {
-  // Function to prevent scroll events when body has the "no-scroll" class
-  function preventScroll(e) {
-    if (document.body.classList.contains("no-scroll")) {
+  // Define an array of selectors for allowed scrollable elements
+  const allowedSelectors = [
+    ".modal",
+    ".arabica_mobile_nav",
+    ".arabica_side-content",
+    ".arabica_article_lightbox",
+  ];
+
+  // Helper function: returns true if the event target is within any allowed container.
+  function isInsideAllowedContainer(e) {
+    return allowedSelectors.some((selector) => e.target.closest(selector));
+  }
+
+  function preventOuterScroll(e) {
+    // Only prevent scroll if the body has the no-scroll class
+    // and the event target is NOT inside one of the allowed containers
+    if (
+      document.body.classList.contains("no-scroll") &&
+      !isInsideAllowedContainer(e)
+    ) {
       e.preventDefault();
     }
   }
 
-  // Prevent scrolling from mouse wheel/trackpad actions
-  window.addEventListener("wheel", preventScroll, { passive: false });
+  // Prevent scrolling from mouse wheel/trackpad actions on the outer body
+  window.addEventListener("wheel", preventOuterScroll, { passive: false });
 
-  // Prevent scrolling on touch devices
-  window.addEventListener("touchmove", preventScroll, { passive: false });
+  // Prevent scrolling on touch devices outside of allowed containers
+  window.addEventListener("touchmove", preventOuterScroll, { passive: false });
 
-  // Prevent scrolling from key presses (Arrow keys, PageUp/PageDown, and Spacebar)
+  // Prevent scrolling from key presses (e.g., arrow keys) when the body is set to no-scroll
   window.addEventListener(
     "keydown",
     function (e) {
-      if (document.body.classList.contains("no-scroll")) {
+      if (
+        document.body.classList.contains("no-scroll") &&
+        !isInsideAllowedContainer(e)
+      ) {
         const scrollKeys = ["ArrowUp", "ArrowDown", "PageUp", "PageDown", " "];
         if (scrollKeys.includes(e.key)) {
           e.preventDefault();
