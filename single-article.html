@@ -727,6 +727,7 @@
     </span>
 
     <script>
+      /* jshint esversion: 6 */
       document.addEventListener("DOMContentLoaded", function () {
         const contentContainer = document.querySelector(
           ".arabica_article-content"
@@ -785,6 +786,7 @@
     </script>
 
     <script>
+      /* jshint esversion: 6 */
       document.addEventListener("DOMContentLoaded", function () {
         /* ==================== Citation Conversion & DOM Rearrangement ==================== */
 
@@ -1119,6 +1121,7 @@
     </script>
 
     <script>
+      /* jshint esversion: 6 */
       document.addEventListener("DOMContentLoaded", function () {
         // Function to create and inject controls
         function injectControls() {
@@ -1394,10 +1397,11 @@
     </script>
 
     <script>
+      /* jshint esversion: 6 */
       document.addEventListener("DOMContentLoaded", () => {
         /* ------------------------------
-       GLOBAL LIGHTBOX SETUP
-    ------------------------------ */
+           GLOBAL LIGHTBOX SETUP
+        ------------------------------ */
         const lightbox = document.createElement("div");
         lightbox.classList.add("arabica_article_lightbox");
 
@@ -1407,10 +1411,10 @@
         const closeBtn = document.createElement("span");
         closeBtn.classList.add("arabica_article_close-btn");
         closeBtn.innerHTML = `
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
-        <path fill="#ffffff" d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
-      </svg>
-    `;
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+              <path fill="#ffffff" d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+            </svg>
+          `;
 
         const lightboxImg = document.createElement("img");
         lightboxImg.id = "lightbox-img";
@@ -1425,10 +1429,10 @@
           "arabica_article_lightbox-nav-prev"
         );
         prevLightboxBtn.innerHTML = `
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
-        <path fill="#ffffff" d="M15.41 16.59L10.83 12l4.58-4.59L14 6l-6 6 6 6z"/>
-      </svg>
-    `;
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+              <path fill="#ffffff" d="M15.41 16.59L10.83 12l4.58-4.59L14 6l-6 6 6 6z"/>
+            </svg>
+          `;
 
         const nextLightboxBtn = document.createElement("button");
         nextLightboxBtn.classList.add(
@@ -1436,10 +1440,10 @@
           "arabica_article_lightbox-nav-next"
         );
         nextLightboxBtn.innerHTML = `
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
-        <path fill="#ffffff" d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6z"/>
-      </svg>
-    `;
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+              <path fill="#ffffff" d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6z"/>
+            </svg>
+          `;
 
         const galleryGrid = document.createElement("div");
         galleryGrid.classList.add("arabica_article_lightbox-gallery-grid");
@@ -1601,8 +1605,8 @@
         });
 
         /* ------------------------------
-       GALLERY SLIDER SETUP WITH DYNAMIC HEIGHTS
-    ------------------------------ */
+           GALLERY SLIDER SETUP WITH DYNAMIC HEIGHTS
+        ------------------------------ */
         document
           .querySelectorAll(".arabica_article-image")
           .forEach((container) => {
@@ -1624,18 +1628,18 @@
               prevSliderBtn.className =
                 "arabica_article_slider-nav arabica_article_slider-prev";
               prevSliderBtn.innerHTML = `
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
-            <path fill="#ffffff" d="M15.41 16.59L10.83 12l4.58-4.59L14 6l-6 6 6 6z"/>
-          </svg>
-        `;
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+                  <path fill="#ffffff" d="M15.41 16.59L10.83 12l4.58-4.59L14 6l-6 6 6 6z"/>
+                </svg>
+              `;
               const nextSliderBtn = document.createElement("button");
               nextSliderBtn.className =
                 "arabica_article_slider-nav arabica_article_slider-next";
               nextSliderBtn.innerHTML = `
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
-            <path fill="#ffffff" d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6z"/>
-          </svg>
-        `;
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+                  <path fill="#ffffff" d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6z"/>
+                </svg>
+              `;
               slider.appendChild(prevSliderBtn);
               slider.appendChild(nextSliderBtn);
 
@@ -1653,15 +1657,15 @@
                 }px)`;
               };
 
-              function updateSliderHeight() {
+              const updateSliderHeight = () => {
                 const currentSlideElement =
                   sliderWrapper.children[currentSlide];
                 if (currentSlideElement) {
                   slider.style.height = currentSlideElement.offsetHeight + "px";
                 }
-              }
+              };
 
-              function updateNavButtonsPosition() {
+              const updateNavButtonsPosition = () => {
                 const currentSlideElement =
                   sliderWrapper.children[currentSlide];
                 if (currentSlideElement) {
@@ -1676,14 +1680,14 @@
                     nextSliderBtn.style.top = navCenter + "px";
                   }
                 }
-              }
+              };
 
-              function updateSliderLayout() {
+              const updateSliderLayout = () => {
                 sliderWidth = slider.offsetWidth;
                 setSliderPosition();
                 updateSliderHeight();
                 updateNavButtonsPosition();
-              }
+              };
 
               // Initialize slider with natural heights
               slider.style.height =
@@ -1784,6 +1788,7 @@
     </script>
 
     <script>
+      /* jshint esversion: 6 */
       document.addEventListener("DOMContentLoaded", function () {
         /* ========= Side Content Open/Close ========= */
         const toggleBtn = document.querySelector(".arabica_floating-btn");
