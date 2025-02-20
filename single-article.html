@@ -10,830 +10,6 @@
       href="Assets/fonts/font-awesome/css/all.min.css"
       media="all"
     />
-    <style>
-      @media (min-width: 992px) {
-        .arabica_column-container {
-          display: flex;
-          flex-direction: row-reverse;
-          gap: 30px; /* Adjust the gap size */
-          padding-top: 60px;
-          padding-bottom: 60px;
-        }
-
-        .arabica_left-column {
-          flex: 1; /* Takes up the remaining space */
-        }
-        .arabica_right-column-15 {
-          width: 15%;
-        }
-        .arabica_right-column-20 {
-          width: 20%;
-        }
-
-        .arabica_right-column-25 {
-          width: 25%;
-        }
-
-        .arabica_right-column-30 {
-          width: 30%;
-        }
-        .arabica_floating-btn,
-        .arabica_close-button {
-          display: none;
-        }
-      }
-      .arabica_table-of-content {
-        border: 1px solid #c7c8ca;
-        padding: 20px 15px;
-        color: #4d4d4f;
-        border-radius: 8px;
-      }
-      .arabica_table-of-content h2 {
-        font-weight: bold;
-        color: #4d4d4f;
-      }
-      .arabica_article-category {
-        font-weight: bold;
-        margin-top: -6px;
-      }
-      .arabica_article .arabica_article-subtitle {
-        font-size: 25px;
-        margin-bottom: 15px;
-      }
-      .arabica_article h1 {
-        margin: 0;
-        padding: 0;
-      }
-      .arabica_article-meta-wrapper {
-        background-color: #f3f3f3;
-        border-radius: 15px;
-        margin: 20px 0 30px 0;
-        padding: 20px 30px;
-      }
-      .arabica_author-separator {
-        margin-left: 5px;
-      }
-      .arabica_article .arabica_article-author {
-        margin-left: 5px;
-        font-size: 16px;
-      }
-      .arabica_article .arabica_article-author-wrapper {
-        color: #999999;
-        margin: 0 0 5px 0;
-      }
-      .arabica_article .arabica_article-author-wrapper a {
-        text-decoration: underline;
-      }
-      .arabica_article .arabica_article-read,
-      .arabica_article .arabica_article-date {
-        color: #333333;
-      }
-      .arabica_article .arabica_article-date {
-        margin-left: 30px;
-      }
-      .arabica_article-content hr,
-      .arabica_news-content hr {
-        margin-bottom: 15px;
-      }
-      .arabica_article-foot-wrapper {
-        background-color: #f8f8f8;
-        color: #333333;
-      }
-      .arabica_article-video,
-      .arabica_article-image,
-      .arabica_news-video,
-      .arabica_news-image {
-        margin-bottom: 15px;
-      }
-
-      .video-container {
-        background-color: #000000;
-        position: relative;
-        overflow: hidden;
-        margin-bottom: 10px;
-        width: 100%;
-      }
-
-      .video-container iframe {
-        width: 100%;
-        aspect-ratio: 16 / 9;
-        display: block;
-      }
-
-      .video-container video {
-        width: 100%;
-        aspect-ratio: 137 / 69;
-        display: block;
-      }
-
-      video {
-        width: 100%;
-        display: block;
-        cursor: pointer;
-      }
-
-      .controls {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        background: #17355d;
-        padding: 10px;
-        color: white;
-        flex-direction: row-reverse;
-        position: relative;
-        z-index: 2;
-      }
-
-      .play-btn,
-      .restart-btn,
-      .fullscreen-btn,
-      .volume-btn {
-        cursor: pointer;
-        background: none;
-        border: none;
-        color: white;
-        margin: 0 5px;
-        padding: 5px;
-      }
-
-      .icon {
-        width: 24px;
-        height: 24px;
-        fill: currentColor;
-      }
-
-      .progress-container {
-        flex: 1;
-        height: 5px;
-        background: rgba(255, 255, 255, 0.4);
-        margin: 0 10px;
-        cursor: pointer;
-        position: relative;
-        direction: ltr;
-      }
-
-      .progress-bar {
-        height: 100%;
-        width: 0%;
-        background: white;
-      }
-
-      .time {
-        font-size: 14px;
-      }
-
-      .skip-indicator {
-        position: absolute;
-        top: 50%;
-        transform: translateY(-50%);
-        font-size: 14px;
-        color: white;
-        background: rgba(0, 0, 0, 0.6);
-        padding: 10px;
-        border-radius: 5px;
-        display: none;
-        align-items: center;
-        gap: 8px;
-      }
-
-      .left-indicator {
-        left: 20px;
-      }
-      .right-indicator {
-        right: 20px;
-      }
-
-      .play-pause-indicator {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        color: white;
-        background: rgba(0, 0, 0, 0.6);
-        padding: 20px;
-        border-radius: 50%;
-        display: none;
-        animation: fadeInOut 1s ease-in-out;
-        cursor: pointer;
-      }
-
-      .play-pause-indicator svg {
-        width: 40px;
-        height: 40px;
-        fill: currentColor;
-      }
-
-      @keyframes fadeInOut {
-        0% {
-          opacity: 0;
-        }
-        50% {
-          opacity: 1;
-        }
-        100% {
-          opacity: 0;
-        }
-      }
-
-      .volume-btn {
-        margin-left: 10px;
-      }
-
-      .volume-btn .slash {
-        display: none;
-        stroke: currentColor;
-        stroke-width: 2;
-      }
-
-      .volume-btn.muted .slash {
-        display: block;
-      }
-
-      .arabica_article-references {
-        padding: 0;
-      }
-      .arabica_article-sources {
-        border-top: 1px solid #cccccc;
-        margin-top: 30px;
-        padding: 20px 0 10px 0;
-      }
-      [lang="en"] {
-        direction: ltr;
-        text-align: left;
-      }
-      .arabica_article-foot-wrapper p,
-      .arabica_article-foot-wrapper li,
-      .arabica_article-sources li,
-      .arabica_article-references p {
-        margin-bottom: 7px;
-        font-size: 14px;
-      }
-      .arabica_article-foot-wrapper h2,
-      .arabica_article-sources h2,
-      .arabica_article-references h2 {
-        color: #333333;
-      }
-      .arabica_article-sources ol {
-        list-style-type: none; /* Remove default numbering */
-        counter-reset: list-counter; /* Initialize counter */
-        padding: 0; /* Remove default padding */
-      }
-
-      .arabica_article-sources li {
-        counter-increment: list-counter; /* Increment counter */
-        position: relative;
-      }
-
-      .arabica_article-sources li::before {
-        content: counter(list-counter) "- ";
-      }
-
-      .toc-section {
-        border-bottom: 1px solid #ccc;
-        margin-bottom: 10px;
-        padding-bottom: 5px;
-      }
-
-      .toc-section:last-child {
-        border-bottom: none;
-        margin-bottom: 0;
-        padding-bottom: 0;
-      }
-
-      .toc-link {
-        display: block;
-        font-size: 16px;
-        font-weight: bold;
-        color: #4d4d4f;
-        text-decoration: none;
-        padding: 3px 0;
-        position: relative;
-      }
-
-      .toc-link:not(.toc-indent)::before {
-        content: "\f053"; /* Font Awesome right chevron */
-        font-family: "Font Awesome 6 Pro";
-        font-weight: 900;
-        font-size: 11px;
-        color: #4d4d4f;
-        padding: 0 0 0 13px;
-      }
-
-      .toc-indent {
-        font-size: 14px;
-        font-weight: normal;
-        color: #4d4d4f;
-        padding-right: 35px;
-      }
-
-      /* Slider container */
-      .arabica_article_slider {
-        position: relative;
-        overflow: hidden;
-      }
-      /* Slider wrapper (normal flex-direction row) */
-      .arabica_article_slider_wrapper {
-        display: flex;
-        transition: transform 0.3s ease-in-out;
-        flex-direction: row-reverse;
-      }
-      .arabica_article-image-gallery {
-        flex: 0 0 100%;
-        box-sizing: border-box; /* Set your desired width */
-      }
-      /* Images (for both slider items and single-image case) */
-      .arabica_article-image-gallery img,
-      .arabica_article-image > a img {
-        width: 100%;
-        object-fit: cover;
-        aspect-ratio: 177 / 90;
-      }
-      /* Slider navigation buttons */
-      .arabica_article_slider-nav {
-        position: absolute;
-        top: 50%;
-        transform: translateY(-50%);
-        background: rgba(0, 0, 0, 0.5);
-        padding: 4px;
-        cursor: pointer;
-        border-radius: 50%;
-        width: 30px;
-        height: 30px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        transition: background 0.3s ease;
-        z-index: 10;
-        border: 1px solid #ffffff;
-      }
-      .arabica_article_slider-nav:hover {
-        background: rgba(0, 0, 0, 0.8);
-      }
-      /* In LTR, place Prev on the left and Next on the right */
-      .arabica_article_slider-prev {
-        left: 10px;
-      }
-      .arabica_article_slider-next {
-        right: 10px;
-      }
-      /* ================================
-         Lightbox Global Styles
-      ================================ */
-      .arabica_article_lightbox {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0, 0, 0, 0.8);
-        backdrop-filter: blur(5px);
-        justify-content: center;
-        align-items: center;
-        z-index: 40;
-        opacity: 0;
-        visibility: hidden;
-        transition: opacity 0.4s ease, transform 0.4s ease;
-      }
-      .arabica_article_lightbox.active {
-        display: flex;
-        opacity: 1;
-        visibility: visible;
-      }
-      .arabica_article_lightbox-content {
-        position: relative;
-        max-width: 90%;
-        max-height: 90%;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        transform: scale(0.9);
-        transition: transform 0.4s ease-in-out;
-      }
-      .arabica_article_lightbox-content img {
-        max-width: 100%;
-        max-height: 65vh;
-        cursor: pointer;
-      }
-      .arabica_article_lightbox-caption {
-        text-align: center;
-        color: #fff;
-        margin-top: 10px;
-        font-size: 16px;
-      }
-      .arabica_article_lightbox-nav {
-        position: absolute;
-        top: 50%;
-        transform: translateY(-50%);
-        background: rgba(0, 0, 0, 0.5);
-        border: none;
-        padding: 10px;
-        cursor: pointer;
-        border-radius: 50%;
-        width: 40px;
-        height: 40px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        transition: transform 0.3s ease;
-      }
-      .arabica_article_lightbox-nav:hover {
-        background: rgba(0, 0, 0, 0.8);
-      }
-      /* In LTR lightbox, place Prev on left, Next on right */
-      .arabica_article_lightbox-nav-prev {
-        left: -50px;
-      }
-      .arabica_article_lightbox-nav-next {
-        right: -50px;
-      }
-      .arabica_article_lightbox-gallery-grid {
-        position: fixed;
-        bottom: 20px;
-        display: flex;
-        gap: 10px;
-        background: rgba(0, 0, 0, 0.5);
-        padding: 10px;
-        border-radius: 5px;
-        flex-direction: row-reverse;
-      }
-      .arabica_article_lightbox-gallery-grid img {
-        width: 50px;
-        height: 50px;
-        object-fit: cover;
-        border-radius: 5px;
-        cursor: pointer;
-        opacity: 0.7;
-        transition: opacity 0.3s ease;
-      }
-      .arabica_article_lightbox-gallery-grid img:hover {
-        opacity: 1;
-      }
-      .arabica_article_lightbox-gallery-grid img.active {
-        opacity: 1;
-        border: 2px solid #fff;
-      }
-      .arabica_article_close-btn {
-        position: absolute;
-        top: 20px;
-        right: 20px;
-        cursor: pointer;
-        background: rgba(0, 0, 0, 0.7);
-        border-radius: 50%;
-        width: 40px;
-        height: 40px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        transition: background 0.3s ease;
-      }
-      .arabica_article_close-btn:hover {
-        background: rgba(0, 0, 0, 0.9);
-      }
-      #lightbox-img {
-        transition: opacity 0.3s ease;
-        opacity: 1;
-      }
-
-      .arabica_article-content p > img {
-        float: right;
-        max-width: 100%;
-        height: auto;
-        margin: 7px 0 15px 15px !important;
-      }
-      @media (max-width: 991px) {
-        .float-right-40,
-        .float-right-45,
-        .float-right-50 {
-          width: 100%;
-          margin-left: 0;
-          margin-bottom: 15px;
-        }
-        .float-left-40,
-        .float-left-45,
-        .float-left-50 {
-          width: 100%;
-          margin-right: 0;
-          margin-bottom: 15px;
-        }
-        .arabica_article-content p > img {
-          width: 100% !important;
-          height: auto !important;
-          margin: 0 0 15px 0 !important;
-        }
-      }
-      .arabica_article_lightbox.active {
-        transform: translateY(0);
-      }
-
-      .arabica_article_lightbox.active .arabica_article_lightbox-content {
-        transform: scale(1);
-      }
-      /* Style for the reference icon that replaces {ref=[...]} */
-      .arabica_ref-icon {
-        display: inline-block;
-        color: #cc9933;
-        line-height: 18px;
-        cursor: pointer;
-        vertical-align: middle;
-        user-select: none;
-        display: inline-grid;
-        align-items: center;
-        justify-items: center;
-      }
-
-      /* Place both icons in the same grid cell */
-      .arabica_ref-icon i {
-        grid-area: 1 / 1;
-        transition: none; /* Remove any transitions */
-      }
-
-      /* Visible icon */
-      .icon-light.active,
-      .icon-solid.active {
-        opacity: 1;
-        pointer-events: auto;
-      }
-
-      /* Hidden icon */
-      .icon-light.inactive,
-      .icon-solid.inactive {
-        opacity: 0;
-        pointer-events: none;
-      }
-
-      /* The dropdown container */
-      .arabica_ref-dropdown {
-        position: absolute;
-        min-width: 270px;
-        max-width: 370px;
-        background-color: #ffffff;
-        border-radius: 20px;
-        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.25);
-        padding: 10px 14px;
-        z-index: 25; /* Stay above other content */
-        opacity: 0;
-        pointer-events: none;
-        transform: translateY(10px);
-        transition: opacity 0.3s ease, transform 0.3s ease;
-      }
-      .arabica_ref-dropdown.open {
-        opacity: 1;
-        pointer-events: auto;
-        transform: translateY(0);
-      }
-
-      /* The arrow pointing to the icon */
-      .arabica_ref-dropdown::before {
-        content: "";
-        position: absolute;
-        top: -10px; /* Just above the dropdown */
-        left: var(--arrow-left, 50%);
-        transform: translateX(-50%);
-        border-left: 8px solid transparent;
-        border-right: 8px solid transparent;
-        border-bottom: 10px solid #ffffff; /* same as dropdown background */
-      }
-
-      /* Reference text itself */
-      .arabica_ref-text {
-        font-size: 14px;
-        color: #333333;
-        margin-bottom: 10px;
-      }
-
-      /* Icons container at bottom of dropdown */
-      .arabica_ref-actions {
-        display: flex;
-        justify-content: flex-end;
-        gap: 10px;
-      }
-      .arabica_ref-close-icon,
-      .arabica_ref-copy-icon {
-        width: 24px;
-        height: 24px;
-        cursor: pointer;
-        text-align: center;
-        border-radius: 4px;
-        color: #cc9933;
-        transition: background-color 0.3s ease;
-        user-select: none;
-        font-size: 16px;
-      }
-      .arabica_ref-close-icon:hover,
-      .arabica_ref-copy-icon:hover {
-        background-color: #f3f3f3;
-      }
-
-      /* "Copied" text replacement style */
-      .copied-text {
-        display: none;
-        width: auto;
-        padding: 0 6px;
-        height: 24px;
-        line-height: 24px;
-        border-radius: 4px;
-        background-color: #fdf6e3;
-        color: #cc9933;
-        font-size: 14px;
-      }
-      .copied-text.show {
-        display: inline-block;
-      }
-      @media (max-width: 991px) {
-        .arabica_side-content {
-          position: fixed;
-          top: 0;
-          right: -100%;
-          width: 50%;
-          height: auto;
-          background: #ffffff 0% 0% no-repeat padding-box;
-          box-shadow: -3px 5px 17px #00000029;
-          border: 0;
-          border-radius: 16px 0 0 16px;
-          transition: right 0.3s ease-in-out;
-          z-index: 30;
-          padding: 30px;
-        }
-        .arabica_show-content {
-          right: 0;
-        }
-
-        /* Blurred overlay styling with given UI properties */
-        .arabica_overlay {
-          position: fixed;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 100%;
-          opacity: 0;
-          backdrop-filter: none;
-          transition: opacity 0.3s ease-in-out;
-          pointer-events: none;
-          z-index: 29;
-          max-height: 100%;
-          overflow-y: auto;
-        }
-
-        .arabica_show-overlay {
-          opacity: 1;
-          backdrop-filter: blur(4px);
-          pointer-events: all;
-        }
-
-        /* Floating button styling with Font Awesome icon */
-        .arabica_floating-btn {
-          position: fixed;
-          bottom: 20px;
-          right: 20px;
-          background-color: #17355d;
-          color: #ffffff;
-          width: 50px;
-          height: 50px;
-          border-radius: 5px;
-          box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-          cursor: pointer;
-          z-index: 28;
-          border: none;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          font-size: 22px; /* Adjust icon size as needed */
-          transition: opacity 0.3s ease, transform 0.3s ease;
-        }
-        .arabica_close-button {
-          cursor: pointer;
-          text-align: left;
-          color: #747474;
-        }
-        /* When hidden, the toggle button fades & slides down */
-        .arabica_floating-btn.hidden {
-          opacity: 0;
-          transform: translateY(20px);
-          pointer-events: none;
-        }
-
-        .arabica_side-header-container {
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          flex-direction: row-reverse;
-          margin-bottom: 15px;
-        }
-        .arabica_side-header-container h2 {
-          margin-bottom: 0;
-          padding-bottom: 0;
-          font-size: 24px;
-        }
-        .arabica_article {
-          margin: 30px 0 40px 0;
-        }
-        .arabica_article-foot-wrapper {
-          padding: 30px 0;
-        }
-        .arabica_article .arabica_article-subtitle {
-          font-size: 14px;
-        }
-        .arabica_article .arabica_article-author {
-          font-size: 12px;
-        }
-        .arabica_article .arabica_article-author-wrapper {
-          margin-bottom: 10px;
-        }
-        .arabica_article-meta-wrapper {
-          border-radius: 7px;
-          margin: 20px 0;
-          padding: 20px 20px 15px 20px;
-        }
-        .arabica_ref-text {
-          font-size: 11px;
-          margin-bottom: 0;
-        }
-        .arabica_ref-dropdown {
-          position: absolute;
-          min-width: 200px;
-          max-width: 270px;
-          border-radius: 7px;
-          padding: 15px 20px;
-        }
-        .arabica_article-foot-wrapper h2,
-        .arabica_article-sources h2,
-        .arabica_article-references h2 {
-          font-size: 24px;
-          font-weight: 600;
-          padding-bottom: 0;
-        }
-        .arabica_article_lightbox-caption {
-          font-size: 13px;
-        }
-        .arabica_article_close-btn {
-          width: 30px;
-          height: 30px;
-        }
-        .arabica_article_lightbox-gallery-grid img {
-          width: 35px;
-          height: 35px;
-        }
-        .controls {
-          padding: 0px;
-        }
-        .time {
-          font-size: 13px;
-          font-weight: 300;
-          height: 16px;
-        }
-        .play-btn,
-        .restart-btn,
-        .fullscreen-btn,
-        .volume-btn,
-        .fullscreen-btn {
-          padding: 3px;
-        }
-        .controls svg {
-          height: 16px;
-          width: 16px;
-        }
-        .progress-container {
-          height: 3px;
-          margin-top: 3px;
-        }
-        .play-pause-indicator {
-          padding: 10px;
-        }
-        .play-pause-indicator svg {
-          width: 26px;
-          height: 20px;
-          fill: currentColor;
-        }
-        .skip-indicator {
-          padding: 5px;
-        }
-        .skip-indicator .icon {
-          width: 20px;
-          height: 21px;
-          fill: currentColor;
-        }
-        .toc-section {
-          margin-bottom: 10px;
-          padding-bottom: 15px;
-        }
-      }
-      @media (max-width: 767px) {
-        .arabica_side-content {
-          width: 80%;
-        }
-        .arabica_article .arabica_article-date {
-          display: block;
-          margin: 0 0 5px 0;
-        }
-      }
-
-      .arabica_article_lightbox.closing {
-        opacity: 0;
-        transform: translateY(
-          -50px
-        ); /* Adjust this value to control the exit motion */
-      }
-    </style>
   </head>
   <body>
     <header class="header">
@@ -1387,7 +563,7 @@
               </p>
 
               <div class="arabica_article-video">
-                <div class="video-container">
+                <div class="arabica_video-container">
                   <video id="video">
                     <source
                       src="Assets/videos/article-vid1.mp4"
@@ -1402,7 +578,7 @@
                 </figcaption>
               </div>
               <div class="arabica_article-video">
-                <div class="video-container">
+                <div class="arabica_video-container">
                   <iframe
                     src="https://www.youtube.com/embed/tgbNymZ7vqY"
                     title="YouTube video player"
@@ -1576,11 +752,11 @@
               }
 
               // Start a new section
-              currentSection = `<div class="toc-section"><a href="#${heading.id}" class="toc-link">${heading.innerText}</a>`;
+              currentSection = `<div class="arabica_toc-section"><a href="#${heading.id}" class="arabica_toc-link">${heading.innerText}</a>`;
               tocHTML += currentSection;
             } else if (heading.tagName === "H3") {
               // Add H3 inside the current section
-              tocHTML += `<a href="#${heading.id}" class="toc-link toc-indent">${heading.innerText}</a>`;
+              tocHTML += `<a href="#${heading.id}" class="arabica_toc-link arabica_toc-indent">${heading.innerText}</a>`;
             }
           });
 
@@ -1592,7 +768,7 @@
           tocContainer.innerHTML = tocHTML;
 
           // Apply smooth scrolling to TOC links
-          const tocLinks = document.querySelectorAll(".toc-link");
+          const tocLinks = document.querySelectorAll(".arabica_toc-link");
           tocLinks.forEach((link) => {
             link.addEventListener("click", function (event) {
               event.preventDefault(); // Prevent default jump
@@ -1712,15 +888,15 @@
              <span class="arabica_ref-icon" data-ref-id="${dropdownId}" data-reference="${escapeAttr(
               refText
             )}">
-            <i class="fa-light fa-circle-info icon-light active"></i>
-            <i class="fa-solid fa-circle-info icon-solid inactive"></i>
+            <i class="fa-light fa-circle-info arabica_ref-icon-light active"></i>
+            <i class="fa-solid fa-circle-info arabica_ref-icon-solid inactive"></i>
           </span>
           <div id="${dropdownId}" class="arabica_ref-dropdown">
             <div class="arabica_ref-actions">
               <span class="arabica_ref-copy-icon" title="Copy">
                 <i class="fa-regular fa-copy"></i>
               </span>
-              <span class="copied-text">✓ تم النسخ</span>
+              <span class="arabica_ref-copied-text">✓ تم النسخ</span>
               <span class="arabica_ref-close-icon" title="Close">
                 <i class="fa-regular fa-circle-xmark"></i>
               </span>
@@ -1750,37 +926,69 @@
             if (dropdownEl.classList.contains("open")) {
               dropdownEl.classList.remove("open");
               // Switch back to light icon
-              icon.querySelector(".icon-solid").classList.remove("active");
-              icon.querySelector(".icon-solid").classList.add("inactive");
-              icon.querySelector(".icon-light").classList.remove("inactive");
-              icon.querySelector(".icon-light").classList.add("active");
+              icon
+                .querySelector(".arabica_ref-icon-solid")
+                .classList.remove("active");
+              icon
+                .querySelector(".arabica_ref-icon-solid")
+                .classList.add("inactive");
+              icon
+                .querySelector(".arabica_ref-icon-light")
+                .classList.remove("inactive");
+              icon
+                .querySelector(".arabica_ref-icon-light")
+                .classList.add("active");
             } else {
               closeAllDropdowns();
               positionDropdown(icon, dropdownEl);
               dropdownEl.classList.add("open");
               // Switch to solid icon
-              icon.querySelector(".icon-light").classList.remove("active");
-              icon.querySelector(".icon-light").classList.add("inactive");
-              icon.querySelector(".icon-solid").classList.remove("inactive");
-              icon.querySelector(".icon-solid").classList.add("active");
+              icon
+                .querySelector(".arabica_ref-icon-light")
+                .classList.remove("active");
+              icon
+                .querySelector(".arabica_ref-icon-light")
+                .classList.add("inactive");
+              icon
+                .querySelector(".arabica_ref-icon-solid")
+                .classList.remove("inactive");
+              icon
+                .querySelector(".arabica_ref-icon-solid")
+                .classList.add("active");
             }
           });
 
           // On hover, switch icon style to solid (if not open)
           icon.addEventListener("mouseenter", function () {
             if (!dropdownEl.classList.contains("open")) {
-              icon.querySelector(".icon-light").classList.remove("active");
-              icon.querySelector(".icon-light").classList.add("inactive");
-              icon.querySelector(".icon-solid").classList.remove("inactive");
-              icon.querySelector(".icon-solid").classList.add("active");
+              icon
+                .querySelector(".arabica_ref-icon-light")
+                .classList.remove("active");
+              icon
+                .querySelector(".arabica_ref-icon-light")
+                .classList.add("inactive");
+              icon
+                .querySelector(".arabica_ref-icon-solid")
+                .classList.remove("inactive");
+              icon
+                .querySelector(".arabica_ref-icon-solid")
+                .classList.add("active");
             }
           });
           icon.addEventListener("mouseleave", function () {
             if (!dropdownEl.classList.contains("open")) {
-              icon.querySelector(".icon-solid").classList.remove("active");
-              icon.querySelector(".icon-solid").classList.add("inactive");
-              icon.querySelector(".icon-light").classList.remove("inactive");
-              icon.querySelector(".icon-light").classList.add("active");
+              icon
+                .querySelector(".arabica_ref-icon-solid")
+                .classList.remove("active");
+              icon
+                .querySelector(".arabica_ref-icon-solid")
+                .classList.add("inactive");
+              icon
+                .querySelector(".arabica_ref-icon-light")
+                .classList.remove("inactive");
+              icon
+                .querySelector(".arabica_ref-icon-light")
+                .classList.add("active");
             }
           });
 
@@ -1789,15 +997,25 @@
           closeIcon.addEventListener("click", function (e) {
             e.stopPropagation();
             dropdownEl.classList.remove("open");
-            icon.querySelector(".icon-solid").classList.remove("active");
-            icon.querySelector(".icon-solid").classList.add("inactive");
-            icon.querySelector(".icon-light").classList.remove("inactive");
-            icon.querySelector(".icon-light").classList.add("active");
+            icon
+              .querySelector(".arabica_ref-icon-solid")
+              .classList.remove("active");
+            icon
+              .querySelector(".arabica_ref-icon-solid")
+              .classList.add("inactive");
+            icon
+              .querySelector(".arabica_ref-icon-light")
+              .classList.remove("inactive");
+            icon
+              .querySelector(".arabica_ref-icon-light")
+              .classList.add("active");
           });
 
           // Copy button functionality inside the dropdown
           const copyIcon = dropdownEl.querySelector(".arabica_ref-copy-icon");
-          const copiedText = dropdownEl.querySelector(".copied-text");
+          const copiedText = dropdownEl.querySelector(
+            ".arabica_ref-copied-text"
+          );
           copyIcon.addEventListener("click", function (e) {
             e.stopPropagation();
             const refTextEl = dropdownEl.querySelector(".arabica_ref-text");
@@ -1842,13 +1060,17 @@
               parentIcon.classList.contains("arabica_ref-icon")
             ) {
               parentIcon
-                .querySelector(".icon-solid")
+                .querySelector(".arabica_ref-icon-solid")
                 .classList.remove("active");
-              parentIcon.querySelector(".icon-solid").classList.add("inactive");
               parentIcon
-                .querySelector(".icon-light")
+                .querySelector(".arabica_ref-icon-solid")
+                .classList.add("inactive");
+              parentIcon
+                .querySelector(".arabica_ref-icon-light")
                 .classList.remove("inactive");
-              parentIcon.querySelector(".icon-light").classList.add("active");
+              parentIcon
+                .querySelector(".arabica_ref-icon-light")
+                .classList.add("active");
             }
           });
         }
@@ -1900,32 +1122,34 @@
       document.addEventListener("DOMContentLoaded", function () {
         // Function to create and inject controls
         function injectControls() {
-          const videoContainer = document.querySelector(".video-container");
+          const videoContainer = document.querySelector(
+            ".arabica_video-container"
+          );
 
           // Rewind indicator
           const rewindIndicator = document.createElement("div");
           rewindIndicator.className = "skip-indicator left-indicator";
           rewindIndicator.id = "rewind";
           rewindIndicator.innerHTML = `<span>10s</span>
-          <svg class="icon" fill="none" height="24" viewBox="0 0 24 24" width="24"
-            xmlns="http://www.w3.org/2000/svg">
-            <path d="m6.46967 10.4697c-.29289.2929-.29289.7677 0 1.0606s.76777.2929 1.06066 0zm1.78033 5.5303c0 .4142.33579.75.75.75s.75-.3358.75-.75zm-5.5-4c0-.4142-.33579-.75-.75-.75s-.75.3358-.75.75zm3.24903-8 .4505.59962zm-1.99903 1.99903.54801.51204.02745-.02939.02416-.03215zm.01269-4.99568c.00185-.414213-.33244-.751495-.74665-.753343s-.75149.332437-.75334.746647zm-.75885 1.98236-.75-.00334zm3.68 3.68.00334.75zm1.98906.74114c.41421-.00185.74849-.33913.74664-.75334s-.33913-.7485-.75334-.74665zm-5.26052-1.50418-.59312.45902zm.3545.3545-.45902.59312zm12.23312 5.74283v2h1.5v-2zm-2.5 2v-2h-1.5v2zm1.25 1.25c-.6904 0-1.25-.5596-1.25-1.25h-1.5c0 1.5188 1.2312 2.75 2.75 2.75zm1.25-1.25c0 .6904-.5596 1.25-1.25 1.25v1.5c1.5188 0 2.75-1.2312 2.75-2.75zm-1.25-3.25c.6904 0 1.25.5596 1.25 1.25h1.5c0-1.5188-1.2312-2.75-2.75-2.75zm0-1.5c-1.5188 0-2.75 1.2312-2.75 2.75h1.5c0-.6904.5596-1.25 1.25-1.25zm-13.75 2.75c0 5.9371 4.81294 10.75 10.75 10.75v-1.5c-5.10863 0-9.25-4.1414-9.25-9.25zm10.75 10.75c5.9371 0 10.75-4.8129 10.75-10.75h-1.5c0 5.1086-4.1414 9.25-9.25 9.25zm10.75-10.75c0-5.93706-4.8129-10.75-10.75-10.75v1.5c5.1086 0 9.25 4.14137 9.25 9.25zm-10.75-10.75c-2.41966 0-4.65456.80032-6.45148 2.15038l.90101 1.19924c1.54606-1.16158 3.46683-1.84962 5.55047-1.84962zm-6.45148 2.15038c-.81333.61107-1.53707 1.33481-2.14814 2.14814l1.19924.90101c.5262-.70037 1.14954-1.32371 1.84991-1.84991zm-3.03582-2.403726-.00886 1.985716 1.49999.00669.00886-1.98571zm4.42448 6.419056 1.98572-.00886-.0067-1.49999-1.98571.00886zm-4.43334-4.43334c-.00345.77414-.00746 1.41813.04887 1.93398.05798.53093.18758 1.02026.51655 1.44534l1.18625-.91804c-.09017-.11652-.16839-.29389-.21166-.69014-.04492-.41134-.04363-.95503-.04002-1.76445zm4.42665 2.93335c-.80942.00361-1.3531.0049-1.76445-.04002-.39625-.04327-.57362-.12149-.69014-.21166l-.91804 1.18625c.42508.32897.91441.45857 1.44534.51655.51585.05633 1.15984.05232 1.93398.04887zm.53918 3.55395-1 1.00003 1.06066 1.0606 1-1zm.78033 2.53033v4h1.5v-4zm0-1.5858v.0858h1.5v-.0858zm0 .0858v1.5h1.5v-1.5zm-5.18074-4.13831c.08838.1142.18558.2211.29066.31976l1.02669-1.09358c-.04739-.04449-.09123-.0927-.1311-.14422zm.29066.31976c.0632.05933.12925.11569.19794.16884l.91804-1.18625c-.03099-.02399-.06078-.0494-.08929-.07616zm.09207-1.19447-.12673.13563 1.09601 1.0241.12674-.13564zm5.07834 5.04332c-.0184.0184-.0508.0375-.09038.0443-.03548.0062-.06566.0008-.08858-.0087s-.04806-.027-.0688-.0564c-.02313-.0329-.03257-.0693-.03257-.0953h1.5c0-1.19004-1.43883-1.78603-2.28033-.94453z" fill="#ffffff"/>
-          </svg>`;
+        <svg class="arabica_video-icon" fill="none" height="24" viewBox="0 0 24 24" width="24"
+          xmlns="http://www.w3.org/2000/svg">
+          <path d="m6.46967 10.4697c-.29289.2929-.29289.7677 0 1.0606s.76777.2929 1.06066 0zm1.78033 5.5303c0 .4142.33579.75.75.75s.75-.3358.75-.75zm-5.5-4c0-.4142-.33579-.75-.75-.75s-.75.3358-.75.75zm3.24903-8 .4505.59962zm-1.99903 1.99903.54801.51204.02745-.02939.02416-.03215zm.01269-4.99568c.00185-.414213-.33244-.751495-.74665-.753343s-.75149.332437-.75334.746647zm-.75885 1.98236-.75-.00334zm3.68 3.68.00334.75zm1.98906.74114c.41421-.00185.74849-.33913.74664-.75334s-.33913-.7485-.75334-.74665zm-5.26052-1.50418-.59312.45902zm.3545.3545-.45902.59312zm12.23312 5.74283v2h1.5v-2zm-2.5 2v-2h-1.5v2zm1.25 1.25c-.6904 0-1.25-.5596-1.25-1.25h-1.5c0 1.5188 1.2312 2.75 2.75 2.75zm1.25-1.25c0 .6904-.5596 1.25-1.25 1.25v1.5c1.5188 0 2.75-1.2312 2.75-2.75zm-1.25-3.25c.6904 0 1.25.5596 1.25 1.25h1.5c0-1.5188-1.2312-2.75-2.75-2.75zm0-1.5c-1.5188 0-2.75 1.2312-2.75 2.75h1.5c0-.6904.5596-1.25 1.25-1.25zm-13.75 2.75c0 5.9371 4.81294 10.75 10.75 10.75v-1.5c-5.10863 0-9.25-4.1414-9.25-9.25zm10.75 10.75c5.9371 0 10.75-4.8129 10.75-10.75h-1.5c0 5.1086-4.1414 9.25-9.25 9.25zm10.75-10.75c0-5.93706-4.8129-10.75-10.75-10.75v1.5c5.1086 0 9.25 4.14137 9.25 9.25zm-10.75-10.75c-2.41966 0-4.65456.80032-6.45148 2.15038l.90101 1.19924c1.54606-1.16158 3.46683-1.84962 5.55047-1.84962zm-6.45148 2.15038c-.81333.61107-1.53707 1.33481-2.14814 2.14814l1.19924.90101c.5262-.70037 1.14954-1.32371 1.84991-1.84991zm-3.03582-2.403726-.00886 1.985716 1.49999.00669.00886-1.98571zm4.42448 6.419056 1.98572-.00886-.0067-1.49999-1.98571.00886zm-4.43334-4.43334c-.00345.77414-.00746 1.41813.04887 1.93398.05798.53093.18758 1.02026.51655 1.44534l1.18625-.91804c-.09017-.11652-.16839-.29389-.21166-.69014-.04492-.41134-.04363-.95503-.04002-1.76445zm4.42665 2.93335c-.80942.00361-1.3531.0049-1.76445-.04002-.39625-.04327-.57362-.12149-.69014-.21166l-.91804 1.18625c.42508.32897.91441.45857 1.44534.51655.51585.05633 1.15984.05232 1.93398.04887zm.53918 3.55395-1 1.00003 1.06066 1.0606 1-1zm.78033 2.53033v4h1.5v-4zm0-1.5858v.0858h1.5v-.0858zm0 .0858v1.5h1.5v-1.5zm-5.18074-4.13831c.08838.1142.18558.2211.29066.31976l1.02669-1.09358c-.04739-.04449-.09123-.0927-.1311-.14422zm.29066.31976c.0632.05933.12925.11569.19794.16884l.91804-1.18625c-.03099-.02399-.06078-.0494-.08929-.07616zm.09207-1.19447-.12673.13563 1.09601 1.0241.12674-.13564zm5.07834 5.04332c-.0184.0184-.0508.0375-.09038.0443-.03548.0062-.06566.0008-.08858-.0087s-.04806-.027-.0688-.0564c-.02313-.0329-.03257-.0693-.03257-.0953h1.5c0-1.19004-1.43883-1.78603-2.28033-.94453z" fill="#ffffff"/>
+        </svg>`;
           videoContainer.appendChild(rewindIndicator);
 
           // Forward indicator
           const forwardIndicator = document.createElement("div");
           forwardIndicator.className = "skip-indicator right-indicator";
           forwardIndicator.id = "forward";
-          forwardIndicator.innerHTML = `<svg class="icon" fill="none" height="24" viewBox="0 0 24 24" width="24"
-            xmlns="http://www.w3.org/2000/svg">
-            <g fill="#ffffff">
-              <path d="m21.4873.996654c-.0019-.414209-.3391-.748494-.7533-.746646-.4143.001848-.7485.339129-.7467.753342l.0089 1.98571c.0036.80942.0049 1.35311-.04 1.76445l-.0017.01526c-.4565-.50181-.9598-.96023-1.503-1.36839-1.7969-1.35006-4.0318-2.15038-6.4515-2.15038-5.93706 0-10.75 4.81294-10.75 10.75 0 5.9371 4.81294 10.75 10.75 10.75 5.9371 0 10.75-4.8129 10.75-10.75 0-.4142-.3358-.75-.75-.75s-.75.3358-.75.75c0 5.1086-4.1414 9.25-9.25 9.25-5.10863 0-9.25-4.1414-9.25-9.25 0-5.10863 4.14137-9.25 9.25-9.25 2.0836 0 4.0044.68804 5.5505 1.84962.4989.37489.9588.79909 1.3723 1.26532-.0283.00379-.0579.00738-.0888.01076-.4114.04492-.9551.04363-1.7645.04002l-1.9857-.00886c-.4142-.00185-.7515.33244-.7533.74665-.0019.41421.3324.75149.7466.75334l2.029.00905c.7549.00339 1.3845.00621 1.8907-.04906.5309-.05798 1.0203-.18758 1.4453-.51655.0678-.05245.133-.10802.1955-.1665.106-.0993.2041-.20699.2931-.3221.329-.42508.4586-.91441.5166-1.44534.0553-.50618.0524-1.13575.0491-1.89062z"/>
-              <path d="m9.75 10.4142c0-1.19004-1.43883-1.78603-2.28033-.94453l-1 1.00003c-.29289.2929-.29289.7677 0 1.0606s.76777.2929 1.06066 0l.71967-.7196v5.1893c0 .4142.33579.75.75.75s.75-.3358.75-.75z"/>
-              <path clip-rule="evenodd" d="m15 9.25c-1.5188 0-2.75 1.2312-2.75 2.75v2c0 1.5188 1.2312 2.75 2.75 2.75s2.75-1.2312 2.75-2.75v-2c0-1.5188-1.2312-2.75-2.75-2.75zm-1.25 2.75c0-.6904.5596-1.25 1.25-1.25s1.25.5596 1.25 1.25v2c0 .6904-.5596 1.25-1.25 1.25s-1.25-.5596-1.25-1.25z" fill-rule="evenodd"/>
-            </g>
-          </svg>
-            <span>10s</span>`;
+          forwardIndicator.innerHTML = `<svg class="arabica_video-icon" fill="none" height="24" viewBox="0 0 24 24" width="24"
+          xmlns="http://www.w3.org/2000/svg">
+          <g fill="#ffffff">
+            <path d="m21.4873.996654c-.0019-.414209-.3391-.748494-.7533-.746646-.4143.001848-.7485.339129-.7467.753342l.0089 1.98571c.0036.80942.0049 1.35311-.04 1.76445l-.0017.01526c-.4565-.50181-.9598-.96023-1.503-1.36839-1.7969-1.35006-4.0318-2.15038-6.4515-2.15038-5.93706 0-10.75 4.81294-10.75 10.75 0 5.9371 4.81294 10.75 10.75 10.75 5.9371 0 10.75-4.8129 10.75-10.75 0-.4142-.3358-.75-.75-.75s-.75.3358-.75.75c0 5.1086-4.1414 9.25-9.25 9.25-5.10863 0-9.25-4.1414-9.25-9.25 0-5.10863 4.14137-9.25 9.25-9.25 2.0836 0 4.0044.68804 5.5505 1.84962.4989.37489.9588.79909 1.3723 1.26532-.0283.00379-.0579.00738-.0888.01076-.4114.04492-.9551.04363-1.7645.04002l-1.9857-.00886c-.4142-.00185-.7515.33244-.7533.74665-.0019.41421.3324.75149.7466.75334l2.029.00905c.7549.00339 1.3845.00621 1.8907-.04906.5309-.05798 1.0203-.18758 1.4453-.51655.0678-.05245.133-.10802.1955-.1665.106-.0993.2041-.20699.2931-.3221.329-.42508.4586-.91441.5166-1.44534.0553-.50618.0524-1.13575.0491-1.89062z"/>
+            <path d="m9.75 10.4142c0-1.19004-1.43883-1.78603-2.28033-.94453l-1 1.00003c-.29289.2929-.29289.7677 0 1.0606s.76777.2929 1.06066 0l.71967-.7196v5.1893c0 .4142.33579.75.75.75s.75-.3358.75-.75z"/>
+            <path clip-rule="evenodd" d="m15 9.25c-1.5188 0-2.75 1.2312-2.75 2.75v2c0 1.5188 1.2312 2.75 2.75 2.75s2.75-1.2312 2.75-2.75v-2c0-1.5188-1.2312-2.75-2.75-2.75zm-1.25 2.75c0-.6904.5596-1.25 1.25-1.25s1.25.5596 1.25 1.25v2c0 .6904-.5596 1.25-1.25 1.25s-1.25-.5596-1.25-1.25z" fill-rule="evenodd"/>
+          </g>
+        </svg>
+          <span>10s</span>`;
           videoContainer.appendChild(forwardIndicator);
 
           // Large overlay indicator (for transient play/pause feedback)
@@ -1933,25 +1157,25 @@
           playPauseIndicator.className = "play-pause-indicator";
           playPauseIndicator.id = "playPauseIndicator";
           playPauseIndicator.innerHTML = `
-            <svg viewBox="0 0 24 24">
-              <path d="M8 5v14l11-7z"/>
-            </svg>
-          `;
+        <svg viewBox="0 0 24 24">
+          <path d="M8 5v14l11-7z"/>
+        </svg>
+      `;
           videoContainer.appendChild(playPauseIndicator);
 
           // Controls container
           const controls = document.createElement("div");
-          controls.className = "controls";
+          controls.className = "arabica_video-controls";
 
           // Play/Pause button
           const playPauseBtn = document.createElement("button");
           playPauseBtn.className = "play-btn";
           playPauseBtn.id = "playPause";
           playPauseBtn.innerHTML = `
-            <svg class="icon" viewBox="0 0 24 24">
-              <path d="M8 5v14l11-7z"/>
-            </svg>
-          `;
+        <svg class="arabica_video-icon" viewBox="0 0 24 24">
+          <path d="M8 5v14l11-7z"/>
+        </svg>
+      `;
           controls.appendChild(playPauseBtn);
 
           // Restart button
@@ -1959,15 +1183,15 @@
           restartBtn.className = "restart-btn";
           restartBtn.id = "restart";
           restartBtn.innerHTML = `
-            <svg class="icon" viewBox="0 0 24 24">
-              <path d="M17.65 6.35C16.2 4.9 14.21 4 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08c-.82 2.33-3.04 4-5.65 4-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z"/>
-            </svg>
-          `;
+        <svg class="arabica_video-icon" viewBox="0 0 24 24">
+          <path d="M17.65 6.35C16.2 4.9 14.21 4 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08c-.82 2.33-3.04 4-5.65 4-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z"/>
+        </svg>
+      `;
           controls.appendChild(restartBtn);
 
           // Current time
           const currentTime = document.createElement("span");
-          currentTime.className = "time";
+          currentTime.className = "arabica_video-time";
           currentTime.innerHTML = `<span id="currentTime">0:00</span>`;
           controls.appendChild(currentTime);
 
@@ -1983,7 +1207,7 @@
 
           // Duration
           const duration = document.createElement("span");
-          duration.className = "time";
+          duration.className = "arabica_video-time";
           duration.innerHTML = `<span id="duration">0:00</span>`;
           controls.appendChild(duration);
 
@@ -1992,11 +1216,11 @@
           volumeBtn.className = "volume-btn";
           volumeBtn.id = "volume";
           volumeBtn.innerHTML = `
-            <svg class="icon" viewBox="0 0 24 24">
-              <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/>
-              <line class="slash" x1="22" y1="2" x2="2" y2="22" />
-            </svg>
-          `;
+        <svg class="arabica_video-icon" viewBox="0 0 24 24">
+          <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/>
+          <line class="slash" x1="22" y1="2" x2="2" y2="22" />
+        </svg>
+      `;
           controls.appendChild(volumeBtn);
 
           // Fullscreen button
@@ -2004,10 +1228,10 @@
           fullscreenBtn.className = "fullscreen-btn";
           fullscreenBtn.id = "fullscreen";
           fullscreenBtn.innerHTML = `
-            <svg class="icon" viewBox="0 0 24 24">
-              <path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/>
-            </svg>
-          `;
+        <svg class="arabica_video-icon" viewBox="0 0 24 24">
+          <path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/>
+        </svg>
+      `;
           controls.appendChild(fullscreenBtn);
 
           // Append controls to video container
@@ -2155,7 +1379,12 @@
           }, 800);
         }
 
-        // Ensure the volume button state is updated when exiting fullscreen
+        // Update the duration display once the video metadata is loaded.
+        video.addEventListener("loadedmetadata", () => {
+          durationEl.textContent = formatTime(video.duration);
+        });
+
+        // Ensure the volume button state is updated when exiting fullscreen.
         document.addEventListener("fullscreenchange", () => {
           if (!document.fullscreenElement) {
             updateVolumeButton();
@@ -2167,8 +1396,8 @@
     <script>
       document.addEventListener("DOMContentLoaded", () => {
         /* ------------------------------
-   GLOBAL LIGHTBOX SETUP
-  ------------------------------ */
+       GLOBAL LIGHTBOX SETUP
+    ------------------------------ */
         const lightbox = document.createElement("div");
         lightbox.classList.add("arabica_article_lightbox");
 
@@ -2178,10 +1407,10 @@
         const closeBtn = document.createElement("span");
         closeBtn.classList.add("arabica_article_close-btn");
         closeBtn.innerHTML = `
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
-      <path fill="#ffffff" d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
-    </svg>
-  `;
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+        <path fill="#ffffff" d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+      </svg>
+    `;
 
         const lightboxImg = document.createElement("img");
         lightboxImg.id = "lightbox-img";
@@ -2196,10 +1425,10 @@
           "arabica_article_lightbox-nav-prev"
         );
         prevLightboxBtn.innerHTML = `
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
-      <path fill="#ffffff" d="M15.41 16.59L10.83 12l4.58-4.59L14 6l-6 6 6 6z"/>
-    </svg>
-  `;
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+        <path fill="#ffffff" d="M15.41 16.59L10.83 12l4.58-4.59L14 6l-6 6 6 6z"/>
+      </svg>
+    `;
 
         const nextLightboxBtn = document.createElement("button");
         nextLightboxBtn.classList.add(
@@ -2207,10 +1436,10 @@
           "arabica_article_lightbox-nav-next"
         );
         nextLightboxBtn.innerHTML = `
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
-      <path fill="#ffffff" d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6z"/>
-    </svg>
-  `;
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+        <path fill="#ffffff" d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6z"/>
+      </svg>
+    `;
 
         const galleryGrid = document.createElement("div");
         galleryGrid.classList.add("arabica_article_lightbox-gallery-grid");
@@ -2311,16 +1540,43 @@
             closeLightbox();
           }
         });
+
+        // ------------------------------
+        // KEYBOARD NAVIGATION (Arrow Keys)
+        // ------------------------------
         document.addEventListener("keydown", (e) => {
           if (e.key === "Escape") {
             closeLightbox();
           }
-          if (e.key === "ArrowRight") {
+          // ArrowRight & ArrowDown for next image; ArrowLeft & ArrowUp for previous
+          if (e.key === "ArrowRight" || e.key === "ArrowDown") {
             showNextImage();
-          } else if (e.key === "ArrowLeft") {
+          } else if (e.key === "ArrowLeft" || e.key === "ArrowUp") {
             showPrevImage();
           }
         });
+
+        // ------------------------------
+        // MOUSE WHEEL (Double-Finger Scroll) NAVIGATION
+        // ------------------------------
+        let lastWheelTime = 0;
+        lightbox.addEventListener(
+          "wheel",
+          (e) => {
+            // Prevent default scrolling when lightbox is active
+            e.preventDefault();
+            const now = Date.now();
+            if (now - lastWheelTime < 400) return; // Throttle to avoid rapid changes
+            lastWheelTime = now;
+            if (e.deltaY > 0) {
+              showNextImage();
+            } else if (e.deltaY < 0) {
+              showPrevImage();
+            }
+          },
+          { passive: false }
+        );
+
         nextLightboxBtn.addEventListener("click", showNextImage);
         prevLightboxBtn.addEventListener("click", showPrevImage);
         galleryGrid.addEventListener("click", (e) => {
@@ -2345,8 +1601,8 @@
         });
 
         /* ------------------------------
-   GALLERY SLIDER SETUP WITH DYNAMIC HEIGHTS
-  ------------------------------ */
+       GALLERY SLIDER SETUP WITH DYNAMIC HEIGHTS
+    ------------------------------ */
         document
           .querySelectorAll(".arabica_article-image")
           .forEach((container) => {
@@ -2368,18 +1624,18 @@
               prevSliderBtn.className =
                 "arabica_article_slider-nav arabica_article_slider-prev";
               prevSliderBtn.innerHTML = `
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
-          <path fill="#ffffff" d="M15.41 16.59L10.83 12l4.58-4.59L14 6l-6 6 6 6z"/>
-        </svg>
-      `;
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+            <path fill="#ffffff" d="M15.41 16.59L10.83 12l4.58-4.59L14 6l-6 6 6 6z"/>
+          </svg>
+        `;
               const nextSliderBtn = document.createElement("button");
               nextSliderBtn.className =
                 "arabica_article_slider-nav arabica_article_slider-next";
               nextSliderBtn.innerHTML = `
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
-          <path fill="#ffffff" d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6z"/>
-        </svg>
-      `;
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+            <path fill="#ffffff" d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6z"/>
+          </svg>
+        `;
               slider.appendChild(prevSliderBtn);
               slider.appendChild(nextSliderBtn);
 

@@ -80,3 +80,32 @@ document.addEventListener("click", function (event) {
     });
   }
 });
+
+(function () {
+  // Function to prevent scroll events when body has the "no-scroll" class
+  function preventScroll(e) {
+    if (document.body.classList.contains("no-scroll")) {
+      e.preventDefault();
+    }
+  }
+
+  // Prevent scrolling from mouse wheel/trackpad actions
+  window.addEventListener("wheel", preventScroll, { passive: false });
+
+  // Prevent scrolling on touch devices
+  window.addEventListener("touchmove", preventScroll, { passive: false });
+
+  // Prevent scrolling from key presses (Arrow keys, PageUp/PageDown, and Spacebar)
+  window.addEventListener(
+    "keydown",
+    function (e) {
+      if (document.body.classList.contains("no-scroll")) {
+        const scrollKeys = ["ArrowUp", "ArrowDown", "PageUp", "PageDown", " "];
+        if (scrollKeys.includes(e.key)) {
+          e.preventDefault();
+        }
+      }
+    },
+    { passive: false }
+  );
+})();
