@@ -4329,8 +4329,8 @@ video {
   flex-direction: row-reverse;
 }
 .arabica_article_lightbox-gallery-grid img {
-  width: 50px;
-  height: 50px;
+  width: 40px;
+  height: 40px;
   object-fit: cover;
   border-radius: 5px;
   cursor: pointer;
