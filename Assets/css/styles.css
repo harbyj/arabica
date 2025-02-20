@@ -66,6 +66,7 @@ body {
   font-family: "Bahij TheSansArabic";
   line-height: 1.6;
   background-color: #ffffff;
+  direction: rtl;
 }
 
 ol,
