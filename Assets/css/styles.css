@@ -168,9 +168,6 @@ h6 {
 }
 
 /* Disable scrolling on the body */
-.no-scrolls {
-  overflow: hidden;
-}
 
 .header {
   background: #fff;
@@ -195,6 +192,9 @@ h6 {
   }
 }
 @media (max-width: 991px) {
+  .no-scroll {
+    overflow: hidden;
+  }
   .arabica_header {
     padding: 20px;
     max-width: 100%;
