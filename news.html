@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>News Landing Page - Arabica Picks</title>
-    <link rel="stylesheet" href="Assets/css/styles.css" />
+    <link rel="stylesheet" href="Assets/css/styles.min.css" />
     <link
       rel="stylesheet"
       href="Assets/fonts/font-awesome/css/all.min.css"
@@ -579,8 +579,8 @@
             // Remove fade-in after animation completes
             setTimeout(function () {
               contentContainer.classList.remove("fade-in");
-            }, 300); // Matches CSS transition time
-          }, 250); // Matches fade-out transition time
+            }, 0); // Matches CSS transition time
+          }, 0); // Matches fade-out transition time
         }
 
         // Add event listeners for layout switching
