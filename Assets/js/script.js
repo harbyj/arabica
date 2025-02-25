@@ -65,7 +65,12 @@ document.addEventListener("click", function (event) {
   const targetId = anchor.getAttribute("href").slice(1); // remove the '#'
   if (!targetId) return; // href is just '#' or empty
 
-  const targetElement = document.getElementById(targetId);
+  // Try to get the target element by id first, if not found then by name
+  let targetElement = document.getElementById(targetId);
+  if (!targetElement) {
+    targetElement = document.getElementsByName(targetId)[0];
+  }
+
   if (targetElement) {
     event.preventDefault(); // Prevent the default jump
 

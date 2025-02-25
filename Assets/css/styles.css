@@ -2225,7 +2225,7 @@ a.arabica_latest-article-more:hover {
   gap: 10px;
   margin-bottom: 40px;
 }
-.arabica_list,
+.arabica_search-content .arabica_list,
 .arabica_search-content .arabica_grid {
   height: 39px;
   width: 39px;
@@ -3351,7 +3351,7 @@ video {
     height: 33px;
     font-size: 12px;
   }
-  .arabica_list,
+  .arabica_search-content .arabica_list,
   .arabica_search-content .arabica_grid {
     height: 33px;
     width: 33px;
