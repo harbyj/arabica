@@ -666,7 +666,11 @@
         if (referenceTitles.some((title) => headingText.includes(title))) {
           referenceFound = true;
           const referenceList = heading.nextElementSibling;
-          if (referenceList && referenceList.tagName.toLowerCase() === "ol") {
+          if (
+            referenceList &&
+            (referenceList.tagName.toLowerCase() === "ol" ||
+              referenceList.tagName.toLowerCase() === "ul")
+          ) {
             const targetContainer = document.querySelector(
               ".arabica_article-sources"
             );
