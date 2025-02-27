@@ -775,29 +775,30 @@
 
     <script>
       /* jshint esversion: 6 */
+      // Move paragraphs with footnotes (excluding those with "ref")
       document
         .querySelectorAll(".arabica_article-content p")
         .forEach(function (p) {
-          // Check if this paragraph contains an <a> element that meets our criteria.
-          var footnote = p.querySelector('a[name^="_ftn"]');
+          const footnote = p.querySelector('a[name^="_ftn"]');
           if (footnote && !footnote.getAttribute("name").includes("ref")) {
-            // Move the original paragraph to the foot-reference container.
             document.querySelector(".arabica_foot-reference").appendChild(p);
           }
         });
+
       document.addEventListener("DOMContentLoaded", () => {
         document
           .querySelectorAll(
             ".arabica_foot-reference p, .arabica_foot-source li"
           )
           .forEach((el) => {
-            // Regex that checks for any Arabic characters in the range \u0600 to \u06FF
+            // Regex checks for any Arabic characters in the range \u0600 to \u06FF
             if (!/[\u0600-\u06FF]/.test(el.textContent)) {
               el.setAttribute("lang", "en");
             }
           });
       });
 
+      // Define reference title keywords.
       const referenceTitles = [
         "Reference",
         "Sources",
@@ -810,6 +811,7 @@
         "المرجعية",
       ];
 
+      // Find all h2 elements within the article content.
       const headings = document.querySelectorAll(
         "div.arabica_article-content h2"
       );
@@ -819,23 +821,28 @@
         const headingText = heading.textContent.trim();
         if (referenceTitles.some((title) => headingText.includes(title))) {
           referenceFound = true;
-          const referenceList = heading.nextElementSibling;
-          if (
-            referenceList &&
-            (referenceList.tagName.toLowerCase() === "ol" ||
-              referenceList.tagName.toLowerCase() === "ul")
-          ) {
-            const targetContainer = document.querySelector(
-              ".arabica_article-sources"
-            );
-            targetContainer.appendChild(heading); // Move the <h2>
-            targetContainer.appendChild(referenceList); // Move the <ol>
+          // Start with the reference header (h2)
+          const elementsToMove = [heading];
+          let nextElem = heading.nextElementSibling;
+
+          // Collect all siblings until a <p> element is encountered.
+          while (nextElem && nextElem.tagName.toLowerCase() !== "p") {
+            elementsToMove.push(nextElem);
+            nextElem = nextElem.nextElementSibling;
           }
+
+          // Move the collected elements to the target container.
+          const targetContainer = document.querySelector(
+            ".arabica_article-sources"
+          );
+          elementsToMove.forEach((el) => {
+            targetContainer.appendChild(el);
+          });
         }
       });
 
+      // If no reference header is found, remove the foot-source container.
       if (!referenceFound) {
-        // Remove the container if no reference heading was found.
         const footSource = document.querySelector(".arabica_foot-source");
         if (footSource) {
           footSource.remove();
