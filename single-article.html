@@ -702,9 +702,9 @@
                 2023).
               </p>
               <p>
-                <a href="#_ednref2" name="_edn2">[ii]</a> قاد جاريد كوشنر، صهر
-                ترامب، سياسة الشرق الأوسط، مع التركيز على الحوافز الاقتصادية
-                بدلاً من الحقوق السياسية (كورنبلاه، 2020).
+                <a href="#_ednref2" name="_edn2">[ii]</a> Jared Kushner,
+                son-in-law, drove Trump, Middle East policy, with emphasis on
+                economic stimulus Rather than political rights (Kornblah, 2020).
               </p>
               <p>
                 <a href="#_ednref3" name="_edn3">[iii]</a> Israeli Finance
@@ -978,6 +978,9 @@
           const key = nameAttr.replace("_ednref", ""); // e.g. "1"
           const refText = ednRefs[key] || "";
 
+          // Check if refText contains Arabic characters
+          const direction = /[\u0600-\u06FF]/.test(refText) ? "rtl" : "ltr";
+
           // Generate a unique id for the dropdown popup.
           const dropdownId =
             "arabica_ref-dropdown-" +
@@ -985,25 +988,25 @@
 
           // Build the replacement HTML with the icon and hidden dropdown popup.
           const replacementHTML = `
-    <a class="arabica_ref-icon" data-ref-id="${dropdownId}" data-reference="${escapeAttr(
+<a class="arabica_ref-icon" data-ref-id="${dropdownId}" data-reference="${escapeAttr(
             refText
           )}">
-      <i class="fa-light fa-circle-info arabica_ref-icon-light active"></i>
-      <i class="fa-solid fa-circle-info arabica_ref-icon-solid inactive"></i>
-    </a>
-    <div id="${dropdownId}" class="arabica_ref-dropdown">
-      <div class="arabica_ref-actions">
-        <span class="arabica_ref-copy-icon" title="Copy">
-          <i class="fa-regular fa-copy"></i>
-        </span>
-        <span class="arabica_ref-copied-text">✓ تم النسخ</span>
-        <span class="arabica_ref-close-icon" title="Close">
-          <i class="fa-regular fa-circle-xmark"></i>
-        </span>
-      </div>
-      <div class="arabica_ref-text"><span dir="rtl">${refText}</span></div>
-    </div>
-  `;
+<i class="fa-light fa-circle-info arabica_ref-icon-light active"></i>
+<i class="fa-solid fa-circle-info arabica_ref-icon-solid inactive"></i>
+</a>
+<div id="${dropdownId}" class="arabica_ref-dropdown">
+<div class="arabica_ref-actions">
+  <span class="arabica_ref-copy-icon" title="Copy">
+    <i class="fa-regular fa-copy"></i>
+  </span>
+  <span class="arabica_ref-copied-text">✓ تم النسخ</span>
+  <span class="arabica_ref-close-icon" title="Close">
+    <i class="fa-regular fa-circle-xmark"></i>
+  </span>
+</div>
+<div class="arabica_ref-text" dir="${direction}"><span dir="${direction}">${refText}</span></div>
+</div>
+`;
           // Replace the _ednref link with the new icon-and-dropdown markup.
           link.outerHTML = replacementHTML;
         });

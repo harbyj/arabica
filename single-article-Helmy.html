@@ -1526,7 +1526,13 @@
                 29/11/2024, at: https://acr.ps/1L9zRiv
               </p>
               <p>&nbsp;</p>
-              <p><a href="#_ednref1" name="_edn1">[a]</a> محمود مطاوع</p>
+              <p>
+                <a href="#_ednref1" name="_edn1">[a]</a>statute would apply to
+                Israeli officials, holding them accountable for crimes committed
+                against Palestinians in the occupied territories since 1967,
+                particularly the Gaza Strip and the West Bank, including East
+                Jerusalem, especially
+              </p>
 
               <!-- ||||||||||||||| Article Content End  ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||-->
             </div>
@@ -1785,6 +1791,9 @@
           const key = nameAttr.replace("_ednref", ""); // e.g. "1"
           const refText = ednRefs[key] || "";
 
+          // Check if refText contains Arabic characters
+          const direction = /[\u0600-\u06FF]/.test(refText) ? "rtl" : "ltr";
+
           // Generate a unique id for the dropdown popup.
           const dropdownId =
             "arabica_ref-dropdown-" +
@@ -1808,7 +1817,7 @@
         <i class="fa-regular fa-circle-xmark"></i>
       </span>
     </div>
-    <div class="arabica_ref-text"><span dir="rtl">${refText}</span></div>
+   <div class="arabica_ref-text" dir="${direction}"><span dir="${direction}">${refText}</span></div>
   </div>
 `;
           // Replace the _ednref link with the new icon-and-dropdown markup.
