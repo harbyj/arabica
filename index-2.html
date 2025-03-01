@@ -254,7 +254,11 @@
       <div class="arabica_slider">
         <div class="arabica_slides">
           <div class="arabica_slide">
-            <img src="Assets/images/slider-img1.jpg" alt="Slide 1" />
+            <img
+              class="lazyload"
+              data-src="Assets/images/slider-img1.jpg"
+              alt="Slide 1"
+            />
             <div class="arabica_slide-content">
               <div>
                 <div class="arabica_additional-info arabica_container">
@@ -270,7 +274,11 @@
           </div>
 
           <div class="arabica_slide">
-            <img src="Assets/images/slider-img2.jpg" alt="Slide 2" />
+            <img
+              class="lazyload"
+              data-src="Assets/images/slider-img2.jpg"
+              alt="Slide 2"
+            />
             <div class="arabica_slide-content">
               <div>
                 <div class="arabica_additional-info arabica_container">
@@ -286,7 +294,11 @@
           </div>
 
           <div class="arabica_slide">
-            <img src="Assets/images/slider-img3.jpg" alt="Slide 3" />
+            <img
+              class="lazyload"
+              data-src="Assets/images/slider-img3.jpg"
+              alt="Slide 3"
+            />
             <div class="arabica_slide-content">
               <div>
                 <div class="arabica_additional-info arabica_container">
@@ -302,7 +314,11 @@
           </div>
 
           <div class="arabica_slide">
-            <img src="Assets/images/slider-img4.jpg" alt="Slide 4" />
+            <img
+              class="lazyload"
+              data-src="Assets/images/slider-img4.jpg"
+              alt="Slide 4"
+            />
             <div class="arabica_slide-content">
               <div>
                 <div class="arabica_additional-info arabica_container">
@@ -2078,27 +2094,30 @@
       </div>
     </div>
     <script>
-      document.addEventListener("DOMContentLoaded", () => {
+      document.addEventListener("DOMContentLoaded", function () {
         const lazyImages = document.querySelectorAll("img.lazyload");
 
         if ("IntersectionObserver" in window) {
-          const observer = new IntersectionObserver((entries, observer) => {
-            entries.forEach((entry) => {
-              if (entry.isIntersecting) {
-                const img = entry.target;
-                img.src = img.getAttribute("data-src");
-                img.classList.remove("lazyload");
-                observer.unobserve(img);
-              }
-            });
-          });
+          const lazyImageObserver = new IntersectionObserver(
+            (entries, observer) => {
+              entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                  const lazyImage = entry.target;
+                  lazyImage.src = lazyImage.dataset.src;
+                  lazyImage.classList.remove("lazyload");
+                  observer.unobserve(lazyImage);
+                }
+              });
+            }
+          );
 
-          lazyImages.forEach((img) => observer.observe(img));
+          lazyImages.forEach((lazyImage) => {
+            lazyImageObserver.observe(lazyImage);
+          });
         } else {
           // Fallback for browsers that don't support IntersectionObserver
-          lazyImages.forEach((img) => {
-            img.src = img.getAttribute("data-src");
-            img.classList.remove("lazyload");
+          lazyImages.forEach((lazyImage) => {
+            lazyImage.src = lazyImage.dataset.src;
           });
         }
       });
