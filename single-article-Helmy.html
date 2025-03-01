@@ -1619,7 +1619,7 @@
           .forEach((el) => {
             // Regex checks for any Arabic characters in the range \u0600 to \u06FF
             if (!/[\u0600-\u06FF]/.test(el.textContent)) {
-              el.setAttribute("lang", "en");
+              el.setAttribute("dir", "ltr");
             }
           });
       });

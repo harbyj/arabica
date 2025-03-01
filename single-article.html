@@ -246,13 +246,9 @@
                           height="4"
                           viewBox="0 0 6 6"
                         >
-                          <circle
-                            cx="3"
-                            cy="3"
-                            r="3"
-                            fill="currentcolor"
-                          /></svg
-                      ></span>
+                          <circle cx="3" cy="3" r="3" fill="currentcolor" />
+                        </svg>
+                      </span>
                       مدرس مساعد للتراث التطبيقي في جامعة بغداد
                     </span>
                   </div>
@@ -806,7 +802,7 @@
           .forEach((el) => {
             // Regex checks for any Arabic characters in the range \u0600 to \u06FF
             if (!/[\u0600-\u06FF]/.test(el.textContent)) {
-              el.setAttribute("lang", "en");
+              el.setAttribute("dir", "ltr");
             }
           });
       });
@@ -953,20 +949,15 @@
         const article = document.querySelector(".arabica_article-content");
         const paragraphs = article.querySelectorAll("p");
 
-        // Step 1: Process paragraphs to extract reference texts from anchors with name _edn (without ref)
+        // Step 1: Extract reference texts from anchors with name _edn (excluding _ednref)
         const ednRefs = {};
-
         paragraphs.forEach((p) => {
-          // Look for an anchor whose name starts with "_edn" but not "_ednref"
           const ednAnchor = p.querySelector(
             'a[name^="_edn"]:not([name^="_ednref"])'
           );
           if (ednAnchor) {
-            // Extract key (e.g. "_edn1" becomes "1")
             const nameAttr = ednAnchor.getAttribute("name");
             const key = nameAttr.replace("_edn", "");
-
-            // Gather all content (HTML and text) after this anchor in the paragraph as the reference text.
             let refTextHTML = "";
             let sibling = ednAnchor.nextSibling;
             while (sibling) {
@@ -978,49 +969,42 @@
               sibling = sibling.nextSibling;
             }
             ednRefs[key] = refTextHTML.trim();
-
-            // Remove the entire paragraph from the DOM
             p.remove();
           }
         });
 
-        // Step 2: Replace EDN reference links (name starting with _ednref) with the clickable icon
+        // Step 2: Replace EDN reference links with the clickable icon and hidden dropdown
         const ednRefLinks = article.querySelectorAll('a[name^="_ednref"]');
         ednRefLinks.forEach((link) => {
           const nameAttr = link.getAttribute("name"); // e.g. "_ednref1"
-          const key = nameAttr.replace("_ednref", ""); // e.g. "1"
+          const key = nameAttr.replace("_ednref", "");
           const refText = ednRefs[key] || "";
-
-          // Check if refText contains Arabic characters
           const direction = /[\u0600-\u06FF]/.test(refText) ? "rtl" : "ltr";
-
-          // Generate a unique id for the dropdown popup.
           const dropdownId =
             "arabica_ref-dropdown-" +
             Math.random().toString(36).substring(2, 9);
-
-          // Build the replacement HTML with the icon and hidden dropdown popup.
           const replacementHTML = `
 <a class="arabica_ref-icon" data-ref-id="${dropdownId}" data-reference="${escapeAttr(
             refText
           )}">
-<i class="fa-light fa-circle-info arabica_ref-icon-light active"></i>
-<i class="fa-solid fa-circle-info arabica_ref-icon-solid inactive"></i>
+  <i class="fa-light fa-circle-info arabica_ref-icon-light active"></i>
+  <i class="fa-solid fa-circle-info arabica_ref-icon-solid inactive"></i>
 </a>
 <div id="${dropdownId}" class="arabica_ref-dropdown">
-<div class="arabica_ref-actions">
-  <span class="arabica_ref-copy-icon" title="Copy">
-    <i class="fa-regular fa-copy"></i>
-  </span>
-  <span class="arabica_ref-copied-text">✓ تم النسخ</span>
-  <span class="arabica_ref-close-icon" title="Close">
-    <i class="fa-regular fa-circle-xmark"></i>
-  </span>
-</div>
-<div class="arabica_ref-text" dir="${direction}"><span dir="${direction}">${refText}</span></div>
+  <div class="arabica_ref-actions">
+    <span class="arabica_ref-copy-icon" title="Copy">
+      <i class="fa-regular fa-copy"></i>
+    </span>
+    <span class="arabica_ref-copied-text">✓ تم النسخ</span>
+    <span class="arabica_ref-close-icon" title="Close">
+      <i class="fa-regular fa-circle-xmark"></i>
+    </span>
+  </div>
+  <div class="arabica_ref-text" dir="${direction}">
+    <span dir="${direction}">${refText}</span>
+  </div>
 </div>
 `;
-          // Replace the _ednref link with the new icon-and-dropdown markup.
           link.outerHTML = replacementHTML;
         });
 
@@ -1030,28 +1014,15 @@
           const dropdownId = icon.getAttribute("data-ref-id");
           const dropdownEl = document.getElementById(dropdownId);
 
-          // Prevent clicks inside the dropdown from bubbling.
           dropdownEl.addEventListener("click", function (e) {
             e.stopPropagation();
           });
 
-          // Toggle dropdown on icon click.
           icon.addEventListener("click", function (e) {
             e.stopPropagation();
             if (dropdownEl.classList.contains("open")) {
               dropdownEl.classList.remove("open");
-              icon
-                .querySelector(".arabica_ref-icon-solid")
-                .classList.remove("active");
-              icon
-                .querySelector(".arabica_ref-icon-solid")
-                .classList.add("inactive");
-              icon
-                .querySelector(".arabica_ref-icon-light")
-                .classList.remove("inactive");
-              icon
-                .querySelector(".arabica_ref-icon-light")
-                .classList.add("active");
+              resetIconStyles(icon);
             } else {
               closeAllDropdowns();
               positionDropdown(icon, dropdownEl);
@@ -1071,7 +1042,6 @@
             }
           });
 
-          // On hover, switch icon style to solid (if dropdown is not open).
           icon.addEventListener("mouseenter", function () {
             if (!dropdownEl.classList.contains("open")) {
               icon
@@ -1090,41 +1060,17 @@
           });
           icon.addEventListener("mouseleave", function () {
             if (!dropdownEl.classList.contains("open")) {
-              icon
-                .querySelector(".arabica_ref-icon-solid")
-                .classList.remove("active");
-              icon
-                .querySelector(".arabica_ref-icon-solid")
-                .classList.add("inactive");
-              icon
-                .querySelector(".arabica_ref-icon-light")
-                .classList.remove("inactive");
-              icon
-                .querySelector(".arabica_ref-icon-light")
-                .classList.add("active");
+              resetIconStyles(icon);
             }
           });
 
-          // Close button inside the dropdown.
           const closeIcon = dropdownEl.querySelector(".arabica_ref-close-icon");
           closeIcon.addEventListener("click", function (e) {
             e.stopPropagation();
             dropdownEl.classList.remove("open");
-            icon
-              .querySelector(".arabica_ref-icon-solid")
-              .classList.remove("active");
-            icon
-              .querySelector(".arabica_ref-icon-solid")
-              .classList.add("inactive");
-            icon
-              .querySelector(".arabica_ref-icon-light")
-              .classList.remove("inactive");
-            icon
-              .querySelector(".arabica_ref-icon-light")
-              .classList.add("active");
+            resetIconStyles(icon);
           });
 
-          // Copy-to-clipboard functionality.
           const copyIcon = dropdownEl.querySelector(".arabica_ref-copy-icon");
           const copiedText = dropdownEl.querySelector(
             ".arabica_ref-copied-text"
@@ -1156,12 +1102,25 @@
           });
         });
 
-        // Close any open dropdown when clicking outside.
         document.addEventListener("click", function () {
           closeAllDropdowns();
         });
 
-        // Helper: Close all open dropdowns and reset icon styles.
+        // Helper to reset icon styles
+        function resetIconStyles(icon) {
+          icon
+            .querySelector(".arabica_ref-icon-solid")
+            .classList.remove("active");
+          icon
+            .querySelector(".arabica_ref-icon-solid")
+            .classList.add("inactive");
+          icon
+            .querySelector(".arabica_ref-icon-light")
+            .classList.remove("inactive");
+          icon.querySelector(".arabica_ref-icon-light").classList.add("active");
+        }
+
+        // Close all open dropdowns.
         function closeAllDropdowns() {
           const allDropdowns = document.querySelectorAll(
             ".arabica_ref-dropdown.open"
@@ -1173,35 +1132,26 @@
               parentIcon &&
               parentIcon.classList.contains("arabica_ref-icon")
             ) {
-              parentIcon
-                .querySelector(".arabica_ref-icon-solid")
-                .classList.remove("active");
-              parentIcon
-                .querySelector(".arabica_ref-icon-solid")
-                .classList.add("inactive");
-              parentIcon
-                .querySelector(".arabica_ref-icon-light")
-                .classList.remove("inactive");
-              parentIcon
-                .querySelector(".arabica_ref-icon-light")
-                .classList.add("active");
+              resetIconStyles(parentIcon);
             }
           });
         }
 
-        // Helper: Position the dropdown relative to its icon, preventing overflow.
+        // Position dropdown relative to its icon, switching above if needed.
         function positionDropdown(icon, dropdown) {
           const parent = icon.offsetParent;
           if (!parent) return;
-          // Reset any inline positioning.
+
+          // Reset positioning and class.
           dropdown.style.top = "";
           dropdown.style.left = "";
+          dropdown.classList.remove("arabica_ref-dropdown--above");
 
           const iconRect = icon.getBoundingClientRect();
           const parentRect = parent.getBoundingClientRect();
           const dropRect = dropdown.getBoundingClientRect();
 
-          // Center the dropdown horizontally over the icon.
+          // Center dropdown horizontally over the icon.
           let left =
             iconRect.left -
             parentRect.left +
@@ -1214,8 +1164,20 @@
           }
           dropdown.style.left = left + "px";
 
-          // Position the dropdown 10px below the icon.
-          const top = iconRect.bottom - parentRect.top + 10;
+          // Determine available space above and below.
+          const spaceBelow = window.innerHeight - iconRect.bottom;
+          const spaceAbove = iconRect.top;
+          let top;
+          // If there isn't enough space below and there is enough above, position above.
+          if (
+            spaceBelow < dropRect.height + 10 &&
+            spaceAbove >= dropRect.height + 10
+          ) {
+            top = iconRect.top - parentRect.top - dropRect.height - 10;
+            dropdown.classList.add("arabica_ref-dropdown--above");
+          } else {
+            top = iconRect.bottom - parentRect.top + 10;
+          }
           dropdown.style.top = top + "px";
 
           // Set the arrow offset so it points to the center of the icon.
