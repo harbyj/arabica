@@ -3013,10 +3013,6 @@ input:checked + .arabica_toggle:before {
   margin-top: 30px;
   padding: 20px 0 10px;
 }
-[lang="en"] {
-  direction: ltr;
-  text-align: left;
-}
 .arabica_article-foot-wrapper li,
 .arabica_article-foot-wrapper p,
 .arabica_article-references p,
@@ -3251,6 +3247,7 @@ input:checked + .arabica_toggle:before {
 }
 .arabica_ref-icon i {
   grid-area: 1/1;
+  margin-top: 2.1px;
   transition: none;
 }
 .arabica_ref-dropdown {
@@ -3283,7 +3280,7 @@ input:checked + .arabica_toggle:before {
 .arabica_ref-text {
   font-size: 14px;
   color: #333;
-  margin-bottom: 10px;
+  margin-bottom: 0;
 }
 .arabica_ref-actions {
   display: flex;
@@ -3916,4 +3913,17 @@ input:checked + .arabica_toggle:before {
 }
 .arabica_ref-icon:hover {
   color: #c93;
+}
+.arabica_ref-dropdown--above::before {
+  display: none;
+}
+.arabica_ref-dropdown--above::after {
+  content: "";
+  position: absolute;
+  bottom: -10px;
+  left: var(--arrow-left, 50%);
+  transform: translateX(-50%);
+  border-left: 8px solid #fff0;
+  border-right: 8px solid #fff0;
+  border-top: 10px solid #fff;
 }
