@@ -37,7 +37,7 @@ svg {
 }
 @font-face {
   font-family: "Bahij TheSansArabic";
-  src: url(".../fonts/BahijTheSans/BahijTheSans/Bahij_TheSansArabic-Black.ttf")
+  src: url("../fonts/BahijTheSans/BahijTheSans/Bahij_TheSansArabic-Black.ttf")
     format("truetype");
   font-weight: 900;
   font-style: normal;
@@ -2884,10 +2884,8 @@ input:checked + .arabica_toggle:before {
   margin-left: 30px;
 }
 .arabica_article-content hr,
-.arabica_article-image,
 .arabica_article-video,
 .arabica_news-content hr,
-.arabica_news-image,
 .arabica_news-video {
   margin-bottom: 15px;
 }
@@ -2896,7 +2894,6 @@ input:checked + .arabica_toggle:before {
   color: #333;
 }
 .arabica_video-container {
-  background-color: #000;
   position: relative;
   overflow: hidden;
   width: 100%;
@@ -2909,6 +2906,7 @@ input:checked + .arabica_toggle:before {
 }
 .arabica_article-content video,
 .arabica_news-content video {
+  background-color: #000;
   width: 100%;
   aspect-ratio: 137/69;
   display: block;
