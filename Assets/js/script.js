@@ -23,17 +23,22 @@
     initSideContent();
   });
 
+  // ---------------------------
+  // Mobile Navigation Toggle
+  // ---------------------------
   function initMobileNav() {
     const menuToggle = document.getElementById("menuToggle");
     const menuClose = document.getElementById("menuClose");
     const mobileNav = document.getElementById("mobileNav");
     const body = document.body;
+
     if (menuToggle && menuClose && mobileNav) {
       menuToggle.addEventListener("click", () => {
         mobileNav.classList.add("visible");
         mobileNav.classList.remove("hidden");
         body.classList.add("no-scroll");
       });
+
       menuClose.addEventListener("click", () => {
         mobileNav.classList.remove("visible");
         mobileNav.classList.add("hidden");
@@ -42,22 +47,31 @@
     }
   }
 
+  // ---------------------------
+  // Clone Navigation Menu for Mobile
+  // ---------------------------
   function cloneNavMenu() {
     const navMenu = document.querySelector("#navMenu ul");
     const mobileNavList = document.querySelector(".arabica_mobile_nav_list");
+
     if (navMenu && mobileNavList) {
       mobileNavList.appendChild(navMenu.cloneNode(true));
     }
   }
 
+  // ---------------------------
+  // Native Share Dialog
+  // ---------------------------
   function initShareLinks() {
-    document.querySelectorAll(".arabica_share-link").forEach((link) => {
+    const shareLinks = document.querySelectorAll(".arabica_share-link");
+    shareLinks.forEach((link) => {
       link.addEventListener("click", (event) => {
         event.preventDefault();
         const shareData = {
           title: event.target.getAttribute("data-share-title"),
           url: event.target.getAttribute("data-share-url"),
         };
+
         if (navigator.share) {
           navigator
             .share(shareData)
@@ -70,15 +84,22 @@
     });
   }
 
+  // ---------------------------
+  // Smooth Scroll for Anchor Links
+  // ---------------------------
   function initSmoothScroll() {
     document.addEventListener("click", function (event) {
       const anchor = event.target.closest('a[href^="#"]');
       if (!anchor) return;
+
       const targetId = anchor.getAttribute("href").slice(1);
       if (!targetId) return;
-      let targetElement =
-        document.getElementById(targetId) ||
-        document.getElementsByName(targetId)[0];
+
+      let targetElement = document.getElementById(targetId);
+      if (!targetElement) {
+        targetElement = document.getElementsByName(targetId)[0];
+      }
+
       if (targetElement) {
         event.preventDefault();
         const offset = 20;
@@ -91,14 +112,19 @@
     });
   }
 
+  // ---------------------------
+  // Slider Initialization
+  // ---------------------------
   function initSlider() {
     const slides = document.querySelectorAll(".arabica_slide");
     const buttons = document.querySelectorAll(".arabica_slider-buttons button");
-    let currentSlide = 0,
-      autoSlideInterval,
-      isPageVisible = true;
+    let currentSlide = 0;
+    let autoSlideInterval;
+    let isPageVisible = true;
     const slider = document.querySelector(".arabica_slider");
+
     if (!slides.length || !buttons.length || !slider) return;
+
     const showSlide = (index) => {
       slides.forEach((slide, i) =>
         slide.classList.toggle("active", i === index)
@@ -107,20 +133,25 @@
         button.classList.toggle("active", i === index)
       );
     };
+
     const nextSlide = () => {
       currentSlide = (currentSlide + 1) % slides.length;
       showSlide(currentSlide);
     };
+
     const startAutoSlide = () => {
       autoSlideInterval = setInterval(nextSlide, 10000);
     };
+
     const stopAutoSlide = () => {
       clearInterval(autoSlideInterval);
     };
+
     const resetTimer = () => {
       stopAutoSlide();
       startAutoSlide();
     };
+
     buttons.forEach((button, i) => {
       button.addEventListener("click", () => {
         currentSlide = i;
@@ -128,18 +159,22 @@
         resetTimer();
       });
     });
-    let touchStartX = 0,
-      touchEndX = 0;
+
+    let touchStartX = 0;
+    let touchEndX = 0;
+
     slider.addEventListener("touchstart", (e) => {
       touchStartX = e.touches[0].clientX;
     });
+
     slider.addEventListener("touchend", (e) => {
       touchEndX = e.changedTouches[0].clientX;
       handleSwipe();
     });
-    function handleSwipe() {
-      const swipeThreshold = 50,
-        swipeDistance = touchEndX - touchStartX;
+
+    const handleSwipe = () => {
+      const swipeThreshold = 50;
+      const swipeDistance = touchEndX - touchStartX;
       if (swipeDistance > swipeThreshold) {
         currentSlide = (currentSlide - 1 + slides.length) % slides.length;
       } else if (swipeDistance < -swipeThreshold) {
@@ -147,19 +182,29 @@
       }
       showSlide(currentSlide);
       resetTimer();
-    }
+    };
+
     document.addEventListener("visibilitychange", () => {
       isPageVisible = !document.hidden;
-      isPageVisible ? startAutoSlide() : stopAutoSlide();
+      if (isPageVisible) {
+        startAutoSlide();
+      } else {
+        stopAutoSlide();
+      }
     });
+
     startAutoSlide();
     showSlide(currentSlide);
   }
 
+  // ---------------------------
+  // Load More for Featured Articles
+  // ---------------------------
   function initLoadMore() {
     const loadMoreBtn = document.getElementById("loadMoreBtn");
     const articles = document.querySelectorAll(".arabica_featured-article");
     if (!loadMoreBtn || !articles.length) return;
+
     const plusIcon = loadMoreBtn.querySelector(
       ".arabica_featured-pager .fa-plus"
     );
@@ -170,18 +215,22 @@
       ".arabica_featured-pager .arabica_loading-icon"
     );
     let expanded = false;
+
+    // Initially show only first 2 articles
     for (let i = 2; i < articles.length; i++) {
       articles[i].classList.add("hidden");
     }
     plusIcon.style.display = "inline-block";
     minusIcon.style.display = "none";
     loadingIcon.style.display = "none";
+
     loadMoreBtn.addEventListener("click", (event) => {
       event.preventDefault();
       plusIcon.style.display = "none";
       minusIcon.style.display = "none";
       loadingIcon.style.display = "inline-block";
       loadMoreBtn.style.pointerEvents = "none";
+
       setTimeout(() => {
         if (!expanded) {
           for (let i = 2; i < articles.length; i++) {
@@ -201,10 +250,14 @@
     });
   }
 
+  // ---------------------------
+  // Load More for Short Articles
+  // ---------------------------
   function initLoadMoreShort() {
     const loadMoreBtn2 = document.getElementById("loadMoreBtn2");
     const shortArticles = document.querySelectorAll(".arabica_short-article");
     if (!loadMoreBtn2 || !shortArticles.length) return;
+
     const plusIcon2 = loadMoreBtn2.querySelector(
       ".arabica_short-pager .fa-plus"
     );
@@ -215,6 +268,7 @@
       ".arabica_short-pager .arabica_loading-icon"
     );
     let expandedShort = false;
+
     shortArticles.forEach((article, index) => {
       if (index >= 6) {
         article.classList.add("hidden");
@@ -224,11 +278,13 @@
     plusIcon2.style.display = "inline-block";
     minusIcon2.style.display = "none";
     loadingIcon2.style.display = "none";
+
     const showArticle = (article) => {
       article.style.display = "block";
-      void article.offsetWidth;
+      void article.offsetWidth; // Force reflow for transition
       article.classList.remove("hidden");
     };
+
     const hideArticle = (article) => {
       article.classList.add("hidden");
       article.addEventListener(
@@ -241,12 +297,14 @@
         { once: true }
       );
     };
+
     loadMoreBtn2.addEventListener("click", (event) => {
       event.preventDefault();
       plusIcon2.style.display = "none";
       minusIcon2.style.display = "none";
       loadingIcon2.style.display = "inline-block";
       loadMoreBtn2.style.pointerEvents = "none";
+
       setTimeout(() => {
         if (!expandedShort) {
           for (let i = 6; i < shortArticles.length; i++) {
@@ -266,6 +324,43 @@
     });
   }
 
+  // ---------------------------
+  // Update Timeline Line Height
+  // ---------------------------
+  function updateLineHeight() {
+    const container = document.querySelector(".arabica_timeline-container");
+    if (!container) return;
+
+    const lastContent = container.querySelector(
+      ".arabica_timeline-items .arabica_timeline-item:last-of-type .arabica_timeline-content"
+    );
+    if (!lastContent) return;
+
+    const containerRect = container.getBoundingClientRect();
+    const lastRect = lastContent.getBoundingClientRect();
+    const viewportWidth = window.innerWidth;
+    let targetBottom, startOffset;
+
+    if (viewportWidth <= 767) {
+      targetBottom = lastRect.top - containerRect.top + 36;
+      startOffset = 60;
+    } else if (viewportWidth <= 991) {
+      targetBottom = lastRect.top - containerRect.top + 42;
+      startOffset = 70;
+    } else {
+      targetBottom = lastRect.top - containerRect.top + lastRect.height / 2;
+      startOffset = 125;
+    }
+
+    const newHeight = targetBottom - startOffset;
+    container.style.setProperty("--line-height", newHeight + "px");
+  }
+  window.addEventListener("load", updateLineHeight);
+  window.addEventListener("resize", updateLineHeight);
+
+  // ---------------------------
+  // Editor Modal Functionality
+  // ---------------------------
   function initEditorModal() {
     const modal = document.getElementById("editorModal");
     const closeModalBtn = document.querySelector(".modal-close");
@@ -279,7 +374,9 @@
       editorEmail: document.getElementById("editorEmail"),
       separator: document.querySelector(".modal-separator"),
     };
+
     if (!modal) return;
+
     const hideIfEmpty = (element, displayType) => {
       if (!element || element.textContent.trim() === "") {
         element.style.display = "none";
@@ -287,17 +384,20 @@
         element.style.display = displayType;
       }
     };
+
     const updateSeparator = () => {
-      const field = editorElements.editorField.textContent.trim();
-      const title = editorElements.editorTitle.textContent.trim();
+      const editorField = editorElements.editorField.textContent.trim();
+      const editorTitle = editorElements.editorTitle.textContent.trim();
       editorElements.separator.style.display =
-        field && title ? "inline" : "none";
+        editorField && editorTitle ? "inline" : "none";
     };
+
     document.querySelectorAll(".arabica_editor-link").forEach((link) => {
       link.addEventListener("click", (event) => {
         event.preventDefault();
         const editorInfo = link.querySelector(".arabica_editor-info");
-        function updateContent(element, selector, displayType) {
+
+        const updateContent = (element, selector, displayType) => {
           const target = editorInfo.querySelector(selector);
           if (element && target && target.textContent.trim() !== "") {
             element.textContent = target.textContent;
@@ -306,7 +406,8 @@
             element.textContent = "";
             element.style.display = "none";
           }
-        }
+        };
+
         updateContent(
           editorElements.editorName,
           ".arabica_editor-name",
@@ -327,6 +428,7 @@
           ".arabica_editor-category",
           "inline-block"
         );
+
         const bio = editorInfo.querySelector(".arabica_editor-bio");
         if (bio && bio.textContent.trim() !== "") {
           editorElements.editorBio.innerHTML = bio.innerHTML;
@@ -335,6 +437,7 @@
           editorElements.editorBio.innerHTML = "";
           editorElements.editorBio.style.display = "none";
         }
+
         const image = link.querySelector(".arabica_editor-image");
         if (image) {
           editorElements.editorImage.src = "";
@@ -347,6 +450,7 @@
         } else {
           editorElements.editorImage.style.display = "none";
         }
+
         const emailElement = editorInfo.querySelector(".arabica_editor-email");
         if (emailElement && emailElement.textContent.trim() !== "") {
           const email = emailElement.textContent;
@@ -360,6 +464,7 @@
           editorElements.editorEmail.innerHTML = "";
           editorElements.editorEmail.style.display = "none";
         }
+
         Object.entries(editorElements).forEach(([key, element]) => {
           if (key !== "separator") {
             const displayType =
@@ -371,15 +476,18 @@
             hideIfEmpty(element, displayType);
           }
         });
+
         updateSeparator();
         document.body.classList.add("no-scroll");
         modal.classList.add("show");
       });
     });
+
     const closeModal = () => {
       modal.classList.remove("show");
       document.body.classList.remove("no-scroll");
     };
+
     closeModalBtn.addEventListener("click", closeModal);
     window.addEventListener(
       "click",
@@ -392,14 +500,19 @@
     });
   }
 
+  // ---------------------------
+  // Contact Form Submission
+  // ---------------------------
   function initContactForm() {
     const contactForm = document.getElementById("contactForm");
     if (!contactForm) return;
+
     contactForm.addEventListener("submit", function (e) {
       e.preventDefault();
       const isSuccess = Math.random() > 0.5;
       const feedbackEl = document.getElementById("feedback");
       feedbackEl.style.display = "block";
+
       if (isSuccess) {
         feedbackEl.textContent = "تم الإرسال بنجاح!";
         feedbackEl.classList.remove("error");
@@ -415,6 +528,9 @@
     });
   }
 
+  // ---------------------------
+  // Layout Switcher (Grid/List)
+  // ---------------------------
   function initLayoutSwitcher() {
     const gridButton = document.querySelector(".arabica_grid");
     const listButton = document.querySelector(".arabica_list");
@@ -422,6 +538,7 @@
       ".arabica_featured-content"
     );
     if (!gridButton || !listButton || !contentContainer) return;
+
     let savedLayout = localStorage.getItem("layoutPreference") || "list";
     if (savedLayout === "grid") {
       contentContainer.classList.add("grid-posts");
@@ -432,7 +549,8 @@
       listButton.classList.add("active");
       gridButton.classList.remove("active");
     }
-    function applyLayout(isGrid) {
+
+    const applyLayout = (isGrid) => {
       if (
         (isGrid && contentContainer.classList.contains("grid-posts")) ||
         (!isGrid && !contentContainer.classList.contains("grid-posts"))
@@ -440,6 +558,7 @@
         return;
       }
       contentContainer.classList.add("fade-out");
+
       setTimeout(() => {
         contentContainer.classList.remove("fade-out");
         if (isGrid) {
@@ -459,18 +578,24 @@
           contentContainer.classList.remove("fade-in");
         }, 0);
       }, 0);
-    }
+    };
+
     gridButton.addEventListener("click", () => applyLayout(true));
     listButton.addEventListener("click", () => applyLayout(false));
   }
 
+  // ---------------------------
+  // Dropdown Functionality
+  // ---------------------------
   function initDropdowns() {
+    // Toggle dropdown open/close
     window.toggleDropdown = (button) => {
       const currentDropdown = button.parentElement;
       const dropdownWrapper = currentDropdown.querySelector(
         ".arabica_dropdown-content-wrapper"
       );
       const allDropdowns = document.querySelectorAll(".arabica_dropdown");
+
       allDropdowns.forEach((dropdown) => {
         if (dropdown !== currentDropdown) {
           dropdown.classList.remove("active");
@@ -479,6 +604,7 @@
           ).style.maxHeight = null;
         }
       });
+
       currentDropdown.classList.toggle("active");
       if (currentDropdown.classList.contains("active")) {
         dropdownWrapper.style.maxHeight = dropdownWrapper.scrollHeight + "px";
@@ -486,6 +612,8 @@
         dropdownWrapper.style.maxHeight = null;
       }
     };
+
+    // Initialize checkbox behavior
     document
       .querySelectorAll(".arabica_dropdown-content")
       .forEach((dropdownContent) => {
@@ -494,6 +622,7 @@
         if (selectAllCheckbox) {
           selectAllCheckbox.checked = true;
           selectAllCheckbox.closest("label").classList.add("checked");
+
           const checkboxes = dropdownContent.querySelectorAll(
             'input[type="checkbox"]:not(.select-all input)'
           );
@@ -502,11 +631,14 @@
             checkbox.closest("label").classList.add("checked");
             checkbox.addEventListener("change", handleCheckboxChange);
           });
+
           selectAllCheckbox.addEventListener("click", function () {
             toggleSelectAll(selectAllCheckbox);
           });
         }
       });
+
+    // Close dropdown when clicking outside
     window.addEventListener("click", function (event) {
       if (
         !event.target.closest(".arabica_dropdown") &&
@@ -553,11 +685,13 @@
     const selectAllLabel = selectAllCheckbox.closest("label");
     const checkbox = event.target;
     const label = checkbox.closest("label");
+
     if (checkbox.checked) {
       label.classList.add("checked");
     } else {
       label.classList.remove("checked");
     }
+
     const allChecked = Array.from(checkboxes).every((cb) => cb.checked);
     if (allChecked) {
       selectAllCheckbox.checked = true;
@@ -568,6 +702,9 @@
     }
   }
 
+  // ---------------------------
+  // Add Separator between Editor Fields
+  // ---------------------------
   function initEditorSeparator() {
     document.querySelectorAll(".arabica_editor-category").forEach((field) => {
       const title = field.nextElementSibling;
