@@ -33,15 +33,6 @@
       media="all"
     />
     <style>
-      /* Ensure full-page coverage and no scroll during loading */
-      html,
-      body {
-        margin: 0;
-        padding: 0;
-        height: 100%;
-        overflow: hidden;
-        background: #fff;
-      }
       /* Loading overlay covering the whole page */
       .loading-overlay {
         position: fixed;
@@ -89,7 +80,7 @@
       }
     </style>
     <script>
-      // When the page loads, fade out and remove the loading overlay.
+      // After page load, fade out and remove the overlay.
       window.addEventListener("load", function () {
         const overlay = document.querySelector(".loading-overlay");
         if (overlay) {
