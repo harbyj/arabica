@@ -1,18 +1,17 @@
 /* jshint esversion: 6 */
 // Slider images
-window.addEventListener("load", function () {
+document.addEventListener("DOMContentLoaded", function () {
   const slides = document.querySelectorAll(".arabica_slide");
   const buttons = document.querySelectorAll(".arabica_slider-buttons button");
   let currentSlide = 0;
   let autoSlideInterval;
   let isPageVisible = true;
 
-  // Function to show a specific slide
+  // Function to show a specific slide immediately
   function showSlide(index) {
     slides.forEach((slide, i) => {
       slide.classList.toggle("active", i === index);
     });
-
     buttons.forEach((button, i) => {
       button.classList.toggle("active", i === index);
     });
@@ -24,7 +23,7 @@ window.addEventListener("load", function () {
     showSlide(currentSlide);
   }
 
-  // Function to start the auto-slide interval
+  // Function to start the auto-slide interval (called after page load)
   function startAutoSlide() {
     autoSlideInterval = setInterval(nextSlide, 10000); // Change slide every 10 seconds
   }
@@ -52,7 +51,6 @@ window.addEventListener("load", function () {
   // Handle touch swipe events
   let touchStartX = 0;
   let touchEndX = 0;
-
   const slider = document.querySelector(".arabica_slider");
 
   slider.addEventListener("touchstart", (e) => {
@@ -75,7 +73,6 @@ window.addEventListener("load", function () {
       // Swipe left (next slide)
       currentSlide = (currentSlide + 1) % slides.length;
     }
-
     showSlide(currentSlide);
     resetTimer(); // Reset the timer on swipe
   }
@@ -90,9 +87,16 @@ window.addEventListener("load", function () {
     }
   });
 
-  // Start the auto-slide after full page load and show the first slide
-  startAutoSlide();
+  // Immediately display the first slide without any delay or animation
   showSlide(currentSlide);
+});
+
+// Start auto-slide timer only after the entire page (including images) has fully loaded
+window.addEventListener("load", function () {
+  // Assuming the rest of the slider code is within the DOMContentLoaded event,
+  // the startAutoSlide() function is now called here to begin the auto slide timer.
+  const event = new Event("visibilitychange");
+  document.dispatchEvent(event);
 });
 
 // Get Load More
