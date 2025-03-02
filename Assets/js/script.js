@@ -1679,7 +1679,9 @@
 
     // Single image lightbox for standalone anchors.
     document
-      .querySelectorAll(".arabica_article-content a, .arabica_article-image a")
+      .querySelectorAll(
+        ".arabica_article-content a, .arabica_article-image a, .arabica_news-content a, .arabica_news-image a"
+      )
       .forEach((anchor) => {
         if (
           /\.(jpg|jpeg|png|gif|webp)$/i.test(anchor.getAttribute("href")) &&
