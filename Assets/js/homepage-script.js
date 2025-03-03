@@ -1,11 +1,21 @@
 /* jshint esversion: 6 */
-// Slider images
 document.addEventListener("DOMContentLoaded", function () {
   const slides = document.querySelectorAll(".arabica_slide");
-  const buttons = document.querySelectorAll(".arabica_slider-buttons button");
+  const buttonsContainer = document.querySelector(".arabica_slider-buttons");
   let currentSlide = 0;
   let autoSlideInterval;
   let isPageVisible = true;
+
+  // Clear existing buttons (if any) and dynamically create buttons based on the number of slides
+  buttonsContainer.innerHTML = "";
+  slides.forEach((_, i) => {
+    const button = document.createElement("button");
+    button.dataset.slide = i;
+    if (i === 0) button.classList.add("active"); // Set the first button as active initially
+    buttonsContainer.appendChild(button);
+  });
+
+  const buttons = buttonsContainer.querySelectorAll("button");
 
   // Function to show a specific slide immediately
   function showSlide(index) {
@@ -23,7 +33,7 @@ document.addEventListener("DOMContentLoaded", function () {
     showSlide(currentSlide);
   }
 
-  // Function to start the auto-slide interval (called after page load)
+  // Function to start the auto-slide interval
   function startAutoSlide() {
     autoSlideInterval = setInterval(nextSlide, 10000); // Change slide every 10 seconds
   }
@@ -39,7 +49,7 @@ document.addEventListener("DOMContentLoaded", function () {
     startAutoSlide();
   }
 
-  // Handle manual navigation via buttons
+  // Handle manual navigation via dynamically created buttons
   buttons.forEach((button, i) => {
     button.addEventListener("click", () => {
       currentSlide = i;
@@ -63,40 +73,31 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   function handleSwipe() {
-    const swipeThreshold = 50; // Minimum swipe distance to trigger a slide change
+    const swipeThreshold = 50;
     const swipeDistance = touchEndX - touchStartX;
 
     if (swipeDistance > swipeThreshold) {
-      // Swipe right (previous slide)
       currentSlide = (currentSlide - 1 + slides.length) % slides.length;
     } else if (swipeDistance < -swipeThreshold) {
-      // Swipe left (next slide)
       currentSlide = (currentSlide + 1) % slides.length;
     }
     showSlide(currentSlide);
-    resetTimer(); // Reset the timer on swipe
+    resetTimer();
   }
 
   // Pause auto-slide when the page is not visible
   document.addEventListener("visibilitychange", () => {
     isPageVisible = !document.hidden;
     if (isPageVisible) {
-      startAutoSlide(); // Resume auto-slide when the page is visible
+      startAutoSlide();
     } else {
-      stopAutoSlide(); // Pause auto-slide when the page is hidden
+      stopAutoSlide();
     }
   });
 
-  // Immediately display the first slide without any delay or animation
+  // Show the first slide and start auto-slide
   showSlide(currentSlide);
-});
-
-// Start auto-slide timer only after the entire page (including images) has fully loaded
-window.addEventListener("load", function () {
-  // Assuming the rest of the slider code is within the DOMContentLoaded event,
-  // the startAutoSlide() function is now called here to begin the auto slide timer.
-  const event = new Event("visibilitychange");
-  document.dispatchEvent(event);
+  startAutoSlide();
 });
 
 // Get Load More
