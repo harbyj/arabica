@@ -37,7 +37,7 @@ svg {
 }
 @font-face {
   font-family: "Bahij TheSansArabic";
-  src: url("../fonts/BahijTheSans/BahijTheSans/Bahij_TheSansArabic-Black.ttf")
+  src: url("../fonts/BahijTheSans/Bahij_TheSansArabic-Black.ttf")
     format("truetype");
   font-weight: 900;
   font-style: normal;
@@ -438,7 +438,7 @@ span.arabica_date {
 @media (min-width: 992px) {
   .logo img,
   .logo svg {
-    height: 56px;
+    height: 50px;
   }
   .menu-toggle {
     display: none;
@@ -451,6 +451,12 @@ span.arabica_date {
     width: 35%;
     text-align: center;
     padding: 100px 70px;
+  }
+}
+@media (min-width: 1200px) {
+  .logo img,
+  .logo svg {
+    height: 56px;
   }
 }
 .arabica_footer-text {
@@ -817,7 +823,6 @@ a.arabica_tag:hover {
   box-shadow: 5px 6px 10px #0000001f;
   background-color: #fff;
 }
-.arabica_about,
 .arabica_featured {
   background: linear-gradient(to bottom, #fff 65%, #f2f2f2);
 }
@@ -2660,7 +2665,7 @@ input:checked + .arabica_toggle:before {
   font-weight: 700;
 }
 .arabica_stages {
-  padding: 10px 0 0;
+  padding: 85px 0 0;
 }
 .arabica_timeline-header-row {
   margin-bottom: 60px;
@@ -3383,11 +3388,13 @@ input:checked + .arabica_toggle:before {
     flex-direction: row-reverse;
     float: right;
   }
-  .arabica_timeline h2 {
+  .arabica_timeline h2,
+  .arabica_stages h2 {
     font-size: 21px;
     font-weight: 700;
   }
-  .arabica_timeline {
+  .arabica_timeline,
+  .arabica_stages {
     padding-top: 20px;
   }
   .arabica_timeline-container {
@@ -3924,4 +3931,13 @@ input:checked + .arabica_toggle:before {
   border-left: 8px solid #fff0;
   border-right: 8px solid #fff0;
   border-top: 10px solid #fff;
+}
+.arabica_stages h2 {
+  text-align: center;
+  margin: 0 0 20px;
+}
+@media (max-width: 1024px) {
+  .arabica_nav ul li a {
+    font-size: 13px;
+  }
 }
