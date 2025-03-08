@@ -2892,7 +2892,7 @@ input:checked + .arabica_toggle:before {
 .arabica_article-video,
 .arabica_news-content hr,
 .arabica_news-video {
-  margin-bottom: 15px;
+  margin: 60px 0px;
 }
 .arabica_article-foot-wrapper {
   background-color: #f8f8f8;
