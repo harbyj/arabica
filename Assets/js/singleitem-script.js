@@ -760,40 +760,69 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     }
   }
+
   let gridTouchStartX = 0;
   let currentGridTranslateX = 0;
+  let isGridDragging = false;
 
   galleryGrid.addEventListener("touchstart", (e) => {
     gridTouchStartX = e.touches[0].clientX;
-    // Remove transition for immediate response during swipe.
-    galleryGrid.style.transition = "none";
+    isGridDragging = true;
+    galleryGrid.style.transition = "none"; // immediate response while swiping
   });
 
   galleryGrid.addEventListener("touchmove", (e) => {
+    if (!isGridDragging) return;
     const touchCurrentX = e.touches[0].clientX;
     const deltaX = touchCurrentX - gridTouchStartX;
-
-    // Calculate new translation value.
+    // Calculate new translation value based on previous position and delta.
     let newTranslateX = currentGridTranslateX + deltaX;
 
-    // Clamp the new translation.
     const viewportWidth = window.innerWidth;
     const gridWidth = galleryGrid.scrollWidth;
-    const maxTranslate = 0;
-    const minTranslate = viewportWidth - gridWidth; // negative value
+    const maxTranslate = 0; // left boundary
+    const minTranslate = viewportWidth - gridWidth; // right boundary (a negative value)
 
+    // Clamp the translation
     if (newTranslateX > maxTranslate) newTranslateX = maxTranslate;
     if (newTranslateX < minTranslate) newTranslateX = minTranslate;
 
     galleryGrid.style.transform = `translateX(${newTranslateX}px)`;
   });
 
-  galleryGrid.addEventListener("touchend", () => {
-    // After the swipe ends, update currentGridTranslateX to the final translateX value.
+  galleryGrid.addEventListener("touchend", (e) => {
+    if (!isGridDragging) return;
+    isGridDragging = false;
+    // Update current translation from the computed style
     const style = window.getComputedStyle(galleryGrid);
     const matrix = new DOMMatrixReadOnly(style.transform);
-    currentGridTranslateX = matrix.m41; // current X translation value
+    currentGridTranslateX = matrix.m41;
+
+    const viewportWidth = window.innerWidth;
+    const gridWidth = galleryGrid.scrollWidth;
+    const minTranslate = viewportWidth - gridWidth; // negative value
+    const threshold = 5; // a small threshold for approximations
+
+    // If the grid is swiped near the left boundary (translateX near 0)
+    if (Math.abs(currentGridTranslateX - 0) < threshold) {
+      currentGridTranslateX = 0;
+      if (currentIndex !== 0) {
+        currentIndex = 0;
+        updateLightboxContent();
+      }
+    }
+    // If swiped near the right boundary (translateX near minTranslate)
+    else if (Math.abs(currentGridTranslateX - minTranslate) < threshold) {
+      currentGridTranslateX = minTranslate;
+      if (currentIndex !== currentGallery.length - 1) {
+        currentIndex = currentGallery.length - 1;
+        updateLightboxContent();
+      }
+    }
+
+    // Apply the final transform with a smooth transition.
     galleryGrid.style.transition = "transform 0.3s ease-in-out";
+    galleryGrid.style.transform = `translateX(${currentGridTranslateX}px)`;
   });
 
   function updateLightboxContent() {
