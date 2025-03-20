@@ -649,15 +649,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const closeBtn = document.createElement("span");
   closeBtn.classList.add("arabica_article_close-btn");
-  closeBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
-      <path fill="#ffffff" d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
-    </svg>`;
+  closeBtn.innerHTML = `
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+          <path fill="#ffffff" d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+        </svg>
+      `;
 
   const lightboxImg = document.createElement("img");
   lightboxImg.id = "lightbox-img";
-  // Apply a fade transition to the lightbox image.
-  lightboxImg.style.transition = "opacity 0.3s ease-in-out";
-  lightboxImg.style.opacity = "1";
 
   const lightboxCaption = document.createElement("div");
   lightboxCaption.classList.add("arabica_article_lightbox-caption");
@@ -734,18 +733,26 @@ document.addEventListener("DOMContentLoaded", () => {
         const gridWidth = galleryGrid.scrollWidth;
 
         if (gridWidth > viewportWidth) {
-          galleryGrid.style.left = "0";
+          // Grid is larger than the screen.
+          galleryGrid.style.left = "0"; // Force the left position.
+
+          // Calculate the ideal translation to center the active image.
           const activeCenter = activeImg.offsetLeft + activeImg.offsetWidth / 2;
           const idealTranslate = viewportWidth / 2 - activeCenter;
-          const maxTranslate = 0;
-          const minTranslate = viewportWidth - gridWidth;
+
+          // Clamp the translation so the grid doesn't shift too far.
+          const maxTranslate = 0; // left edge of grid should not exceed viewport left edge.
+          const minTranslate = viewportWidth - gridWidth; // right edge should align with viewport right.
           const clampedTranslate = Math.min(
             maxTranslate,
             Math.max(idealTranslate, minTranslate)
           );
+
           galleryGrid.style.transition = "transform 0.3s ease-in-out";
           galleryGrid.style.transform = `translateX(${clampedTranslate}px)`;
         } else {
+          // Grid is smaller than or equal to the screen.
+          // Remove any previously applied inline styles.
           galleryGrid.style.left = "";
           galleryGrid.style.transform = "";
           galleryGrid.style.transition = "";
@@ -760,23 +767,32 @@ document.addEventListener("DOMContentLoaded", () => {
   galleryGrid.addEventListener("touchstart", (e) => {
     const viewportWidth = window.innerWidth;
     const gridWidth = galleryGrid.scrollWidth;
+
+    // Only enable swipe if grid is wider than the screen
     if (gridWidth > viewportWidth) {
       gridTouchStartX = e.touches[0].clientX;
-      galleryGrid.style.transition = "none";
+      galleryGrid.style.transition = "none"; // Disable transition for immediate movement
     }
   });
 
   galleryGrid.addEventListener("touchmove", (e) => {
     const viewportWidth = window.innerWidth;
     const gridWidth = galleryGrid.scrollWidth;
+
+    // Only allow movement if the grid is wider than the screen
     if (gridWidth > viewportWidth) {
       const touchCurrentX = e.touches[0].clientX;
       const deltaX = touchCurrentX - gridTouchStartX;
+
       let newTranslateX = currentGridTranslateX + deltaX;
+
+      // Clamping to prevent over-scrolling
       const maxTranslate = 0;
-      const minTranslate = viewportWidth - gridWidth;
+      const minTranslate = viewportWidth - gridWidth; // negative value
+
       if (newTranslateX > maxTranslate) newTranslateX = maxTranslate;
       if (newTranslateX < minTranslate) newTranslateX = minTranslate;
+
       galleryGrid.style.transform = `translateX(${newTranslateX}px)`;
     }
   });
@@ -784,24 +800,24 @@ document.addEventListener("DOMContentLoaded", () => {
   galleryGrid.addEventListener("touchend", () => {
     const viewportWidth = window.innerWidth;
     const gridWidth = galleryGrid.scrollWidth;
+
+    // Only update position if scrolling was allowed
     if (gridWidth > viewportWidth) {
       const style = window.getComputedStyle(galleryGrid);
       const matrix = new DOMMatrixReadOnly(style.transform);
-      currentGridTranslateX = matrix.m41;
-      galleryGrid.style.transition = "transform 0.3s ease-in-out";
+      currentGridTranslateX = matrix.m41; // Save the last transform position
+      galleryGrid.style.transition = "transform 0.3s ease-in-out"; // Smooth transition on release
     }
   });
 
   function updateLightboxContent() {
     const { src, alt, caption } = currentGallery[currentIndex];
-    // Fade out the image.
     lightboxImg.style.opacity = 0;
     setTimeout(() => {
       lightboxImg.setAttribute("src", src);
       lightboxImg.setAttribute("alt", alt);
       lightboxCaption.textContent = caption;
       updateGalleryGrid(currentGallery);
-      // Fade in the image.
       lightboxImg.style.opacity = 1;
     }, 150);
   }
@@ -821,6 +837,9 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
+  // ------------------------------
+  // LIGHTBOX EVENT LISTENERS
+  // ------------------------------
   closeBtn.addEventListener("click", closeLightbox);
   lightbox.addEventListener("click", (e) => {
     if (e.target === lightbox) {
@@ -879,10 +898,11 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   /* ------------------------------
-         GALLERY SLIDER SETUP (FADE TRANSITION)
-         For containers with multiple items using .arabica_article-image-gallery
+         GALLERY SLIDER SETUP
+         (for containers with multiple items using .arabica_article-image-gallery)
       ------------------------------ */
   document.querySelectorAll(".arabica_article-image").forEach((container) => {
+    // If container has multiple gallery items, set up the slider.
     const galleryItems = container.querySelectorAll(
       ".arabica_article-image-gallery"
     );
@@ -891,37 +911,28 @@ document.addEventListener("DOMContentLoaded", () => {
       slider.className = "arabica_article_slider";
       const sliderWrapper = document.createElement("div");
       sliderWrapper.className = "arabica_article_slider_wrapper";
-      sliderWrapper.style.position = "relative";
 
-      // Wrap each gallery item in a container with fade transition
-      galleryItems.forEach((item, index) => {
-        const slideContainer = document.createElement("div");
-        slideContainer.style.position = "absolute";
-        slideContainer.style.top = "0";
-        slideContainer.style.left = "0";
-        slideContainer.style.width = "100%";
-        slideContainer.style.opacity = index === 0 ? "1" : "0";
-        slideContainer.style.transition = "opacity 0.3s ease-in-out";
-        slideContainer.appendChild(item);
-        sliderWrapper.appendChild(slideContainer);
+      galleryItems.forEach((item) => {
+        sliderWrapper.appendChild(item);
       });
-
       slider.appendChild(sliderWrapper);
 
       const prevSliderBtn = document.createElement("button");
       prevSliderBtn.className =
         "arabica_article_slider-nav arabica_article_slider-prev";
-      prevSliderBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
-          <path fill="#ffffff" d="M15.41 16.59L10.83 12l4.58-4.59L14 6l-6 6 6 6z"/>
-        </svg>`;
-
+      prevSliderBtn.innerHTML = `
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+              <path fill="#ffffff" d="M15.41 16.59L10.83 12l4.58-4.59L14 6l-6 6 6 6z"/>
+            </svg>
+          `;
       const nextSliderBtn = document.createElement("button");
       nextSliderBtn.className =
         "arabica_article_slider-nav arabica_article_slider-next";
-      nextSliderBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
-          <path fill="#ffffff" d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6z"/>
-        </svg>`;
-
+      nextSliderBtn.innerHTML = `
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+              <path fill="#ffffff" d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6z"/>
+            </svg>
+          `;
       slider.appendChild(prevSliderBtn);
       slider.appendChild(nextSliderBtn);
 
@@ -929,24 +940,27 @@ document.addEventListener("DOMContentLoaded", () => {
       container.appendChild(slider);
 
       let currentSlide = 0;
+      let sliderWidth = slider.offsetWidth;
       let startX = 0;
       let isDragging = false;
 
-      const updateSliderFade = () => {
-        Array.from(sliderWrapper.children).forEach((slide, index) => {
-          slide.style.opacity = index === currentSlide ? "1" : "0";
-        });
-        const activeSlide = sliderWrapper.children[currentSlide];
-        if (activeSlide) {
-          slider.style.height = activeSlide.offsetHeight + "px";
+      const setSliderPosition = () => {
+        sliderWrapper.style.transform = `translateX(-${
+          currentSlide * sliderWidth
+        }px)`;
+      };
+
+      const updateSliderHeight = () => {
+        const currentSlideElement = sliderWrapper.children[currentSlide];
+        if (currentSlideElement) {
+          slider.style.height = currentSlideElement.offsetHeight + "px";
         }
-        updateNavButtonsPosition();
       };
 
       const updateNavButtonsPosition = () => {
-        const activeSlide = sliderWrapper.children[currentSlide];
-        if (activeSlide) {
-          const imgEl = activeSlide.querySelector("img");
+        const currentSlideElement = sliderWrapper.children[currentSlide];
+        if (currentSlideElement) {
+          const imgEl = currentSlideElement.querySelector("img");
           if (imgEl) {
             const imageHeight = imgEl.offsetHeight;
             const imageRect = imgEl.getBoundingClientRect();
@@ -958,15 +972,30 @@ document.addEventListener("DOMContentLoaded", () => {
         }
       };
 
+      const updateSliderLayout = () => {
+        sliderWidth = slider.offsetWidth;
+        setSliderPosition();
+        updateSliderHeight();
+        updateNavButtonsPosition();
+      };
+
+      slider.style.height = sliderWrapper.children[0].offsetHeight + "px";
+      updateSliderLayout();
+      window.addEventListener("resize", updateSliderLayout);
+
       const nextSlide = () => {
         currentSlide = (currentSlide + 1) % galleryItems.length;
-        updateSliderFade();
+        sliderWrapper.style.transition = "transform 0.3s ease-in-out";
+        setSliderPosition();
+        updateSliderLayout();
       };
 
       const prevSlide = () => {
         currentSlide =
           (currentSlide - 1 + galleryItems.length) % galleryItems.length;
-        updateSliderFade();
+        sliderWrapper.style.transition = "transform 0.3s ease-in-out";
+        setSliderPosition();
+        updateSliderLayout();
       };
 
       nextSliderBtn.addEventListener("click", nextSlide);
@@ -975,8 +1004,16 @@ document.addEventListener("DOMContentLoaded", () => {
       sliderWrapper.addEventListener("touchstart", (event) => {
         isDragging = true;
         startX = event.touches[0].clientX;
+        sliderWrapper.style.transition = "none";
       });
-
+      sliderWrapper.addEventListener("touchmove", (event) => {
+        if (!isDragging) return;
+        const currentX = event.touches[0].clientX;
+        const deltaX = currentX - startX;
+        sliderWrapper.style.transform = `translateX(-${
+          currentSlide * sliderWidth - deltaX
+        }px)`;
+      });
       sliderWrapper.addEventListener("touchend", (event) => {
         if (!isDragging) return;
         isDragging = false;
@@ -986,11 +1023,11 @@ document.addEventListener("DOMContentLoaded", () => {
           nextSlide();
         } else if (deltaX > 50) {
           prevSlide();
+        } else {
+          setSliderPosition();
         }
+        sliderWrapper.style.transition = "transform 0.3s ease-in-out";
       });
-
-      // Initialize fade slider
-      updateSliderFade();
 
       // Attach click events to each anchor in the slider wrapper.
       sliderWrapper.querySelectorAll("a").forEach((link) => {
@@ -1027,13 +1064,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
   /* ------------------------------
          SINGLE IMAGE SETUP
-         For any <a> linking to an image that isn’t part of a gallery slider
+         (for any <a> linking to an image that isn’t part of a gallery slider)
       ------------------------------ */
+  // This covers anchors in both .arabica_article-content and .arabica_article-image
   document
     .querySelectorAll(
       ".arabica_article-content a, .arabica_article-image a, .arabica_news-content a, .arabica_news-image a"
     )
     .forEach((anchor) => {
+      // Skip if this anchor is inside a slider gallery.
       if (
         /\.(jpg|jpeg|png|gif|webp)$/i.test(anchor.getAttribute("href")) &&
         !anchor.closest(".arabica_article-image-gallery")
@@ -1043,6 +1082,7 @@ document.addEventListener("DOMContentLoaded", () => {
           const href = anchor.getAttribute("href");
           const img = anchor.querySelector("img");
           const alt = img ? img.getAttribute("alt") : "";
+          // Use the immediately following <figcaption> if available.
           const captionElem = anchor.nextElementSibling;
           const caption =
             captionElem && captionElem.tagName.toLowerCase() === "figcaption"
