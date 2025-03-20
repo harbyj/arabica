@@ -721,13 +721,80 @@ document.addEventListener("DOMContentLoaded", () => {
           }">`
       )
       .join("");
+
     const activeImg = galleryGrid.querySelector(
       `[data-index="${currentIndex}"]`
     );
     if (activeImg) {
       activeImg.classList.add("active");
+
+      requestAnimationFrame(() => {
+        const viewportWidth = window.innerWidth;
+        const gridWidth = galleryGrid.scrollWidth;
+
+        if (gridWidth > viewportWidth) {
+          // Grid is larger than the screen.
+          galleryGrid.style.left = "0"; // Force the left position.
+
+          // Calculate the ideal translation to center the active image.
+          const activeCenter = activeImg.offsetLeft + activeImg.offsetWidth / 2;
+          const idealTranslate = viewportWidth / 2 - activeCenter;
+
+          // Clamp the translation so the grid doesn't shift too far.
+          const maxTranslate = 0; // left edge of grid should not exceed viewport left edge.
+          const minTranslate = viewportWidth - gridWidth; // right edge should align with viewport right.
+          const clampedTranslate = Math.min(
+            maxTranslate,
+            Math.max(idealTranslate, minTranslate)
+          );
+
+          galleryGrid.style.transition = "transform 0.3s ease-in-out";
+          galleryGrid.style.transform = `translateX(${clampedTranslate}px)`;
+        } else {
+          // Grid is smaller than or equal to the screen.
+          // Remove any previously applied inline styles.
+          galleryGrid.style.left = "";
+          galleryGrid.style.transform = "";
+          galleryGrid.style.transition = "";
+        }
+      });
     }
   }
+  let gridTouchStartX = 0;
+  let currentGridTranslateX = 0;
+
+  galleryGrid.addEventListener("touchstart", (e) => {
+    gridTouchStartX = e.touches[0].clientX;
+    // Remove transition for immediate response during swipe.
+    galleryGrid.style.transition = "none";
+  });
+
+  galleryGrid.addEventListener("touchmove", (e) => {
+    const touchCurrentX = e.touches[0].clientX;
+    const deltaX = touchCurrentX - gridTouchStartX;
+
+    // Calculate new translation value.
+    let newTranslateX = currentGridTranslateX + deltaX;
+
+    // Clamp the new translation.
+    const viewportWidth = window.innerWidth;
+    const gridWidth = galleryGrid.scrollWidth;
+    const maxTranslate = 0;
+    const minTranslate = viewportWidth - gridWidth; // negative value
+
+    if (newTranslateX > maxTranslate) newTranslateX = maxTranslate;
+    if (newTranslateX < minTranslate) newTranslateX = minTranslate;
+
+    galleryGrid.style.transform = `translateX(${newTranslateX}px)`;
+  });
+
+  galleryGrid.addEventListener("touchend", () => {
+    // After the swipe ends, update currentGridTranslateX to the final translateX value.
+    const style = window.getComputedStyle(galleryGrid);
+    const matrix = new DOMMatrixReadOnly(style.transform);
+    currentGridTranslateX = matrix.m41; // current X translation value
+    galleryGrid.style.transition = "transform 0.3s ease-in-out";
+  });
 
   function updateLightboxContent() {
     const { src, alt, caption } = currentGallery[currentIndex];
@@ -1096,3 +1163,17 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 });
+
+document
+  .querySelectorAll('[class*="float-right-"], [class*="float-left-"]')
+  .forEach((el) => {
+    let match = el.className.match(/float-(right|left)-(\d+)/); // Extract float direction & number
+    if (match) {
+      let direction = match[1]; // "right" or "left"
+      let width = match[2] + "%"; // Convert extracted number to percentage
+
+      el.style.width = width;
+      el.style.float = direction; // Apply float dynamically
+      el.style.marginBottom = "0";
+    }
+  });
