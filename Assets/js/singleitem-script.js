@@ -636,6 +636,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 });
+
 document.addEventListener("DOMContentLoaded", () => {
   /* ------------------------------
          GLOBAL LIGHTBOX SETUP
