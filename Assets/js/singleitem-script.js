@@ -760,69 +760,48 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     }
   }
-
   let gridTouchStartX = 0;
-  let currentGridTranslateX = 0;
   let isGridDragging = false;
+  const swipeThreshold = 50; // pixels
 
   galleryGrid.addEventListener("touchstart", (e) => {
     gridTouchStartX = e.touches[0].clientX;
     isGridDragging = true;
-    galleryGrid.style.transition = "none"; // immediate response while swiping
+    // Remove transition so the grid responds immediately.
+    galleryGrid.style.transition = "none";
   });
 
   galleryGrid.addEventListener("touchmove", (e) => {
     if (!isGridDragging) return;
-    const touchCurrentX = e.touches[0].clientX;
-    const deltaX = touchCurrentX - gridTouchStartX;
-    // Calculate new translation value based on previous position and delta.
-    let newTranslateX = currentGridTranslateX + deltaX;
+    const currentX = e.touches[0].clientX;
+    const deltaX = currentX - gridTouchStartX;
 
-    const viewportWidth = window.innerWidth;
-    const gridWidth = galleryGrid.scrollWidth;
-    const maxTranslate = 0; // left boundary
-    const minTranslate = viewportWidth - gridWidth; // right boundary (a negative value)
+    // When swiping left (negative delta), check for next image.
+    if (deltaX < -swipeThreshold && currentIndex < currentGallery.length - 1) {
+      currentIndex++; // move to next image
+      updateLightboxContent();
+      // Reset the starting point to allow for consecutive swipes.
+      gridTouchStartX = currentX;
+    }
+    // When swiping right (positive delta), check for previous image.
+    else if (deltaX > swipeThreshold && currentIndex > 0) {
+      currentIndex--; // move to previous image
+      updateLightboxContent();
+      gridTouchStartX = currentX;
+    }
 
-    // Clamp the translation
-    if (newTranslateX > maxTranslate) newTranslateX = maxTranslate;
-    if (newTranslateX < minTranslate) newTranslateX = minTranslate;
-
-    galleryGrid.style.transform = `translateX(${newTranslateX}px)`;
+    // Optionally, you can update the grid's transform in real-time if you want a visual feedback
+    // For example:
+    galleryGrid.style.transform = `translateX(${
+      currentGridTranslateX + deltaX
+    }px)`;
   });
 
-  galleryGrid.addEventListener("touchend", (e) => {
-    if (!isGridDragging) return;
+  galleryGrid.addEventListener("touchend", () => {
     isGridDragging = false;
-    // Update current translation from the computed style
-    const style = window.getComputedStyle(galleryGrid);
-    const matrix = new DOMMatrixReadOnly(style.transform);
-    currentGridTranslateX = matrix.m41;
-
-    const viewportWidth = window.innerWidth;
-    const gridWidth = galleryGrid.scrollWidth;
-    const minTranslate = viewportWidth - gridWidth; // negative value
-    const threshold = 5; // a small threshold for approximations
-
-    // If the grid is swiped near the left boundary (translateX near 0)
-    if (Math.abs(currentGridTranslateX - 0) < threshold) {
-      currentGridTranslateX = 0;
-      if (currentIndex !== 0) {
-        currentIndex = 0;
-        updateLightboxContent();
-      }
-    }
-    // If swiped near the right boundary (translateX near minTranslate)
-    else if (Math.abs(currentGridTranslateX - minTranslate) < threshold) {
-      currentGridTranslateX = minTranslate;
-      if (currentIndex !== currentGallery.length - 1) {
-        currentIndex = currentGallery.length - 1;
-        updateLightboxContent();
-      }
-    }
-
-    // Apply the final transform with a smooth transition.
+    // Optionally, if you were updating the grid's transform in touchmove, update currentGridTranslateX
+    // based on the final computed style here.
     galleryGrid.style.transition = "transform 0.3s ease-in-out";
-    galleryGrid.style.transform = `translateX(${currentGridTranslateX}px)`;
   });
 
   function updateLightboxContent() {
