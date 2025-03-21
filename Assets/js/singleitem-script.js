@@ -1060,8 +1060,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const img = link.querySelector("img");
             const captionElem = link.nextElementSibling;
             const caption =
-              captionElem && captionElem.tagName.toLowerCase() === "figcaption"
-                ? captionElem.textContent
+              captionElem && captionElem.tagName.toLowerCase() === "figcaption" ? captionElem.textContent
                 : "";
             const gallery = Array.from(container.querySelectorAll("a")).map(
               (a) => {
@@ -1071,8 +1070,7 @@ document.addEventListener("DOMContentLoaded", () => {
                   alt: a.querySelector("img").getAttribute("alt"),
                   caption:
                     aCaptionElem &&
-                    aCaptionElem.tagName.toLowerCase() === "figcaption"
-                      ? aCaptionElem.textContent
+                    aCaptionElem.tagName.toLowerCase() === "figcaption" ? aCaptionElem.textContent
                       : "",
                 };
               }
@@ -1107,8 +1105,7 @@ document.addEventListener("DOMContentLoaded", () => {
           // Use the immediately following <figcaption> if available.
           const captionElem = anchor.nextElementSibling;
           const caption =
-            captionElem && captionElem.tagName.toLowerCase() === "figcaption"
-              ? captionElem.textContent
+            captionElem && captionElem.tagName.toLowerCase() === "figcaption" ? captionElem.textContent
               : "";
           openLightbox(href, alt, caption, []);
         });

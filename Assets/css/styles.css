@@ -1523,8 +1523,6 @@ a.arabica_latest-article-more:hover {
   width: 100%;
   height: auto;
   display: block;
-  margin-top: 5px;
-  margin-bottom: 5px;
 }
 .arabica_about-content figcaption,
 .arabica_article-content figcaption,
@@ -2742,15 +2740,7 @@ input:checked + .arabica_toggle:before {
   border-right: 5px solid transparent;
   border-top: 9px solid #0a3f5f;
 }
-.float-right-30,
-.float-right-35,
-.float-right-40,
-.float-right-45,
-.float-right-50,
-.float-right-55,
-.float-right-60,
-.float-right-65,
-.float-right-70 {
+[class*="float-right-"] {
   margin-left: 1em;
   float: right;
 }
@@ -2790,15 +2780,7 @@ input:checked + .arabica_toggle:before {
   width: 70%;
   margin-bottom: 0;
 }
-.float-left-30,
-.float-left-35,
-.float-left-40,
-.float-left-45,
-.float-left-50,
-.float-left-55,
-.float-left-60,
-.float-left-65,
-.float-left-70 {
+[class*="float-left-"] {
   float: left;
   margin-right: 1em;
   margin-bottom: 0;
@@ -2904,10 +2886,14 @@ input:checked + .arabica_toggle:before {
   margin-left: 30px;
 }
 .arabica_article-content hr,
+.arabica_news-content hr {
+  margin: 20px 0;
+}
 .arabica_article-video,
-.arabica_news-content hr,
-.arabica_news-video {
-  margin: 30px 0px;
+.arabica_news-video,
+.arabica_article-image:not([class*="float-"]),
+.arabica_news-image:not([class*="float-"]) {
+  margin-bottom: 15px;
 }
 .arabica_article-foot-wrapper {
   background-color: #f8f8f8;
@@ -3097,12 +3083,23 @@ input:checked + .arabica_toggle:before {
 .arabica_article-image-gallery {
   flex: 0 0 100%;
   box-sizing: border-box;
+  height: 100%;
 }
-.arabica_article-image-gallery img,
+.arabica_article-image-gallery img {
+  width: 100%;
+  object-fit: contain;
+  aspect-ratio: 177/90;
+}
+.vertical-image .arabica_article-image-gallery img {
+  aspect-ratio: 90/113;
+  object-fit: cover !important;
+}
+.square-image .arabica_article-image-gallery img {
+  aspect-ratio: 90/90;
+  object-fit: cover !important;
+}
 .arabica_article-image > a img {
   width: 100%;
-  object-fit: cover;
-  aspect-ratio: 177/90;
 }
 .arabica_article_slider-nav {
   position: absolute;
@@ -3265,7 +3262,6 @@ input:checked + .arabica_toggle:before {
 }
 .arabica_ref-icon i {
   grid-area: 1/1;
-  margin-top: 2.1px;
   transition: none;
 }
 .arabica_ref-dropdown {
@@ -3490,49 +3486,15 @@ input:checked + .arabica_toggle:before {
   .arabica_timeline-header-row h2 {
     margin: 0;
   }
-  .arabica_article-content .float-right-30,
-  .arabica_article-content .float-right-35,
-  .arabica_article-content .float-right-40,
-  .arabica_article-content .float-right-45,
-  .arabica_article-content .float-right-50,
-  .arabica_article-content .float-right-55,
-  .arabica_article-content .float-right-60,
-  .arabica_article-content .float-right-65,
-  .arabica_article-content .float-right-70,
-  .arabica_news-content .float-right-30,
-  .arabica_news-content .float-right-35,
-  .arabica_news-content .float-right-40,
-  .arabica_news-content .float-right-45,
-  .arabica_news-content .float-right-50,
-  .arabica_news-content .float-right-55,
-  .arabica_news-content .float-right-60,
-  .arabica_news-content .float-right-65,
-  .arabica_news-content .float-right-70 {
-    width: 100%;
-    margin-left: 0;
-    margin-bottom: 15px;
+  [class*="float-right-"] {
+    width: 100% !important;
+    margin-left: 0 !important;
+    margin-bottom: 15px !important;
   }
-  .arabica_article-content .float-left-30,
-  .arabica_article-content .float-left-35,
-  .arabica_article-content .float-left-40,
-  .arabica_article-content .float-left-45,
-  .arabica_article-content .float-left-50,
-  .arabica_article-content .float-left-55,
-  .arabica_article-content .float-left-60,
-  .arabica_article-content .float-left-65,
-  .arabica_article-content .float-left-70,
-  .arabica_news-content .float-left-30,
-  .arabica_news-content .float-left-35,
-  .arabica_news-content .float-left-40,
-  .arabica_news-content .float-left-45,
-  .arabica_news-content .float-left-50,
-  .arabica_news-content .float-left-55,
-  .arabica_news-content .float-left-60,
-  .arabica_news-content .float-left-65,
-  .arabica_news-content .float-left-70 {
-    width: 100%;
-    margin-right: 0;
-    margin-bottom: 15px;
+  [class*="float-left-"] {
+    width: 100% !important;
+    margin-right: 0 !important;
+    margin-bottom: 15px !important;
   }
   .arabica_article-content p > img,
   .arabica_news-content p > img {
