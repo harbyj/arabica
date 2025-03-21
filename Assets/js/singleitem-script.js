@@ -649,11 +649,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const closeBtn = document.createElement("span");
   closeBtn.classList.add("arabica_article_close-btn");
-  closeBtn.innerHTML = `
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
-          <path fill="#ffffff" d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
-        </svg>
-      `;
+  closeBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+      <path fill="#ffffff" d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+    </svg>`;
 
   const lightboxImg = document.createElement("img");
   lightboxImg.id = "lightbox-img";
@@ -920,19 +918,15 @@ document.addEventListener("DOMContentLoaded", () => {
       const prevSliderBtn = document.createElement("button");
       prevSliderBtn.className =
         "arabica_article_slider-nav arabica_article_slider-prev";
-      prevSliderBtn.innerHTML = `
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
-              <path fill="#ffffff" d="M15.41 16.59L10.83 12l4.58-4.59L14 6l-6 6 6 6z"/>
-            </svg>
-          `;
+      prevSliderBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+          <path fill="#ffffff" d="M15.41 16.59L10.83 12l4.58-4.59L14 6l-6 6 6 6z"/>
+        </svg>`;
       const nextSliderBtn = document.createElement("button");
       nextSliderBtn.className =
         "arabica_article_slider-nav arabica_article_slider-next";
-      nextSliderBtn.innerHTML = `
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
-              <path fill="#ffffff" d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6z"/>
-            </svg>
-          `;
+      nextSliderBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+          <path fill="#ffffff" d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6z"/>
+        </svg>`;
       slider.appendChild(prevSliderBtn);
       slider.appendChild(nextSliderBtn);
 
@@ -942,7 +936,9 @@ document.addEventListener("DOMContentLoaded", () => {
       let currentSlide = 0;
       let sliderWidth = slider.offsetWidth;
       let startX = 0;
+      let startY = 0;
       let isDragging = false;
+      let isHorizontalDrag = false;
 
       const setSliderPosition = () => {
         sliderWrapper.style.transform = `translateX(-${
@@ -1003,27 +999,53 @@ document.addEventListener("DOMContentLoaded", () => {
 
       sliderWrapper.addEventListener("touchstart", (event) => {
         isDragging = true;
+        isHorizontalDrag = false; // Not determined yet.
         startX = event.touches[0].clientX;
+        startY = event.touches[0].clientY;
         sliderWrapper.style.transition = "none";
       });
+
       sliderWrapper.addEventListener("touchmove", (event) => {
         if (!isDragging) return;
+
         const currentX = event.touches[0].clientX;
+        const currentY = event.touches[0].clientY;
         const deltaX = currentX - startX;
+        const deltaY = currentY - startY;
+
+        // Only initiate horizontal drag if horizontal movement is larger than vertical movement.
+        if (!isHorizontalDrag) {
+          if (Math.abs(deltaX) > Math.abs(deltaY)) {
+            isHorizontalDrag = true;
+          } else {
+            // Vertical scroll detected – exit to allow normal page scrolling.
+            return;
+          }
+        }
+        // Update the slider position based on horizontal swipe.
         sliderWrapper.style.transform = `translateX(-${
           currentSlide * sliderWidth - deltaX
         }px)`;
       });
+
       sliderWrapper.addEventListener("touchend", (event) => {
         if (!isDragging) return;
         isDragging = false;
+
         const endX = event.changedTouches[0].clientX;
         const deltaX = endX - startX;
-        if (deltaX < -50) {
-          nextSlide();
-        } else if (deltaX > 50) {
-          prevSlide();
+
+        // Only perform slide transition if horizontal drag was confirmed.
+        if (isHorizontalDrag) {
+          if (deltaX < -50) {
+            nextSlide();
+          } else if (deltaX > 50) {
+            prevSlide();
+          } else {
+            setSliderPosition();
+          }
         } else {
+          // If not a horizontal swipe, reset position.
           setSliderPosition();
         }
         sliderWrapper.style.transition = "transform 0.3s ease-in-out";
