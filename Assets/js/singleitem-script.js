@@ -363,8 +363,16 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 
+  // Close dropdowns when clicking anywhere outside
   document.addEventListener("click", function () {
     closeAllDropdowns();
+  });
+
+  // Close dropdowns when pressing the Escape key
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "Escape") {
+      closeAllDropdowns();
+    }
   });
 
   // Helper to reset icon styles.
