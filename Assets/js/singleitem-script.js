@@ -1,15 +1,51 @@
 /* jshint esversion: 6 */
 // Move paragraphs with footnotes (excluding those with "ref")
-document.querySelectorAll(".arabica_article-content p").forEach(function (p) {
-  const footnote = p.querySelector('a[name^="_ftn"]');
-  if (footnote && !footnote.getAttribute("name").includes("ref")) {
-    document.querySelector(".arabica_foot-reference").appendChild(p);
+document.addEventListener("DOMContentLoaded", function () {
+  const articleContent = document.querySelector(".arabica_article-content");
+  const footnoteContainer = document.querySelector(".arabica_foot-reference");
+  if (!articleContent || !footnoteContainer) return;
+
+  let node = articleContent.firstElementChild;
+  while (node) {
+    // Check if the element is a paragraph with a valid footnote link
+    if (
+      node.tagName === "P" &&
+      node.querySelector('a[name^="_ftn"]') &&
+      !node
+        .querySelector('a[name^="_ftn"]')
+        .getAttribute("name")
+        .includes("ref")
+    ) {
+      let currentNode = node;
+      let next = node.nextElementSibling;
+
+      // Move the current footnote paragraph
+      footnoteContainer.appendChild(currentNode);
+
+      // Loop through subsequent siblings while allowed.
+      while (next && ["P", "UL", "OL"].includes(next.tagName)) {
+        // If this is a paragraph containing a link with name starting with "_edn", then break.
+        if (next.tagName === "P") {
+          const ednLink = next.querySelector('a[name^="_edn"]');
+          if (ednLink) break;
+        }
+        let toMove = next;
+        // Advance pointer before moving the node.
+        next = toMove.nextElementSibling;
+        footnoteContainer.appendChild(toMove);
+      }
+      node = next;
+    } else {
+      node = node.nextElementSibling;
+    }
   }
 });
 
 document.addEventListener("DOMContentLoaded", () => {
   document
-    .querySelectorAll(".arabica_foot-reference p, .arabica_foot-source li")
+    .querySelectorAll(
+      ".arabica_foot-reference p, .arabica_foot-source li, .arabica_foot-reference li"
+    )
     .forEach((el) => {
       // Regex checks for any Arabic characters in the range \u0600 to \u06FF
       if (!/[\u0600-\u06FF]/.test(el.textContent)) {
@@ -144,36 +180,79 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   const article = document.querySelector(".arabica_article-content");
-  const paragraphs = article.querySelectorAll("p");
+  if (!article) return;
 
-  // Step 1: Extract reference texts from anchors with name _edn (excluding _ednref)
+  // Helper: Clone a node, remove EDN numbering anchors, and set its direction.
+  function getCleanHTML(el) {
+    const temp = el.cloneNode(true);
+    // Remove all anchors whose name starts with "_edn"
+    temp.querySelectorAll('a[name^="_edn"]').forEach((a) => a.remove());
+
+    // For any <li> elements inside, set the direction individually.
+    temp.querySelectorAll("li").forEach((li) => {
+      const liDir = /[\u0600-\u06FF]/.test(li.textContent) ? "rtl" : "ltr";
+      li.setAttribute("dir", liDir);
+    });
+
+    // Set direction for the outer element based on its overall text.
+    const dir = /[\u0600-\u06FF]/.test(temp.textContent) ? "rtl" : "ltr";
+    temp.setAttribute("dir", dir);
+    return temp.outerHTML;
+  }
+
+  // Step 1: Extract EDN reference texts from groups of nodes.
+  // For each group, start with a <p> that contains an EDN anchor (but not one with _ednref),
+  // then append following siblings if they are <p>, <ul>, or <ol> until you encounter a new EDN group.
   const ednRefs = {};
-  paragraphs.forEach((p) => {
-    const ednAnchor = p.querySelector('a[name^="_edn"]:not([name^="_ednref"])');
-    if (ednAnchor) {
-      const nameAttr = ednAnchor.getAttribute("name");
-      const key = nameAttr.replace("_edn", "");
-      let refTextHTML = "";
-      let sibling = ednAnchor.nextSibling;
-      while (sibling) {
-        if (sibling.nodeType === Node.ELEMENT_NODE) {
-          refTextHTML += sibling.outerHTML;
-        } else if (sibling.nodeType === Node.TEXT_NODE) {
-          refTextHTML += sibling.textContent;
-        }
-        sibling = sibling.nextSibling;
-      }
-      ednRefs[key] = refTextHTML.trim();
-      p.remove();
-    }
-  });
+  let node = article.firstElementChild;
+  while (node) {
+    // Check if this node is a paragraph containing an EDN anchor (excluding _ednref)
+    if (node.tagName === "P") {
+      const ednAnchor = node.querySelector(
+        'a[name^="_edn"]:not([name^="_ednref"])'
+      );
+      if (ednAnchor) {
+        const nameAttr = ednAnchor.getAttribute("name");
+        const key = nameAttr.replace("_edn", "");
 
-  // Step 2: Replace EDN reference links with the clickable icon and hidden dropdown
+        // Start building the reference content with the current node's cleaned HTML.
+        let refTextHTML = getCleanHTML(node);
+
+        // Look at subsequent siblings while they are allowed types.
+        let next = node.nextElementSibling;
+        while (next && ["P", "UL", "OL"].includes(next.tagName)) {
+          // If the next element is a paragraph that itself starts a new EDN group, then break.
+          if (
+            next.tagName === "P" &&
+            next.querySelector('a[name^="_edn"]:not([name^="_ednref"])')
+          ) {
+            break;
+          }
+          // Append this element's cleaned HTML.
+          refTextHTML += getCleanHTML(next);
+          // Remove the element from the DOM.
+          let toRemove = next;
+          next = next.nextElementSibling;
+          toRemove.remove();
+        }
+        ednRefs[key] = refTextHTML.trim();
+        // Remove the current group node and continue iteration from the next node.
+        let current = node;
+        node = next;
+        current.remove();
+        continue; // Skip normal iteration since we've updated node.
+      }
+    }
+    node = node.nextElementSibling;
+  }
+
+  // Step 2: Replace EDN reference links with the clickable icon and hidden dropdown.
   const ednRefLinks = article.querySelectorAll('a[name^="_ednref"]');
   ednRefLinks.forEach((link) => {
     const nameAttr = link.getAttribute("name"); // e.g. "_ednref1"
     const key = nameAttr.replace("_ednref", "");
     const refText = ednRefs[key] || "";
+    // Determine overall direction from the stored reference text.
     const direction = /[\u0600-\u06FF]/.test(refText) ? "rtl" : "ltr";
     const dropdownId =
       "arabica_ref-dropdown-" + Math.random().toString(36).substring(2, 9);
@@ -288,7 +367,7 @@ document.addEventListener("DOMContentLoaded", function () {
     closeAllDropdowns();
   });
 
-  // Helper to reset icon styles
+  // Helper to reset icon styles.
   function resetIconStyles(icon) {
     icon.querySelector(".arabica_ref-icon-solid").classList.remove("active");
     icon.querySelector(".arabica_ref-icon-solid").classList.add("inactive");
@@ -1060,7 +1139,8 @@ document.addEventListener("DOMContentLoaded", () => {
             const img = link.querySelector("img");
             const captionElem = link.nextElementSibling;
             const caption =
-              captionElem && captionElem.tagName.toLowerCase() === "figcaption" ? captionElem.textContent
+              captionElem && captionElem.tagName.toLowerCase() === "figcaption"
+                ? captionElem.textContent
                 : "";
             const gallery = Array.from(container.querySelectorAll("a")).map(
               (a) => {
@@ -1070,7 +1150,8 @@ document.addEventListener("DOMContentLoaded", () => {
                   alt: a.querySelector("img").getAttribute("alt"),
                   caption:
                     aCaptionElem &&
-                    aCaptionElem.tagName.toLowerCase() === "figcaption" ? aCaptionElem.textContent
+                    aCaptionElem.tagName.toLowerCase() === "figcaption"
+                      ? aCaptionElem.textContent
                       : "",
                 };
               }
@@ -1105,7 +1186,8 @@ document.addEventListener("DOMContentLoaded", () => {
           // Use the immediately following <figcaption> if available.
           const captionElem = anchor.nextElementSibling;
           const caption =
-            captionElem && captionElem.tagName.toLowerCase() === "figcaption" ? captionElem.textContent
+            captionElem && captionElem.tagName.toLowerCase() === "figcaption"
+              ? captionElem.textContent
               : "";
           openLightbox(href, alt, caption, []);
         });
