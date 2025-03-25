@@ -65,6 +65,7 @@ const referenceTitles = [
   "الاستشهادات",
   "قائمةالمراجع",
   "المرجعية",
+  "المصادر والمراجع",
 ];
 
 // Find all h2 elements within the article content.
