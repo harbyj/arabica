@@ -449,7 +449,7 @@ document.addEventListener("DOMContentLoaded", function () {
   // Select all video elements on the page.
   const videos = document.querySelectorAll("video");
 
-  // Global listener: When any video starts playing, pause all others.
+  // Global event listener: when any video starts playing, pause all others.
   document.addEventListener(
     "play",
     function (e) {
@@ -459,7 +459,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
       });
     },
-    true // useCapture: catch play events early.
+    true // useCapture to catch play events early.
   );
 
   videos.forEach((video, index) => {
@@ -659,12 +659,10 @@ document.addEventListener("DOMContentLoaded", function () {
     playPauseIndicator.addEventListener("click", togglePlay);
 
     volumeBtn.addEventListener("click", toggleMute);
-
     function toggleMute() {
       video.muted = !video.muted;
       updateVolumeButton();
     }
-
     function updateVolumeButton() {
       volumeBtn.classList.toggle("muted", video.muted);
     }
@@ -693,49 +691,43 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     });
 
-    // Click on the progress bar sets the current time.
+    // Update progress by clicking on the progress container.
     progressContainer.addEventListener("click", (e) => {
       video.currentTime =
         (e.offsetX / progressContainer.offsetWidth) * video.duration;
     });
 
-    // --- New: Mouse wheel scroll over the progress container ---
+    // --- NEW: Allow updating progress with mouse wheel scroll ---
     progressContainer.addEventListener("wheel", (e) => {
-      e.preventDefault();
-      // Adjust current time by 1% of the duration per wheel event.
-      const increment = video.duration * 0.01;
-      if (e.deltaY > 0) {
-        video.currentTime = Math.min(
-          video.duration,
-          video.currentTime + increment
-        );
+      e.preventDefault(); // Prevent page scroll
+      const step = 5; // seconds to adjust per wheel tick
+      if (e.deltaY < 0) {
+        video.currentTime = Math.min(video.duration, video.currentTime + step);
       } else {
-        video.currentTime = Math.max(0, video.currentTime - increment);
+        video.currentTime = Math.max(0, video.currentTime - step);
       }
     });
 
-    // --- New: Touch scroll on the progress container ---
-    let touchStartX = null;
-    progressContainer.addEventListener("touchstart", (e) => {
-      if (e.touches.length === 1) {
-        touchStartX = e.touches[0].clientX;
-      }
-    });
-    progressContainer.addEventListener("touchmove", (e) => {
-      if (e.touches.length === 1 && touchStartX !== null) {
-        const touchMoveX = e.touches[0].clientX;
-        const deltaX = touchMoveX - touchStartX;
-        // Calculate time difference based on the movement relative to the progress container width.
-        const timeDelta =
-          (deltaX / progressContainer.offsetWidth) * video.duration;
-        video.currentTime = Math.min(
-          video.duration,
-          Math.max(0, video.currentTime + timeDelta)
-        );
-        // Update the starting position for continuous touch.
-        touchStartX = touchMoveX;
-        e.preventDefault();
-      }
+    // --- NEW: Allow updating progress with touch drag ---
+    progressContainer.addEventListener("touchstart", function (e) {
+      // A helper function to update currentTime based on touch position.
+      const updateTime = (clientX) => {
+        const rect = progressContainer.getBoundingClientRect();
+        const offsetX = clientX - rect.left;
+        video.currentTime = (offsetX / rect.width) * video.duration;
+      };
+      updateTime(e.touches[0].clientX);
+      const onTouchMove = (moveEvent) => {
+        updateTime(moveEvent.touches[0].clientX);
+      };
+      progressContainer.addEventListener("touchmove", onTouchMove);
+      progressContainer.addEventListener(
+        "touchend",
+        function touchEndHandler() {
+          progressContainer.removeEventListener("touchmove", onTouchMove);
+          progressContainer.removeEventListener("touchend", touchEndHandler);
+        }
+      );
     });
 
     function formatTime(time) {
