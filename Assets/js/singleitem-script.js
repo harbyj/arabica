@@ -449,8 +449,7 @@ document.addEventListener("DOMContentLoaded", function () {
   // Select all video elements on the page.
   const videos = document.querySelectorAll("video");
 
-  // Global event listener: when any video starts playing,
-  // pause all others.
+  // Global listener: When any video starts playing, pause all others.
   document.addEventListener(
     "play",
     function (e) {
@@ -460,7 +459,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
       });
     },
-    true // useCapture set to true to catch play events early.
+    true // useCapture: catch play events early.
   );
 
   videos.forEach((video, index) => {
@@ -694,9 +693,49 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     });
 
+    // Click on the progress bar sets the current time.
     progressContainer.addEventListener("click", (e) => {
       video.currentTime =
         (e.offsetX / progressContainer.offsetWidth) * video.duration;
+    });
+
+    // --- New: Mouse wheel scroll over the progress container ---
+    progressContainer.addEventListener("wheel", (e) => {
+      e.preventDefault();
+      // Adjust current time by 1% of the duration per wheel event.
+      const increment = video.duration * 0.01;
+      if (e.deltaY > 0) {
+        video.currentTime = Math.min(
+          video.duration,
+          video.currentTime + increment
+        );
+      } else {
+        video.currentTime = Math.max(0, video.currentTime - increment);
+      }
+    });
+
+    // --- New: Touch scroll on the progress container ---
+    let touchStartX = null;
+    progressContainer.addEventListener("touchstart", (e) => {
+      if (e.touches.length === 1) {
+        touchStartX = e.touches[0].clientX;
+      }
+    });
+    progressContainer.addEventListener("touchmove", (e) => {
+      if (e.touches.length === 1 && touchStartX !== null) {
+        const touchMoveX = e.touches[0].clientX;
+        const deltaX = touchMoveX - touchStartX;
+        // Calculate time difference based on the movement relative to the progress container width.
+        const timeDelta =
+          (deltaX / progressContainer.offsetWidth) * video.duration;
+        video.currentTime = Math.min(
+          video.duration,
+          Math.max(0, video.currentTime + timeDelta)
+        );
+        // Update the starting position for continuous touch.
+        touchStartX = touchMoveX;
+        e.preventDefault();
+      }
     });
 
     function formatTime(time) {
