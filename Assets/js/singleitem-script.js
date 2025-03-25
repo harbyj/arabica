@@ -772,7 +772,7 @@ document.addEventListener("DOMContentLoaded", function () {
       container.appendChild(audio);
     }
 
-    // Inject custom controls using the provided markup (except fullscreen).
+    // Inject custom controls using the provided markup (without fullscreen).
     injectAudioControls(container, audio, index);
 
     // Setup event listeners for this audio and its controls.
@@ -899,7 +899,48 @@ document.addEventListener("DOMContentLoaded", function () {
         (e.offsetX / progressContainer.offsetWidth) * audio.duration;
     });
 
-    // Format time as mm:ss.
+    // --- Allow mouse wheel scrolling on progress container ---
+    progressContainer.addEventListener("wheel", (e) => {
+      e.preventDefault();
+      // Adjust current time by 1% of duration per wheel event.
+      const increment = audio.duration * 0.01;
+      if (e.deltaY < 0) {
+        // Scroll up: fast forward.
+        audio.currentTime = Math.min(
+          audio.duration,
+          audio.currentTime + increment
+        );
+      } else {
+        // Scroll down: rewind.
+        audio.currentTime = Math.max(0, audio.currentTime - increment);
+      }
+    });
+
+    // --- Allow touch scrolling on progress container ---
+    let touchStartX = null;
+    progressContainer.addEventListener("touchstart", (e) => {
+      if (e.touches.length > 0) {
+        touchStartX = e.touches[0].clientX;
+      }
+    });
+
+    progressContainer.addEventListener("touchmove", (e) => {
+      if (e.touches.length > 0 && touchStartX !== null) {
+        e.preventDefault();
+        let touchX = e.touches[0].clientX;
+        let deltaX = touchX - touchStartX;
+        let containerWidth = progressContainer.offsetWidth;
+        // Calculate change in time based on swipe distance.
+        let timeDelta = (deltaX / containerWidth) * audio.duration;
+        audio.currentTime = Math.max(
+          0,
+          Math.min(audio.duration, audio.currentTime + timeDelta)
+        );
+        touchStartX = touchX; // update start position for continuous swiping
+      }
+    });
+
+    // Helper function to format time as mm:ss.
     function formatTime(time) {
       const minutes = Math.floor(time / 60);
       const seconds = Math.floor(time % 60)
