@@ -446,46 +446,61 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 document.addEventListener("DOMContentLoaded", function () {
-  // If a video element is not already wrapped in a container,
-  // create the container and move the video element inside.
-  const videoElement = document.querySelector("video");
-  if (videoElement) {
-    // Remove default controls if they exist.
-    videoElement.controls = false;
-    // Also remove the attribute to be sure.
-    videoElement.removeAttribute("controls");
+  // Select all video elements on the page.
+  const videos = document.querySelectorAll("video");
 
-    if (
-      !videoElement.parentElement.classList.contains("arabica_video-container")
-    ) {
-      const container = document.createElement("div");
-      container.className = "arabica_video-container";
-      // Insert the new container before the video element.
-      videoElement.parentElement.insertBefore(container, videoElement);
-      // Move the video element inside the container.
-      container.appendChild(videoElement);
+  // Global event listener: when any video starts playing,
+  // pause all others.
+  document.addEventListener(
+    "play",
+    function (e) {
+      videos.forEach((video) => {
+        if (video !== e.target) {
+          video.pause();
+        }
+      });
+    },
+    true // useCapture set to true to catch play events early.
+  );
+
+  videos.forEach((video, index) => {
+    // Disable default browser controls.
+    video.controls = false;
+    video.removeAttribute("controls");
+
+    // Wrap the video in a container if not already wrapped.
+    let container = video.parentElement;
+    if (!container.classList.contains("arabica_video-container")) {
+      container = document.createElement("div");
+      container.classList.add("arabica_video-container");
+      video.parentElement.insertBefore(container, video);
+      container.appendChild(video);
     }
-  }
 
-  // Function to inject custom controls into the container.
-  function injectControls() {
-    const videoContainer = document.querySelector(".arabica_video-container");
+    // Inject custom controls into this container.
+    injectControls(container, video, index);
 
+    // Setup event listeners for video and its controls.
+    setupVideoEvents(video, container, index);
+  });
+
+  // Function to inject controls into a given container for a specific video.
+  function injectControls(container, video, index) {
     // Rewind indicator
     const rewindIndicator = document.createElement("div");
     rewindIndicator.className = "skip-indicator left-indicator";
-    rewindIndicator.id = "rewind";
+    rewindIndicator.id = "rewind-" + index;
     rewindIndicator.innerHTML = `<span>10s</span>
       <svg class="arabica_video-icon" fill="none" height="24" viewBox="0 0 24 24" width="24"
         xmlns="http://www.w3.org/2000/svg">
         <path d="m6.46967 10.4697c-.29289.2929-.29289.7677 0 1.0606s.76777.2929 1.06066 0zm1.78033 5.5303c0 .4142.33579.75.75.75s.75-.3358.75-.75zm-5.5-4c0-.4142-.33579-.75-.75-.75s-.75.3358-.75.75zm3.24903-8 .4505.59962zm-1.99903 1.99903.54801.51204.02745-.02939.02416-.03215zm.01269-4.99568c.00185-.414213-.33244-.751495-.74665-.753343s-.75149.332437-.75334.746647zm-.75885 1.98236-.75-.00334zm3.68 3.68.00334.75zm1.98906.74114c.41421-.00185.74849-.33913.74664-.75334s-.33913-.7485-.75334-.74665zm-5.26052-1.50418-.59312.45902zm.3545.3545-.45902.59312zm12.23312 5.74283v2h1.5v-2zm-2.5 2v-2h-1.5v2zm1.25 1.25c-.6904 0-1.25-.5596-1.25-1.25h-1.5c0 1.5188 1.2312 2.75 2.75 2.75zm1.25-1.25c0 .6904-.5596 1.25-1.25 1.25v1.5c1.5188 0 2.75-1.2312 2.75-2.75zm-1.25-3.25c.6904 0 1.25.5596 1.25 1.25h1.5c0-1.5188-1.2312-2.75-2.75-2.75zm0-1.5c-1.5188 0-2.75 1.2312-2.75 2.75h1.5c0-.6904.5596-1.25 1.25-1.25zm-13.75 2.75c0 5.9371 4.81294 10.75 10.75 10.75v-1.5c-5.10863 0-9.25-4.1414-9.25-9.25zm10.75 10.75c5.9371 0 10.75-4.8129 10.75-10.75h-1.5c0 5.1086-4.1414 9.25-9.25 9.25zm10.75-10.75c0-5.93706-4.8129-10.75-10.75-10.75v1.5c5.1086 0 9.25 4.14137 9.25 9.25zm-10.75-10.75c-2.41966 0-4.65456.80032-6.45148 2.15038l.90101 1.19924c1.54606-1.16158 3.46683-1.84962 5.55047-1.84962zm-6.45148 2.15038c-.81333.61107-1.53707 1.33481-2.14814 2.14814l1.19924.90101c.5262-.70037 1.14954-1.32371 1.84991-1.84991zm-3.03582-2.403726-.00886 1.985716 1.49999.00669.00886-1.98571zm4.42448 6.419056 1.98572-.00886-.0067-1.49999-1.98571.00886zm-4.43334-4.43334c-.00345.77414-.00746 1.41813.04887 1.93398.05798.53093.18758 1.02026.51655 1.44534l1.18625-.91804c-.09017-.11652-.16839-.29389-.21166-.69014-.04492-.41134-.04363-.95503-.04002-1.76445zm4.42665 2.93335c-.80942.00361-1.3531.0049-1.76445-.04002-.39625-.04327-.57362-.12149-.69014-.21166l-.91804 1.18625c.42508.32897.91441.45857 1.44534.51655.51585.05633 1.15984.05232 1.93398.04887zm.53918 3.55395-1 1.00003 1.06066 1.0606 1-1zm.78033 2.53033v4h1.5v-4zm0-1.5858v.0858h1.5v-.0858zm0 .0858v1.5h1.5v-1.5zm-5.18074-4.13831c.08838.1142.18558.2211.29066.31976l1.02669-1.09358c-.04739-.04449-.09123-.0927-.1311-.14422zm.29066.31976c.0632.05933.12925.11569.19794.16884l.91804-1.18625c-.03099-.02399-.06078-.0494-.08929-.07616zm.09207-1.19447-.12673.13563 1.09601 1.0241.12674-.13564zm5.07834 5.04332c-.0184.0184-.0508.0375-.09038.0443-.03548.0062-.06566.0008-.08858-.0087s-.04806-.027-.0688-.0564c-.02313-.0329-.03257-.0693-.03257-.0953h1.5c0-1.19004-1.43883-1.78603-2.28033-.94453z" fill="#ffffff"/>
       </svg>`;
-    videoContainer.appendChild(rewindIndicator);
+    container.appendChild(rewindIndicator);
 
     // Forward indicator
     const forwardIndicator = document.createElement("div");
     forwardIndicator.className = "skip-indicator right-indicator";
-    forwardIndicator.id = "forward";
+    forwardIndicator.id = "forward-" + index;
     forwardIndicator.innerHTML = `<svg class="arabica_video-icon" fill="none" height="24" viewBox="0 0 24 24" width="24"
         xmlns="http://www.w3.org/2000/svg">
         <g fill="#ffffff">
@@ -495,18 +510,18 @@ document.addEventListener("DOMContentLoaded", function () {
         </g>
       </svg>
         <span>10s</span>`;
-    videoContainer.appendChild(forwardIndicator);
+    container.appendChild(forwardIndicator);
 
     // Large overlay indicator (for transient play/pause feedback)
     const playPauseIndicator = document.createElement("div");
     playPauseIndicator.className = "play-pause-indicator";
-    playPauseIndicator.id = "playPauseIndicator";
+    playPauseIndicator.id = "playPauseIndicator-" + index;
     playPauseIndicator.innerHTML = `
       <svg viewBox="0 0 24 24">
         <path d="M8 5v14l11-7z"/>
       </svg>
     `;
-    videoContainer.appendChild(playPauseIndicator);
+    container.appendChild(playPauseIndicator);
 
     // Controls container
     const controls = document.createElement("div");
@@ -515,7 +530,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // Play/Pause button
     const playPauseBtn = document.createElement("button");
     playPauseBtn.className = "play-btn";
-    playPauseBtn.id = "playPause";
+    playPauseBtn.id = "playPause-" + index;
     playPauseBtn.innerHTML = `
       <svg class="arabica_video-icon" viewBox="0 0 24 24">
         <path d="M8 5v14l11-7z"/>
@@ -526,7 +541,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // Restart button
     const restartBtn = document.createElement("button");
     restartBtn.className = "restart-btn";
-    restartBtn.id = "restart";
+    restartBtn.id = "restart-" + index;
     restartBtn.innerHTML = `
       <svg class="arabica_video-icon" viewBox="0 0 24 24">
         <path d="M17.65 6.35C16.2 4.9 14.21 4 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08c-.82 2.33-3.04 4-5.65 4-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z"/>
@@ -537,29 +552,29 @@ document.addEventListener("DOMContentLoaded", function () {
     // Current time display
     const currentTime = document.createElement("span");
     currentTime.className = "arabica_video-time";
-    currentTime.innerHTML = `<span id="currentTime">0:00</span>`;
+    currentTime.innerHTML = `<span id="currentTime-${index}">0:00</span>`;
     controls.appendChild(currentTime);
 
     // Progress bar container
     const progressContainer = document.createElement("div");
     progressContainer.className = "progress-container";
-    progressContainer.id = "progressContainer";
+    progressContainer.id = "progressContainer-" + index;
     const progressBar = document.createElement("div");
     progressBar.className = "progress-bar";
-    progressBar.id = "progressBar";
+    progressBar.id = "progressBar-" + index;
     progressContainer.appendChild(progressBar);
     controls.appendChild(progressContainer);
 
     // Duration display
     const duration = document.createElement("span");
     duration.className = "arabica_video-time";
-    duration.innerHTML = `<span id="duration">0:00</span>`;
+    duration.innerHTML = `<span id="duration-${index}">0:00</span>`;
     controls.appendChild(duration);
 
     // Volume button
     const volumeBtn = document.createElement("button");
     volumeBtn.className = "volume-btn";
-    volumeBtn.id = "volume";
+    volumeBtn.id = "volume-" + index;
     volumeBtn.innerHTML = `
       <svg class="arabica_video-icon" viewBox="0 0 24 24">
         <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/>
@@ -571,7 +586,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // Fullscreen button
     const fullscreenBtn = document.createElement("button");
     fullscreenBtn.className = "fullscreen-btn";
-    fullscreenBtn.id = "fullscreen";
+    fullscreenBtn.id = "fullscreen-" + index;
     fullscreenBtn.innerHTML = `
       <svg class="arabica_video-icon" viewBox="0 0 24 24">
         <path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/>
@@ -579,150 +594,336 @@ document.addEventListener("DOMContentLoaded", function () {
     `;
     controls.appendChild(fullscreenBtn);
 
-    // Append the controls container to the video container.
-    videoContainer.appendChild(controls);
+    container.appendChild(controls);
   }
 
-  // Inject the custom controls.
-  injectControls();
+  // Function to add event listeners to the video and its controls.
+  function setupVideoEvents(video, container, index) {
+    const playPauseBtn = container.querySelector("#playPause-" + index);
+    const restartBtn = container.querySelector("#restart-" + index);
+    const fullscreenBtn = container.querySelector("#fullscreen-" + index);
+    const progressContainer = container.querySelector(
+      "#progressContainer-" + index
+    );
+    const progressBar = container.querySelector("#progressBar-" + index);
+    const currentTimeEl = container.querySelector("#currentTime-" + index);
+    const durationEl = container.querySelector("#duration-" + index);
+    const rewindIndicator = container.querySelector("#rewind-" + index);
+    const forwardIndicator = container.querySelector("#forward-" + index);
+    const playPauseIndicator = container.querySelector(
+      "#playPauseIndicator-" + index
+    );
+    const volumeBtn = container.querySelector("#volume-" + index);
+    const playBtnIcon = playPauseBtn.querySelector("path");
 
-  // Video player logic
-  const video =
-    document.getElementById("video") || document.querySelector("video");
-  // Always ensure the default controls are disabled.
-  video.controls = false;
-  video.removeAttribute("controls");
+    // SVG paths for play and pause icons.
+    const playIconPath = "M8 5v14l11-7z";
+    const pauseIconPath = "M6 19h4V5H6v14zm8-14v14h4V5h-4z";
 
-  const playPauseBtn = document.getElementById("playPause");
-  const restartBtn = document.getElementById("restart");
-  const fullscreenBtn = document.getElementById("fullscreen");
-  const progressContainer = document.getElementById("progressContainer");
-  const progressBar = document.getElementById("progressBar");
-  const currentTimeEl = document.getElementById("currentTime");
-  const durationEl = document.getElementById("duration");
-  const rewindIndicator = document.getElementById("rewind");
-  const forwardIndicator = document.getElementById("forward");
-  const playPauseIndicator = document.getElementById("playPauseIndicator");
-  const playBtnIcon = playPauseBtn.querySelector("path");
-  const volumeBtn = document.getElementById("volume");
-
-  // SVG paths for play and pause icons.
-  const playIconPath = "M8 5v14l11-7z";
-  const pauseIconPath = "M6 19h4V5H6v14zm8-14v14h4V5h-4z";
-
-  // Show overlay indicator with animation.
-  function showOverlay(iconPath) {
-    playPauseIndicator.style.display = "block";
-    playPauseIndicator.style.opacity = "1";
-    playPauseIndicator.querySelector("path").setAttribute("d", iconPath);
-    setTimeout(() => {
-      playPauseIndicator.style.transition = "opacity 0.5s ease-out";
-      playPauseIndicator.style.opacity = "0";
+    // Show overlay indicator with animation.
+    function showOverlay(iconPath) {
+      playPauseIndicator.style.display = "block";
+      playPauseIndicator.style.opacity = "1";
+      playPauseIndicator.querySelector("path").setAttribute("d", iconPath);
       setTimeout(() => {
-        playPauseIndicator.style.display = "none";
-        playPauseIndicator.style.transition = "";
-      }, 500);
-    }, 1000);
-  }
+        playPauseIndicator.style.transition = "opacity 0.5s ease-out";
+        playPauseIndicator.style.opacity = "0";
+        setTimeout(() => {
+          playPauseIndicator.style.display = "none";
+          playPauseIndicator.style.transition = "";
+        }, 500);
+      }, 1000);
+    }
 
-  // On page load, if the video is paused, show the play icon overlay.
-  if (video.paused) {
-    playPauseIndicator.style.display = "block";
-    playPauseIndicator.style.opacity = "1";
-    playPauseIndicator.querySelector("path").setAttribute("d", playIconPath);
-  }
-
-  // Toggle play/pause with overlay feedback.
-  function togglePlay() {
+    // On page load, if the video is paused, show the play icon overlay.
     if (video.paused) {
-      showOverlay(playIconPath);
-      video.play();
-      playBtnIcon.setAttribute("d", pauseIconPath);
-    } else {
-      showOverlay(pauseIconPath);
-      video.pause();
-      playBtnIcon.setAttribute("d", playIconPath);
+      playPauseIndicator.style.display = "block";
+      playPauseIndicator.style.opacity = "1";
+      playPauseIndicator.querySelector("path").setAttribute("d", playIconPath);
     }
-  }
 
-  playPauseBtn.addEventListener("click", togglePlay);
-  video.addEventListener("click", togglePlay);
-  playPauseIndicator.addEventListener("click", togglePlay);
-  volumeBtn.addEventListener("click", toggleMute);
-
-  function toggleMute() {
-    video.muted = !video.muted;
-    updateVolumeButton();
-  }
-
-  function updateVolumeButton() {
-    volumeBtn.classList.toggle("muted", video.muted);
-  }
-
-  restartBtn.addEventListener("click", () => {
-    video.currentTime = 0;
-    video.play();
-    playBtnIcon.setAttribute("d", pauseIconPath);
-    showOverlay(playIconPath);
-  });
-
-  fullscreenBtn.addEventListener("click", () => {
-    if (document.fullscreenElement) {
-      document.exitFullscreen();
-    } else {
-      video.requestFullscreen();
+    // Toggle play/pause with overlay feedback.
+    function togglePlay() {
+      if (video.paused) {
+        showOverlay(playIconPath);
+        video.play();
+        playBtnIcon.setAttribute("d", pauseIconPath);
+      } else {
+        showOverlay(pauseIconPath);
+        video.pause();
+        playBtnIcon.setAttribute("d", playIconPath);
+      }
     }
-  });
 
-  video.addEventListener("timeupdate", () => {
-    progressBar.style.width = `${(video.currentTime / video.duration) * 100}%`;
-    currentTimeEl.textContent = formatTime(video.currentTime);
-  });
+    playPauseBtn.addEventListener("click", togglePlay);
+    video.addEventListener("click", togglePlay);
+    playPauseIndicator.addEventListener("click", togglePlay);
 
-  progressContainer.addEventListener("click", (e) => {
-    video.currentTime =
-      (e.offsetX / progressContainer.offsetWidth) * video.duration;
-  });
+    volumeBtn.addEventListener("click", toggleMute);
 
-  function formatTime(time) {
-    const minutes = Math.floor(time / 60);
-    const seconds = Math.floor(time % 60)
-      .toString()
-      .padStart(2, "0");
-    return `${minutes}:${seconds}`;
-  }
-
-  video.addEventListener("ended", () => {
-    playBtnIcon.setAttribute("d", playIconPath);
-  });
-
-  video.addEventListener("dblclick", (e) => {
-    const rect = video.getBoundingClientRect();
-    if (e.clientX < rect.width / 2) {
-      video.currentTime = Math.max(0, video.currentTime - 10);
-      showIndicator(rewindIndicator);
-    } else {
-      video.currentTime = Math.min(video.duration, video.currentTime + 10);
-      showIndicator(forwardIndicator);
-    }
-  });
-
-  function showIndicator(indicator) {
-    indicator.style.display = "flex";
-    setTimeout(() => {
-      indicator.style.display = "none";
-    }, 800);
-  }
-
-  video.addEventListener("loadedmetadata", () => {
-    durationEl.textContent = formatTime(video.duration);
-  });
-
-  document.addEventListener("fullscreenchange", () => {
-    if (!document.fullscreenElement) {
+    function toggleMute() {
+      video.muted = !video.muted;
       updateVolumeButton();
     }
+
+    function updateVolumeButton() {
+      volumeBtn.classList.toggle("muted", video.muted);
+    }
+
+    restartBtn.addEventListener("click", () => {
+      video.currentTime = 0;
+      video.play();
+      playBtnIcon.setAttribute("d", pauseIconPath);
+      showOverlay(playIconPath);
+    });
+
+    fullscreenBtn.addEventListener("click", () => {
+      if (document.fullscreenElement) {
+        document.exitFullscreen();
+      } else {
+        video.requestFullscreen();
+      }
+    });
+
+    video.addEventListener("timeupdate", () => {
+      if (video.duration) {
+        progressBar.style.width = `${
+          (video.currentTime / video.duration) * 100
+        }%`;
+        currentTimeEl.textContent = formatTime(video.currentTime);
+      }
+    });
+
+    progressContainer.addEventListener("click", (e) => {
+      video.currentTime =
+        (e.offsetX / progressContainer.offsetWidth) * video.duration;
+    });
+
+    function formatTime(time) {
+      const minutes = Math.floor(time / 60);
+      const seconds = Math.floor(time % 60)
+        .toString()
+        .padStart(2, "0");
+      return `${minutes}:${seconds}`;
+    }
+
+    video.addEventListener("ended", () => {
+      playBtnIcon.setAttribute("d", playIconPath);
+    });
+
+    video.addEventListener("dblclick", (e) => {
+      const rect = video.getBoundingClientRect();
+      if (e.clientX < rect.width / 2) {
+        video.currentTime = Math.max(0, video.currentTime - 10);
+        showIndicator(rewindIndicator);
+      } else {
+        video.currentTime = Math.min(video.duration, video.currentTime + 10);
+        showIndicator(forwardIndicator);
+      }
+    });
+
+    function showIndicator(indicator) {
+      indicator.style.display = "flex";
+      setTimeout(() => {
+        indicator.style.display = "none";
+      }, 800);
+    }
+
+    video.addEventListener("loadedmetadata", () => {
+      durationEl.textContent = formatTime(video.duration);
+    });
+
+    document.addEventListener("fullscreenchange", () => {
+      if (!document.fullscreenElement) {
+        updateVolumeButton();
+      }
+    });
+  }
+});
+
+document.addEventListener("DOMContentLoaded", function () {
+  // Select all audio elements on the page.
+  const audios = document.querySelectorAll("audio");
+
+  // Global listener: when any audio starts playing, pause all others.
+  document.addEventListener(
+    "play",
+    function (e) {
+      audios.forEach((audio) => {
+        if (audio !== e.target) {
+          audio.pause();
+        }
+      });
+    },
+    true
+  );
+
+  audios.forEach((audio, index) => {
+    // Disable default browser controls.
+    audio.controls = false;
+    audio.removeAttribute("controls");
+
+    // Wrap the audio element in a container if not already wrapped.
+    let container = audio.parentElement;
+    if (!container.classList.contains("arabica_audio-container")) {
+      container = document.createElement("div");
+      container.classList.add("arabica_audio-container");
+      audio.parentElement.insertBefore(container, audio);
+      container.appendChild(audio);
+    }
+
+    // Inject custom controls using the provided markup (except fullscreen).
+    injectAudioControls(container, audio, index);
+
+    // Setup event listeners for this audio and its controls.
+    setupAudioEvents(audio, container, index);
   });
+
+  // Inject controls with structure similar to the provided video controls markup.
+  function injectAudioControls(container, audio, index) {
+    const controls = document.createElement("div");
+    // Using the same class name as your video controls markup.
+    controls.className = "arabica_video-controls";
+
+    // Play/Pause button.
+    const playPauseBtn = document.createElement("button");
+    playPauseBtn.className = "play-btn";
+    playPauseBtn.id = "playPause-" + index;
+    playPauseBtn.innerHTML = `
+      <svg class="arabica_video-icon" viewBox="0 0 24 24">
+        <path d="M8 5v14l11-7z"></path>
+      </svg>
+    `;
+    controls.appendChild(playPauseBtn);
+
+    // Restart button.
+    const restartBtn = document.createElement("button");
+    restartBtn.className = "restart-btn";
+    restartBtn.id = "restart-" + index;
+    restartBtn.innerHTML = `
+      <svg class="arabica_video-icon" viewBox="0 0 24 24">
+        <path d="M17.65 6.35C16.2 4.9 14.21 4 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08c-.82 2.33-3.04 4-5.65 4-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z"></path>
+      </svg>
+    `;
+    controls.appendChild(restartBtn);
+
+    // Current time display.
+    const currentTimeSpan = document.createElement("span");
+    currentTimeSpan.className = "arabica_video-time";
+    currentTimeSpan.innerHTML = `<span id="currentTime-${index}">0:00</span>`;
+    controls.appendChild(currentTimeSpan);
+
+    // Progress bar container.
+    const progressContainer = document.createElement("div");
+    progressContainer.className = "progress-container";
+    progressContainer.id = "progressContainer-" + index;
+    const progressBar = document.createElement("div");
+    progressBar.className = "progress-bar";
+    progressBar.id = "progressBar-" + index;
+    progressContainer.appendChild(progressBar);
+    controls.appendChild(progressContainer);
+
+    // Duration display.
+    const durationSpan = document.createElement("span");
+    durationSpan.className = "arabica_video-time";
+    durationSpan.innerHTML = `<span id="duration-${index}">0:00</span>`;
+    controls.appendChild(durationSpan);
+
+    // Volume button.
+    const volumeBtn = document.createElement("button");
+    volumeBtn.className = "volume-btn";
+    volumeBtn.id = "volume-" + index;
+    volumeBtn.innerHTML = `
+      <svg class="arabica_video-icon" viewBox="0 0 24 24">
+        <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"></path>
+        <line class="slash" x1="22" y1="2" x2="2" y2="22"></line>
+      </svg>
+    `;
+    controls.appendChild(volumeBtn);
+
+    // Append the controls container to the audio container.
+    container.appendChild(controls);
+  }
+
+  // Setup event listeners and logic for each audio element.
+  function setupAudioEvents(audio, container, index) {
+    const playPauseBtn = container.querySelector("#playPause-" + index);
+    const restartBtn = container.querySelector("#restart-" + index);
+    const progressContainer = container.querySelector(
+      "#progressContainer-" + index
+    );
+    const progressBar = container.querySelector("#progressBar-" + index);
+    const currentTimeEl = container.querySelector("#currentTime-" + index);
+    const durationEl = container.querySelector("#duration-" + index);
+    const volumeBtn = container.querySelector("#volume-" + index);
+    const playBtnIcon = playPauseBtn.querySelector("path");
+
+    // Define SVG paths for play and pause icons.
+    const playIconPath = "M8 5v14l11-7z";
+    const pauseIconPath = "M6 19h4V5H6v14zm8-14v14h4V5h-4z";
+
+    // Toggle play/pause state.
+    function togglePlay() {
+      if (audio.paused) {
+        audio.play();
+        playBtnIcon.setAttribute("d", pauseIconPath);
+      } else {
+        audio.pause();
+        playBtnIcon.setAttribute("d", playIconPath);
+      }
+    }
+
+    playPauseBtn.addEventListener("click", togglePlay);
+    // Also allow clicking on the audio element itself to toggle play/pause.
+    audio.addEventListener("click", togglePlay);
+
+    // Restart functionality.
+    restartBtn.addEventListener("click", () => {
+      audio.currentTime = 0;
+      audio.play();
+      playBtnIcon.setAttribute("d", pauseIconPath);
+    });
+
+    // Update progress bar and current time during playback.
+    audio.addEventListener("timeupdate", () => {
+      if (audio.duration) {
+        const progressPercent = (audio.currentTime / audio.duration) * 100;
+        progressBar.style.width = `${progressPercent}%`;
+        currentTimeEl.textContent = formatTime(audio.currentTime);
+      }
+    });
+
+    // Allow seeking by clicking on the progress container.
+    progressContainer.addEventListener("click", (e) => {
+      audio.currentTime =
+        (e.offsetX / progressContainer.offsetWidth) * audio.duration;
+    });
+
+    // Format time as mm:ss.
+    function formatTime(time) {
+      const minutes = Math.floor(time / 60);
+      const seconds = Math.floor(time % 60)
+        .toString()
+        .padStart(2, "0");
+      return `${minutes}:${seconds}`;
+    }
+
+    // Display total duration once metadata is loaded.
+    audio.addEventListener("loadedmetadata", () => {
+      durationEl.textContent = formatTime(audio.duration);
+    });
+
+    // When playback ends, reset play icon.
+    audio.addEventListener("ended", () => {
+      playBtnIcon.setAttribute("d", playIconPath);
+    });
+
+    // Toggle mute state.
+    volumeBtn.addEventListener("click", () => {
+      audio.muted = !audio.muted;
+      volumeBtn.classList.toggle("muted", audio.muted);
+    });
+  }
 });
 
 document.addEventListener("DOMContentLoaded", () => {
