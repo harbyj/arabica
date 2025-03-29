@@ -166,6 +166,38 @@ document.addEventListener("DOMContentLoaded", function () {
         }
       });
     });
+
+    // ============== Active TOC Link on Scroll ==============
+    // Combine all headings from the article and foot containers.
+    const headings = document.querySelectorAll(
+      ".arabica_article-content h2, .arabica_article-content h3, .arabica_foot-container h2, .arabica_foot-container h3"
+    );
+
+    const updateActiveTOC = function () {
+      let currentId = "";
+      const threshold = 100;
+
+      headings.forEach((heading) => {
+        const rect = heading.getBoundingClientRect();
+        if (rect.top <= threshold) {
+          currentId = heading.id;
+        }
+      });
+
+      tocLinks.forEach((link) => {
+        const linkTarget = link.getAttribute("href").substring(1);
+        if (linkTarget === currentId) {
+          link.classList.add("active");
+        } else {
+          link.classList.remove("active");
+        }
+      });
+    };
+
+    // Listen to scroll events to update the active TOC link.
+    document.addEventListener("scroll", updateActiveTOC);
+    // Initial call
+    updateActiveTOC();
   }
 });
 
@@ -1574,3 +1606,61 @@ document
       el.style.marginBottom = "0";
     }
   });
+(function () {
+  const sidebar = document.querySelector(
+    ".arabica_right-column-25.arabica_sticky-sidebar"
+  );
+  const overlay = document.querySelector(".arabica_overlay");
+
+  let lastScrollY = window.pageYOffset;
+  let currentTranslation = 0;
+
+  function updateSidebarPosition() {
+    if (window.innerWidth <= 991) {
+      // Reset styles if screen width is 991px or smaller
+      sidebar.style.position = "static";
+      overlay.style.transform = "none";
+      return;
+    }
+
+    const scrollY = window.pageYOffset;
+    const viewportHeight = window.innerHeight;
+    const overlayHeight = overlay.offsetHeight;
+    const maxTranslation = overlayHeight - viewportHeight;
+
+    // If we're at the bottom of the page, force the translation to maxTranslation
+    if (scrollY + viewportHeight >= document.documentElement.scrollHeight - 1) {
+      currentTranslation = maxTranslation;
+    } else {
+      // Calculate how far we've scrolled since the last event.
+      const delta = scrollY - lastScrollY;
+
+      if (delta > 0) {
+        // Scrolling down: increase translation up to the max.
+        currentTranslation = Math.min(
+          currentTranslation + delta,
+          maxTranslation
+        );
+      } else if (delta < 0) {
+        // Scrolling up: decrease translation but never below 0.
+        currentTranslation = Math.max(currentTranslation + delta, 0);
+      }
+    }
+
+    // Always keep the sidebar sticky at the top.
+    sidebar.style.position = "sticky";
+    sidebar.style.top = "0px";
+    sidebar.style.height = "fit-content";
+    overlay.style.transform = `translateY(-${currentTranslation}px)`;
+
+    lastScrollY = scrollY;
+  }
+
+  function checkScreenSize() {
+    updateSidebarPosition();
+  }
+
+  window.addEventListener("scroll", updateSidebarPosition);
+  window.addEventListener("resize", checkScreenSize);
+  checkScreenSize();
+})();
