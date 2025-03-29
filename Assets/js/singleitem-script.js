@@ -1607,9 +1607,7 @@ document
     }
   });
 (function () {
-  const sidebar = document.querySelector(
-    ".arabica_right-column-25.arabica_sticky-sidebar"
-  );
+  const sidebar = document.querySelector(".arabica_sticky-sidebar");
   const overlay = document.querySelector(".arabica_overlay");
 
   let lastScrollY = window.pageYOffset;
