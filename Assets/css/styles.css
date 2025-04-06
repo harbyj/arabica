@@ -2045,13 +2045,6 @@ a.arabica_latest-article-more:hover {
     color: #c93;
     font-size: 15px;
   }
-  .arabica_about-content table,
-  .arabica_article-content table,
-  .arabica_news-content table {
-    display: block;
-    overflow-x: auto;
-    white-space: nowrap;
-  }
   .arabica_news {
     margin: 50px 0;
   }
@@ -3732,13 +3725,6 @@ input:checked + .arabica_toggle:before {
   .arabica_list-grid,
   .tab-desktop-svg {
     display: none;
-  }
-  .arabica_about-content table,
-  .arabica_article-content table,
-  .arabica_news-content table {
-    display: block;
-    overflow-x: auto;
-    white-space: nowrap;
   }
   .arabica_editors-info img {
     margin: 0 0 30px;
