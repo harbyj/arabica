@@ -5,32 +5,29 @@ document.addEventListener("DOMContentLoaded", function () {
   const footnoteContainer = document.querySelector(".arabica_foot-reference");
   if (!articleContent || !footnoteContainer) return;
 
+  let hasFootnotes = false;
   let node = articleContent.firstElementChild;
+
   while (node) {
-    // Check if the element is a paragraph with a valid footnote link
+    const ftnLink =
+      node.tagName === "P" ? node.querySelector('a[name^="_ftn"]') : null;
     if (
       node.tagName === "P" &&
-      node.querySelector('a[name^="_ftn"]') &&
-      !node
-        .querySelector('a[name^="_ftn"]')
-        .getAttribute("name")
-        .includes("ref")
+      ftnLink &&
+      !ftnLink.getAttribute("name").includes("ref")
     ) {
+      hasFootnotes = true;
       let currentNode = node;
       let next = node.nextElementSibling;
 
-      // Move the current footnote paragraph
       footnoteContainer.appendChild(currentNode);
 
-      // Loop through subsequent siblings while allowed.
       while (next && ["P", "UL", "OL"].includes(next.tagName)) {
-        // If this is a paragraph containing a link with name starting with "_edn", then break.
         if (next.tagName === "P") {
           const ednLink = next.querySelector('a[name^="_edn"]');
           if (ednLink) break;
         }
         let toMove = next;
-        // Advance pointer before moving the node.
         next = toMove.nextElementSibling;
         footnoteContainer.appendChild(toMove);
       }
@@ -39,12 +36,27 @@ document.addEventListener("DOMContentLoaded", function () {
       node = node.nextElementSibling;
     }
   }
+
+  if (!hasFootnotes) {
+    footnoteContainer.remove();
+
+    // Inject CSS rule only if there are no footnotes
+    const style = document.createElement("style");
+    style.textContent = `
+      .arabica_article-sources {
+        border-top: 0 !important;
+        margin-top: 0 !important;
+        padding-top: 0 !important;
+      }
+    `;
+    document.head.appendChild(style);
+  }
 });
 
 document.addEventListener("DOMContentLoaded", () => {
   document
     .querySelectorAll(
-      ".arabica_foot-reference p, .arabica_foot-source li, .arabica_foot-reference li"
+      ".arabica_foot-reference p, .arabica_foot-source li, .arabica_foot-reference li, .arabica_foot-source p"
     )
     .forEach((el) => {
       // Regex checks for any Arabic characters in the range \u0600 to \u06FF
@@ -73,24 +85,36 @@ const headings = document.querySelectorAll("div.arabica_article-content h2");
 let referenceFound = false;
 
 headings.forEach((heading) => {
-  const headingText = heading.textContent.trim();
-  if (referenceTitles.some((title) => headingText.includes(title))) {
+  const normalizedText = heading.textContent
+    .trim()
+    .toLowerCase()
+    .replace(/\s+/g, "");
+  if (
+    referenceTitles.some((title) =>
+      normalizedText.includes(title.toLowerCase().replace(/\s+/g, ""))
+    )
+  ) {
     referenceFound = true;
-    // Start with the reference header (h2)
+
     const elementsToMove = [heading];
     let nextElem = heading.nextElementSibling;
 
-    // Collect all siblings until a <p> element is encountered.
-    while (nextElem && nextElem.tagName.toLowerCase() !== "p") {
+    // Collect siblings until a <p><a name="...ftn or edn..."></a></p> is found
+    while (nextElem) {
+      const isStopParagraph =
+        nextElem.tagName.toLowerCase() === "p" &&
+        nextElem.querySelector('a[name*="ftn"], a[name*="edn"]');
+
+      if (isStopParagraph) break;
+
       elementsToMove.push(nextElem);
       nextElem = nextElem.nextElementSibling;
     }
 
-    // Move the collected elements to the target container.
     const targetContainer = document.querySelector(".arabica_article-sources");
-    elementsToMove.forEach((el) => {
-      targetContainer.appendChild(el);
-    });
+    if (targetContainer) {
+      elementsToMove.forEach((el) => targetContainer.appendChild(el));
+    }
   }
 });
 
