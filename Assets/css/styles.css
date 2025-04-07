@@ -1538,7 +1538,7 @@ a.arabica_latest-article-more:hover {
 .arabica_article-content th,
 .arabica_news-content td,
 .arabica_news-content th {
-  border: 1px solid #c7c8ca;
+  border: 1px solid #ccc;
   padding: 8px;
 }
 .arabica_about-content code,
@@ -2826,7 +2826,7 @@ input:checked + .arabica_toggle:before {
   }
 }
 .arabica_table-of-content {
-  border: 1px solid #c7c8ca;
+  border: 1px solid #ccc;
   padding: 20px 15px;
   color: #4d4d4f;
   border-radius: 8px;
