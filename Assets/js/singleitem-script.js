@@ -1674,6 +1674,7 @@ document
     sidebar.style.top = "0px";
     sidebar.style.height = "fit-content";
     overlay.style.transform = `translateY(-${currentTranslation}px)`;
+    overlay.style.paddingBottom = `30px`;
 
     lastScrollY = scrollY;
   }
