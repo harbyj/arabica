@@ -3086,7 +3086,8 @@ input:checked + .arabica_toggle:before {
   aspect-ratio: 90/90;
   object-fit: cover !important;
 }
-.arabica_article-image > a img {
+.arabica_article-image > a img,
+.arabica_article-image > table a img {
   width: 100%;
 }
 .arabica_article_slider-nav {
@@ -3967,4 +3968,36 @@ audio {
 }
 .arabica_table-of-content a:hover {
   color: #b07f2a;
+}
+#Facts,
+.Facts {
+  background: #f3f3f3;
+  border-radius: 7px;
+  padding-bottom: 15px;
+  margin-top: 0;
+  display: block;
+}
+#Facts td,
+.Facts td {
+  border: 0;
+  padding: 15px 15px 0;
+}
+#Facts figcaption,
+.Facts figcaption {
+  text-align: center;
+}
+#Facts p:last-of-type,
+.Facts p:last-of-type {
+  margin-bottom: 0;
+}
+.arabica_sticky-sidebar {
+  padding-top: 15px;
+  padding-bottom: 15px;
+  margin-top: -15px;
+  margin-bottom: -30px;
+}
+caption {
+  text-align: right;
+  color: #a0a3ac;
+  margin-bottom: 5px;
 }
