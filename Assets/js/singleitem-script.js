@@ -1514,8 +1514,7 @@ document.addEventListener("DOMContentLoaded", () => {
             e.preventDefault();
             const img = link.querySelector("img");
             const captionElem = link.nextElementSibling;
-            const caption = captionElem && captionElem.tagName.toLowerCase() === "figcaption"
-              ? captionElem.textContent
+            const caption = captionElem && captionElem.tagName.toLowerCase() === "figcaption" ? captionElem.textContent
               : "";
             const gallery = Array.from(container.querySelectorAll("a")).map((a) => {
               const aCaptionElem = a.nextElementSibling;
@@ -1523,8 +1522,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 src: a.getAttribute("href"),
                 alt: a.querySelector("img").getAttribute("alt"),
                 caption: aCaptionElem &&
-                  aCaptionElem.tagName.toLowerCase() === "figcaption"
-                  ? aCaptionElem.textContent
+                  aCaptionElem.tagName.toLowerCase() === "figcaption" ? aCaptionElem.textContent
                   : "",
               };
             });
@@ -1551,8 +1549,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const alt = img ? img.getAttribute("alt") : "";
         const captionElem = anchor.nextElementSibling;
         const caption = captionElem &&
-          captionElem.tagName.toLowerCase() === "figcaption"
-          ? captionElem.textContent
+          captionElem.tagName.toLowerCase() === "figcaption" ? captionElem.textContent
           : "";
         openLightbox(href, alt, caption, []);
       });
