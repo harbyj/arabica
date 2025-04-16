@@ -1129,17 +1129,11 @@ document.addEventListener("DOMContentLoaded", () => {
     galleryGrid.innerHTML = gallery
       .map(
         (item, index) =>
-          `<img src="${item.src}" alt="${
-            item.alt
-          }" data-index="${index}" class="${
-            index === currentIndex ? "active" : ""
-          }">`
+          `<img src="${item.src}" alt="${item.alt}" data-index="${index}" class="${index === currentIndex ? "active" : ""}">`
       )
       .join("");
 
-    const activeImg = galleryGrid.querySelector(
-      `[data-index="${currentIndex}"]`
-    );
+    const activeImg = galleryGrid.querySelector(`[data-index="${currentIndex}"]`);
     if (activeImg) {
       activeImg.classList.add("active");
 
@@ -1148,26 +1142,15 @@ document.addEventListener("DOMContentLoaded", () => {
         const gridWidth = galleryGrid.scrollWidth;
 
         if (gridWidth > viewportWidth) {
-          // Grid is larger than the screen.
-          galleryGrid.style.left = "0"; // Force the left position.
-
-          // Calculate the ideal translation to center the active image.
+          galleryGrid.style.left = "0";
           const activeCenter = activeImg.offsetLeft + activeImg.offsetWidth / 2;
           const idealTranslate = viewportWidth / 2 - activeCenter;
-
-          // Clamp the translation so the grid doesn't shift too far.
-          const maxTranslate = 0; // left edge of grid should not exceed viewport left edge.
-          const minTranslate = viewportWidth - gridWidth; // right edge should align with viewport right.
-          const clampedTranslate = Math.min(
-            maxTranslate,
-            Math.max(idealTranslate, minTranslate)
-          );
-
+          const maxTranslate = 0;
+          const minTranslate = viewportWidth - gridWidth;
+          const clampedTranslate = Math.min(maxTranslate, Math.max(idealTranslate, minTranslate));
           galleryGrid.style.transition = "transform 0.3s ease-in-out";
           galleryGrid.style.transform = `translateX(${clampedTranslate}px)`;
         } else {
-          // Grid is smaller than or equal to the screen.
-          // Remove any previously applied inline styles.
           galleryGrid.style.left = "";
           galleryGrid.style.transform = "";
           galleryGrid.style.transition = "";
@@ -1182,32 +1165,23 @@ document.addEventListener("DOMContentLoaded", () => {
   galleryGrid.addEventListener("touchstart", (e) => {
     const viewportWidth = window.innerWidth;
     const gridWidth = galleryGrid.scrollWidth;
-
-    // Only enable swipe if grid is wider than the screen
     if (gridWidth > viewportWidth) {
       gridTouchStartX = e.touches[0].clientX;
-      galleryGrid.style.transition = "none"; // Disable transition for immediate movement
+      galleryGrid.style.transition = "none";
     }
   });
 
   galleryGrid.addEventListener("touchmove", (e) => {
     const viewportWidth = window.innerWidth;
     const gridWidth = galleryGrid.scrollWidth;
-
-    // Only allow movement if the grid is wider than the screen
     if (gridWidth > viewportWidth) {
       const touchCurrentX = e.touches[0].clientX;
       const deltaX = touchCurrentX - gridTouchStartX;
-
       let newTranslateX = currentGridTranslateX + deltaX;
-
-      // Clamping to prevent over-scrolling
       const maxTranslate = 0;
-      const minTranslate = viewportWidth - gridWidth; // negative value
-
+      const minTranslate = viewportWidth - gridWidth;
       if (newTranslateX > maxTranslate) newTranslateX = maxTranslate;
       if (newTranslateX < minTranslate) newTranslateX = minTranslate;
-
       galleryGrid.style.transform = `translateX(${newTranslateX}px)`;
     }
   });
@@ -1215,13 +1189,11 @@ document.addEventListener("DOMContentLoaded", () => {
   galleryGrid.addEventListener("touchend", () => {
     const viewportWidth = window.innerWidth;
     const gridWidth = galleryGrid.scrollWidth;
-
-    // Only update position if scrolling was allowed
     if (gridWidth > viewportWidth) {
       const style = window.getComputedStyle(galleryGrid);
       const matrix = new DOMMatrixReadOnly(style.transform);
-      currentGridTranslateX = matrix.m41; // Save the last transform position
-      galleryGrid.style.transition = "transform 0.3s ease-in-out"; // Smooth transition on release
+      currentGridTranslateX = matrix.m41;
+      galleryGrid.style.transition = "transform 0.3s ease-in-out";
     }
   });
 
@@ -1246,49 +1218,31 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function showPrevImage() {
     if (currentGallery.length > 0) {
-      currentIndex =
-        (currentIndex - 1 + currentGallery.length) % currentGallery.length;
+      currentIndex = (currentIndex - 1 + currentGallery.length) % currentGallery.length;
       updateLightboxContent();
     }
   }
 
-  // ------------------------------
-  // LIGHTBOX EVENT LISTENERS
-  // ------------------------------
   closeBtn.addEventListener("click", closeLightbox);
   lightbox.addEventListener("click", (e) => {
-    if (e.target === lightbox) {
-      closeLightbox();
-    }
+    if (e.target === lightbox) closeLightbox();
   });
 
   document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape") {
-      closeLightbox();
-    }
-    if (e.key === "ArrowRight" || e.key === "ArrowDown") {
-      showNextImage();
-    } else if (e.key === "ArrowLeft" || e.key === "ArrowUp") {
-      showPrevImage();
-    }
+    if (e.key === "Escape") closeLightbox();
+    if (e.key === "ArrowRight" || e.key === "ArrowDown") showNextImage();
+    else if (e.key === "ArrowLeft" || e.key === "ArrowUp") showPrevImage();
   });
 
   let lastWheelTime = 0;
-  lightbox.addEventListener(
-    "wheel",
-    (e) => {
-      e.preventDefault();
-      const now = Date.now();
-      if (now - lastWheelTime < 400) return;
-      lastWheelTime = now;
-      if (e.deltaY > 0) {
-        showNextImage();
-      } else if (e.deltaY < 0) {
-        showPrevImage();
-      }
-    },
-    { passive: false }
-  );
+  lightbox.addEventListener("wheel", (e) => {
+    e.preventDefault();
+    const now = Date.now();
+    if (now - lastWheelTime < 400) return;
+    lastWheelTime = now;
+    if (e.deltaY > 0) showNextImage();
+    else if (e.deltaY < 0) showPrevImage();
+  }, { passive: false });
 
   galleryGrid.addEventListener("click", (e) => {
     if (e.target.tagName === "IMG") {
@@ -1305,11 +1259,8 @@ document.addEventListener("DOMContentLoaded", () => {
     lbTouchEndX = e.touches[0].clientX;
   });
   lightboxImg.addEventListener("touchend", () => {
-    if (lbTouchStartX - lbTouchEndX > 50) {
-      showNextImage();
-    } else if (lbTouchEndX - lbTouchStartX > 50) {
-      showPrevImage();
-    }
+    if (lbTouchStartX - lbTouchEndX > 50) showNextImage();
+    else if (lbTouchEndX - lbTouchStartX > 50) showPrevImage();
   });
 
   /* ------------------------------
@@ -1317,13 +1268,13 @@ document.addEventListener("DOMContentLoaded", () => {
          (for containers with multiple items using .arabica_article-image-gallery)
       ------------------------------ */
   document.querySelectorAll(".arabica_article-image").forEach((container) => {
-    // If container has multiple gallery items, set up the slider.
-    const galleryItems = container.querySelectorAll(
-      ".arabica_article-image-gallery"
-    );
+    const galleryItems = container.querySelectorAll(".arabica_article-image-gallery");
     if (galleryItems.length > 0) {
       const slider = document.createElement("div");
       slider.className = "arabica_article_slider";
+      // Set relative positioning for absolute elements (like the counter)
+      slider.style.position = "relative";
+      
       const sliderWrapper = document.createElement("div");
       sliderWrapper.className = "arabica_article_slider_wrapper";
 
@@ -1333,19 +1284,34 @@ document.addEventListener("DOMContentLoaded", () => {
       slider.appendChild(sliderWrapper);
 
       const prevSliderBtn = document.createElement("button");
-      prevSliderBtn.className =
-        "arabica_article_slider-nav arabica_article_slider-prev";
+      prevSliderBtn.className = "arabica_article_slider-nav arabica_article_slider-prev";
       prevSliderBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
-          <path fill="#ffffff" d="M15.41 16.59L10.83 12l4.58-4.59L14 6l-6 6 6 6z"/>
+          <path fill="#ffffff" d="M15.41 16.59L10.83 12l4.58-4.59L14 6l-6 6 6 6z"></path>
         </svg>`;
       const nextSliderBtn = document.createElement("button");
-      nextSliderBtn.className =
-        "arabica_article_slider-nav arabica_article_slider-next";
+      nextSliderBtn.className = "arabica_article_slider-nav arabica_article_slider-next";
       nextSliderBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
-          <path fill="#ffffff" d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6z"/>
+          <path fill="#ffffff" d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6z"></path>
         </svg>`;
       slider.appendChild(prevSliderBtn);
       slider.appendChild(nextSliderBtn);
+
+      // Create the slider counter element and append it to the slider.
+      const sliderCounter = document.createElement("span");
+      sliderCounter.className = "arabica_article_slider-counter";
+      // Initialize counter innerHTML with a camera icon (adjust the SVG as desired)
+      sliderCounter.innerHTML = `<svg fill="currentColor" height="16" width="16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 487 487" xml:space="preserve">
+<g>
+	<g>
+		<path d="M308.1,277.95c0,35.7-28.9,64.6-64.6,64.6s-64.6-28.9-64.6-64.6s28.9-64.6,64.6-64.6S308.1,242.25,308.1,277.95z
+			 M440.3,116.05c25.8,0,46.7,20.9,46.7,46.7v122.4v103.8c0,27.5-22.3,49.8-49.8,49.8H49.8c-27.5,0-49.8-22.3-49.8-49.8v-103.9
+			v-122.3l0,0c0-25.8,20.9-46.7,46.7-46.7h93.4l4.4-18.6c6.7-28.8,32.4-49.2,62-49.2h74.1c29.6,0,55.3,20.4,62,49.2l4.3,18.6H440.3z
+			 M97.4,183.45c0-12.9-10.5-23.4-23.4-23.4c-13,0-23.5,10.5-23.5,23.4s10.5,23.4,23.4,23.4C86.9,206.95,97.4,196.45,97.4,183.45z
+			 M358.7,277.95c0-63.6-51.6-115.2-115.2-115.2s-115.2,51.6-115.2,115.2s51.6,115.2,115.2,115.2S358.7,341.55,358.7,277.95z"/>
+	</g>
+</g>
+</svg> 1 / ${galleryItems.length}`;
+      slider.appendChild(sliderCounter);
 
       container.innerHTML = "";
       container.appendChild(slider);
@@ -1358,9 +1324,7 @@ document.addEventListener("DOMContentLoaded", () => {
       let isHorizontalDrag = false;
 
       const setSliderPosition = () => {
-        sliderWrapper.style.transform = `translateX(-${
-          currentSlide * sliderWidth
-        }px)`;
+        sliderWrapper.style.transform = `translateX(-${currentSlide * sliderWidth}px)`;
       };
 
       const updateSliderHeight = () => {
@@ -1385,11 +1349,26 @@ document.addEventListener("DOMContentLoaded", () => {
         }
       };
 
+      // Update the counter text and position so it appears above any figcaption.
+      const updateCounter = () => {
+        // Build counter innerHTML with a camera icon, current slide, and total count.
+        sliderCounter.innerHTML = `<i class="fa-regular fa-images"></i> ${currentSlide + 1} / ${galleryItems.length}`;
+        const currentSlideElement = sliderWrapper.children[currentSlide];
+        if (currentSlideElement) {
+          // Get the figcaption height, if any.
+          const figcaption = currentSlideElement.querySelector("figcaption");
+          const figCaptionHeight = figcaption ? figcaption.offsetHeight : 0;
+          // Position the counter slightly above the caption (10px gap)
+          sliderCounter.style.bottom = (figCaptionHeight + 10) + "px";
+        }
+      };
+
       const updateSliderLayout = () => {
         sliderWidth = slider.offsetWidth;
         setSliderPosition();
         updateSliderHeight();
         updateNavButtonsPosition();
+        updateCounter();
       };
 
       slider.style.height = sliderWrapper.children[0].offsetHeight + "px";
@@ -1401,14 +1380,15 @@ document.addEventListener("DOMContentLoaded", () => {
         sliderWrapper.style.transition = "transform 0.3s ease-in-out";
         setSliderPosition();
         updateSliderLayout();
+        updateCounter();
       };
 
       const prevSlide = () => {
-        currentSlide =
-          (currentSlide - 1 + galleryItems.length) % galleryItems.length;
+        currentSlide = (currentSlide - 1 + galleryItems.length) % galleryItems.length;
         sliderWrapper.style.transition = "transform 0.3s ease-in-out";
         setSliderPosition();
         updateSliderLayout();
+        updateCounter();
       };
 
       nextSliderBtn.addEventListener("click", nextSlide);
@@ -1416,7 +1396,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       sliderWrapper.addEventListener("touchstart", (event) => {
         isDragging = true;
-        isHorizontalDrag = false; // Not determined yet.
+        isHorizontalDrag = false;
         startX = event.touches[0].clientX;
         startY = event.touches[0].clientY;
         sliderWrapper.style.transition = "none";
@@ -1424,45 +1404,30 @@ document.addEventListener("DOMContentLoaded", () => {
 
       sliderWrapper.addEventListener("touchmove", (event) => {
         if (!isDragging) return;
-
         const currentX = event.touches[0].clientX;
         const currentY = event.touches[0].clientY;
         const deltaX = currentX - startX;
         const deltaY = currentY - startY;
-
-        // Only initiate horizontal drag if horizontal movement is larger than vertical movement.
         if (!isHorizontalDrag) {
           if (Math.abs(deltaX) > Math.abs(deltaY)) {
             isHorizontalDrag = true;
           } else {
-            // Vertical scroll detected – exit to allow normal page scrolling.
             return;
           }
         }
-        // Update the slider position based on horizontal swipe.
-        sliderWrapper.style.transform = `translateX(-${
-          currentSlide * sliderWidth - deltaX
-        }px)`;
+        sliderWrapper.style.transform = `translateX(-${currentSlide * sliderWidth - deltaX}px)`;
       });
 
       sliderWrapper.addEventListener("touchend", (event) => {
         if (!isDragging) return;
         isDragging = false;
-
         const endX = event.changedTouches[0].clientX;
         const deltaX = endX - startX;
-
-        // Only perform slide transition if horizontal drag was confirmed.
         if (isHorizontalDrag) {
-          if (deltaX < -50) {
-            nextSlide();
-          } else if (deltaX > 50) {
-            prevSlide();
-          } else {
-            setSliderPosition();
-          }
+          if (deltaX < -50) nextSlide();
+          else if (deltaX > 50) prevSlide();
+          else setSliderPosition();
         } else {
-          // If not a horizontal swipe, reset position.
           setSliderPosition();
         }
         sliderWrapper.style.transition = "transform 0.3s ease-in-out";
@@ -1472,29 +1437,23 @@ document.addEventListener("DOMContentLoaded", () => {
       sliderWrapper.querySelectorAll("a").forEach((link) => {
         link.addEventListener("click", (e) => {
           const href = link.getAttribute("href");
-          // Updated regex includes .svg
           if (/\.(jpg|jpeg|png|gif|webp|svg)$/i.test(href)) {
             e.preventDefault();
             const img = link.querySelector("img");
             const captionElem = link.nextElementSibling;
-            const caption =
-              captionElem && captionElem.tagName.toLowerCase() === "figcaption"
-                ? captionElem.textContent
-                : "";
-            const gallery = Array.from(container.querySelectorAll("a")).map(
-              (a) => {
-                const aCaptionElem = a.nextElementSibling;
-                return {
-                  src: a.getAttribute("href"),
-                  alt: a.querySelector("img").getAttribute("alt"),
-                  caption:
-                    aCaptionElem &&
-                    aCaptionElem.tagName.toLowerCase() === "figcaption"
-                      ? aCaptionElem.textContent
-                      : "",
-                };
-              }
-            );
+            const caption = captionElem && captionElem.tagName.toLowerCase() === "figcaption"
+              ? captionElem.textContent
+              : "";
+            const gallery = Array.from(container.querySelectorAll("a")).map((a) => {
+              const aCaptionElem = a.nextElementSibling;
+              return {
+                src: a.getAttribute("href"),
+                alt: a.querySelector("img").getAttribute("alt"),
+                caption: aCaptionElem && aCaptionElem.tagName.toLowerCase() === "figcaption"
+                  ? aCaptionElem.textContent
+                  : ""
+              };
+            });
             openLightbox(href, img.getAttribute("alt"), caption, gallery);
           }
         });
@@ -1506,35 +1465,24 @@ document.addEventListener("DOMContentLoaded", () => {
          SINGLE IMAGE SETUP
          (for any <a> linking to an image that isn’t part of a gallery slider)
       ------------------------------ */
-  // This covers anchors in both .arabica_article-content and .arabica_article-image
-  document
-    .querySelectorAll(
-      ".arabica_article-content a, .arabica_article-image a, .arabica_news-content a, .arabica_news-image a"
-    )
+  document.querySelectorAll(".arabica_article-content a, .arabica_article-image a, .arabica_news-content a, .arabica_news-image a")
     .forEach((anchor) => {
-      // Skip if this anchor is inside a slider gallery.
-      // Updated regex includes .svg
-      if (
-        /\.(jpg|jpeg|png|gif|webp|svg)$/i.test(anchor.getAttribute("href")) &&
-        !anchor.closest(".arabica_article-image-gallery")
-      ) {
+      if (/\.(jpg|jpeg|png|gif|webp|svg)$/i.test(anchor.getAttribute("href")) &&
+          !anchor.closest(".arabica_article-image-gallery")) {
         anchor.addEventListener("click", (e) => {
           e.preventDefault();
           const href = anchor.getAttribute("href");
           const img = anchor.querySelector("img");
           const alt = img ? img.getAttribute("alt") : "";
-          // Use the immediately following <figcaption> if available.
           const captionElem = anchor.nextElementSibling;
-          const caption =
-            captionElem && captionElem.tagName.toLowerCase() === "figcaption"
-              ? captionElem.textContent
-              : "";
+          const caption = captionElem && captionElem.tagName.toLowerCase() === "figcaption"
+            ? captionElem.textContent
+            : "";
           openLightbox(href, alt, caption, []);
         });
       }
     });
 });
-
 
 document.addEventListener("DOMContentLoaded", function () {
   /* ========= Side Content Open/Close ========= */
