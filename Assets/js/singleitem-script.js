@@ -1070,12 +1070,8 @@ document.addEventListener("DOMContentLoaded", () => {
       <path fill="#ffffff" d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
     </svg>`;
 
-  // Create the image element for non-SVG images.
   const lightboxImg = document.createElement("img");
   lightboxImg.id = "lightbox-img";
-  
-  // We will create or remove an object element as needed.
-  let lightboxSvgObj = null;
 
   const lightboxCaption = document.createElement("div");
   lightboxCaption.classList.add("arabica_article_lightbox-caption");
@@ -1099,43 +1095,9 @@ document.addEventListener("DOMContentLoaded", () => {
   let lbTouchStartX = 0;
   let lbTouchEndX = 0;
 
-  // Modified openLightbox to handle .svg files separately.
   function openLightbox(imgSrc, imgAlt, caption, gallery = []) {
-    // Check if the image URL ends with .svg
-    if (/\.svg$/i.test(imgSrc)) {
-      // Remove any previously set image element if it exists.
-      if (lightboxContent.contains(lightboxImg)) {
-        lightboxContent.removeChild(lightboxImg);
-      }
-      // If an object element doesn't exist, create one.
-      if (!lightboxSvgObj) {
-        lightboxSvgObj = document.createElement("object");
-        lightboxSvgObj.id = "lightbox-svg";
-        lightboxSvgObj.type = "image/svg+xml";
-      }
-      // Set or update the SVG object.
-      lightboxSvgObj.data = imgSrc;
-      // Optionally, you can set width/height or styles as needed.
-      lightboxSvgObj.style.width = "100%";
-      lightboxSvgObj.style.height = "auto";
-
-      // If not already appended, add the object element before the caption.
-      if (!lightboxContent.contains(lightboxSvgObj)) {
-        lightboxContent.insertBefore(lightboxSvgObj, lightboxCaption);
-      }
-    } else {
-      // For non-svg images, ensure the lightboxImg is present.
-      if (!lightboxContent.contains(lightboxImg)) {
-        lightboxContent.insertBefore(lightboxImg, lightboxCaption);
-      }
-      // Remove the SVG object if it's present.
-      if (lightboxSvgObj && lightboxContent.contains(lightboxSvgObj)) {
-        lightboxContent.removeChild(lightboxSvgObj);
-      }
-      lightboxImg.setAttribute("src", imgSrc);
-      lightboxImg.setAttribute("alt", imgAlt);
-    }
-
+    lightboxImg.setAttribute("src", imgSrc);
+    lightboxImg.setAttribute("alt", imgAlt);
     lightboxCaption.textContent = caption;
     lightbox.classList.add("active");
     document.body.classList.add("no-scroll");
@@ -1150,56 +1112,6 @@ document.addEventListener("DOMContentLoaded", () => {
       galleryGrid.innerHTML = "";
       galleryGrid.style.display = "none";
     }
-  }
-
-  // Modified updateLightboxContent to handle svg changes too.
-  function updateLightboxContent() {
-    const { src, alt, caption } = currentGallery[currentIndex];
-    
-    // Fade out current content.
-    if (lightboxSvgObj && lightboxContent.contains(lightboxSvgObj)) {
-      lightboxSvgObj.style.opacity = 0;
-    } else {
-      lightboxImg.style.opacity = 0;
-    }
-    
-    setTimeout(() => {
-      // Check file extension and update accordingly.
-      if (/\.svg$/i.test(src)) {
-        if (lightboxContent.contains(lightboxImg)) {
-          lightboxContent.removeChild(lightboxImg);
-        }
-        if (!lightboxSvgObj) {
-          lightboxSvgObj = document.createElement("object");
-          lightboxSvgObj.id = "lightbox-svg";
-          lightboxSvgObj.type = "image/svg+xml";
-          lightboxSvgObj.style.width = "100%";
-          lightboxSvgObj.style.height = "auto";
-        }
-        lightboxSvgObj.data = src;
-        if (!lightboxContent.contains(lightboxSvgObj)) {
-          lightboxContent.insertBefore(lightboxSvgObj, lightboxCaption);
-        }
-      } else {
-        if (!lightboxContent.contains(lightboxImg)) {
-          lightboxContent.insertBefore(lightboxImg, lightboxCaption);
-        }
-        if (lightboxSvgObj && lightboxContent.contains(lightboxSvgObj)) {
-          lightboxContent.removeChild(lightboxSvgObj);
-        }
-        lightboxImg.setAttribute("src", src);
-        lightboxImg.setAttribute("alt", alt);
-      }
-      lightboxCaption.textContent = caption;
-      
-      // Fade in the new content.
-      if (lightboxSvgObj && lightboxContent.contains(lightboxSvgObj)) {
-        lightboxSvgObj.style.opacity = 1;
-      } else {
-        lightboxImg.style.opacity = 1;
-      }
-      updateGalleryGrid(currentGallery);
-    }, 150);
   }
 
   function closeLightbox() {
@@ -1217,13 +1129,17 @@ document.addEventListener("DOMContentLoaded", () => {
     galleryGrid.innerHTML = gallery
       .map(
         (item, index) =>
-          `<img src="${item.src}" alt="${item.alt}" data-index="${index}" class="${
+          `<img src="${item.src}" alt="${
+            item.alt
+          }" data-index="${index}" class="${
             index === currentIndex ? "active" : ""
           }">`
       )
       .join("");
 
-    const activeImg = galleryGrid.querySelector(`[data-index="${currentIndex}"]`);
+    const activeImg = galleryGrid.querySelector(
+      `[data-index="${currentIndex}"]`
+    );
     if (activeImg) {
       activeImg.classList.add("active");
 
@@ -1232,12 +1148,16 @@ document.addEventListener("DOMContentLoaded", () => {
         const gridWidth = galleryGrid.scrollWidth;
 
         if (gridWidth > viewportWidth) {
-          galleryGrid.style.left = "0";
+          // Grid is larger than the screen.
+          galleryGrid.style.left = "0"; // Force the left position.
 
+          // Calculate the ideal translation to center the active image.
           const activeCenter = activeImg.offsetLeft + activeImg.offsetWidth / 2;
           const idealTranslate = viewportWidth / 2 - activeCenter;
-          const maxTranslate = 0;
-          const minTranslate = viewportWidth - gridWidth;
+
+          // Clamp the translation so the grid doesn't shift too far.
+          const maxTranslate = 0; // left edge of grid should not exceed viewport left edge.
+          const minTranslate = viewportWidth - gridWidth; // right edge should align with viewport right.
           const clampedTranslate = Math.min(
             maxTranslate,
             Math.max(idealTranslate, minTranslate)
@@ -1246,6 +1166,8 @@ document.addEventListener("DOMContentLoaded", () => {
           galleryGrid.style.transition = "transform 0.3s ease-in-out";
           galleryGrid.style.transform = `translateX(${clampedTranslate}px)`;
         } else {
+          // Grid is smaller than or equal to the screen.
+          // Remove any previously applied inline styles.
           galleryGrid.style.left = "";
           galleryGrid.style.transform = "";
           galleryGrid.style.transition = "";
@@ -1260,23 +1182,32 @@ document.addEventListener("DOMContentLoaded", () => {
   galleryGrid.addEventListener("touchstart", (e) => {
     const viewportWidth = window.innerWidth;
     const gridWidth = galleryGrid.scrollWidth;
+
+    // Only enable swipe if grid is wider than the screen
     if (gridWidth > viewportWidth) {
       gridTouchStartX = e.touches[0].clientX;
-      galleryGrid.style.transition = "none";
+      galleryGrid.style.transition = "none"; // Disable transition for immediate movement
     }
   });
 
   galleryGrid.addEventListener("touchmove", (e) => {
     const viewportWidth = window.innerWidth;
     const gridWidth = galleryGrid.scrollWidth;
+
+    // Only allow movement if the grid is wider than the screen
     if (gridWidth > viewportWidth) {
       const touchCurrentX = e.touches[0].clientX;
       const deltaX = touchCurrentX - gridTouchStartX;
+
       let newTranslateX = currentGridTranslateX + deltaX;
+
+      // Clamping to prevent over-scrolling
       const maxTranslate = 0;
-      const minTranslate = viewportWidth - gridWidth;
+      const minTranslate = viewportWidth - gridWidth; // negative value
+
       if (newTranslateX > maxTranslate) newTranslateX = maxTranslate;
       if (newTranslateX < minTranslate) newTranslateX = minTranslate;
+
       galleryGrid.style.transform = `translateX(${newTranslateX}px)`;
     }
   });
@@ -1284,13 +1215,27 @@ document.addEventListener("DOMContentLoaded", () => {
   galleryGrid.addEventListener("touchend", () => {
     const viewportWidth = window.innerWidth;
     const gridWidth = galleryGrid.scrollWidth;
+
+    // Only update position if scrolling was allowed
     if (gridWidth > viewportWidth) {
       const style = window.getComputedStyle(galleryGrid);
       const matrix = new DOMMatrixReadOnly(style.transform);
-      currentGridTranslateX = matrix.m41;
-      galleryGrid.style.transition = "transform 0.3s ease-in-out";
+      currentGridTranslateX = matrix.m41; // Save the last transform position
+      galleryGrid.style.transition = "transform 0.3s ease-in-out"; // Smooth transition on release
     }
   });
+
+  function updateLightboxContent() {
+    const { src, alt, caption } = currentGallery[currentIndex];
+    lightboxImg.style.opacity = 0;
+    setTimeout(() => {
+      lightboxImg.setAttribute("src", src);
+      lightboxImg.setAttribute("alt", alt);
+      lightboxCaption.textContent = caption;
+      updateGalleryGrid(currentGallery);
+      lightboxImg.style.opacity = 1;
+    }, 150);
+  }
 
   function showNextImage() {
     if (currentGallery.length > 0) {
@@ -1301,11 +1246,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function showPrevImage() {
     if (currentGallery.length > 0) {
-      currentIndex = (currentIndex - 1 + currentGallery.length) % currentGallery.length;
+      currentIndex =
+        (currentIndex - 1 + currentGallery.length) % currentGallery.length;
       updateLightboxContent();
     }
   }
 
+  // ------------------------------
+  // LIGHTBOX EVENT LISTENERS
+  // ------------------------------
   closeBtn.addEventListener("click", closeLightbox);
   lightbox.addEventListener("click", (e) => {
     if (e.target === lightbox) {
@@ -1368,7 +1317,10 @@ document.addEventListener("DOMContentLoaded", () => {
          (for containers with multiple items using .arabica_article-image-gallery)
       ------------------------------ */
   document.querySelectorAll(".arabica_article-image").forEach((container) => {
-    const galleryItems = container.querySelectorAll(".arabica_article-image-gallery");
+    // If container has multiple gallery items, set up the slider.
+    const galleryItems = container.querySelectorAll(
+      ".arabica_article-image-gallery"
+    );
     if (galleryItems.length > 0) {
       const slider = document.createElement("div");
       slider.className = "arabica_article_slider";
@@ -1406,7 +1358,9 @@ document.addEventListener("DOMContentLoaded", () => {
       let isHorizontalDrag = false;
 
       const setSliderPosition = () => {
-        sliderWrapper.style.transform = `translateX(-${currentSlide * sliderWidth}px)`;
+        sliderWrapper.style.transform = `translateX(-${
+          currentSlide * sliderWidth
+        }px)`;
       };
 
       const updateSliderHeight = () => {
@@ -1450,7 +1404,8 @@ document.addEventListener("DOMContentLoaded", () => {
       };
 
       const prevSlide = () => {
-        currentSlide = (currentSlide - 1 + galleryItems.length) % galleryItems.length;
+        currentSlide =
+          (currentSlide - 1 + galleryItems.length) % galleryItems.length;
         sliderWrapper.style.transition = "transform 0.3s ease-in-out";
         setSliderPosition();
         updateSliderLayout();
@@ -1461,7 +1416,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       sliderWrapper.addEventListener("touchstart", (event) => {
         isDragging = true;
-        isHorizontalDrag = false;
+        isHorizontalDrag = false; // Not determined yet.
         startX = event.touches[0].clientX;
         startY = event.touches[0].clientY;
         sliderWrapper.style.transition = "none";
@@ -1475,14 +1430,19 @@ document.addEventListener("DOMContentLoaded", () => {
         const deltaX = currentX - startX;
         const deltaY = currentY - startY;
 
+        // Only initiate horizontal drag if horizontal movement is larger than vertical movement.
         if (!isHorizontalDrag) {
           if (Math.abs(deltaX) > Math.abs(deltaY)) {
             isHorizontalDrag = true;
           } else {
+            // Vertical scroll detected – exit to allow normal page scrolling.
             return;
           }
         }
-        sliderWrapper.style.transform = `translateX(-${currentSlide * sliderWidth - deltaX}px)`;
+        // Update the slider position based on horizontal swipe.
+        sliderWrapper.style.transform = `translateX(-${
+          currentSlide * sliderWidth - deltaX
+        }px)`;
       });
 
       sliderWrapper.addEventListener("touchend", (event) => {
@@ -1492,6 +1452,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const endX = event.changedTouches[0].clientX;
         const deltaX = endX - startX;
 
+        // Only perform slide transition if horizontal drag was confirmed.
         if (isHorizontalDrag) {
           if (deltaX < -50) {
             nextSlide();
@@ -1501,31 +1462,39 @@ document.addEventListener("DOMContentLoaded", () => {
             setSliderPosition();
           }
         } else {
+          // If not a horizontal swipe, reset position.
           setSliderPosition();
         }
         sliderWrapper.style.transition = "transform 0.3s ease-in-out";
       });
 
+      // Attach click events to each anchor in the slider wrapper.
       sliderWrapper.querySelectorAll("a").forEach((link) => {
         link.addEventListener("click", (e) => {
           const href = link.getAttribute("href");
-          // Updated regex includes .svg files.
+          // Updated regex includes .svg
           if (/\.(jpg|jpeg|png|gif|webp|svg)$/i.test(href)) {
             e.preventDefault();
             const img = link.querySelector("img");
             const captionElem = link.nextElementSibling;
-            const caption = captionElem && captionElem.tagName.toLowerCase() === "figcaption" ? captionElem.textContent
-              : "";
-            const gallery = Array.from(container.querySelectorAll("a")).map((a) => {
-              const aCaptionElem = a.nextElementSibling;
-              return {
-                src: a.getAttribute("href"),
-                alt: a.querySelector("img").getAttribute("alt"),
-                caption: aCaptionElem &&
-                  aCaptionElem.tagName.toLowerCase() === "figcaption" ? aCaptionElem.textContent
-                  : "",
-              };
-            });
+            const caption =
+              captionElem && captionElem.tagName.toLowerCase() === "figcaption"
+                ? captionElem.textContent
+                : "";
+            const gallery = Array.from(container.querySelectorAll("a")).map(
+              (a) => {
+                const aCaptionElem = a.nextElementSibling;
+                return {
+                  src: a.getAttribute("href"),
+                  alt: a.querySelector("img").getAttribute("alt"),
+                  caption:
+                    aCaptionElem &&
+                    aCaptionElem.tagName.toLowerCase() === "figcaption"
+                      ? aCaptionElem.textContent
+                      : "",
+                };
+              }
+            );
             openLightbox(href, img.getAttribute("alt"), caption, gallery);
           }
         });
@@ -1537,24 +1506,33 @@ document.addEventListener("DOMContentLoaded", () => {
          SINGLE IMAGE SETUP
          (for any <a> linking to an image that isn’t part of a gallery slider)
       ------------------------------ */
-  document.querySelectorAll(
-    ".arabica_article-content a, .arabica_article-image a, .arabica_news-content a, .arabica_news-image a"
-  ).forEach((anchor) => {
-    if (/\.(jpg|jpeg|png|gif|webp|svg)$/i.test(anchor.getAttribute("href")) &&
-        !anchor.closest(".arabica_article-image-gallery")) {
-      anchor.addEventListener("click", (e) => {
-        e.preventDefault();
-        const href = anchor.getAttribute("href");
-        const img = anchor.querySelector("img");
-        const alt = img ? img.getAttribute("alt") : "";
-        const captionElem = anchor.nextElementSibling;
-        const caption = captionElem &&
-          captionElem.tagName.toLowerCase() === "figcaption" ? captionElem.textContent
-          : "";
-        openLightbox(href, alt, caption, []);
-      });
-    }
-  });
+  // This covers anchors in both .arabica_article-content and .arabica_article-image
+  document
+    .querySelectorAll(
+      ".arabica_article-content a, .arabica_article-image a, .arabica_news-content a, .arabica_news-image a"
+    )
+    .forEach((anchor) => {
+      // Skip if this anchor is inside a slider gallery.
+      // Updated regex includes .svg
+      if (
+        /\.(jpg|jpeg|png|gif|webp|svg)$/i.test(anchor.getAttribute("href")) &&
+        !anchor.closest(".arabica_article-image-gallery")
+      ) {
+        anchor.addEventListener("click", (e) => {
+          e.preventDefault();
+          const href = anchor.getAttribute("href");
+          const img = anchor.querySelector("img");
+          const alt = img ? img.getAttribute("alt") : "";
+          // Use the immediately following <figcaption> if available.
+          const captionElem = anchor.nextElementSibling;
+          const caption =
+            captionElem && captionElem.tagName.toLowerCase() === "figcaption"
+              ? captionElem.textContent
+              : "";
+          openLightbox(href, alt, caption, []);
+        });
+      }
+    });
 });
 
 
