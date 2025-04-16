@@ -58,7 +58,7 @@ math msup > mn, math msup >  mtext {
 .Math_box hr {
     margin: 10px 0;
 }
-.inlineMath *,.inlineMath ,math.inlineMath {font-size: 16px;}
-	.inlineMath mfrac mi, .inlineMath mfrac mn  { font-size: 16px;
+.inlineMath *,.inlineMath ,math.inlineMath {font-size: 14px;}
+	.inlineMath mfrac mi, .inlineMath mfrac mn  { font-size: 14px;
 }
 }
