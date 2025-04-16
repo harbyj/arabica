@@ -42,8 +42,12 @@ math msup > mn, math msup >  mtext {
   max-width: 100%;
 }
 	.Math_box *{
-	font-size:24px;
+	font-size:20px;
 }
+.Math_box hr {
+    margin: 15px 0;
+}
+
 @media (max-width:991px){
 .Math_box {
     padding: 10px 35px;}
