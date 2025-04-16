@@ -24,8 +24,8 @@ math msup > mn, math msup >  mtext {
 	vertical-align: super  !important; 	font-family: "STIX Two Math" !important;
 
 }
-	.inlineMath *,.inlineMath ,math.inlineMath {font-family: "STIX Two Math" !important;}
-	.inlineMath mfrac mi, .inlineMath mfrac mn  { font-family: "STIX Two Math" !important;
+	.inlineMath *,.inlineMath ,math.inlineMath {font-size: 18px; font-family: "STIX Two Math" !important;}
+	.inlineMath mfrac mi, .inlineMath mfrac mn  { font-size: 18px; font-family: "STIX Two Math" !important;
 }
 .Math {
 	text-align: center;
@@ -53,5 +53,8 @@ math msup > mn, math msup >  mtext {
 
 .Math_box hr {
     margin: 10px 0;
+}
+.inlineMath *,.inlineMath ,math.inlineMath {font-size: 16px;}
+	.inlineMath mfrac mi, .inlineMath mfrac mn  { font-size: 16px;
 }
 }
