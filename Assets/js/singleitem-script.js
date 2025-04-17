@@ -1066,8 +1066,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const closeBtn = document.createElement("span");
   closeBtn.classList.add("arabica_article_close-btn");
-  closeBtn.innerHTML = `
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+  closeBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
       <path fill="#ffffff" d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
     </svg>`;
 
@@ -1078,14 +1077,18 @@ document.addEventListener("DOMContentLoaded", () => {
   lightboxCaption.classList.add("arabica_article_lightbox-caption");
   lightboxCaption.id = "lightbox-caption";
 
+  // Gallery grid (for when multiple images exist)
   const galleryGrid = document.createElement("div");
   galleryGrid.classList.add("arabica_article_lightbox-gallery-grid");
   galleryGrid.style.display = "none";
 
-  lightbox.append(closeBtn);
-  lightboxContent.append(lightboxImg, lightboxCaption);
-  lightbox.append(galleryGrid, lightboxContent);
-  document.body.append(lightbox);
+  // Append elements to lightbox
+  lightbox.appendChild(closeBtn);
+  lightboxContent.appendChild(lightboxImg);
+  lightboxContent.appendChild(lightboxCaption);
+  lightbox.appendChild(galleryGrid);
+  lightbox.appendChild(lightboxContent);
+  document.body.appendChild(lightbox);
 
   let currentGallery = [];
   let currentIndex = 0;
@@ -1093,15 +1096,15 @@ document.addEventListener("DOMContentLoaded", () => {
   let lbTouchEndX = 0;
 
   function openLightbox(imgSrc, imgAlt, caption, gallery = []) {
-    lightboxImg.src = imgSrc;
-    lightboxImg.alt = imgAlt;
+    lightboxImg.setAttribute("src", imgSrc);
+    lightboxImg.setAttribute("alt", imgAlt);
     lightboxCaption.textContent = caption;
     lightbox.classList.add("active");
     document.body.classList.add("no-scroll");
 
     if (gallery.length > 1) {
       currentGallery = gallery;
-      currentIndex = gallery.findIndex(item => item.src === imgSrc);
+      currentIndex = gallery.findIndex((item) => item.src === imgSrc);
       updateGalleryGrid(gallery);
       galleryGrid.style.display = "flex";
     } else {
@@ -1114,42 +1117,92 @@ document.addEventListener("DOMContentLoaded", () => {
   function closeLightbox() {
     lightbox.classList.add("closing");
     document.body.classList.remove("no-scroll");
+
     setTimeout(() => {
       lightbox.classList.remove("active", "closing");
-      galleryGrid.innerHTML = "";
       currentGallery = [];
+      galleryGrid.innerHTML = "";
     }, 400);
   }
 
   function updateGalleryGrid(gallery) {
     galleryGrid.innerHTML = gallery
-      .map((item, idx) =>
-        `<img src="${item.src}" alt="${item.alt}" data-index="${idx}" class="${idx === currentIndex ? "active" : ""}">`
-      ).join("");
+      .map(
+        (item, index) =>
+          `<img src="${item.src}" alt="${item.alt}" data-index="${index}" class="${index === currentIndex ? "active" : ""}">`
+      )
+      .join("");
 
     const activeImg = galleryGrid.querySelector(`[data-index="${currentIndex}"]`);
-    if (!activeImg) return;
+    if (activeImg) {
+      activeImg.classList.add("active");
 
-    const vw = window.innerWidth;
-    const gridW = galleryGrid.scrollWidth;
-    if (gridW > vw) {
-      const actCenter = activeImg.offsetLeft + activeImg.offsetWidth / 2;
-      const ideal = vw / 2 - actCenter;
-      const maxT = 0;
-      const minT = vw - gridW;
-      const trans = Math.min(maxT, Math.max(ideal, minT));
-      galleryGrid.style.transform = `translateX(${trans}px)`;
-    } else {
-      galleryGrid.style.transform = "";
+      requestAnimationFrame(() => {
+        const viewportWidth = window.innerWidth;
+        const gridWidth = galleryGrid.scrollWidth;
+
+        if (gridWidth > viewportWidth) {
+          galleryGrid.style.left = "0";
+          const activeCenter = activeImg.offsetLeft + activeImg.offsetWidth / 2;
+          const idealTranslate = viewportWidth / 2 - activeCenter;
+          const maxTranslate = 0;
+          const minTranslate = viewportWidth - gridWidth;
+          const clampedTranslate = Math.min(maxTranslate, Math.max(idealTranslate, minTranslate));
+          galleryGrid.style.transition = "transform 0.3s ease-in-out";
+          galleryGrid.style.transform = `translateX(${clampedTranslate}px)`;
+        } else {
+          galleryGrid.style.left = "";
+          galleryGrid.style.transform = "";
+          galleryGrid.style.transition = "";
+        }
+      });
     }
   }
+
+  let gridTouchStartX = 0;
+  let currentGridTranslateX = 0;
+
+  galleryGrid.addEventListener("touchstart", (e) => {
+    const viewportWidth = window.innerWidth;
+    const gridWidth = galleryGrid.scrollWidth;
+    if (gridWidth > viewportWidth) {
+      gridTouchStartX = e.touches[0].clientX;
+      galleryGrid.style.transition = "none";
+    }
+  });
+
+  galleryGrid.addEventListener("touchmove", (e) => {
+    const viewportWidth = window.innerWidth;
+    const gridWidth = galleryGrid.scrollWidth;
+    if (gridWidth > viewportWidth) {
+      const touchCurrentX = e.touches[0].clientX;
+      const deltaX = touchCurrentX - gridTouchStartX;
+      let newTranslateX = currentGridTranslateX + deltaX;
+      const maxTranslate = 0;
+      const minTranslate = viewportWidth - gridWidth;
+      if (newTranslateX > maxTranslate) newTranslateX = maxTranslate;
+      if (newTranslateX < minTranslate) newTranslateX = minTranslate;
+      galleryGrid.style.transform = `translateX(${newTranslateX}px)`;
+    }
+  });
+
+  galleryGrid.addEventListener("touchend", () => {
+    const viewportWidth = window.innerWidth;
+    const gridWidth = galleryGrid.scrollWidth;
+    if (gridWidth > viewportWidth) {
+      const style = window.getComputedStyle(galleryGrid);
+      const matrix = new DOMMatrixReadOnly(style.transform);
+      currentGridTranslateX = matrix.m41;
+      galleryGrid.style.transition = "transform 0.3s ease-in-out";
+    }
+  });
 
   function updateLightboxContent() {
     const { src, alt, caption } = currentGallery[currentIndex];
     lightboxImg.style.opacity = 0;
     setTimeout(() => {
-      lightboxImg.src = src;
-      lightboxImg.alt = alt;
+      lightboxImg.setAttribute("src", src);
+      lightboxImg.setAttribute("alt", alt);
       lightboxCaption.textContent = caption;
       updateGalleryGrid(currentGallery);
       lightboxImg.style.opacity = 1;
@@ -1157,235 +1210,279 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function showNextImage() {
-    if (currentGallery.length) {
+    if (currentGallery.length > 0) {
       currentIndex = (currentIndex + 1) % currentGallery.length;
       updateLightboxContent();
     }
   }
 
   function showPrevImage() {
-    if (currentGallery.length) {
+    if (currentGallery.length > 0) {
       currentIndex = (currentIndex - 1 + currentGallery.length) % currentGallery.length;
       updateLightboxContent();
     }
   }
 
   closeBtn.addEventListener("click", closeLightbox);
-  lightbox.addEventListener("click", e => {
+  lightbox.addEventListener("click", (e) => {
     if (e.target === lightbox) closeLightbox();
   });
-  document.addEventListener("keydown", e => {
+
+  document.addEventListener("keydown", (e) => {
     if (e.key === "Escape") closeLightbox();
     if (e.key === "ArrowRight" || e.key === "ArrowDown") showNextImage();
-    if (e.key === "ArrowLeft" || e.key === "ArrowUp") showPrevImage();
+    else if (e.key === "ArrowLeft" || e.key === "ArrowUp") showPrevImage();
   });
-  lightbox.addEventListener("wheel", e => {
+
+  let lastWheelTime = 0;
+  lightbox.addEventListener("wheel", (e) => {
     e.preventDefault();
-    e.deltaY > 0 ? showNextImage() : showPrevImage();
+    const now = Date.now();
+    if (now - lastWheelTime < 400) return;
+    lastWheelTime = now;
+    if (e.deltaY > 0) showNextImage();
+    else if (e.deltaY < 0) showPrevImage();
   }, { passive: false });
-  galleryGrid.addEventListener("click", e => {
+
+  galleryGrid.addEventListener("click", (e) => {
     if (e.target.tagName === "IMG") {
-      currentIndex = +e.target.dataset.index;
+      const index = parseInt(e.target.getAttribute("data-index"), 10);
+      currentIndex = index;
       updateLightboxContent();
     }
   });
-  lightboxImg.addEventListener("touchstart", e => {
+
+  lightboxImg.addEventListener("touchstart", (e) => {
     lbTouchStartX = e.touches[0].clientX;
   });
-  lightboxImg.addEventListener("touchend", e => {
-    lbTouchEndX = e.changedTouches[0].clientX;
+  lightboxImg.addEventListener("touchmove", (e) => {
+    lbTouchEndX = e.touches[0].clientX;
+  });
+  lightboxImg.addEventListener("touchend", () => {
     if (lbTouchStartX - lbTouchEndX > 50) showNextImage();
-    if (lbTouchEndX - lbTouchStartX > 50) showPrevImage();
+    else if (lbTouchEndX - lbTouchStartX > 50) showPrevImage();
   });
 
   /* ------------------------------
-         SLIDER CREATION
+         GALLERY SLIDER SETUP
+         (for containers with multiple items using .arabica_article-image-gallery)
       ------------------------------ */
-  function createSlider(container, galleryItems, isMobile = false) {
-    const slider = document.createElement("div");
-    slider.className = "arabica_article_slider";
+  document.querySelectorAll(".arabica_article-image").forEach((container) => {
+    const galleryItems = container.querySelectorAll(".arabica_article-image-gallery");
+    if (galleryItems.length > 0) {
+      const slider = document.createElement("div");
+      slider.className = "arabica_article_slider";
+      // Set relative positioning for absolute elements (like the counter)
+      slider.style.position = "relative";
+      
+      const sliderWrapper = document.createElement("div");
+      sliderWrapper.className = "arabica_article_slider_wrapper";
 
-    const wrapper = document.createElement("div");
-    wrapper.className = "arabica_article_slider_wrapper";
+      galleryItems.forEach((item) => {
+        sliderWrapper.appendChild(item);
+      });
+      slider.appendChild(sliderWrapper);
 
-    galleryItems.forEach(item => {
-      item.remove();
-      wrapper.appendChild(item);
-    });
+      const prevSliderBtn = document.createElement("button");
+      prevSliderBtn.className = "arabica_article_slider-nav arabica_article_slider-prev";
+      prevSliderBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+          <path fill="#ffffff" d="M15.41 16.59L10.83 12l4.58-4.59L14 6l-6 6 6 6z"></path>
+        </svg>`;
+      const nextSliderBtn = document.createElement("button");
+      nextSliderBtn.className = "arabica_article_slider-nav arabica_article_slider-next";
+      nextSliderBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+          <path fill="#ffffff" d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6z"></path>
+        </svg>`;
+      slider.appendChild(prevSliderBtn);
+      slider.appendChild(nextSliderBtn);
 
-    const prevBtn = document.createElement("button");
-    prevBtn.className = "arabica_article_slider-nav arabica_article_slider-prev";
-    prevBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
-      <path fill="#ffffff" d="M15.41 16.59L10.83 12l4.58-4.59L14 6l-6 6 6 6z"/>
-    </svg>`;
+      // Create the slider counter element and append it to the slider.
+      const sliderCounter = document.createElement("span");
+      sliderCounter.className = "arabica_article_slider-counter";
+      // Initialize counter innerHTML with a camera icon (adjust the SVG as desired)
+      sliderCounter.innerHTML = `<svg fill="currentColor" height="16" width="16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 487 487" xml:space="preserve">
+<g>
+	<g>
+		<path d="M308.1,277.95c0,35.7-28.9,64.6-64.6,64.6s-64.6-28.9-64.6-64.6s28.9-64.6,64.6-64.6S308.1,242.25,308.1,277.95z
+			 M440.3,116.05c25.8,0,46.7,20.9,46.7,46.7v122.4v103.8c0,27.5-22.3,49.8-49.8,49.8H49.8c-27.5,0-49.8-22.3-49.8-49.8v-103.9
+			v-122.3l0,0c0-25.8,20.9-46.7,46.7-46.7h93.4l4.4-18.6c6.7-28.8,32.4-49.2,62-49.2h74.1c29.6,0,55.3,20.4,62,49.2l4.3,18.6H440.3z
+			 M97.4,183.45c0-12.9-10.5-23.4-23.4-23.4c-13,0-23.5,10.5-23.5,23.4s10.5,23.4,23.4,23.4C86.9,206.95,97.4,196.45,97.4,183.45z
+			 M358.7,277.95c0-63.6-51.6-115.2-115.2-115.2s-115.2,51.6-115.2,115.2s51.6,115.2,115.2,115.2S358.7,341.55,358.7,277.95z"/>
+	</g>
+</g>
+</svg> 1 / ${galleryItems.length}`;
+      slider.appendChild(sliderCounter);
 
-    const nextBtn = document.createElement("button");
-    nextBtn.className = "arabica_article_slider-nav arabica_article_slider-next";
-    nextBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
-      <path fill="#ffffff" d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6z"/>
-    </svg>`;
+      container.innerHTML = "";
+      container.appendChild(slider);
 
-    const counter = document.createElement("span");
-    counter.className = "arabica_article_slider-counter";
-    counter.innerHTML = `<i class="fa-regular fa-images"></i> 1 / ${galleryItems.length}`;
+      let currentSlide = 0;
+      let sliderWidth = slider.offsetWidth;
+      let startX = 0;
+      let startY = 0;
+      let isDragging = false;
+      let isHorizontalDrag = false;
 
-    slider.append(wrapper, prevBtn, nextBtn, counter);
-    container.appendChild(slider);
+      const setSliderPosition = () => {
+        sliderWrapper.style.transform = `translateX(-${currentSlide * sliderWidth}px)`;
+      };
 
-    let current = 0;
-    let slideW = slider.offsetWidth;
+      const updateSliderHeight = () => {
+        const currentSlideElement = sliderWrapper.children[currentSlide];
+        if (currentSlideElement) {
+          slider.style.height = currentSlideElement.offsetHeight + "px";
+        }
+      };
 
-    function updateLayout() {
-      slideW = slider.offsetWidth;
-      wrapper.style.transform = `translateX(-${current * slideW}px)`;
-      slider.style.height = `${wrapper.children[current]?.offsetHeight}px`;
+      const updateNavButtonsPosition = () => {
+        const currentSlideElement = sliderWrapper.children[currentSlide];
+        if (currentSlideElement) {
+          const imgEl = currentSlideElement.querySelector("img");
+          if (imgEl) {
+            const imageHeight = imgEl.offsetHeight;
+            const imageRect = imgEl.getBoundingClientRect();
+            const sliderRect = slider.getBoundingClientRect();
+            const navCenter = imageRect.top - sliderRect.top + imageHeight / 2;
+            prevSliderBtn.style.top = navCenter + "px";
+            nextSliderBtn.style.top = navCenter + "px";
+          }
+        }
+      };
 
-      // Vertically center nav buttons
-      const imgEl = wrapper.children[current]?.querySelector("img");
-      if (imgEl) {
-        const imgRect = imgEl.getBoundingClientRect();
-        const navCenter = imgRect.top - slider.getBoundingClientRect().top + imgEl.offsetHeight/2;
-        prevBtn.style.top = nextBtn.style.top = `${navCenter}px`;
-      }
+      // Update the counter text and position so it appears above any figcaption.
+      const updateCounter = () => {
+        // Build counter innerHTML with a camera icon, current slide, and total count.
+        sliderCounter.innerHTML = `<i class="fa-regular fa-images"></i> ${currentSlide + 1} / ${galleryItems.length}`;
+        const currentSlideElement = sliderWrapper.children[currentSlide];
+        if (currentSlideElement) {
+          // Get the figcaption height, if any.
+          const figcaption = currentSlideElement.querySelector("figcaption");
+          const figCaptionHeight = figcaption ? figcaption.offsetHeight : 0;
+          // Position the counter slightly above the caption (10px gap)
+          sliderCounter.style.bottom = (figCaptionHeight + 10) + "px";
+        }
+      };
 
-      counter.innerHTML = `<i class="fa-regular fa-images"></i> ${current+1} / ${galleryItems.length}`;
-      const figcap = wrapper.children[current]?.querySelector("figcaption");
-      counter.style.bottom = figcap ? `${figcap.offsetHeight + 10}px` : "10px";
+      const updateSliderLayout = () => {
+        sliderWidth = slider.offsetWidth;
+        setSliderPosition();
+        updateSliderHeight();
+        updateNavButtonsPosition();
+        updateCounter();
+      };
+
+      slider.style.height = sliderWrapper.children[0].offsetHeight + "px";
+      updateSliderLayout();
+      window.addEventListener("resize", updateSliderLayout);
+
+      const nextSlide = () => {
+        currentSlide = (currentSlide + 1) % galleryItems.length;
+        sliderWrapper.style.transition = "transform 0.3s ease-in-out";
+        setSliderPosition();
+        updateSliderLayout();
+        updateCounter();
+      };
+
+      const prevSlide = () => {
+        currentSlide = (currentSlide - 1 + galleryItems.length) % galleryItems.length;
+        sliderWrapper.style.transition = "transform 0.3s ease-in-out";
+        setSliderPosition();
+        updateSliderLayout();
+        updateCounter();
+      };
+
+      nextSliderBtn.addEventListener("click", nextSlide);
+      prevSliderBtn.addEventListener("click", prevSlide);
+
+      sliderWrapper.addEventListener("touchstart", (event) => {
+        isDragging = true;
+        isHorizontalDrag = false;
+        startX = event.touches[0].clientX;
+        startY = event.touches[0].clientY;
+        sliderWrapper.style.transition = "none";
+      });
+
+      sliderWrapper.addEventListener("touchmove", (event) => {
+        if (!isDragging) return;
+        const currentX = event.touches[0].clientX;
+        const currentY = event.touches[0].clientY;
+        const deltaX = currentX - startX;
+        const deltaY = currentY - startY;
+        if (!isHorizontalDrag) {
+          if (Math.abs(deltaX) > Math.abs(deltaY)) {
+            isHorizontalDrag = true;
+          } else {
+            return;
+          }
+        }
+        sliderWrapper.style.transform = `translateX(-${currentSlide * sliderWidth - deltaX}px)`;
+      });
+
+      sliderWrapper.addEventListener("touchend", (event) => {
+        if (!isDragging) return;
+        isDragging = false;
+        const endX = event.changedTouches[0].clientX;
+        const deltaX = endX - startX;
+        if (isHorizontalDrag) {
+          if (deltaX < -50) nextSlide();
+          else if (deltaX > 50) prevSlide();
+          else setSliderPosition();
+        } else {
+          setSliderPosition();
+        }
+        sliderWrapper.style.transition = "transform 0.3s ease-in-out";
+      });
+
+      // Attach click events to each anchor in the slider wrapper.
+      sliderWrapper.querySelectorAll("a").forEach((link) => {
+        link.addEventListener("click", (e) => {
+          const href = link.getAttribute("href");
+          if (/\.(jpg|jpeg|png|gif|webp|svg)$/i.test(href)) {
+            e.preventDefault();
+            const img = link.querySelector("img");
+            const captionElem = link.nextElementSibling;
+            const caption = captionElem && captionElem.tagName.toLowerCase() === "figcaption"
+              ? captionElem.textContent
+              : "";
+            const gallery = Array.from(container.querySelectorAll("a")).map((a) => {
+              const aCaptionElem = a.nextElementSibling;
+              return {
+                src: a.getAttribute("href"),
+                alt: a.querySelector("img").getAttribute("alt"),
+                caption: aCaptionElem && aCaptionElem.tagName.toLowerCase() === "figcaption"
+                  ? aCaptionElem.textContent
+                  : ""
+              };
+            });
+            openLightbox(href, img.getAttribute("alt"), caption, gallery);
+          }
+        });
+      });
     }
+  });
 
-    function navigate(dir) {
-      current = (current + dir + galleryItems.length) % galleryItems.length;
-      wrapper.style.transition = "transform 0.3s ease-in-out";
-      updateLayout();
-    }
-
-    prevBtn.addEventListener("click", () => navigate(-1));
-    nextBtn.addEventListener("click", () => navigate(1));
-
-    // touch support
-    let startX = 0;
-    wrapper.addEventListener("touchstart", e => {
-      startX = e.touches[0].clientX;
-      wrapper.style.transition = "none";
-    });
-    wrapper.addEventListener("touchmove", e => {
-      const dx = e.touches[0].clientX - startX;
-      wrapper.style.transform = `translateX(-${current*slideW - dx}px)`;
-    });
-    wrapper.addEventListener("touchend", e => {
-      const dx = e.changedTouches[0].clientX - startX;
-      if (Math.abs(dx) > 50) dx > 0 ? navigate(-1) : navigate(1);
-      else {
-        wrapper.style.transition = "transform 0.3s ease-in-out";
-        updateLayout();
-      }
-    });
-
-    // link lightbox integration
-    wrapper.querySelectorAll("a").forEach(link => {
-      link.addEventListener("click", e => {
-        if (/\.(jpg|jpeg|png|gif|webp|svg)$/i.test(link.href)) {
+  /* ------------------------------
+         SINGLE IMAGE SETUP
+         (for any <a> linking to an image that isn’t part of a gallery slider)
+      ------------------------------ */
+  document.querySelectorAll(".arabica_article-content a, .arabica_article-image a, .arabica_news-content a, .arabica_news-image a")
+    .forEach((anchor) => {
+      if (/\.(jpg|jpeg|png|gif|webp|svg)$/i.test(anchor.getAttribute("href")) &&
+          !anchor.closest(".arabica_article-image-gallery")) {
+        anchor.addEventListener("click", (e) => {
           e.preventDefault();
-          const gallery = Array.from(wrapper.querySelectorAll("a")).map(a => ({
-            src: a.href,
-            alt: a.querySelector("img").alt,
-            caption: a.nextElementSibling?.tagName === "FIGCAPTION"
-              ? a.nextElementSibling.textContent
-              : ""
-          }));
-          openLightbox(link.href,
-            link.querySelector("img").alt,
-            link.nextElementSibling?.textContent || "",
-            gallery
-          );
-        }
-      });
-    });
-
-    updateLayout();
-    window.addEventListener("resize", updateLayout);
-  }
-
-  /* ------------------------------
-         GALLERY INITIALIZATION
-      ------------------------------ */
-  function initGalleries() {
-    const isMobile = window.innerWidth <= 991;
-
-    document.querySelectorAll(".arabica_article-image").forEach(container => {
-      // pick mobile or desktop class
-      const sel = isMobile
-        ? ".arabica_article-mobile-gallery"
-        : ".arabica_article-image-gallery";
-      const items = Array.from(container.querySelectorAll(sel));
-
-      if (items.length > 0 && !container.querySelector(".arabica_article_slider")) {
-        if (isMobile) {
-          // convert mobile → image-gallery
-          items.forEach(item =>
-            item.classList.replace(
-              "arabica_article-mobile-gallery",
-              "arabica_article-image-gallery"
-            )
-          );
-        }
-        createSlider(container, items, isMobile);
-      }
-      // if we resized back to desktop, tear down mobile slider
-      else if (!isMobile && container.querySelector(".arabica_article_slider")) {
-        const slider = container.querySelector(".arabica_article_slider");
-        const wrap = slider.querySelector(".arabica_article_slider_wrapper");
-        while (wrap.firstChild) {
-          container
-            .querySelector(".arabica_article-image-container")
-            .appendChild(wrap.firstChild);
-        }
-        slider.remove();
+          const href = anchor.getAttribute("href");
+          const img = anchor.querySelector("img");
+          const alt = img ? img.getAttribute("alt") : "";
+          const captionElem = anchor.nextElementSibling;
+          const caption = captionElem && captionElem.tagName.toLowerCase() === "figcaption"
+            ? captionElem.textContent
+            : "";
+          openLightbox(href, alt, caption, []);
+        });
       }
     });
-  }
-
-  initGalleries();
-  window.addEventListener("resize", initGalleries);
-
-  /* ------------------------------
-         SINGLE IMAGE HANDLING
-      ------------------------------ */
-  document.querySelectorAll(
-    ".arabica_article-content a, .arabica_article-image a, " +
-    ".arabica_news-content a, .arabica_news-image a"
-  ).forEach(anchor => {
-    if (/\.(jpg|jpeg|png|gif|webp|svg)$/i.test(anchor.href)) {
-      anchor.addEventListener("click", e => {
-        e.preventDefault();
-        const container = anchor.closest(".arabica_article-image, .arabica_article-mobile-image");
-        let gallery = [];
-
-        if (container) {
-          const selector = container.classList.contains("arabica_article-image")
-            ? ".arabica_article-image-gallery"
-            : ".arabica_article-mobile-gallery";
-          gallery = Array.from(container.querySelectorAll(`${selector} a`))
-            .map(a => ({
-              src: a.href,
-              alt: a.querySelector("img").alt,
-              caption: a.nextElementSibling?.tagName === "FIGCAPTION"
-                ? a.nextElementSibling.textContent
-                : ""
-            }));
-        }
-
-        openLightbox(
-          anchor.href,
-          anchor.querySelector("img")?.alt || "",
-          anchor.nextElementSibling?.textContent || "",
-          gallery
-        );
-      });
-    }
-  });
 });
-
 
 document.addEventListener("DOMContentLoaded", function () {
   /* ========= Side Content Open/Close ========= */
