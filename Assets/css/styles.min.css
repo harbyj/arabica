@@ -7,6 +7,9 @@
     direction: ltr;
 font-size:14px;
 }
+.align-left{text-align:left}
+.align-right{text-align:right}
+.align-center{text-align:center}
 .arabica_article_lightbox-content img[src$=".svg"]{width:70vw;height:auto;}
 @media (min-width:992px){
 .arabica_article-image-container {
