@@ -11,38 +11,79 @@ font-size:14px;
 .align-right{text-align:right}
 .align-center{text-align:center}
 .arabica_article_lightbox-content img[src$=".svg"]{width:70vw;height:auto;}
-@media (min-width:992px){
-.arabica_article-image-container {
-  display: flex;
-  overflow-x: auto;
-  gap: 10px;
-  width: 100%;
-  padding-bottom: 10px;
-  align-items: stretch; /* Make all items same height */
-}
 
-.arabica_article-mobile-gallery {
-  flex: 1 0 calc(25% - 7.5px);
-  min-width: calc(25% - 7.5px);
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: column; /* Stack title and image vertically */
-align-items: center;
-}
 
-.arabica_article-mobile-gallery figcaption {  flex-grow: 1; /* Allow title to expand to match others */
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end; /* Push content to bottom */
-  min-height: 0; /* Allow shrinking if needed */
-}
-}
-@media (max-width:991px){
-.arabica_article-mobile-gallery {
-    flex: 0 0 100%;
-    box-sizing: border-box;
-    height: 100%;
-}
-.arabica_article-mobile-gallery img {
-    width: 100%;}
-}
+                        /* Desktop layout (≥992px) */
+                        @media (min-width: 992px) {
+                          /* your existing desktop styles */
+                          .arabica_article-gallery-container.has-mobile-gallery {
+                            display: flex;
+                            overflow-x: auto;
+                            gap: 10px;
+                            width: 100%;
+                            padding-bottom: 10px;
+                            align-items: stretch;
+                            /* no longer position:relative here */
+                            scrollbar-width: none;       /* Firefox */
+    -ms-overflow-style: none;    /* IE 10+ */
+  }
+
+  /* and hide it in WebKit browsers */
+  .arabica_article-gallery-container.has-mobile-gallery::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+  }
+                      
+                          .arabica_article-mobile-gallery {
+                            flex: 1 0 calc(25% - 7.5px);
+                            min-width: calc(25% - 7.5px);
+                            box-sizing: border-box;
+                            display: flex;
+                            flex-direction: column;
+                            align-items: center;
+                          }
+                      
+                          .arabica_article-mobile-gallery figcaption {
+                            flex-grow: 1;
+                            display: flex;
+                            flex-direction: column;
+                            justify-content: flex-end;
+                            min-height: 0;
+                          }
+                      
+                          /* wrapper for the scroll + arrows */
+                          .slider-container {
+                            position: relative;
+                          }
+                      
+                          /* the Prev/Next buttons */
+                          .slider-container .slider-btn {
+                            position: absolute;
+                            top: 50%;
+                            transform: translateY(-50%);
+                            background: rgba(0,0,0,0.5);
+                            color: #fff;
+                            border: none;
+                            padding: 0.5em;
+                            font-size: 1.5em;
+                            cursor: pointer;
+                            z-index: 10;
+                            display: none; /* shown only when needed */
+                          }
+                          /* we’ll set left/right in JS based on RTL/LTR */
+                          .slider-container .slider-btn.prev { }
+                          .slider-container .slider-btn.next { }
+                        }
+                      
+                        /* Mobile layout (≤991px) – unchanged */
+                        @media (max-width: 991px) {
+                          .arabica_article-mobile-gallery {
+                            flex: 0 0 100%;
+                            box-sizing: border-box;
+                            height: 100%;
+                          }
+                          .arabica_article-mobile-gallery img {
+                            width: 100%;
+                          }
+                        }
+                    

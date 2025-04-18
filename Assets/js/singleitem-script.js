@@ -1,4 +1,11 @@
 /* jshint esversion: 6 */
+
+document.querySelectorAll('.arabica_article-gallery-container').forEach(container => {
+  if (container.querySelector('.arabica_article-mobile-gallery')) {
+    container.classList.add('has-mobile-gallery');
+  }
+});
+
 // Move paragraphs with footnotes (excluding those with "ref")
 document.addEventListener("DOMContentLoaded", function () {
   const articleContent = document.querySelector(".arabica_article-content");
@@ -1265,16 +1272,21 @@ document.addEventListener("DOMContentLoaded", () => {
 
   /* ------------------------------
          GALLERY SLIDER SETUP
-         (for containers with multiple items using .arabica_article-image-gallery)
+         (for .arabica_article-image-gallery on all screens and
+          .arabica_article-mobile-gallery on mobile only)
       ------------------------------ */
-  document.querySelectorAll(".arabica_article-image").forEach((container) => {
-    const galleryItems = container.querySelectorAll(".arabica_article-image-gallery");
+  document.querySelectorAll(".arabica_article-gallery-container").forEach((container) => {
+    const isMobile = window.matchMedia("(max-width: 991px)").matches;
+    const selector = isMobile
+      ? ".arabica_article-image-gallery, .arabica_article-mobile-gallery"
+      : ".arabica_article-image-gallery";
+
+    const galleryItems = container.querySelectorAll(selector);
     if (galleryItems.length > 0) {
       const slider = document.createElement("div");
       slider.className = "arabica_article_slider";
-      // Set relative positioning for absolute elements (like the counter)
       slider.style.position = "relative";
-      
+
       const sliderWrapper = document.createElement("div");
       sliderWrapper.className = "arabica_article_slider_wrapper";
 
@@ -1296,21 +1308,9 @@ document.addEventListener("DOMContentLoaded", () => {
       slider.appendChild(prevSliderBtn);
       slider.appendChild(nextSliderBtn);
 
-      // Create the slider counter element and append it to the slider.
       const sliderCounter = document.createElement("span");
       sliderCounter.className = "arabica_article_slider-counter";
-      // Initialize counter innerHTML with a camera icon (adjust the SVG as desired)
-      sliderCounter.innerHTML = `<svg fill="currentColor" height="16" width="16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 487 487" xml:space="preserve">
-<g>
-	<g>
-		<path d="M308.1,277.95c0,35.7-28.9,64.6-64.6,64.6s-64.6-28.9-64.6-64.6s28.9-64.6,64.6-64.6S308.1,242.25,308.1,277.95z
-			 M440.3,116.05c25.8,0,46.7,20.9,46.7,46.7v122.4v103.8c0,27.5-22.3,49.8-49.8,49.8H49.8c-27.5,0-49.8-22.3-49.8-49.8v-103.9
-			v-122.3l0,0c0-25.8,20.9-46.7,46.7-46.7h93.4l4.4-18.6c6.7-28.8,32.4-49.2,62-49.2h74.1c29.6,0,55.3,20.4,62,49.2l4.3,18.6H440.3z
-			 M97.4,183.45c0-12.9-10.5-23.4-23.4-23.4c-13,0-23.5,10.5-23.5,23.4s10.5,23.4,23.4,23.4C86.9,206.95,97.4,196.45,97.4,183.45z
-			 M358.7,277.95c0-63.6-51.6-115.2-115.2-115.2s-115.2,51.6-115.2,115.2s51.6,115.2,115.2,115.2S358.7,341.55,358.7,277.95z"/>
-	</g>
-</g>
-</svg> 1 / ${galleryItems.length}`;
+      sliderCounter.innerHTML = `<i class="fa-regular fa-images"></i> 1 / ${galleryItems.length}`;
       slider.appendChild(sliderCounter);
 
       container.innerHTML = "";
@@ -1318,51 +1318,31 @@ document.addEventListener("DOMContentLoaded", () => {
 
       let currentSlide = 0;
       let sliderWidth = slider.offsetWidth;
-      let startX = 0;
-      let startY = 0;
-      let isDragging = false;
-      let isHorizontalDrag = false;
+      let startX = 0, startY = 0;
+      let isDragging = false, isHorizontalDrag = false;
 
       const setSliderPosition = () => {
         sliderWrapper.style.transform = `translateX(-${currentSlide * sliderWidth}px)`;
       };
-
       const updateSliderHeight = () => {
-        const currentSlideElement = sliderWrapper.children[currentSlide];
-        if (currentSlideElement) {
-          slider.style.height = currentSlideElement.offsetHeight + "px";
-        }
+        const el = sliderWrapper.children[currentSlide];
+        if (el) slider.style.height = el.offsetHeight + "px";
       };
-
       const updateNavButtonsPosition = () => {
-        const currentSlideElement = sliderWrapper.children[currentSlide];
-        if (currentSlideElement) {
-          const imgEl = currentSlideElement.querySelector("img");
-          if (imgEl) {
-            const imageHeight = imgEl.offsetHeight;
-            const imageRect = imgEl.getBoundingClientRect();
-            const sliderRect = slider.getBoundingClientRect();
-            const navCenter = imageRect.top - sliderRect.top + imageHeight / 2;
-            prevSliderBtn.style.top = navCenter + "px";
-            nextSliderBtn.style.top = navCenter + "px";
-          }
+        const el = sliderWrapper.children[currentSlide]?.querySelector("img");
+        if (el) {
+          const imgRect = el.getBoundingClientRect();
+          const sliderRect = slider.getBoundingClientRect();
+          const centerY = imgRect.top - sliderRect.top + el.offsetHeight / 2;
+          prevSliderBtn.style.top = nextSliderBtn.style.top = centerY + "px";
         }
       };
-
-      // Update the counter text and position so it appears above any figcaption.
       const updateCounter = () => {
-        // Build counter innerHTML with a camera icon, current slide, and total count.
         sliderCounter.innerHTML = `<i class="fa-regular fa-images"></i> ${currentSlide + 1} / ${galleryItems.length}`;
-        const currentSlideElement = sliderWrapper.children[currentSlide];
-        if (currentSlideElement) {
-          // Get the figcaption height, if any.
-          const figcaption = currentSlideElement.querySelector("figcaption");
-          const figCaptionHeight = figcaption ? figcaption.offsetHeight : 0;
-          // Position the counter slightly above the caption (10px gap)
-          sliderCounter.style.bottom = (figCaptionHeight + 10) + "px";
-        }
+        const caption = sliderWrapper.children[currentSlide]?.querySelector("figcaption");
+        const gap = caption ? caption.offsetHeight + 10 : 10;
+        sliderCounter.style.bottom = `${gap}px`;
       };
-
       const updateSliderLayout = () => {
         sliderWidth = slider.offsetWidth;
         setSliderPosition();
@@ -1371,69 +1351,55 @@ document.addEventListener("DOMContentLoaded", () => {
         updateCounter();
       };
 
+      // init
       slider.style.height = sliderWrapper.children[0].offsetHeight + "px";
       updateSliderLayout();
       window.addEventListener("resize", updateSliderLayout);
 
-      const nextSlide = () => {
+      function nextSlide() {
         currentSlide = (currentSlide + 1) % galleryItems.length;
         sliderWrapper.style.transition = "transform 0.3s ease-in-out";
         setSliderPosition();
         updateSliderLayout();
-        updateCounter();
-      };
-
-      const prevSlide = () => {
+      }
+      function prevSlide() {
         currentSlide = (currentSlide - 1 + galleryItems.length) % galleryItems.length;
         sliderWrapper.style.transition = "transform 0.3s ease-in-out";
         setSliderPosition();
         updateSliderLayout();
-        updateCounter();
-      };
-
+      }
       nextSliderBtn.addEventListener("click", nextSlide);
       prevSliderBtn.addEventListener("click", prevSlide);
 
-      sliderWrapper.addEventListener("touchstart", (event) => {
-        isDragging = true;
-        isHorizontalDrag = false;
-        startX = event.touches[0].clientX;
-        startY = event.touches[0].clientY;
+      sliderWrapper.addEventListener("touchstart", (e) => {
+        isDragging = true; isHorizontalDrag = false;
+        startX = e.touches[0].clientX;
+        startY = e.touches[0].clientY;
         sliderWrapper.style.transition = "none";
       });
-
-      sliderWrapper.addEventListener("touchmove", (event) => {
+      sliderWrapper.addEventListener("touchmove", (e) => {
         if (!isDragging) return;
-        const currentX = event.touches[0].clientX;
-        const currentY = event.touches[0].clientY;
-        const deltaX = currentX - startX;
-        const deltaY = currentY - startY;
+        const dx = e.touches[0].clientX - startX;
+        const dy = e.touches[0].clientY - startY;
         if (!isHorizontalDrag) {
-          if (Math.abs(deltaX) > Math.abs(deltaY)) {
-            isHorizontalDrag = true;
-          } else {
-            return;
-          }
+          if (Math.abs(dx) > Math.abs(dy)) isHorizontalDrag = true;
+          else return;
         }
-        sliderWrapper.style.transform = `translateX(-${currentSlide * sliderWidth - deltaX}px)`;
+        sliderWrapper.style.transform = `translateX(-${currentSlide * sliderWidth - dx}px)`;
       });
-
-      sliderWrapper.addEventListener("touchend", (event) => {
+      sliderWrapper.addEventListener("touchend", (e) => {
         if (!isDragging) return;
         isDragging = false;
-        const endX = event.changedTouches[0].clientX;
-        const deltaX = endX - startX;
+        const dx = e.changedTouches[0].clientX - startX;
         if (isHorizontalDrag) {
-          if (deltaX < -50) nextSlide();
-          else if (deltaX > 50) prevSlide();
+          if (dx < -50) nextSlide();
+          else if (dx > 50) prevSlide();
           else setSliderPosition();
-        } else {
-          setSliderPosition();
-        }
+        } else setSliderPosition();
         sliderWrapper.style.transition = "transform 0.3s ease-in-out";
       });
 
-      // Attach click events to each anchor in the slider wrapper.
+      // lightbox hookup on click
       sliderWrapper.querySelectorAll("a").forEach((link) => {
         link.addEventListener("click", (e) => {
           const href = link.getAttribute("href");
@@ -1441,20 +1407,19 @@ document.addEventListener("DOMContentLoaded", () => {
             e.preventDefault();
             const img = link.querySelector("img");
             const captionElem = link.nextElementSibling;
-            const caption = captionElem && captionElem.tagName.toLowerCase() === "figcaption"
+            const caption = captionElem?.tagName.toLowerCase() === "figcaption"
               ? captionElem.textContent
               : "";
             const gallery = Array.from(container.querySelectorAll("a")).map((a) => {
-              const aCaptionElem = a.nextElementSibling;
               return {
                 src: a.getAttribute("href"),
-                alt: a.querySelector("img").getAttribute("alt"),
-                caption: aCaptionElem && aCaptionElem.tagName.toLowerCase() === "figcaption"
-                  ? aCaptionElem.textContent
+                alt: a.querySelector("img")?.getAttribute("alt") || "",
+                caption: a.nextElementSibling?.tagName.toLowerCase() === "figcaption"
+                  ? a.nextElementSibling.textContent
                   : ""
               };
             });
-            openLightbox(href, img.getAttribute("alt"), caption, gallery);
+            openLightbox(href, img?.getAttribute("alt") || "", caption, gallery);
           }
         });
       });
@@ -1462,13 +1427,43 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   /* ------------------------------
+         MOBILE GALLERY LIGHTBOX ON DESKTOP
+         (for .arabica_article-mobile-gallery on desktop without slider)
+      ------------------------------ */
+  if (!window.matchMedia("(max-width: 991px)").matches) {
+    document.querySelectorAll(".arabica_article-gallery-container .arabica_article-mobile-gallery a").forEach((link) => {
+      if (/\.(jpg|jpeg|png|gif|webp|svg)$/i.test(link.getAttribute("href"))) {
+        link.addEventListener("click", (e) => {
+          e.preventDefault();
+          const href = link.getAttribute("href");
+          const img = link.querySelector("img");
+          const captionElem = link.nextElementSibling;
+          const caption = captionElem?.tagName.toLowerCase() === "figcaption"
+            ? captionElem.textContent
+            : "";
+          const container = link.closest(".arabica_article-gallery-container");
+          const gallery = Array.from(container.querySelectorAll(".arabica_article-mobile-gallery a")).map((a) => {
+            return {
+              src: a.getAttribute("href"),
+              alt: a.querySelector("img")?.getAttribute("alt") || "",
+              caption: a.nextElementSibling?.tagName.toLowerCase() === "figcaption"
+                ? a.nextElementSibling.textContent
+                : ""
+            };
+          });
+          openLightbox(href, img?.getAttribute("alt") || "", caption, gallery);
+        });
+      }
+    });
+  }
+
+  /* ------------------------------
          SINGLE IMAGE SETUP
-         (for any <a> linking to an image that isn’t part of a gallery slider)
       ------------------------------ */
   document.querySelectorAll(".arabica_article-content a, .arabica_article-image a, .arabica_news-content a, .arabica_news-image a")
     .forEach((anchor) => {
       if (/\.(jpg|jpeg|png|gif|webp|svg)$/i.test(anchor.getAttribute("href")) &&
-          !anchor.closest(".arabica_article-image-gallery")) {
+          !anchor.closest(".arabica_article-image-gallery, .arabica_article-mobile-gallery")) {
         anchor.addEventListener("click", (e) => {
           e.preventDefault();
           const href = anchor.getAttribute("href");
@@ -1483,6 +1478,7 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
 });
+
 
 document.addEventListener("DOMContentLoaded", function () {
   /* ========= Side Content Open/Close ========= */
@@ -1546,7 +1542,7 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 document.addEventListener("DOMContentLoaded", function () {
-  const galleries = document.querySelectorAll(".arabica_article-image-gallery");
+  const galleries = document.querySelectorAll(".arabica_article-image-gallery, .arabica_article-mobile-gallery");
 
   galleries.forEach((gallery) => {
     const img = gallery.querySelector("img");
@@ -1638,3 +1634,77 @@ document
   window.addEventListener("resize", checkScreenSize);
   checkScreenSize();
 })();
+
+document.addEventListener('DOMContentLoaded', () => {
+  const container = document.querySelector('.arabica_article-gallery-container');
+  if (!container || window.innerWidth < 992) return;  // only desktop
+
+  // 1) Wrap in a non‑scrolling parent
+  const wrapper = document.createElement('div');
+  wrapper.className = 'slider-container';
+  container.parentNode.insertBefore(wrapper, container);
+  wrapper.appendChild(container);
+
+  // 2) Detect RTL vs LTR
+  const isRtl = getComputedStyle(container).direction === 'rtl';
+
+  // 3) Create Prev/Next controls
+  const prev = document.createElement('button');
+  prev.className = 'slider-btn prev';
+  prev.textContent = '‹';
+  const next = document.createElement('button');
+  next.className = 'slider-btn next';
+  next.textContent = '›';
+
+  // Position them
+  if (isRtl) {
+    prev.style.right = '8px';
+    next.style.left  = '8px';
+  } else {
+    prev.style.left  = '8px';
+    next.style.right = '8px';
+  }
+  wrapper.append(prev, next);
+
+  // 4) Calculate scroll step: one item + gap
+  const items = container.querySelectorAll('.arabica_article-mobile-gallery');
+  const gap = parseInt(getComputedStyle(container).gap) || 0;
+  const itemWidth = items[0].getBoundingClientRect().width + gap;
+  const maxScroll = container.scrollWidth - container.clientWidth;
+
+  // 5) Show/hide arrows based on scroll position
+  function updateButtons() {
+    const sc = container.scrollLeft;
+    if (!isRtl) {
+      prev.style.display = sc > 0 ? 'block' : 'none';
+      next.style.display = sc + container.clientWidth < container.scrollWidth
+        ? 'block' : 'none';
+    } else {
+      // In many browsers RTL scrollLeft goes 0 → –maxScroll
+      const minScroll = -maxScroll;
+      prev.style.display = sc < 0            ? 'block' : 'none';
+      next.style.display = sc > minScroll    ? 'block' : 'none';
+    }
+  }
+
+  // 6) Wire up the click handlers
+  prev.addEventListener('click', () => {
+    container.scrollBy({
+      left: isRtl ? itemWidth : -itemWidth,
+      behavior: 'smooth'
+    });
+  });
+  next.addEventListener('click', () => {
+    container.scrollBy({
+      left: isRtl ? -itemWidth : itemWidth,
+      behavior: 'smooth'
+    });
+  });
+
+  // 7) Update on scroll & resize
+  container.addEventListener('scroll', updateButtons);
+  window.addEventListener('resize', updateButtons);
+
+  // 8) Initial visibility
+  updateButtons();
+});
