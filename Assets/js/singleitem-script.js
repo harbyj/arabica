@@ -1276,7 +1276,7 @@ document.addEventListener("DOMContentLoaded", () => {
           .arabica_article-mobile-gallery on mobile only)
       ------------------------------ */
   document.querySelectorAll(".arabica_article-gallery-container").forEach((container) => {
-    const isMobile = window.matchMedia("(max-width: 991px)").matches;
+    const isMobile = window.matchMedia("(max-width: 767px)").matches;
     const selector = isMobile
       ? ".arabica_article-image-gallery, .arabica_article-mobile-gallery"
       : ".arabica_article-image-gallery";
@@ -1430,7 +1430,7 @@ document.addEventListener("DOMContentLoaded", () => {
          MOBILE GALLERY LIGHTBOX ON DESKTOP
          (for .arabica_article-mobile-gallery on desktop without slider)
       ------------------------------ */
-  if (!window.matchMedia("(max-width: 991px)").matches) {
+  if (!window.matchMedia("(max-width: 767px)").matches) {
     document.querySelectorAll(".arabica_article-gallery-container .arabica_article-mobile-gallery a").forEach((link) => {
       if (/\.(jpg|jpeg|png|gif|webp|svg)$/i.test(link.getAttribute("href"))) {
         link.addEventListener("click", (e) => {
@@ -1637,7 +1637,7 @@ document
 
 document.addEventListener('DOMContentLoaded', () => {
   const container = document.querySelector('.arabica_article-gallery-container');
-  if (!container || window.innerWidth < 992) return;  // only desktop
+  if (!container || window.innerWidth < 768) return;  // only desktop
 
   // 1) Wrap in a non‑scrolling parent
   const wrapper = document.createElement('div');
