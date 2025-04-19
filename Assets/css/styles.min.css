@@ -4077,7 +4077,7 @@ caption {
         position: absolute;
         right: 0;
         top: 0;
-        width: 98vw;
+        width: 75vw;
         height: 100%;
         background-color: inherit;
         z-index: -1;
@@ -4205,10 +4205,6 @@ math.inlineMath {
 .align-center {
     text-align: center;
 }
-.arabica_article_lightbox-content img[src$=".svg"] {
-    width: 70vw;
-    height: auto;
-}
 .arabica_article-gallery-containerr {
         padding-bottom: 10px;}
 .arabica_article-mobile-gallery{text-align: center;}
@@ -4256,8 +4252,8 @@ math.inlineMath {
 
     .slider-container .slider-btn {
     position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
+    top: 45%;
+    transform: translateY(-65%);
     background: rgba(0, 0, 0, 0.5);
     color: #fff;
     border: none;
@@ -4309,4 +4305,7 @@ math.inlineMath {
 }
 .arabica_article-image {border: 1px solid #f7f7f7}
 
-
+.arabica_article_lightbox-content img[src$=".svg"] {
+    width: 65vh;
+    height: auto;
+}
