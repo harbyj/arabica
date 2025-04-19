@@ -1636,66 +1636,77 @@ document
 })();
 
 document.addEventListener('DOMContentLoaded', () => {
-  const container = document.querySelector('.arabica_article-gallery-container');
-  if (!container || window.innerWidth < 768) return; // only desktop
+  // only on desktop
+  if (window.innerWidth < 768) return;
 
-  // wrap in a non‑scrolling parent
-  const wrapper = document.createElement('div');
-  wrapper.className = 'slider-container';
-  container.parentNode.insertBefore(wrapper, container);
-  wrapper.appendChild(container);
+  // find every gallery container
+  document
+    .querySelectorAll('.arabica_article-gallery-container')
+    .forEach(container => {
+      // skip if no mobile-gallery items inside
+      if (!container.querySelector('.arabica_article-mobile-gallery')) return;
 
-  // prev/next buttons
-  const prev = Object.assign(document.createElement('button'), {
-    className: 'slider-btn prev',
-    textContent: '‹'
-  });
-  const next = Object.assign(document.createElement('button'), {
-    className: 'slider-btn next',
-    textContent: '›'
-  });
-  wrapper.append(prev, next);
+      // wrap in a non‑scrolling parent
+      const wrapper = document.createElement('div');
+      wrapper.className = 'slider-container';
+      container.parentNode.insertBefore(wrapper, container);
+      wrapper.appendChild(container);
 
-  const isRtl = getComputedStyle(container).direction === 'rtl';
-  // flip positioning if RTL
-  if (isRtl) {
-    prev.style.right = '8px';
-    next.style.left  = '8px';
-  } else {
-    prev.style.left  = '8px';
-    next.style.right = '8px';
-  }
+      // create prev/next buttons
+      const prev = Object.assign(document.createElement('button'), {
+        className: 'slider-btn prev hidden',
+        textContent: '‹'
+      });
+      const next = Object.assign(document.createElement('button'), {
+        className: 'slider-btn next hidden',
+        textContent: '›'
+      });
+      wrapper.append(prev, next);
 
-  // all items & gap (assumes all same width)
-  const items = container.querySelectorAll('.arabica_article-mobile-gallery');
-  const gap   = parseInt(getComputedStyle(container).gap) || 0;
-  const step  = () => items[0].getBoundingClientRect().width + gap;
+      // detect RTL
+      const isRtl = getComputedStyle(container).direction === 'rtl';
+      if (isRtl) {
+        prev.style.right = '8px';
+        next.style.left  = '8px';
+      } else {
+        prev.style.left  = '8px';
+        next.style.right = '8px';
+      }
 
-  // unified update:
-  function updateButtons() {
-    // How far have we scrolled from the *start*?
-    const rawScroll   = container.scrollLeft;
-    const normScroll  = isRtl ? -rawScroll : rawScroll;
-    // True max scroll
-    const maxScroll   = container.scrollWidth - container.clientWidth;
-    // hide/show with animation classes
-    prev.classList.toggle('visible', normScroll > 1);
-    prev.classList.toggle('hidden', normScroll <= 1);
-    next.classList.toggle('visible', normScroll + 1 < maxScroll);
-    next.classList.toggle('hidden', normScroll + 1 >= maxScroll);
-  }
+      // grab items and compute scroll step
+      const items = container.querySelectorAll('.arabica_article-mobile-gallery');
+      const gap   = parseInt(getComputedStyle(container).gap) || 0;
+      const step  = () => items[0].getBoundingClientRect().width + gap;
 
-  // scroll handlers
-  prev.addEventListener('click', () => {
-    container.scrollBy({ left: isRtl ? step() : -step(), behavior: 'smooth' });
-  });
-  next.addEventListener('click', () => {
-    container.scrollBy({ left: isRtl ? -step() :  step(), behavior: 'smooth' });
-  });
-  
-  container.addEventListener('scroll', updateButtons);
-  window.addEventListener('resize', updateButtons);
+      // show/hide buttons based on scroll position
+      function updateButtons() {
+        const rawScroll  = container.scrollLeft;
+        const normScroll = isRtl ? -rawScroll : rawScroll;
+        const maxScroll  = container.scrollWidth - container.clientWidth;
 
-  // initial
-  updateButtons();
+        prev.classList.toggle('visible', normScroll > 1);
+        prev.classList.toggle('hidden', normScroll <= 1);
+        next.classList.toggle('visible', normScroll + 1 < maxScroll);
+        next.classList.toggle('hidden', normScroll + 1 >= maxScroll);
+      }
+
+      // attach scroll logic
+      prev.addEventListener('click', () => {
+        container.scrollBy({
+          left:    isRtl ? step() : -step(),
+          behavior: 'smooth'
+        });
+      });
+      next.addEventListener('click', () => {
+        container.scrollBy({
+          left:    isRtl ? -step() :  step(),
+          behavior: 'smooth'
+        });
+      });
+      container.addEventListener('scroll',  updateButtons);
+      window.addEventListener('resize',    updateButtons);
+
+      // initial state
+      updateButtons();
+    });
 });
