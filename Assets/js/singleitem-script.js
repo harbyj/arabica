@@ -1637,26 +1637,27 @@ document
 
 document.addEventListener('DOMContentLoaded', () => {
   const container = document.querySelector('.arabica_article-gallery-container');
-  if (!container || window.innerWidth < 768) return;  // only desktop
+  if (!container || window.innerWidth < 768) return; // only desktop
 
-  // 1) Wrap in a non‑scrolling parent
+  // wrap in a non‑scrolling parent
   const wrapper = document.createElement('div');
   wrapper.className = 'slider-container';
   container.parentNode.insertBefore(wrapper, container);
   wrapper.appendChild(container);
 
-  // 2) Detect RTL vs LTR
+  // prev/next buttons
+  const prev = Object.assign(document.createElement('button'), {
+    className: 'slider-btn prev',
+    textContent: '‹'
+  });
+  const next = Object.assign(document.createElement('button'), {
+    className: 'slider-btn next',
+    textContent: '›'
+  });
+  wrapper.append(prev, next);
+
   const isRtl = getComputedStyle(container).direction === 'rtl';
-
-  // 3) Create Prev/Next controls
-  const prev = document.createElement('button');
-  prev.className = 'slider-btn prev';
-  prev.textContent = '‹';
-  const next = document.createElement('button');
-  next.className = 'slider-btn next';
-  next.textContent = '›';
-
-  // Position them
+  // flip positioning if RTL
   if (isRtl) {
     prev.style.right = '8px';
     next.style.left  = '8px';
@@ -1664,47 +1665,37 @@ document.addEventListener('DOMContentLoaded', () => {
     prev.style.left  = '8px';
     next.style.right = '8px';
   }
-  wrapper.append(prev, next);
 
-  // 4) Calculate scroll step: one item + gap
+  // all items & gap (assumes all same width)
   const items = container.querySelectorAll('.arabica_article-mobile-gallery');
-  const gap = parseInt(getComputedStyle(container).gap) || 0;
-  const itemWidth = items[0].getBoundingClientRect().width + gap;
-  const maxScroll = container.scrollWidth - container.clientWidth;
+  const gap   = parseInt(getComputedStyle(container).gap) || 0;
+  const step  = () => items[0].getBoundingClientRect().width + gap;
 
-  // 5) Show/hide arrows based on scroll position
+  // unified update:
   function updateButtons() {
-    const sc = container.scrollLeft;
-    if (!isRtl) {
-      prev.style.display = sc > 0 ? 'block' : 'none';
-      next.style.display = sc + container.clientWidth < container.scrollWidth
-        ? 'block' : 'none';
-    } else {
-      // In many browsers RTL scrollLeft goes 0 → –maxScroll
-      const minScroll = -maxScroll;
-      prev.style.display = sc < 0            ? 'block' : 'none';
-      next.style.display = sc > minScroll    ? 'block' : 'none';
-    }
+    // How far have we scrolled from the *start*?
+    const rawScroll   = container.scrollLeft;
+    const normScroll  = isRtl ? -rawScroll : rawScroll;
+    // True max scroll
+    const maxScroll   = container.scrollWidth - container.clientWidth;
+    // hide/show with animation classes
+    prev.classList.toggle('visible', normScroll > 1);
+    prev.classList.toggle('hidden', normScroll <= 1);
+    next.classList.toggle('visible', normScroll + 1 < maxScroll);
+    next.classList.toggle('hidden', normScroll + 1 >= maxScroll);
   }
 
-  // 6) Wire up the click handlers
+  // scroll handlers
   prev.addEventListener('click', () => {
-    container.scrollBy({
-      left: isRtl ? itemWidth : -itemWidth,
-      behavior: 'smooth'
-    });
+    container.scrollBy({ left: isRtl ? step() : -step(), behavior: 'smooth' });
   });
   next.addEventListener('click', () => {
-    container.scrollBy({
-      left: isRtl ? -itemWidth : itemWidth,
-      behavior: 'smooth'
-    });
+    container.scrollBy({ left: isRtl ? -step() :  step(), behavior: 'smooth' });
   });
-
-  // 7) Update on scroll & resize
+  
   container.addEventListener('scroll', updateButtons);
   window.addEventListener('resize', updateButtons);
 
-  // 8) Initial visibility
+  // initial
   updateButtons();
 });
