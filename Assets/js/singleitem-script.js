@@ -1,10 +1,12 @@
 /* jshint esversion: 6 */
 
-document.querySelectorAll('.arabica_article-gallery-container').forEach(container => {
-  if (container.querySelector('.arabica_article-mobile-gallery')) {
-    container.classList.add('has-mobile-gallery');
-  }
-});
+document
+  .querySelectorAll(".arabica_article-gallery-container")
+  .forEach((container) => {
+    if (container.querySelector(".arabica_article-mobile-gallery")) {
+      container.classList.add("has-mobile-gallery");
+    }
+  });
 
 // Move paragraphs with footnotes (excluding those with "ref")
 document.addEventListener("DOMContentLoaded", function () {
@@ -1136,11 +1138,17 @@ document.addEventListener("DOMContentLoaded", () => {
     galleryGrid.innerHTML = gallery
       .map(
         (item, index) =>
-          `<img src="${item.src}" alt="${item.alt}" data-index="${index}" class="${index === currentIndex ? "active" : ""}">`
+          `<img src="${item.src}" alt="${
+            item.alt
+          }" data-index="${index}" class="${
+            index === currentIndex ? "active" : ""
+          }">`
       )
       .join("");
 
-    const activeImg = galleryGrid.querySelector(`[data-index="${currentIndex}"]`);
+    const activeImg = galleryGrid.querySelector(
+      `[data-index="${currentIndex}"]`
+    );
     if (activeImg) {
       activeImg.classList.add("active");
 
@@ -1154,7 +1162,10 @@ document.addEventListener("DOMContentLoaded", () => {
           const idealTranslate = viewportWidth / 2 - activeCenter;
           const maxTranslate = 0;
           const minTranslate = viewportWidth - gridWidth;
-          const clampedTranslate = Math.min(maxTranslate, Math.max(idealTranslate, minTranslate));
+          const clampedTranslate = Math.min(
+            maxTranslate,
+            Math.max(idealTranslate, minTranslate)
+          );
           galleryGrid.style.transition = "transform 0.3s ease-in-out";
           galleryGrid.style.transform = `translateX(${clampedTranslate}px)`;
         } else {
@@ -1225,7 +1236,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function showPrevImage() {
     if (currentGallery.length > 0) {
-      currentIndex = (currentIndex - 1 + currentGallery.length) % currentGallery.length;
+      currentIndex =
+        (currentIndex - 1 + currentGallery.length) % currentGallery.length;
       updateLightboxContent();
     }
   }
@@ -1242,14 +1254,18 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   let lastWheelTime = 0;
-  lightbox.addEventListener("wheel", (e) => {
-    e.preventDefault();
-    const now = Date.now();
-    if (now - lastWheelTime < 400) return;
-    lastWheelTime = now;
-    if (e.deltaY > 0) showNextImage();
-    else if (e.deltaY < 0) showPrevImage();
-  }, { passive: false });
+  lightbox.addEventListener(
+    "wheel",
+    (e) => {
+      e.preventDefault();
+      const now = Date.now();
+      if (now - lastWheelTime < 400) return;
+      lastWheelTime = now;
+      if (e.deltaY > 0) showNextImage();
+      else if (e.deltaY < 0) showPrevImage();
+    },
+    { passive: false }
+  );
 
   galleryGrid.addEventListener("click", (e) => {
     if (e.target.tagName === "IMG") {
@@ -1275,210 +1291,257 @@ document.addEventListener("DOMContentLoaded", () => {
          (for .arabica_article-image-gallery on all screens and
           .arabica_article-mobile-gallery on mobile only)
       ------------------------------ */
-  document.querySelectorAll(".arabica_article-gallery-container").forEach((container) => {
-    const isMobile = window.matchMedia("(max-width: 767px)").matches;
-    const selector = isMobile
-      ? ".arabica_article-image-gallery, .arabica_article-mobile-gallery"
-      : ".arabica_article-image-gallery";
+  document
+    .querySelectorAll(".arabica_article-gallery-container")
+    .forEach((container) => {
+      const isMobile = window.matchMedia("(max-width: 767px)").matches;
+      const selector = isMobile
+        ? ".arabica_article-image-gallery, .arabica_article-mobile-gallery"
+        : ".arabica_article-image-gallery";
 
-    const galleryItems = container.querySelectorAll(selector);
-    if (galleryItems.length > 0) {
-      const slider = document.createElement("div");
-      slider.className = "arabica_article_slider";
-      slider.style.position = "relative";
+      const galleryItems = container.querySelectorAll(selector);
+      if (galleryItems.length > 0) {
+        const slider = document.createElement("div");
+        slider.className = "arabica_article_slider";
+        slider.style.position = "relative";
 
-      const sliderWrapper = document.createElement("div");
-      sliderWrapper.className = "arabica_article_slider_wrapper";
+        const sliderWrapper = document.createElement("div");
+        sliderWrapper.className = "arabica_article_slider_wrapper";
 
-      galleryItems.forEach((item) => {
-        sliderWrapper.appendChild(item);
-      });
-      slider.appendChild(sliderWrapper);
+        galleryItems.forEach((item) => {
+          sliderWrapper.appendChild(item);
+        });
+        slider.appendChild(sliderWrapper);
 
-      const prevSliderBtn = document.createElement("button");
-      prevSliderBtn.className = "arabica_article_slider-nav arabica_article_slider-prev";
-      prevSliderBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+        const prevSliderBtn = document.createElement("button");
+        prevSliderBtn.className =
+          "arabica_article_slider-nav arabica_article_slider-prev";
+        prevSliderBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
           <path fill="#ffffff" d="M15.41 16.59L10.83 12l4.58-4.59L14 6l-6 6 6 6z"></path>
         </svg>`;
-      const nextSliderBtn = document.createElement("button");
-      nextSliderBtn.className = "arabica_article_slider-nav arabica_article_slider-next";
-      nextSliderBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+        const nextSliderBtn = document.createElement("button");
+        nextSliderBtn.className =
+          "arabica_article_slider-nav arabica_article_slider-next";
+        nextSliderBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
           <path fill="#ffffff" d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6z"></path>
         </svg>`;
-      slider.appendChild(prevSliderBtn);
-      slider.appendChild(nextSliderBtn);
+        slider.appendChild(prevSliderBtn);
+        slider.appendChild(nextSliderBtn);
 
-      const sliderCounter = document.createElement("span");
-      sliderCounter.className = "arabica_article_slider-counter";
-      sliderCounter.innerHTML = `<i class="fa-regular fa-images"></i> 1 / ${galleryItems.length}`;
-      slider.appendChild(sliderCounter);
+        const sliderCounter = document.createElement("span");
+        sliderCounter.className = "arabica_article_slider-counter";
+        sliderCounter.innerHTML = `<i class="fa-regular fa-images"></i> 1 / ${galleryItems.length}`;
+        slider.appendChild(sliderCounter);
 
-      container.innerHTML = "";
-      container.appendChild(slider);
+        container.innerHTML = "";
+        container.appendChild(slider);
 
-      let currentSlide = 0;
-      let sliderWidth = slider.offsetWidth;
-      let startX = 0, startY = 0;
-      let isDragging = false, isHorizontalDrag = false;
+        let currentSlide = 0;
+        let sliderWidth = slider.offsetWidth;
+        let startX = 0,
+          startY = 0;
+        let isDragging = false,
+          isHorizontalDrag = false;
 
-      const setSliderPosition = () => {
-        sliderWrapper.style.transform = `translateX(-${currentSlide * sliderWidth}px)`;
-      };
-      const updateSliderHeight = () => {
-        const el = sliderWrapper.children[currentSlide];
-        if (el) slider.style.height = el.offsetHeight + "px";
-      };
-      const updateNavButtonsPosition = () => {
-        const el = sliderWrapper.children[currentSlide]?.querySelector("img");
-        if (el) {
-          const imgRect = el.getBoundingClientRect();
-          const sliderRect = slider.getBoundingClientRect();
-          const centerY = imgRect.top - sliderRect.top + el.offsetHeight / 2;
-          prevSliderBtn.style.top = nextSliderBtn.style.top = centerY + "px";
-        }
-      };
-      const updateCounter = () => {
-        sliderCounter.innerHTML = `<i class="fa-regular fa-images"></i> ${currentSlide + 1} / ${galleryItems.length}`;
-        const caption = sliderWrapper.children[currentSlide]?.querySelector("figcaption");
-        const gap = caption ? caption.offsetHeight + 10 : 10;
-        sliderCounter.style.bottom = `${gap}px`;
-      };
-      const updateSliderLayout = () => {
-        sliderWidth = slider.offsetWidth;
-        setSliderPosition();
-        updateSliderHeight();
-        updateNavButtonsPosition();
-        updateCounter();
-      };
-
-      // init
-      slider.style.height = sliderWrapper.children[0].offsetHeight + "px";
-      updateSliderLayout();
-      window.addEventListener("resize", updateSliderLayout);
-
-      function nextSlide() {
-        currentSlide = (currentSlide + 1) % galleryItems.length;
-        sliderWrapper.style.transition = "transform 0.3s ease-in-out";
-        setSliderPosition();
-        updateSliderLayout();
-      }
-      function prevSlide() {
-        currentSlide = (currentSlide - 1 + galleryItems.length) % galleryItems.length;
-        sliderWrapper.style.transition = "transform 0.3s ease-in-out";
-        setSliderPosition();
-        updateSliderLayout();
-      }
-      nextSliderBtn.addEventListener("click", nextSlide);
-      prevSliderBtn.addEventListener("click", prevSlide);
-
-      sliderWrapper.addEventListener("touchstart", (e) => {
-        isDragging = true; isHorizontalDrag = false;
-        startX = e.touches[0].clientX;
-        startY = e.touches[0].clientY;
-        sliderWrapper.style.transition = "none";
-      });
-      sliderWrapper.addEventListener("touchmove", (e) => {
-        if (!isDragging) return;
-        const dx = e.touches[0].clientX - startX;
-        const dy = e.touches[0].clientY - startY;
-        if (!isHorizontalDrag) {
-          if (Math.abs(dx) > Math.abs(dy)) isHorizontalDrag = true;
-          else return;
-        }
-        sliderWrapper.style.transform = `translateX(-${currentSlide * sliderWidth - dx}px)`;
-      });
-      sliderWrapper.addEventListener("touchend", (e) => {
-        if (!isDragging) return;
-        isDragging = false;
-        const dx = e.changedTouches[0].clientX - startX;
-        if (isHorizontalDrag) {
-          if (dx < -50) nextSlide();
-          else if (dx > 50) prevSlide();
-          else setSliderPosition();
-        } else setSliderPosition();
-        sliderWrapper.style.transition = "transform 0.3s ease-in-out";
-      });
-
-      // lightbox hookup on click
-      sliderWrapper.querySelectorAll("a").forEach((link) => {
-        link.addEventListener("click", (e) => {
-          const href = link.getAttribute("href");
-          if (/\.(jpg|jpeg|png|gif|webp|svg)$/i.test(href)) {
-            e.preventDefault();
-            const img = link.querySelector("img");
-            const captionElem = link.nextElementSibling;
-            const caption = captionElem?.tagName.toLowerCase() === "figcaption"
-              ? captionElem.textContent
-              : "";
-            const gallery = Array.from(container.querySelectorAll("a")).map((a) => {
-              return {
-                src: a.getAttribute("href"),
-                alt: a.querySelector("img")?.getAttribute("alt") || "",
-                caption: a.nextElementSibling?.tagName.toLowerCase() === "figcaption"
-                  ? a.nextElementSibling.textContent
-                  : ""
-              };
-            });
-            openLightbox(href, img?.getAttribute("alt") || "", caption, gallery);
+        const setSliderPosition = () => {
+          sliderWrapper.style.transform = `translateX(-${
+            currentSlide * sliderWidth
+          }px)`;
+        };
+        const updateSliderHeight = () => {
+          const el = sliderWrapper.children[currentSlide];
+          if (el) slider.style.height = el.offsetHeight + "px";
+        };
+        const updateNavButtonsPosition = () => {
+          const el = sliderWrapper.children[currentSlide]?.querySelector("img");
+          if (el) {
+            const imgRect = el.getBoundingClientRect();
+            const sliderRect = slider.getBoundingClientRect();
+            const centerY = imgRect.top - sliderRect.top + el.offsetHeight / 2;
+            prevSliderBtn.style.top = nextSliderBtn.style.top = centerY + "px";
           }
+        };
+        const updateCounter = () => {
+          sliderCounter.innerHTML = `<i class="fa-regular fa-images"></i> ${
+            currentSlide + 1
+          } / ${galleryItems.length}`;
+          const caption =
+            sliderWrapper.children[currentSlide]?.querySelector("figcaption");
+          const gap = caption ? caption.offsetHeight + 10 : 10;
+          sliderCounter.style.bottom = `${gap}px`;
+        };
+        const updateSliderLayout = () => {
+          sliderWidth = slider.offsetWidth;
+          setSliderPosition();
+          updateSliderHeight();
+          updateNavButtonsPosition();
+          updateCounter();
+        };
+
+        // init
+        slider.style.height = sliderWrapper.children[0].offsetHeight + "px";
+        updateSliderLayout();
+        window.addEventListener("resize", updateSliderLayout);
+
+        function nextSlide() {
+          currentSlide = (currentSlide + 1) % galleryItems.length;
+          sliderWrapper.style.transition = "transform 0.3s ease-in-out";
+          setSliderPosition();
+          updateSliderLayout();
+        }
+        function prevSlide() {
+          currentSlide =
+            (currentSlide - 1 + galleryItems.length) % galleryItems.length;
+          sliderWrapper.style.transition = "transform 0.3s ease-in-out";
+          setSliderPosition();
+          updateSliderLayout();
+        }
+        nextSliderBtn.addEventListener("click", nextSlide);
+        prevSliderBtn.addEventListener("click", prevSlide);
+
+        sliderWrapper.addEventListener("touchstart", (e) => {
+          isDragging = true;
+          isHorizontalDrag = false;
+          startX = e.touches[0].clientX;
+          startY = e.touches[0].clientY;
+          sliderWrapper.style.transition = "none";
         });
-      });
-    }
-  });
+        sliderWrapper.addEventListener("touchmove", (e) => {
+          if (!isDragging) return;
+          const dx = e.touches[0].clientX - startX;
+          const dy = e.touches[0].clientY - startY;
+          if (!isHorizontalDrag) {
+            if (Math.abs(dx) > Math.abs(dy)) isHorizontalDrag = true;
+            else return;
+          }
+          sliderWrapper.style.transform = `translateX(-${
+            currentSlide * sliderWidth - dx
+          }px)`;
+        });
+        sliderWrapper.addEventListener("touchend", (e) => {
+          if (!isDragging) return;
+          isDragging = false;
+          const dx = e.changedTouches[0].clientX - startX;
+          if (isHorizontalDrag) {
+            if (dx < -50) nextSlide();
+            else if (dx > 50) prevSlide();
+            else setSliderPosition();
+          } else setSliderPosition();
+          sliderWrapper.style.transition = "transform 0.3s ease-in-out";
+        });
+
+        // lightbox hookup on click
+        sliderWrapper.querySelectorAll("a").forEach((link) => {
+          link.addEventListener("click", (e) => {
+            const href = link.getAttribute("href");
+            if (/\.(jpg|jpeg|png|gif|webp|svg)$/i.test(href)) {
+              e.preventDefault();
+              const img = link.querySelector("img");
+              const captionElem = link.nextElementSibling;
+              const caption =
+                captionElem?.tagName.toLowerCase() === "figcaption"
+                  ? captionElem.textContent
+                  : "";
+              const gallery = Array.from(container.querySelectorAll("a")).map(
+                (a) => {
+                  return {
+                    src: a.getAttribute("href"),
+                    alt: a.querySelector("img")?.getAttribute("alt") || "",
+                    caption:
+                      a.nextElementSibling?.tagName.toLowerCase() ===
+                      "figcaption"
+                        ? a.nextElementSibling.textContent
+                        : "",
+                  };
+                }
+              );
+              openLightbox(
+                href,
+                img?.getAttribute("alt") || "",
+                caption,
+                gallery
+              );
+            }
+          });
+        });
+      }
+    });
 
   /* ------------------------------
          MOBILE GALLERY LIGHTBOX ON DESKTOP
          (for .arabica_article-mobile-gallery on desktop without slider)
       ------------------------------ */
   if (!window.matchMedia("(max-width: 767px)").matches) {
-    document.querySelectorAll(".arabica_article-gallery-container .arabica_article-mobile-gallery a").forEach((link) => {
-      if (/\.(jpg|jpeg|png|gif|webp|svg)$/i.test(link.getAttribute("href"))) {
-        link.addEventListener("click", (e) => {
-          e.preventDefault();
-          const href = link.getAttribute("href");
-          const img = link.querySelector("img");
-          const captionElem = link.nextElementSibling;
-          const caption = captionElem?.tagName.toLowerCase() === "figcaption"
-            ? captionElem.textContent
-            : "";
-          const container = link.closest(".arabica_article-gallery-container");
-          const gallery = Array.from(container.querySelectorAll(".arabica_article-mobile-gallery a")).map((a) => {
-            return {
-              src: a.getAttribute("href"),
-              alt: a.querySelector("img")?.getAttribute("alt") || "",
-              caption: a.nextElementSibling?.tagName.toLowerCase() === "figcaption"
-                ? a.nextElementSibling.textContent
-                : ""
-            };
+    document
+      .querySelectorAll(
+        ".arabica_article-gallery-container .arabica_article-mobile-gallery a"
+      )
+      .forEach((link) => {
+        if (/\.(jpg|jpeg|png|gif|webp|svg)$/i.test(link.getAttribute("href"))) {
+          link.addEventListener("click", (e) => {
+            e.preventDefault();
+            const href = link.getAttribute("href");
+            const img = link.querySelector("img");
+            const captionElem = link.nextElementSibling;
+            const caption =
+              captionElem?.tagName.toLowerCase() === "figcaption"
+                ? captionElem.textContent
+                : "";
+            const container = link.closest(
+              ".arabica_article-gallery-container"
+            );
+            const gallery = Array.from(
+              container.querySelectorAll(".arabica_article-mobile-gallery a")
+            ).map((a) => {
+              return {
+                src: a.getAttribute("href"),
+                alt: a.querySelector("img")?.getAttribute("alt") || "",
+                caption:
+                  a.nextElementSibling?.tagName.toLowerCase() === "figcaption"
+                    ? a.nextElementSibling.textContent
+                    : "",
+              };
+            });
+            openLightbox(
+              href,
+              img?.getAttribute("alt") || "",
+              caption,
+              gallery
+            );
           });
-          openLightbox(href, img?.getAttribute("alt") || "", caption, gallery);
-        });
-      }
-    });
+        }
+      });
   }
 
   /* ------------------------------
          SINGLE IMAGE SETUP
       ------------------------------ */
-  document.querySelectorAll(".arabica_article-content a, .arabica_article-image a, .arabica_news-content a, .arabica_news-image a")
+  document
+    .querySelectorAll(
+      ".arabica_article-content a, .arabica_article-image a, .arabica_news-content a, .arabica_news-image a"
+    )
     .forEach((anchor) => {
-      if (/\.(jpg|jpeg|png|gif|webp|svg)$/i.test(anchor.getAttribute("href")) &&
-          !anchor.closest(".arabica_article-image-gallery, .arabica_article-mobile-gallery")) {
+      if (
+        /\.(jpg|jpeg|png|gif|webp|svg)$/i.test(anchor.getAttribute("href")) &&
+        !anchor.closest(
+          ".arabica_article-image-gallery, .arabica_article-mobile-gallery"
+        )
+      ) {
         anchor.addEventListener("click", (e) => {
           e.preventDefault();
           const href = anchor.getAttribute("href");
           const img = anchor.querySelector("img");
           const alt = img ? img.getAttribute("alt") : "";
           const captionElem = anchor.nextElementSibling;
-          const caption = captionElem && captionElem.tagName.toLowerCase() === "figcaption"
-            ? captionElem.textContent
-            : "";
+          const caption =
+            captionElem && captionElem.tagName.toLowerCase() === "figcaption"
+              ? captionElem.textContent
+              : "";
           openLightbox(href, alt, caption, []);
         });
       }
     });
 });
-
 
 document.addEventListener("DOMContentLoaded", function () {
   /* ========= Side Content Open/Close ========= */
@@ -1542,7 +1605,9 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 document.addEventListener("DOMContentLoaded", function () {
-  const galleries = document.querySelectorAll(".arabica_article-image-gallery, .arabica_article-mobile-gallery");
+  const galleries = document.querySelectorAll(
+    ".arabica_article-image-gallery, .arabica_article-mobile-gallery"
+  );
 
   galleries.forEach((gallery) => {
     const img = gallery.querySelector("img");
@@ -1635,76 +1700,78 @@ document
   checkScreenSize();
 })();
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener("DOMContentLoaded", () => {
   // only on desktop
   if (window.innerWidth < 768) return;
 
   // find every gallery container
   document
-    .querySelectorAll('.arabica_article-gallery-container')
-    .forEach(container => {
+    .querySelectorAll(".arabica_article-gallery-container")
+    .forEach((container) => {
       // skip if no mobile-gallery items inside
-      if (!container.querySelector('.arabica_article-mobile-gallery')) return;
+      if (!container.querySelector(".arabica_article-mobile-gallery")) return;
 
       // wrap in a non‑scrolling parent
-      const wrapper = document.createElement('div');
-      wrapper.className = 'slider-container';
+      const wrapper = document.createElement("div");
+      wrapper.className = "slider-container";
       container.parentNode.insertBefore(wrapper, container);
       wrapper.appendChild(container);
 
       // create prev/next buttons
-      const prev = Object.assign(document.createElement('button'), {
-        className: 'slider-btn prev hidden',
-        textContent: '‹'
+      const prev = Object.assign(document.createElement("button"), {
+        className: "slider-btn prev hidden",
+        textContent: "‹",
       });
-      const next = Object.assign(document.createElement('button'), {
-        className: 'slider-btn next hidden',
-        textContent: '›'
+      const next = Object.assign(document.createElement("button"), {
+        className: "slider-btn next hidden",
+        textContent: "›",
       });
       wrapper.append(prev, next);
 
       // detect RTL
-      const isRtl = getComputedStyle(container).direction === 'rtl';
+      const isRtl = getComputedStyle(container).direction === "rtl";
       if (isRtl) {
-        prev.style.right = '8px';
-        next.style.left  = '8px';
+        prev.style.right = "8px";
+        next.style.left = "8px";
       } else {
-        prev.style.left  = '8px';
-        next.style.right = '8px';
+        prev.style.left = "8px";
+        next.style.right = "8px";
       }
 
       // grab items and compute scroll step
-      const items = container.querySelectorAll('.arabica_article-mobile-gallery');
-      const gap   = parseInt(getComputedStyle(container).gap) || 0;
-      const step  = () => items[0].getBoundingClientRect().width + gap;
+      const items = container.querySelectorAll(
+        ".arabica_article-mobile-gallery"
+      );
+      const gap = parseInt(getComputedStyle(container).gap) || 0;
+      const step = () => items[0].getBoundingClientRect().width + gap;
 
       // show/hide buttons based on scroll position
       function updateButtons() {
-        const rawScroll  = container.scrollLeft;
+        const rawScroll = container.scrollLeft;
         const normScroll = isRtl ? -rawScroll : rawScroll;
-        const maxScroll  = container.scrollWidth - container.clientWidth;
+        const maxScroll = container.scrollWidth - container.clientWidth;
 
-        prev.classList.toggle('visible', normScroll > 1);
-        prev.classList.toggle('hidden', normScroll <= 1);
-        next.classList.toggle('visible', normScroll + 1 < maxScroll);
-        next.classList.toggle('hidden', normScroll + 1 >= maxScroll);
+        prev.classList.toggle("visible", normScroll > 1);
+        prev.classList.toggle("hidden", normScroll <= 1);
+        next.classList.toggle("visible", normScroll + 1 < maxScroll);
+        next.classList.toggle("hidden", normScroll + 1 >= maxScroll);
       }
 
       // attach scroll logic
-      prev.addEventListener('click', () => {
+      prev.addEventListener("click", () => {
         container.scrollBy({
-          left:    isRtl ? step() : -step(),
-          behavior: 'smooth'
+          left: isRtl ? step() : -step(),
+          behavior: "smooth",
         });
       });
-      next.addEventListener('click', () => {
+      next.addEventListener("click", () => {
         container.scrollBy({
-          left:    isRtl ? -step() :  step(),
-          behavior: 'smooth'
+          left: isRtl ? -step() : step(),
+          behavior: "smooth",
         });
       });
-      container.addEventListener('scroll',  updateButtons);
-      window.addEventListener('resize',    updateButtons);
+      container.addEventListener("scroll", updateButtons);
+      window.addEventListener("resize", updateButtons);
 
       // initial state
       updateButtons();
