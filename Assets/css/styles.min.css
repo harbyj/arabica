@@ -2,6 +2,8 @@
 body {
     font-family: "Bahij TheSansArabic";
 }
+html { overflow-x: hidden;}
+
 .arabica_footer hr,
 hr {
     border-top: 0;
@@ -97,9 +99,7 @@ svg {
 body {
     line-height: 1.6;
     background-color: #fff;
-    direction: rtl;
-    overflow-x: hidden;
-}
+    direction: rtl;}
 .arabica_article-references,
 .arabica_article-references,
 ol,
