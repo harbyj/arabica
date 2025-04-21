@@ -509,11 +509,13 @@ document.addEventListener("DOMContentLoaded", function () {
     dropdown.style.setProperty("--arrow-left", arrowLeft + "px");
   }
 });
+
 document.addEventListener("DOMContentLoaded", function () {
-  // Select all video elements on the page.
+  // **Video Section**
+  // Select all video elements on the page
   const videos = document.querySelectorAll("video");
 
-  // Global event listener: when any video starts playing, pause all others.
+  // Global event listener: Pause all other videos when one starts playing
   document.addEventListener(
     "play",
     function (e) {
@@ -523,15 +525,15 @@ document.addEventListener("DOMContentLoaded", function () {
         }
       });
     },
-    true // useCapture to catch play events early.
+    true
   );
 
   videos.forEach((video, index) => {
-    // Disable default browser controls.
+    // Disable default browser controls
     video.controls = false;
     video.removeAttribute("controls");
 
-    // Wrap the video in a container if not already wrapped.
+    // Wrap the video in a container if not already wrapped
     let container = video.parentElement;
     if (!container.classList.contains("arabica_video-container")) {
       container = document.createElement("div");
@@ -540,14 +542,14 @@ document.addEventListener("DOMContentLoaded", function () {
       container.appendChild(video);
     }
 
-    // Inject custom controls into this container.
+    // Inject custom controls into this container
     injectControls(container, video, index);
 
-    // Setup event listeners for video and its controls.
+    // Setup event listeners for video and its controls
     setupVideoEvents(video, container, index);
   });
 
-  // Function to inject controls into a given container for a specific video.
+  // **Function to Inject Video Controls**
   function injectControls(container, video, index) {
     // Rewind indicator
     const rewindIndicator = document.createElement("div");
@@ -664,7 +666,7 @@ document.addEventListener("DOMContentLoaded", function () {
     container.appendChild(controls);
   }
 
-  // Function to add event listeners to the video and its controls.
+  // **Function to Setup Video Events**
   function setupVideoEvents(video, container, index) {
     const playPauseBtn = container.querySelector("#playPause-" + index);
     const restartBtn = container.querySelector("#restart-" + index);
@@ -684,11 +686,11 @@ document.addEventListener("DOMContentLoaded", function () {
     const volumeBtn = container.querySelector("#volume-" + index);
     const playBtnIcon = playPauseBtn.querySelector("path");
 
-    // SVG paths for play and pause icons.
+    // SVG paths for play and pause icons
     const playIconPath = "M8 5v14l11-7z";
     const pauseIconPath = "M6 19h4V5H6v14zm8-14v14h4V5h-4z";
 
-    // Show overlay indicator with animation.
+    // Show overlay indicator with animation
     function showOverlay(iconPath) {
       playPauseIndicator.style.display = "block";
       playPauseIndicator.style.opacity = "1";
@@ -703,14 +705,14 @@ document.addEventListener("DOMContentLoaded", function () {
       }, 1000);
     }
 
-    // On page load, if the video is paused, show the play icon overlay.
+    // On page load, if the video is paused, show the play icon overlay
     if (video.paused) {
       playPauseIndicator.style.display = "block";
       playPauseIndicator.style.opacity = "1";
       playPauseIndicator.querySelector("path").setAttribute("d", playIconPath);
     }
 
-    // Toggle play/pause with overlay feedback.
+    // Toggle play/pause with overlay feedback
     function togglePlay() {
       if (video.paused) {
         showOverlay(playIconPath);
@@ -760,17 +762,18 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     });
 
-    // Update progress by clicking on the progress container.
+    // Update progress by clicking on the progress container
     progressContainer.addEventListener("click", (e) => {
       video.currentTime =
         (e.offsetX / progressContainer.offsetWidth) * video.duration;
     });
 
-    // Dragging logic for progress thumb
+    // Dragging logic for progress thumb with fix to prevent text selection
     let isDragging = false;
 
     function startDragging(e) {
       if (!isFinite(video.duration)) return;
+      e.preventDefault(); // Prevent default mousedown behavior (e.g., text selection)
       isDragging = true;
       document.addEventListener("mousemove", drag);
       document.addEventListener("mouseup", stopDragging);
@@ -778,6 +781,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function drag(e) {
       if (!isDragging) return;
+      e.preventDefault(); // Prevent default mousemove behavior (e.g., text selection)
       const rect = progressContainer.getBoundingClientRect();
       const offsetX = e.clientX - rect.left;
       const newPercent = Math.max(
@@ -907,10 +911,11 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 document.addEventListener("DOMContentLoaded", function () {
-  // Select all audio elements on the page.
+  // **Audio Section**
+  // Select all audio elements on the page
   const audios = document.querySelectorAll("audio");
 
-  // Global listener: when any audio starts playing, pause all others.
+  // Global listener: Pause all other audios when one starts playing
   document.addEventListener(
     "play",
     function (e) {
@@ -924,11 +929,11 @@ document.addEventListener("DOMContentLoaded", function () {
   );
 
   audios.forEach((audio, index) => {
-    // Disable default browser controls.
+    // Disable default browser controls
     audio.controls = false;
     audio.removeAttribute("controls");
 
-    // Wrap the audio element in a container if not already wrapped.
+    // Wrap the audio element in a container if not already wrapped
     let container = audio.parentElement;
     if (!container.classList.contains("arabica_audio-container")) {
       container = document.createElement("div");
@@ -937,19 +942,19 @@ document.addEventListener("DOMContentLoaded", function () {
       container.appendChild(audio);
     }
 
-    // Inject custom controls using the provided markup (without fullscreen).
+    // Inject custom controls
     injectAudioControls(container, audio, index);
 
-    // Setup event listeners for this audio and its controls.
+    // Setup event listeners for this audio and its controls
     setupAudioEvents(audio, container, index);
   });
 
-  // Inject controls with structure similar to the provided video controls markup.
+  // **Function to Inject Audio Controls**
   function injectAudioControls(container, audio, index) {
     const controls = document.createElement("div");
     controls.className = "arabica_video-controls";
 
-    // Play/Pause button.
+    // Play/Pause button
     const playPauseBtn = document.createElement("button");
     playPauseBtn.className = "play-btn";
     playPauseBtn.id = "playPause-" + index;
@@ -960,7 +965,7 @@ document.addEventListener("DOMContentLoaded", function () {
     `;
     controls.appendChild(playPauseBtn);
 
-    // Restart button.
+    // Restart button
     const restartBtn = document.createElement("button");
     restartBtn.className = "restart-btn";
     restartBtn.id = "restart-" + index;
@@ -971,13 +976,13 @@ document.addEventListener("DOMContentLoaded", function () {
     `;
     controls.appendChild(restartBtn);
 
-    // Current time display.
+    // Current time display
     const currentTimeSpan = document.createElement("span");
     currentTimeSpan.className = "arabica_video-time";
     currentTimeSpan.innerHTML = `<span id="currentTime-${index}">0:00</span>`;
     controls.appendChild(currentTimeSpan);
 
-    // Progress bar container.
+    // Progress bar container
     const progressContainer = document.createElement("div");
     progressContainer.className = "progress-container";
     progressContainer.id = "progressContainer-" + index;
@@ -991,13 +996,13 @@ document.addEventListener("DOMContentLoaded", function () {
     progressContainer.appendChild(progressThumb);
     controls.appendChild(progressContainer);
 
-    // Duration display.
+    // Duration display
     const durationSpan = document.createElement("span");
     durationSpan.className = "arabica_video-time";
     durationSpan.innerHTML = `<span id="duration-${index}">0:00</span>`;
     controls.appendChild(durationSpan);
 
-    // Volume button.
+    // Volume button
     const volumeBtn = document.createElement("button");
     volumeBtn.className = "volume-btn";
     volumeBtn.id = "volume-" + index;
@@ -1009,11 +1014,11 @@ document.addEventListener("DOMContentLoaded", function () {
     `;
     controls.appendChild(volumeBtn);
 
-    // Append the controls container to the audio container.
+    // Append the controls container to the audio container
     container.appendChild(controls);
   }
 
-  // Setup event listeners and logic for each audio element.
+  // **Function to Setup Audio Events**
   function setupAudioEvents(audio, container, index) {
     const playPauseBtn = container.querySelector("#playPause-" + index);
     const restartBtn = container.querySelector("#restart-" + index);
@@ -1027,11 +1032,11 @@ document.addEventListener("DOMContentLoaded", function () {
     const volumeBtn = container.querySelector("#volume-" + index);
     const playBtnIcon = playPauseBtn.querySelector("path");
 
-    // Define SVG paths for play and pause icons.
+    // Define SVG paths for play and pause icons
     const playIconPath = "M8 5v14l11-7z";
     const pauseIconPath = "M6 19h4V5H6v14zm8-14v14h4V5h-4z";
 
-    // Toggle play/pause state.
+    // Toggle play/pause state
     function togglePlay() {
       if (audio.paused) {
         audio.play();
@@ -1045,14 +1050,14 @@ document.addEventListener("DOMContentLoaded", function () {
     playPauseBtn.addEventListener("click", togglePlay);
     audio.addEventListener("click", togglePlay);
 
-    // Restart functionality.
+    // Restart functionality
     restartBtn.addEventListener("click", () => {
       audio.currentTime = 0;
       audio.play();
       playBtnIcon.setAttribute("d", pauseIconPath);
     });
 
-    // Update progress bar and current time during playback.
+    // Update progress bar and current time during playback
     audio.addEventListener("timeupdate", () => {
       if (audio.duration) {
         const progressPercent = (audio.currentTime / audio.duration) * 100;
@@ -1062,17 +1067,18 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     });
 
-    // Allow seeking by clicking on the progress container.
+    // Allow seeking by clicking on the progress container
     progressContainer.addEventListener("click", (e) => {
       audio.currentTime =
         (e.offsetX / progressContainer.offsetWidth) * audio.duration;
     });
 
-    // Dragging logic for progress thumb
+    // Dragging logic for progress thumb with fix to prevent text selection
     let isDragging = false;
 
     function startDragging(e) {
       if (!isFinite(audio.duration)) return;
+      e.preventDefault(); // Prevent default mousedown behavior (e.g., text selection)
       isDragging = true;
       document.addEventListener("mousemove", drag);
       document.addEventListener("mouseup", stopDragging);
@@ -1080,6 +1086,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function drag(e) {
       if (!isDragging) return;
+      e.preventDefault(); // Prevent default mousemove behavior (e.g., text selection)
       const rect = progressContainer.getBoundingClientRect();
       const offsetX = e.clientX - rect.left;
       const newPercent = Math.max(
@@ -1171,7 +1178,7 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     });
 
-    // Helper function to format time as mm:ss.
+    // Helper function to format time as mm:ss
     function formatTime(time) {
       const minutes = Math.floor(time / 60);
       const seconds = Math.floor(time % 60)
@@ -1180,17 +1187,17 @@ document.addEventListener("DOMContentLoaded", function () {
       return `${minutes}:${seconds}`;
     }
 
-    // Display total duration once metadata is loaded.
+    // Display total duration once metadata is loaded
     audio.addEventListener("loadedmetadata", () => {
       durationEl.textContent = formatTime(audio.duration);
     });
 
-    // When playback ends, reset play icon.
+    // When playback ends, reset play icon
     audio.addEventListener("ended", () => {
       playBtnIcon.setAttribute("d", playIconPath);
     });
 
-    // Toggle mute state.
+    // Toggle mute state
     volumeBtn.addEventListener("click", () => {
       audio.muted = !audio.muted;
       volumeBtn.classList.toggle("muted", audio.muted);
