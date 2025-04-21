@@ -509,7 +509,6 @@ document.addEventListener("DOMContentLoaded", function () {
     dropdown.style.setProperty("--arrow-left", arrowLeft + "px");
   }
 });
-
 document.addEventListener("DOMContentLoaded", function () {
   // Select all video elements on the page.
   const videos = document.querySelectorAll("video");
@@ -627,6 +626,10 @@ document.addEventListener("DOMContentLoaded", function () {
     progressBar.className = "progress-bar";
     progressBar.id = "progressBar-" + index;
     progressContainer.appendChild(progressBar);
+    // Add progress thumb
+    const progressThumb = document.createElement("div");
+    progressThumb.className = "progress-thumb";
+    progressContainer.appendChild(progressThumb);
     controls.appendChild(progressContainer);
 
     // Duration display
@@ -670,6 +673,7 @@ document.addEventListener("DOMContentLoaded", function () {
       "#progressContainer-" + index
     );
     const progressBar = container.querySelector("#progressBar-" + index);
+    const progressThumb = progressContainer.querySelector(".progress-thumb");
     const currentTimeEl = container.querySelector("#currentTime-" + index);
     const durationEl = container.querySelector("#duration-" + index);
     const rewindIndicator = container.querySelector("#rewind-" + index);
@@ -749,9 +753,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
     video.addEventListener("timeupdate", () => {
       if (video.duration) {
-        progressBar.style.width = `${
-          (video.currentTime / video.duration) * 100
-        }%`;
+        const progressPercent = (video.currentTime / video.duration) * 100;
+        progressBar.style.width = `${progressPercent}%`;
+        progressThumb.style.left = `${progressPercent}%`;
         currentTimeEl.textContent = formatTime(video.currentTime);
       }
     });
@@ -762,7 +766,73 @@ document.addEventListener("DOMContentLoaded", function () {
         (e.offsetX / progressContainer.offsetWidth) * video.duration;
     });
 
-    // --- NEW: Allow updating progress with mouse wheel scroll ---
+    // Dragging logic for progress thumb
+    let isDragging = false;
+
+    function startDragging(e) {
+      if (!isFinite(video.duration)) return;
+      isDragging = true;
+      document.addEventListener("mousemove", drag);
+      document.addEventListener("mouseup", stopDragging);
+    }
+
+    function drag(e) {
+      if (!isDragging) return;
+      const rect = progressContainer.getBoundingClientRect();
+      const offsetX = e.clientX - rect.left;
+      const newPercent = Math.max(
+        0,
+        Math.min(100, (offsetX / rect.width) * 100)
+      );
+      const newTime = (newPercent / 100) * video.duration;
+      video.currentTime = newTime;
+      progressBar.style.width = `${newPercent}%`;
+      progressThumb.style.left = `${newPercent}%`;
+    }
+
+    function stopDragging() {
+      isDragging = false;
+      document.removeEventListener("mousemove", drag);
+      document.removeEventListener("mouseup", stopDragging);
+    }
+
+    progressThumb.addEventListener("mousedown", startDragging);
+
+    // Touch events for dragging
+    function startDraggingTouch(e) {
+      if (!isFinite(video.duration)) return;
+      e.preventDefault();
+      if (e.touches.length > 0) {
+        isDragging = true;
+        document.addEventListener("touchmove", dragTouch, { passive: false });
+        document.addEventListener("touchend", stopDraggingTouch);
+      }
+    }
+
+    function dragTouch(e) {
+      if (!isDragging || e.touches.length === 0) return;
+      e.preventDefault();
+      const rect = progressContainer.getBoundingClientRect();
+      const offsetX = e.touches[0].clientX - rect.left;
+      const newPercent = Math.max(
+        0,
+        Math.min(100, (offsetX / rect.width) * 100)
+      );
+      const newTime = (newPercent / 100) * video.duration;
+      video.currentTime = newTime;
+      progressBar.style.width = `${newPercent}%`;
+      progressThumb.style.left = `${newPercent}%`;
+    }
+
+    function stopDraggingTouch() {
+      isDragging = false;
+      document.removeEventListener("touchmove", dragTouch);
+      document.removeEventListener("touchend", stopDraggingTouch);
+    }
+
+    progressThumb.addEventListener("touchstart", startDraggingTouch);
+
+    // Allow updating progress with mouse wheel scroll
     progressContainer.addEventListener("wheel", (e) => {
       e.preventDefault(); // Prevent page scroll
       const step = 5; // seconds to adjust per wheel tick
@@ -773,9 +843,8 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     });
 
-    // --- NEW: Allow updating progress with touch drag ---
+    // Allow updating progress with touch drag
     progressContainer.addEventListener("touchstart", function (e) {
-      // A helper function to update currentTime based on touch position.
       const updateTime = (clientX) => {
         const rect = progressContainer.getBoundingClientRect();
         const offsetX = clientX - rect.left;
@@ -878,7 +947,6 @@ document.addEventListener("DOMContentLoaded", function () {
   // Inject controls with structure similar to the provided video controls markup.
   function injectAudioControls(container, audio, index) {
     const controls = document.createElement("div");
-    // Using the same class name as your video controls markup.
     controls.className = "arabica_video-controls";
 
     // Play/Pause button.
@@ -917,6 +985,10 @@ document.addEventListener("DOMContentLoaded", function () {
     progressBar.className = "progress-bar";
     progressBar.id = "progressBar-" + index;
     progressContainer.appendChild(progressBar);
+    // Add progress thumb
+    const progressThumb = document.createElement("div");
+    progressThumb.className = "progress-thumb";
+    progressContainer.appendChild(progressThumb);
     controls.appendChild(progressContainer);
 
     // Duration display.
@@ -949,6 +1021,7 @@ document.addEventListener("DOMContentLoaded", function () {
       "#progressContainer-" + index
     );
     const progressBar = container.querySelector("#progressBar-" + index);
+    const progressThumb = progressContainer.querySelector(".progress-thumb");
     const currentTimeEl = container.querySelector("#currentTime-" + index);
     const durationEl = container.querySelector("#duration-" + index);
     const volumeBtn = container.querySelector("#volume-" + index);
@@ -970,7 +1043,6 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     playPauseBtn.addEventListener("click", togglePlay);
-    // Also allow clicking on the audio element itself to toggle play/pause.
     audio.addEventListener("click", togglePlay);
 
     // Restart functionality.
@@ -985,6 +1057,7 @@ document.addEventListener("DOMContentLoaded", function () {
       if (audio.duration) {
         const progressPercent = (audio.currentTime / audio.duration) * 100;
         progressBar.style.width = `${progressPercent}%`;
+        progressThumb.style.left = `${progressPercent}%`;
         currentTimeEl.textContent = formatTime(audio.currentTime);
       }
     });
@@ -995,24 +1068,87 @@ document.addEventListener("DOMContentLoaded", function () {
         (e.offsetX / progressContainer.offsetWidth) * audio.duration;
     });
 
-    // --- Allow mouse wheel scrolling on progress container ---
+    // Dragging logic for progress thumb
+    let isDragging = false;
+
+    function startDragging(e) {
+      if (!isFinite(audio.duration)) return;
+      isDragging = true;
+      document.addEventListener("mousemove", drag);
+      document.addEventListener("mouseup", stopDragging);
+    }
+
+    function drag(e) {
+      if (!isDragging) return;
+      const rect = progressContainer.getBoundingClientRect();
+      const offsetX = e.clientX - rect.left;
+      const newPercent = Math.max(
+        0,
+        Math.min(100, (offsetX / rect.width) * 100)
+      );
+      const newTime = (newPercent / 100) * audio.duration;
+      audio.currentTime = newTime;
+      progressBar.style.width = `${newPercent}%`;
+      progressThumb.style.left = `${newPercent}%`;
+    }
+
+    function stopDragging() {
+      isDragging = false;
+      document.removeEventListener("mousemove", drag);
+      document.removeEventListener("mouseup", stopDragging);
+    }
+
+    progressThumb.addEventListener("mousedown", startDragging);
+
+    // Touch events for dragging
+    function startDraggingTouch(e) {
+      if (!isFinite(audio.duration)) return;
+      e.preventDefault();
+      if (e.touches.length > 0) {
+        isDragging = true;
+        document.addEventListener("touchmove", dragTouch, { passive: false });
+        document.addEventListener("touchend", stopDraggingTouch);
+      }
+    }
+
+    function dragTouch(e) {
+      if (!isDragging || e.touches.length === 0) return;
+      e.preventDefault();
+      const rect = progressContainer.getBoundingClientRect();
+      const offsetX = e.touches[0].clientX - rect.left;
+      const newPercent = Math.max(
+        0,
+        Math.min(100, (offsetX / rect.width) * 100)
+      );
+      const newTime = (newPercent / 100) * audio.duration;
+      audio.currentTime = newTime;
+      progressBar.style.width = `${newPercent}%`;
+      progressThumb.style.left = `${newPercent}%`;
+    }
+
+    function stopDraggingTouch() {
+      isDragging = false;
+      document.removeEventListener("touchmove", dragTouch);
+      document.removeEventListener("touchend", stopDraggingTouch);
+    }
+
+    progressThumb.addEventListener("touchstart", startDraggingTouch);
+
+    // Allow mouse wheel scrolling on progress container
     progressContainer.addEventListener("wheel", (e) => {
       e.preventDefault();
-      // Adjust current time by 1% of duration per wheel event.
       const increment = audio.duration * 0.01;
       if (e.deltaY < 0) {
-        // Scroll up: fast forward.
         audio.currentTime = Math.min(
           audio.duration,
           audio.currentTime + increment
         );
       } else {
-        // Scroll down: rewind.
         audio.currentTime = Math.max(0, audio.currentTime - increment);
       }
     });
 
-    // --- Allow touch scrolling on progress container ---
+    // Allow touch scrolling on progress container
     let touchStartX = null;
     progressContainer.addEventListener("touchstart", (e) => {
       if (e.touches.length > 0) {
@@ -1026,13 +1162,12 @@ document.addEventListener("DOMContentLoaded", function () {
         let touchX = e.touches[0].clientX;
         let deltaX = touchX - touchStartX;
         let containerWidth = progressContainer.offsetWidth;
-        // Calculate change in time based on swipe distance.
         let timeDelta = (deltaX / containerWidth) * audio.duration;
         audio.currentTime = Math.max(
           0,
           Math.min(audio.duration, audio.currentTime + timeDelta)
         );
-        touchStartX = touchX; // update start position for continuous swiping
+        touchStartX = touchX;
       }
     });
 
@@ -1704,31 +1839,40 @@ document.addEventListener("DOMContentLoaded", () => {
   // only on desktop
   if (window.innerWidth < 768) return;
 
-  // find every gallery container
   document
     .querySelectorAll(".arabica_article-gallery-container")
     .forEach((container) => {
-      // skip if no mobile-gallery items inside
       if (!container.querySelector(".arabica_article-mobile-gallery")) return;
 
-      // wrap in a non‑scrolling parent
+      // wrap & prepare positioning context
       const wrapper = document.createElement("div");
       wrapper.className = "slider-container";
+      wrapper.style.position = "relative"; // make wrapper the positioning parent
       container.parentNode.insertBefore(wrapper, container);
       wrapper.appendChild(container);
 
-      // create prev/next buttons
-      const prev = Object.assign(document.createElement("button"), {
-        className: "slider-btn prev hidden",
-        textContent: "‹",
-      });
-      const next = Object.assign(document.createElement("button"), {
-        className: "slider-btn next hidden",
-        textContent: "›",
-      });
+      // create SVG buttons
+      const prev = document.createElement("button");
+      prev.className = "slider-btn prev hidden";
+      prev.setAttribute("aria-label", "Previous");
+      prev.style.position = "absolute"; // absolutely position them
+      prev.innerHTML = `
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+          <path fill="#ffffff" d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6z"/>
+        </svg>`;
+
+      const next = document.createElement("button");
+      next.className = "slider-btn next hidden";
+      next.setAttribute("aria-label", "Next");
+      next.style.position = "absolute";
+      next.innerHTML = `
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+          <path fill="#ffffff" d="M15.41 16.59L10.83 12l4.58-4.59L14 6l-6 6 6 6z"/>
+        </svg>`;
+
       wrapper.append(prev, next);
 
-      // detect RTL
+      // determine LTR/RTL placement
       const isRtl = getComputedStyle(container).direction === "rtl";
       if (isRtl) {
         prev.style.right = "8px";
@@ -1738,26 +1882,24 @@ document.addEventListener("DOMContentLoaded", () => {
         next.style.right = "8px";
       }
 
-      // grab items and compute scroll step
+      // grab items for scroll-step logic
       const items = container.querySelectorAll(
         ".arabica_article-mobile-gallery"
       );
       const gap = parseInt(getComputedStyle(container).gap) || 0;
       const step = () => items[0].getBoundingClientRect().width + gap;
 
-      // show/hide buttons based on scroll position
+      // show/hide buttons based on scroll
       function updateButtons() {
-        const rawScroll = container.scrollLeft;
-        const normScroll = isRtl ? -rawScroll : rawScroll;
-        const maxScroll = container.scrollWidth - container.clientWidth;
-
-        prev.classList.toggle("visible", normScroll > 1);
-        prev.classList.toggle("hidden", normScroll <= 1);
-        next.classList.toggle("visible", normScroll + 1 < maxScroll);
-        next.classList.toggle("hidden", normScroll + 1 >= maxScroll);
+        const raw = container.scrollLeft;
+        const norm = isRtl ? -raw : raw;
+        const max = container.scrollWidth - container.clientWidth;
+        prev.classList.toggle("visible", norm > 1);
+        prev.classList.toggle("hidden", norm <= 1);
+        next.classList.toggle("visible", norm + 1 < max);
+        next.classList.toggle("hidden", norm + 1 >= max);
       }
 
-      // attach scroll logic
       prev.addEventListener("click", () => {
         container.scrollBy({
           left: isRtl ? step() : -step(),
@@ -1773,7 +1915,23 @@ document.addEventListener("DOMContentLoaded", () => {
       container.addEventListener("scroll", updateButtons);
       window.addEventListener("resize", updateButtons);
 
-      // initial state
+      // ——— NEW: center buttons on the image ——–
+      const img = container.querySelector("img");
+      function positionButtons() {
+        // get image mid‑point relative to wrapper
+        const imgRect = img.getBoundingClientRect();
+        const wrapRect = wrapper.getBoundingClientRect();
+        const centerY = imgRect.top - wrapRect.top + imgRect.height / 2;
+        prev.style.top = `${centerY}px`;
+        next.style.top = `${centerY}px`;
+      }
+      window.addEventListener("resize", positionButtons);
+      container.addEventListener("scroll", positionButtons);
+      // initial placement
+      positionButtons();
+      // ————————————————————————
+
+      // initial visibility state
       updateButtons();
     });
 });
