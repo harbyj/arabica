@@ -1436,7 +1436,9 @@ document.addEventListener("DOMContentLoaded", () => {
   document
     .querySelectorAll(".arabica_article-gallery-container")
     .forEach((container) => {
-      const isMobile = window.matchMedia("(max-width: 767px)").matches;
+      const isMobile = window.matchMedia(
+        "only screen and (max-width: 767px)"
+      ).matches;
       const selector = isMobile
         ? ".arabica_article-image-gallery, .arabica_article-mobile-gallery"
         : ".arabica_article-image-gallery";
@@ -1613,7 +1615,7 @@ document.addEventListener("DOMContentLoaded", () => {
          MOBILE GALLERY LIGHTBOX ON DESKTOP
          (for .arabica_article-mobile-gallery on desktop without slider)
       ------------------------------ */
-  if (!window.matchMedia("(max-width: 767px)").matches) {
+  if (!window.matchMedia("only screen and (max-width: 767px)").matches) {
     document
       .querySelectorAll(
         ".arabica_article-gallery-container .arabica_article-mobile-gallery a"
