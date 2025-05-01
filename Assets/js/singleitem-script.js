@@ -136,14 +136,21 @@ if (!referenceFound) {
 }
 
 document.addEventListener("DOMContentLoaded", function () {
+  function smoothScroll(el) {
+    el.scrollIntoView({
+      behavior: "smooth",
+      block: "start"
+    });
+  }
+
   const contentContainer = document.querySelector(".arabica_article-content");
-  const tocContainer = document.querySelector(".arabica_article-table-content");
-  const footContainer = document.querySelector(".arabica_foot-container");
+  const tocContainer     = document.querySelector(".arabica_article-table-content");
+  const footContainer    = document.querySelector(".arabica_foot-container");
 
   if (contentContainer && tocContainer) {
-    let tocHTML = "";
+    let tocHTML        = "";
     let currentSection = "";
-    let index = 0;
+    let index          = 0;
 
     // Function to process a container's headings (h2 & h3)
     const processHeadings = (container) => {
@@ -160,11 +167,16 @@ document.addEventListener("DOMContentLoaded", function () {
             tocHTML += "</div>";
           }
           // Start a new section for H2
-          currentSection = `<div class="arabica_toc-section"><a href="#${heading.id}" class="arabica_toc-link">${heading.innerText}</a>`;
+          currentSection = `<div class="arabica_toc-section">
+                              <a href="#${heading.id}" class="arabica_toc-link">
+                                ${heading.innerText}
+                              </a>`;
           tocHTML += currentSection;
         } else if (heading.tagName === "H3") {
           // Append H3 as an indented link
-          tocHTML += `<a href="#${heading.id}" class="arabica_toc-link arabica_toc-indent">${heading.innerText}</a>`;
+          tocHTML += `<a href="#${heading.id}" class="arabica_toc-link arabica_toc-indent">
+                        ${heading.innerText}
+                      </a>`;
         }
       });
     };
@@ -187,12 +199,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
     tocContainer.innerHTML = tocHTML;
 
-    // Apply smooth scrolling to TOC links
-    const tocLinks = document.querySelectorAll(".arabica_toc-link");
+    // ========== Apply smooth scrolling to TOC links ==========
+    const tocLinks = tocContainer.querySelectorAll(".arabica_toc-link");
     tocLinks.forEach((link) => {
       link.addEventListener("click", function (event) {
         event.preventDefault(); // Prevent default jump
-        const targetId = this.getAttribute("href").substring(1);
+        const targetId      = this.getAttribute("href").substring(1);
         const targetElement = document.getElementById(targetId);
         if (targetElement) {
           smoothScroll(targetElement);
@@ -200,13 +212,13 @@ document.addEventListener("DOMContentLoaded", function () {
       });
     });
 
-    // ============== Active TOC Link on Scroll ==============
-    // Combine all headings from the article and foot containers.
+    // ========== Active TOC Link on Scroll ==========
     const headings = document.querySelectorAll(
-      ".arabica_article-content h2, .arabica_article-content h3, .arabica_foot-container h2, .arabica_foot-container h3"
+      ".arabica_article-content h2, .arabica_article-content h3, " +
+      ".arabica_foot-container h2, .arabica_foot-container h3"
     );
 
-    const updateActiveTOC = function () {
+    const updateActiveTOC = () => {
       let currentId = "";
       const threshold = 100;
 
@@ -219,17 +231,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
       tocLinks.forEach((link) => {
         const linkTarget = link.getAttribute("href").substring(1);
-        if (linkTarget === currentId) {
-          link.classList.add("active");
-        } else {
-          link.classList.remove("active");
-        }
+        link.classList.toggle("active", linkTarget === currentId);
       });
     };
 
-    // Listen to scroll events to update the active TOC link.
     document.addEventListener("scroll", updateActiveTOC);
-    // Initial call
+    // Initial activation
     updateActiveTOC();
   }
 });
