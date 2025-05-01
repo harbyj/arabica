@@ -1208,7 +1208,7 @@ document.addEventListener("DOMContentLoaded", function () {
 document.addEventListener("DOMContentLoaded", () => {
   /* ------------------------------
          GLOBAL LIGHTBOX SETUP
-      ------------------------------ */
+     ------------------------------ */
   const lightbox = document.createElement("div");
   lightbox.classList.add("arabica_article_lightbox");
 
@@ -1217,9 +1217,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const closeBtn = document.createElement("span");
   closeBtn.classList.add("arabica_article_close-btn");
-  closeBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
-      <path fill="#ffffff" d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
-    </svg>`;
+  closeBtn.innerHTML = `
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+      <path fill="#ffffff"
+            d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12
+               5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+    </svg>
+  `;
 
   const lightboxImg = document.createElement("img");
   lightboxImg.id = "lightbox-img";
@@ -1228,12 +1232,12 @@ document.addEventListener("DOMContentLoaded", () => {
   lightboxCaption.classList.add("arabica_article_lightbox-caption");
   lightboxCaption.id = "lightbox-caption";
 
-  // Gallery grid (for when multiple images exist)
+  // Gallery grid (for multi-image lightbox)
   const galleryGrid = document.createElement("div");
   galleryGrid.classList.add("arabica_article_lightbox-gallery-grid");
   galleryGrid.style.display = "none";
 
-  // Append elements to lightbox
+  // build DOM
   lightbox.appendChild(closeBtn);
   lightboxContent.appendChild(lightboxImg);
   lightboxContent.appendChild(lightboxCaption);
@@ -1244,18 +1248,18 @@ document.addEventListener("DOMContentLoaded", () => {
   let currentGallery = [];
   let currentIndex = 0;
   let lbTouchStartX = 0;
-  let lbTouchEndX = 0;
+  let lbTouchEndX   = 0;
 
-  function openLightbox(imgSrc, imgAlt, caption, gallery = []) {
-    lightboxImg.setAttribute("src", imgSrc);
-    lightboxImg.setAttribute("alt", imgAlt);
+  function openLightbox(src, alt, caption, gallery = []) {
+    lightboxImg.src         = src;
+    lightboxImg.alt         = alt;
     lightboxCaption.textContent = caption;
     lightbox.classList.add("active");
     document.body.classList.add("no-scroll");
 
     if (gallery.length > 1) {
       currentGallery = gallery;
-      currentIndex = gallery.findIndex((item) => item.src === imgSrc);
+      currentIndex   = gallery.findIndex(item => item.src === src);
       updateGalleryGrid(gallery);
       galleryGrid.style.display = "flex";
     } else {
@@ -1268,7 +1272,6 @@ document.addEventListener("DOMContentLoaded", () => {
   function closeLightbox() {
     lightbox.classList.add("closing");
     document.body.classList.remove("no-scroll");
-
     setTimeout(() => {
       lightbox.classList.remove("active", "closing");
       currentGallery = [];
@@ -1278,380 +1281,342 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function updateGalleryGrid(gallery) {
     galleryGrid.innerHTML = gallery
-      .map(
-        (item, index) =>
-          `<img src="${item.src}" alt="${
-            item.alt
-          }" data-index="${index}" class="${
-            index === currentIndex ? "active" : ""
-          }">`
+      .map((item, i) =>
+        `<img
+           src="${item.src}"
+           alt="${item.alt}"
+           data-index="${i}"
+           class="${i === currentIndex ? 'active' : ''}"
+         >`
       )
       .join("");
 
-    const activeImg = galleryGrid.querySelector(
-      `[data-index="${currentIndex}"]`
-    );
+    const activeImg = galleryGrid.querySelector(`[data-index="${currentIndex}"]`);
     if (activeImg) {
       activeImg.classList.add("active");
-
       requestAnimationFrame(() => {
-        const viewportWidth = window.innerWidth;
-        const gridWidth = galleryGrid.scrollWidth;
+        const vw = window.innerWidth;
+        const gw = galleryGrid.scrollWidth;
 
-        if (gridWidth > viewportWidth) {
+        if (gw > vw) {
           galleryGrid.style.left = "0";
-          const activeCenter = activeImg.offsetLeft + activeImg.offsetWidth / 2;
-          const idealTranslate = viewportWidth / 2 - activeCenter;
-          const maxTranslate = 0;
-          const minTranslate = viewportWidth - gridWidth;
-          const clampedTranslate = Math.min(
-            maxTranslate,
-            Math.max(idealTranslate, minTranslate)
-          );
-          galleryGrid.style.transition = "transform 0.3s ease-in-out";
-          galleryGrid.style.transform = `translateX(${clampedTranslate}px)`;
+          const center = activeImg.offsetLeft + activeImg.offsetWidth / 2;
+          const idealTranslate = vw / 2 - center;
+          const clamped = Math.min(0, Math.max(vw - gw, idealTranslate));
+          galleryGrid.style.transition  = "transform 0.3s ease-in-out";
+          galleryGrid.style.transform   = `translateX(${clamped}px)`;
         } else {
-          galleryGrid.style.left = "";
-          galleryGrid.style.transform = "";
-          galleryGrid.style.transition = "";
+          galleryGrid.style.removeProperty("left");
+          galleryGrid.style.removeProperty("transform");
+          galleryGrid.style.removeProperty("transition");
         }
       });
     }
   }
 
-  let gridTouchStartX = 0;
-  let currentGridTranslateX = 0;
+  let gridTouchStartX      = 0;
+  let currentGridTranslate = 0;
 
-  galleryGrid.addEventListener("touchstart", (e) => {
-    const viewportWidth = window.innerWidth;
-    const gridWidth = galleryGrid.scrollWidth;
-    if (gridWidth > viewportWidth) {
+  galleryGrid.addEventListener("touchstart", e => {
+    const vw = window.innerWidth;
+    const gw = galleryGrid.scrollWidth;
+    if (gw > vw) {
       gridTouchStartX = e.touches[0].clientX;
       galleryGrid.style.transition = "none";
     }
   });
 
-  galleryGrid.addEventListener("touchmove", (e) => {
-    const viewportWidth = window.innerWidth;
-    const gridWidth = galleryGrid.scrollWidth;
-    if (gridWidth > viewportWidth) {
-      const touchCurrentX = e.touches[0].clientX;
-      const deltaX = touchCurrentX - gridTouchStartX;
-      let newTranslateX = currentGridTranslateX + deltaX;
-      const maxTranslate = 0;
-      const minTranslate = viewportWidth - gridWidth;
-      if (newTranslateX > maxTranslate) newTranslateX = maxTranslate;
-      if (newTranslateX < minTranslate) newTranslateX = minTranslate;
-      galleryGrid.style.transform = `translateX(${newTranslateX}px)`;
+  galleryGrid.addEventListener("touchmove", e => {
+    const vw = window.innerWidth;
+    const gw = galleryGrid.scrollWidth;
+    if (gw > vw) {
+      let delta = e.touches[0].clientX - gridTouchStartX;
+      let tx = currentGridTranslate + delta;
+      tx = Math.min(0, Math.max(vw - gw, tx));
+      galleryGrid.style.transform = `translateX(${tx}px)`;
     }
   });
 
   galleryGrid.addEventListener("touchend", () => {
-    const viewportWidth = window.innerWidth;
-    const gridWidth = galleryGrid.scrollWidth;
-    if (gridWidth > viewportWidth) {
-      const style = window.getComputedStyle(galleryGrid);
-      const matrix = new DOMMatrixReadOnly(style.transform);
-      currentGridTranslateX = matrix.m41;
+    const vw = window.innerWidth;
+    const gw = galleryGrid.scrollWidth;
+    if (gw > vw) {
+      const matrix = new DOMMatrixReadOnly(getComputedStyle(galleryGrid).transform);
+      currentGridTranslate = matrix.m41;
       galleryGrid.style.transition = "transform 0.3s ease-in-out";
     }
   });
 
   function updateLightboxContent() {
     const { src, alt, caption } = currentGallery[currentIndex];
-    lightboxImg.style.opacity = 0;
+    lightboxImg.style.opacity = "0";
     setTimeout(() => {
-      lightboxImg.setAttribute("src", src);
-      lightboxImg.setAttribute("alt", alt);
+      lightboxImg.src = src;
+      lightboxImg.alt = alt;
       lightboxCaption.textContent = caption;
       updateGalleryGrid(currentGallery);
-      lightboxImg.style.opacity = 1;
+      lightboxImg.style.opacity = "1";
     }, 150);
   }
 
-  function showNextImage() {
-    if (currentGallery.length > 0) {
+  const showNextImage = () => {
+    if (currentGallery.length) {
       currentIndex = (currentIndex + 1) % currentGallery.length;
       updateLightboxContent();
     }
-  }
+  };
 
-  function showPrevImage() {
-    if (currentGallery.length > 0) {
-      currentIndex =
-        (currentIndex - 1 + currentGallery.length) % currentGallery.length;
+  const showPrevImage = () => {
+    if (currentGallery.length) {
+      currentIndex = (currentIndex - 1 + currentGallery.length) % currentGallery.length;
       updateLightboxContent();
     }
-  }
+  };
 
   closeBtn.addEventListener("click", closeLightbox);
-  lightbox.addEventListener("click", (e) => {
+  lightbox.addEventListener("click", e => {
     if (e.target === lightbox) closeLightbox();
   });
 
-  document.addEventListener("keydown", (e) => {
+  document.addEventListener("keydown", e => {
     if (e.key === "Escape") closeLightbox();
     if (e.key === "ArrowRight" || e.key === "ArrowDown") showNextImage();
-    else if (e.key === "ArrowLeft" || e.key === "ArrowUp") showPrevImage();
+    if (e.key === "ArrowLeft"  || e.key === "ArrowUp")   showPrevImage();
   });
 
-  let lastWheelTime = 0;
-  lightbox.addEventListener(
-    "wheel",
-    (e) => {
-      e.preventDefault();
-      const now = Date.now();
-      if (now - lastWheelTime < 400) return;
-      lastWheelTime = now;
-      if (e.deltaY > 0) showNextImage();
-      else if (e.deltaY < 0) showPrevImage();
-    },
-    { passive: false }
-  );
+  let lastWheel = 0;
+  lightbox.addEventListener("wheel", e => {
+    e.preventDefault();
+    const now = Date.now();
+    if (now - lastWheel < 400) return;
+    lastWheel = now;
+    if (e.deltaY > 0) showNextImage();
+    if (e.deltaY < 0) showPrevImage();
+  }, { passive: false });
 
-  galleryGrid.addEventListener("click", (e) => {
+  galleryGrid.addEventListener("click", e => {
     if (e.target.tagName === "IMG") {
-      const index = parseInt(e.target.getAttribute("data-index"), 10);
-      currentIndex = index;
+      currentIndex = parseInt(e.target.dataset.index, 10);
       updateLightboxContent();
     }
   });
 
-  lightboxImg.addEventListener("touchstart", (e) => {
-    lbTouchStartX = e.touches[0].clientX;
-  });
-  lightboxImg.addEventListener("touchmove", (e) => {
-    lbTouchEndX = e.touches[0].clientX;
-  });
-  lightboxImg.addEventListener("touchend", () => {
+  lightboxImg.addEventListener("touchstart", e => { lbTouchStartX = e.touches[0].clientX; });
+  lightboxImg.addEventListener("touchmove",  e => { lbTouchEndX   = e.touches[0].clientX; });
+  lightboxImg.addEventListener("touchend",   () => {
     if (lbTouchStartX - lbTouchEndX > 50) showNextImage();
-    else if (lbTouchEndX - lbTouchStartX > 50) showPrevImage();
+    if (lbTouchEndX - lbTouchStartX > 50) showPrevImage();
   });
 
   /* ------------------------------
          GALLERY SLIDER SETUP
-         (for .arabica_article-image-gallery on all screens and
-          .arabica_article-mobile-gallery on mobile only)
-      ------------------------------ */
-  document
-    .querySelectorAll(".arabica_article-gallery-container")
-    .forEach((container) => {
-      const isMobile = window.matchMedia(
-        "only screen and (max-width: 767px)"
-      ).matches;
-      const selector = isMobile
-        ? ".arabica_article-image-gallery, .arabica_article-mobile-gallery"
-        : ".arabica_article-image-gallery";
+     ------------------------------ */
+  document.querySelectorAll(".arabica_article-gallery-container").forEach(container => {
+    const isMobile = window.matchMedia("only screen and (max-width: 767px)").matches;
+    const selector = (
+      isMobile ? ".arabica_article-image-gallery, .arabica_article-mobile-gallery"
+        : ".arabica_article-image-gallery"
+    );
 
-      const galleryItems = container.querySelectorAll(selector);
-      if (galleryItems.length > 0) {
-        const slider = document.createElement("div");
-        slider.className = "arabica_article_slider";
-        slider.style.position = "relative";
+    const galleryItems = container.querySelectorAll(selector);
+    if (!galleryItems.length) return;
 
-        const sliderWrapper = document.createElement("div");
-        sliderWrapper.className = "arabica_article_slider_wrapper";
+    const slider        = document.createElement("div");
+    slider.className    = "arabica_article_slider";
+    slider.style.position = "relative";
 
-        galleryItems.forEach((item) => {
-          sliderWrapper.appendChild(item);
-        });
-        slider.appendChild(sliderWrapper);
+    const sliderWrapper = document.createElement("div");
+    sliderWrapper.className = "arabica_article_slider_wrapper";
 
-        const prevSliderBtn = document.createElement("button");
-        prevSliderBtn.className =
-          "arabica_article_slider-nav arabica_article_slider-prev";
-        prevSliderBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
-          <path fill="#ffffff" d="M15.41 16.59L10.83 12l4.58-4.59L14 6l-6 6 6 6z"></path>
-        </svg>`;
-        const nextSliderBtn = document.createElement("button");
-        nextSliderBtn.className =
-          "arabica_article_slider-nav arabica_article_slider-next";
-        nextSliderBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
-          <path fill="#ffffff" d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6z"></path>
-        </svg>`;
-        slider.appendChild(prevSliderBtn);
-        slider.appendChild(nextSliderBtn);
+    galleryItems.forEach(item => sliderWrapper.appendChild(item));
+    slider.appendChild(sliderWrapper);
 
-        const sliderCounter = document.createElement("span");
-        sliderCounter.className = "arabica_article_slider-counter";
-        sliderCounter.innerHTML = `<i class="fa-regular fa-images"></i> 1 / ${galleryItems.length}`;
-        slider.appendChild(sliderCounter);
+    const prevBtn = document.createElement("button");
+    prevBtn.className = "arabica_article_slider-nav arabica_article_slider-prev";
+    prevBtn.innerHTML = `
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+        <path fill="#ffffff" d="M15.41 16.59L10.83 12l4.58-4.59L14 6l-6 6 6 6z"/>
+      </svg>
+    `;
 
-        container.innerHTML = "";
-        container.appendChild(slider);
+    const nextBtn = document.createElement("button");
+    nextBtn.className = "arabica_article_slider-nav arabica_article_slider-next";
+    nextBtn.innerHTML = `
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+        <path fill="#ffffff" d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6z"/>
+      </svg>
+    `;
 
-        let currentSlide = 0;
-        let sliderWidth = slider.offsetWidth;
-        let startX = 0,
-          startY = 0;
-        let isDragging = false,
-          isHorizontalDrag = false;
+    const counter = document.createElement("span");
+    counter.className = "arabica_article_slider-counter";
+    counter.innerHTML = `<i class="fa-regular fa-images"></i> 1 / ${galleryItems.length}`;
 
-        const setSliderPosition = () => {
-          sliderWrapper.style.transform = `translateX(-${
-            currentSlide * sliderWidth
-          }px)`;
-        };
-        const updateSliderHeight = () => {
-          const el = sliderWrapper.children[currentSlide];
-          if (el) slider.style.height = el.offsetHeight + "px";
-        };
-        const updateNavButtonsPosition = () => {
-          const el = sliderWrapper.children[currentSlide]?.querySelector("img");
-          if (el) {
-            const imgRect = el.getBoundingClientRect();
-            const sliderRect = slider.getBoundingClientRect();
-            const centerY = imgRect.top - sliderRect.top + el.offsetHeight / 2;
-            prevSliderBtn.style.top = nextSliderBtn.style.top = centerY + "px";
-          }
-        };
-        const updateCounter = () => {
-          sliderCounter.innerHTML = `<i class="fa-regular fa-images"></i> ${
-            currentSlide + 1
-          } / ${galleryItems.length}`;
-          const caption =
-            sliderWrapper.children[currentSlide]?.querySelector("figcaption");
-          const gap = caption ? caption.offsetHeight + 10 : 10;
-          sliderCounter.style.bottom = `${gap}px`;
-        };
-        const updateSliderLayout = () => {
-          sliderWidth = slider.offsetWidth;
-          setSliderPosition();
-          updateSliderHeight();
-          updateNavButtonsPosition();
-          updateCounter();
-        };
+    slider.append(prevBtn, nextBtn, counter);
+    container.innerHTML = "";
+    container.appendChild(slider);
 
-        // init
-        slider.style.height = sliderWrapper.children[0].offsetHeight + "px";
-        updateSliderLayout();
-        window.addEventListener("resize", updateSliderLayout);
+    let currentSlide      = 0;
+    let sliderWidth       = slider.offsetWidth;
+    let startX            = 0;
+    let startY            = 0;
+    let isDragging        = false;
+    let isHorizontalDrag  = false;
 
-        function nextSlide() {
-          currentSlide = (currentSlide + 1) % galleryItems.length;
-          sliderWrapper.style.transition = "transform 0.3s ease-in-out";
-          setSliderPosition();
-          updateSliderLayout();
-        }
-        function prevSlide() {
-          currentSlide =
-            (currentSlide - 1 + galleryItems.length) % galleryItems.length;
-          sliderWrapper.style.transition = "transform 0.3s ease-in-out";
-          setSliderPosition();
-          updateSliderLayout();
-        }
-        nextSliderBtn.addEventListener("click", nextSlide);
-        prevSliderBtn.addEventListener("click", prevSlide);
+    const setSliderPosition = () => {
+      sliderWrapper.style.transform = `translateX(-${currentSlide * sliderWidth}px)`;
+    };
 
-        sliderWrapper.addEventListener("touchstart", (e) => {
-          isDragging = true;
-          isHorizontalDrag = false;
-          startX = e.touches[0].clientX;
-          startY = e.touches[0].clientY;
-          sliderWrapper.style.transition = "none";
-        });
-        sliderWrapper.addEventListener("touchmove", (e) => {
-          if (!isDragging) return;
-          const dx = e.touches[0].clientX - startX;
-          const dy = e.touches[0].clientY - startY;
-          if (!isHorizontalDrag) {
-            if (Math.abs(dx) > Math.abs(dy)) isHorizontalDrag = true;
-            else return;
-          }
-          sliderWrapper.style.transform = `translateX(-${
-            currentSlide * sliderWidth - dx
-          }px)`;
-        });
-        sliderWrapper.addEventListener("touchend", (e) => {
-          if (!isDragging) return;
-          isDragging = false;
-          const dx = e.changedTouches[0].clientX - startX;
-          if (isHorizontalDrag) {
-            if (dx < -50) nextSlide();
-            else if (dx > 50) prevSlide();
-            else setSliderPosition();
-          } else setSliderPosition();
-          sliderWrapper.style.transition = "transform 0.3s ease-in-out";
-        });
+    const updateSliderHeight = () => {
+      const el = sliderWrapper.children[currentSlide];
+      if (el) slider.style.height = `${el.offsetHeight}px`;
+    };
 
-        // lightbox hookup on click
-        sliderWrapper.querySelectorAll("a").forEach((link) => {
-          link.addEventListener("click", (e) => {
-            const href = link.getAttribute("href");
-            if (/\.(jpg|jpeg|png|gif|webp|svg)$/i.test(href)) {
-              e.preventDefault();
-              const img = link.querySelector("img");
-              const captionElem = link.nextElementSibling;
-              const caption =
-                captionElem?.tagName.toLowerCase() === "figcaption"
-                  ? captionElem.textContent
-                  : "";
-              const gallery = Array.from(container.querySelectorAll("a")).map(
-                (a) => {
-                  return {
-                    src: a.getAttribute("href"),
-                    alt: a.querySelector("img")?.getAttribute("alt") || "",
-                    caption:
-                      a.nextElementSibling?.tagName.toLowerCase() ===
-                      "figcaption"
-                        ? a.nextElementSibling.textContent
-                        : "",
-                  };
-                }
-              );
-              openLightbox(
-                href,
-                img?.getAttribute("alt") || "",
-                caption,
-                gallery
-              );
-            }
-          });
-        });
+    const updateNavButtonsPosition = () => {
+      const slideEl = sliderWrapper.children[currentSlide];
+      if (!slideEl) return; // no slide, bail out
+
+      const imgEl = slideEl.querySelector("img");
+      if (imgEl) {
+        const imgRect = imgEl.getBoundingClientRect();
+        const sliderRect = slider.getBoundingClientRect();
+        const centerY = imgRect.top - sliderRect.top + imgEl.offsetHeight / 2;
+        prevBtn.style.top = `${centerY}px`;
+        nextBtn.style.top = `${centerY}px`;
       }
+    };
+
+    const updateCounter = () => {
+      counter.innerHTML = `<i class="fa-regular fa-images"></i> ${
+        currentSlide + 1
+      } / ${galleryItems.length}`;
+
+      const slideEl = sliderWrapper.children[currentSlide];
+      const capEl = slideEl ? slideEl.querySelector("figcaption") : null;
+      const gap = capEl ? capEl.offsetHeight + 10 : 10;
+      counter.style.bottom = `${gap}px`;
+    };
+
+    const updateSliderLayout = () => {
+      sliderWidth = slider.offsetWidth;
+      setSliderPosition();
+      updateSliderHeight();
+      updateNavButtonsPosition();
+      updateCounter();
+    };
+
+    // init
+    updateSliderLayout();
+    window.addEventListener("resize", updateSliderLayout);
+
+    const nextSlide = () => {
+      currentSlide = (currentSlide + 1) % galleryItems.length;
+      sliderWrapper.style.transition = "transform 0.3s ease-in-out";
+      setSliderPosition();
+      updateSliderLayout();
+    };
+
+    const prevSlide = () => {
+      currentSlide = (currentSlide - 1 + galleryItems.length) % galleryItems.length;
+      sliderWrapper.style.transition = "transform 0.3s ease-in-out";
+      setSliderPosition();
+      updateSliderLayout();
+    };
+
+    nextBtn.addEventListener("click", nextSlide);
+    prevBtn.addEventListener("click", prevSlide);
+
+    // touch ↔ drag
+    sliderWrapper.addEventListener("touchstart", e => {
+      isDragging = true;
+      isHorizontalDrag = false;
+      startX = e.touches[0].clientX;
+      startY = e.touches[0].clientY;
+      sliderWrapper.style.transition = "none";
     });
 
+    sliderWrapper.addEventListener("touchmove", e => {
+      if (!isDragging) return;
+      const dx = e.touches[0].clientX - startX;
+      const dy = e.touches[0].clientY - startY;
+      if (!isHorizontalDrag) {
+        if (Math.abs(dx) > Math.abs(dy)) isHorizontalDrag = true;
+        else return;
+      }
+      sliderWrapper.style.transform = `translateX(-${currentSlide * sliderWidth - dx}px)`;
+    });
+
+    sliderWrapper.addEventListener("touchend", e => {
+      if (!isDragging) return;
+      isDragging = false;
+      const dx = e.changedTouches[0].clientX - startX;
+      if (isHorizontalDrag) {
+        if (dx < -50) nextSlide();
+        else if (dx > 50) prevSlide();
+        else setSliderPosition();
+      } else {
+        setSliderPosition();
+      }
+      sliderWrapper.style.transition = "transform 0.3s ease-in-out";
+    });
+
+    // hookup lightbox on click
+    sliderWrapper.querySelectorAll("a").forEach(link => {
+      link.addEventListener("click", e => {
+        const href = link.href;
+        if (/\.(jpe?g|png|gif|webp|svg)$/i.test(href)) {
+          e.preventDefault();
+          const imgEl       = link.querySelector("img");
+          const altText     = imgEl ? imgEl.alt : "";
+          const captionText = link.nextElementSibling &&
+            link.nextElementSibling.tagName.toLowerCase() === "figcaption" ? link.nextElementSibling.textContent
+              : "";
+          const gallery = [...container.querySelectorAll("a")].map(a => ({
+            src: a.href,
+            alt: a.querySelector("img")?.alt || "",
+            caption:
+              a.nextElementSibling &&
+              a.nextElementSibling.tagName.toLowerCase() === "figcaption" ? a.nextElementSibling.textContent
+                : ""
+          }));
+          openLightbox(href, altText, captionText, gallery);
+        }
+      });
+    });
+  });
+
   /* ------------------------------
-         MOBILE GALLERY LIGHTBOX ON DESKTOP
-         (for .arabica_article-mobile-gallery on desktop without slider)
-      ------------------------------ */
+     MOBILE GALLERY LIGHTBOX ON DESKTOP
+     ------------------------------ */
   if (!window.matchMedia("only screen and (max-width: 767px)").matches) {
     document
       .querySelectorAll(
         ".arabica_article-gallery-container .arabica_article-mobile-gallery a"
       )
-      .forEach((link) => {
-        if (/\.(jpg|jpeg|png|gif|webp|svg)$/i.test(link.getAttribute("href"))) {
-          link.addEventListener("click", (e) => {
+      .forEach(link => {
+        const href = link.href;
+        if (/\.(jpe?g|png|gif|webp|svg)$/i.test(href)) {
+          link.addEventListener("click", e => {
             e.preventDefault();
-            const href = link.getAttribute("href");
-            const img = link.querySelector("img");
-            const captionElem = link.nextElementSibling;
-            const caption =
-              captionElem?.tagName.toLowerCase() === "figcaption"
-                ? captionElem.textContent
+            const imgEl       = link.querySelector("img");
+            const altText     = imgEl ? imgEl.alt : "";
+            const captionText =
+              link.nextElementSibling &&
+              link.nextElementSibling.tagName.toLowerCase() === "figcaption" ? link.nextElementSibling.textContent
                 : "";
-            const container = link.closest(
+            const containerEl = link.closest(
               ".arabica_article-gallery-container"
             );
-            const gallery = Array.from(
-              container.querySelectorAll(".arabica_article-mobile-gallery a")
-            ).map((a) => {
-              return {
-                src: a.getAttribute("href"),
-                alt: a.querySelector("img")?.getAttribute("alt") || "",
-                caption:
-                  a.nextElementSibling?.tagName.toLowerCase() === "figcaption"
-                    ? a.nextElementSibling.textContent
-                    : "",
-              };
-            });
-            openLightbox(
-              href,
-              img?.getAttribute("alt") || "",
-              caption,
-              gallery
-            );
+            const gallery = [...containerEl.querySelectorAll(
+              ".arabica_article-mobile-gallery a"
+            )].map(a => ({
+              src: a.href,
+              alt: a.querySelector("img")?.alt || "",
+              caption:
+                a.nextElementSibling &&
+                a.nextElementSibling.tagName.toLowerCase() === "figcaption" ? a.nextElementSibling.textContent
+                  : ""
+            }));
+            openLightbox(href, altText, captionText, gallery);
           });
         }
       });
@@ -1659,29 +1624,29 @@ document.addEventListener("DOMContentLoaded", () => {
 
   /* ------------------------------
          SINGLE IMAGE SETUP
-      ------------------------------ */
+     ------------------------------ */
   document
     .querySelectorAll(
-      ".arabica_article-content a, .arabica_article-image a, .arabica_news-content a, .arabica_news-image a"
+      ".arabica_article-content a, .arabica_article-image a, " +
+      ".arabica_news-content a, .arabica_news-image a"
     )
-    .forEach((anchor) => {
+    .forEach(anchor => {
+      const href = anchor.href;
       if (
-        /\.(jpg|jpeg|png|gif|webp|svg)$/i.test(anchor.getAttribute("href")) &&
+        /\.(jpe?g|png|gif|webp|svg)$/i.test(href) &&
         !anchor.closest(
           ".arabica_article-image-gallery, .arabica_article-mobile-gallery"
         )
       ) {
-        anchor.addEventListener("click", (e) => {
+        anchor.addEventListener("click", e => {
           e.preventDefault();
-          const href = anchor.getAttribute("href");
-          const img = anchor.querySelector("img");
-          const alt = img ? img.getAttribute("alt") : "";
-          const captionElem = anchor.nextElementSibling;
-          const caption =
-            captionElem && captionElem.tagName.toLowerCase() === "figcaption"
-              ? captionElem.textContent
+          const imgEl       = anchor.querySelector("img");
+          const altText     = imgEl ? imgEl.alt : "";
+          const captionText =
+            anchor.nextElementSibling &&
+            anchor.nextElementSibling.tagName.toLowerCase() === "figcaption" ? anchor.nextElementSibling.textContent
               : "";
-          openLightbox(href, alt, caption, []);
+          openLightbox(href, altText, captionText);
         });
       }
     });
