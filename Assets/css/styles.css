@@ -2,10 +2,6 @@
 body {
   font-family: "Bahij TheSansArabic";
 }
-html {
-  overflow-x: hidden;
-}
-
 .arabica_footer hr,
 hr {
   border-top: 0;
@@ -187,7 +183,7 @@ h5,
 h6 {
   margin-bottom: 10px;
 }
-@media (max-width: 767px) {
+@media screen and (max-width: 767px) {
   h1 {
     font-size: 2rem;
   }
@@ -296,8 +292,13 @@ hr.arabica_tab-show {
   list-style: none;
   display: flex;
   margin: 0;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  align-content: flex-end;
 }
 .arabica_nav ul li {
+  margin-bottom: 5px;
+  margin-top: 5px;
   margin-right: 10px;
 }
 .arabica_nav ul li a {
@@ -308,6 +309,8 @@ hr.arabica_tab-show {
   font-size: 14px;
   border-radius: 5px;
   transition: background 0.3s;
+  white-space: nowrap;
+  word-break: keep-all;
 }
 .menu-close,
 .menu-toggle {
@@ -1566,29 +1569,52 @@ a.arabica_latest-article-more:hover {
 .arabica_about-content figcaption,
 .arabica_article-content figcaption,
 .arabica_news-content figcaption {
-  text-align: center;
+  text-align: right;
+  padding: 8px;
+  background: #f7f7f7;
   color: #666;
-  margin-top: 5px;
   font-size: 14px;
 }
-.arabica_about-content table,
-.arabica_article-content table,
-.arabica_news-content table,
-.arabica_about-content table {
+table {
   width: 100%;
   border-collapse: collapse;
-  margin: 0 0 15px;
   background-color: #fff;
   text-align: right;
 }
-.arabica_about-content td,
-.arabica_about-content th,
-.arabica_article-content td,
-.arabica_article-content th,
-.arabica_news-content td,
-.arabica_news-content th {
+.arabica_table-container table:not(.arabica_facts):not(#Facts) {
+  margin-bottom: 0;
+}
+table:not(.arabica_facts):not(#Facts) {
+  margin-bottom: 15px;
+}
+@media screen {
+  .arabica_table-container {
+    overflow-x: auto;
+    border: 1px solid #ccc;
+    width: 100%;
+    margin-bottom: 15px;
+  }
+  .arabica_table-container table:not(.arabica_facts):not(#Facts),
+  .arabica_table-container table:not(.arabica_facts):not(#Facts) td,
+  .arabica_table-container table:not(.arabica_facts):not(#Facts) th {
+    white-space: nowrap;
+  }
+}
+table:not(.arabica_facts):not(#Facts) th {
+  background-color: #17355d;
+  color: #fff;
+}
+table:not(.arabica_facts):not(#Facts) td,
+table:not(.arabica_facts):not(#Facts) th {
   border: 1px solid #ccc;
   padding: 8px;
+}
+table td.dark-column {
+  background-color: #666 !important;
+  color: #fff;
+}
+table:not(.arabica_facts):not(#Facts) tr:nth-child(odd) td {
+  background-color: #eee;
 }
 .arabica_about-content code,
 .arabica_article-content code,
@@ -1602,7 +1628,7 @@ a.arabica_latest-article-more:hover {
 .arabica_article-content blockquote,
 .arabica_news-content blockquote {
   position: relative;
-  background: #f9f9f9;
+  background: #f7f7f7;
   padding: 30px;
   margin: 15px 0;
   font-style: normal;
@@ -1781,11 +1807,6 @@ a.arabica_latest-article-more:hover {
   }
   .arabica_pagination {
     gap: 20px;
-  }
-  .arabica_about-content table,
-  .arabica_article-content table,
-  .arabica_news-content table {
-    width: 100%;
   }
   .arabica_editor-info {
     display: flex;
@@ -2108,7 +2129,6 @@ a.arabica_latest-article-more:hover {
   .arabica_article-content figcaption,
   .arabica_news-content figcaption {
     font-size: 11px;
-    margin-top: 3px;
   }
   .arabica_about-content h2,
   .arabica_article-content h2,
@@ -2801,6 +2821,7 @@ input:checked + .arabica_toggle:before {
 [class*="float-right-"] {
   margin-left: 1em !important;
   float: right;
+  clear: right;
 }
 .float-right-30 {
   width: 30%;
@@ -2831,6 +2852,7 @@ input:checked + .arabica_toggle:before {
 }
 [class*="float-left-"] {
   float: left;
+  clear: left;
   margin-right: 1em !important;
 }
 .float-left-30 {
@@ -3178,10 +3200,10 @@ input:checked + .arabica_toggle:before {
   background: rgb(0 0 0 / 0.8);
 }
 .arabica_article_slider-prev {
-  left: 10px;
+  left: 8px;
 }
 .arabica_article_slider-next {
-  right: 10px;
+  right: 8px;
 }
 .arabica_article_lightbox {
   position: fixed;
@@ -3733,7 +3755,7 @@ input:checked + .arabica_toggle:before {
     margin-bottom: 10px;
   }
 }
-@media (max-width: 767px) {
+@media screen and (max-width: 767px) {
   [class*="float-right-"] {
     margin-left: 0 !important;
   }
@@ -4035,7 +4057,7 @@ audio {
   color: #b07f2a;
 }
 #Facts,
-.Facts {
+.arabica_facts {
   border: 1px solid #ccc;
   border-radius: 10px;
   padding-bottom: 15px;
@@ -4044,12 +4066,12 @@ audio {
   display: block;
 }
 #Facts td,
-.Facts td {
+.arabica_facts td {
   border: 0;
   padding: 15px 15px 0;
 }
 #Facts p:last-of-type,
-.Facts p:last-of-type {
+.arabica_facts p:last-of-type {
   margin-bottom: 0;
 }
 .arabica_sticky-sidebar {
@@ -4060,21 +4082,21 @@ audio {
 }
 caption {
   text-align: center;
-  color: #666;
+  font-weight: 600;
   margin-bottom: 5px;
 }
 #Facts .arabica_article-image,
-.Facts .arabica_article-image,
+.arabica_facts .arabica_article-image,
 #Facts .arabica_news-image,
-.Facts .arabica_news-image,
+.arabica_facts .arabica_news-image,
 #Facts .arabica_about-image,
-.Facts .arabica_about-image {
+.arabica_facts .arabica_about-image {
   padding: 0;
 }
 #Facts .arabica_article_slider,
-.Facts .arabica_article_slider,
+.arabica_facts .arabica_article_slider,
 #Facts img,
-.Facts img {
+.arabica_facts img {
   border-radius: 10px 10px 0 0;
 }
 .arabica_article-header .arabica_article-meta i {
@@ -4109,19 +4131,10 @@ caption {
   .arabica_article-header::before {
     content: "";
     position: absolute;
-    left: 0;
+    transform: translateX(-50%);
+    left: 68.3%;
     top: 0;
     width: 100vw;
-    height: 100%;
-    background-color: inherit;
-    z-index: -1;
-  }
-  .arabica_article-header::after {
-    content: "";
-    position: absolute;
-    right: 0;
-    top: 0;
-    width: 75vw;
     height: 100%;
     background-color: inherit;
     z-index: -1;
@@ -4159,8 +4172,7 @@ caption {
 .figtitle {
   text-align: center !important;
   font-weight: 600;
-  border-bottom: 2px solid #f7f7f7;
-  padding: 10px 5px 5px 5px;
+  margin: 10px 5px 5px 5px;
 }
 math,
 math sup,
@@ -4233,21 +4245,21 @@ math.inlineMath {
 .arabica_article_slider-counter {
   position: absolute;
   right: 8px;
-  color: rgb(255, 255, 255);
-  background-color: rgba(0, 0, 0, 0.5);
+  color: #fff;
+  background-color: rgb(0 0 0 / 0.5);
   padding: 2px 6px;
   border-radius: 2px;
   direction: ltr;
   font-size: 14px;
 }
 .align-left {
-  text-align: left;
+  text-align: left !important;
 }
 .align-right {
-  text-align: right;
+  text-align: right !important;
 }
 .align-center {
-  text-align: center;
+  text-align: center !important;
 }
 .arabica_article-gallery-containerr {
   padding-bottom: 10px;
@@ -4255,26 +4267,20 @@ math.inlineMath {
 .arabica_article-mobile-gallery {
   text-align: center;
 }
-/* Desktop layout (≥992px) */
 @media (min-width: 768px) {
-  /* your existing desktop styles */
   .arabica_article-gallery-container.has-mobile-gallery {
     display: flex;
     overflow-x: auto;
     gap: 10px;
     width: 100%;
     align-items: stretch;
-    /* no longer position:relative here */
-    scrollbar-width: none; /* Firefox */
-    -ms-overflow-style: none; /* IE 10+ */
+    scrollbar-width: none;
+    -ms-overflow-style: none;
   }
-
-  /* and hide it in WebKit browsers */
   .arabica_article-gallery-container.has-mobile-gallery::-webkit-scrollbar {
     width: 0;
     height: 0;
   }
-
   .arabica_article-mobile-gallery {
     flex: 1 0 calc(25% - 7.5px);
     min-width: calc(25% - 7.5px);
@@ -4283,7 +4289,6 @@ math.inlineMath {
     flex-direction: column;
     align-items: center;
   }
-
   .arabica_article-mobile-gallery figcaption {
     flex-grow: 1;
     display: flex;
@@ -4291,47 +4296,42 @@ math.inlineMath {
     justify-content: flex-end;
     min-height: 0;
   }
-
-  /* wrapper for the scroll + arrows */
   .slider-container {
     position: relative;
   }
-
   .slider-container .slider-btn {
     position: absolute;
-    top: 45%;
-    transform: translateY(-65%);
-    background: rgba(0, 0, 0, 0.5);
-    color: #fff;
-    border: none;
-    padding: 0 10px;
-    font-size: 1.5em;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgb(0 0 0 / 0.5);
+    padding: 4px;
     cursor: pointer;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background 0.3s;
     z-index: 10;
+    border: 1px solid #fff;
     opacity: 0;
     visibility: hidden;
     transition: opacity 0.3s ease, visibility 0.3s ease;
   }
-
   .slider-container .slider-btn.visible {
     opacity: 1;
     visibility: visible;
   }
-
   .slider-container .slider-btn.hidden {
     opacity: 0;
     visibility: hidden;
   }
-
-  /* we’ll set left/right in JS based on RTL/LTR */
-  .slider-container .slider-btn.prev {
-  }
-  .slider-container .slider-btn.next {
-  }
 }
-
-/* Mobile layout (≤991px) – unchanged */
-@media (max-width: 767px) {
+@media screen and (max-width: 767px) {
+  .slider-btn {
+    display: none;
+  }
   .arabica_article-mobile-gallery {
     flex: 0 0 100%;
     box-sizing: border-box;
@@ -4340,21 +4340,54 @@ math.inlineMath {
   .arabica_article-mobile-gallery img {
     width: 100%;
   }
-
   .vertical-image .arabica_article-mobile-gallery img {
     height: 300px !important;
   }
 }
-
 .arabica_article-mobile-gallery {
   align-items: center;
   text-align: center;
 }
 .arabica_article-image {
-  border: 1px solid #f7f7f7;
+  border: 1px solid #eee;
 }
-
 .arabica_article_lightbox-content img[src$=".svg"] {
   width: 65vh;
   height: auto;
+}
+.progress-thumb {
+  position: absolute;
+  top: 50%;
+  width: 10px;
+  height: 10px;
+  background-color: #fff;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  cursor: pointer;
+}
+@media print {
+  body {
+    width: 100%;
+    max-width: 100%;
+  }
+  header,
+  footer,
+  .arabica_share-link,
+  .arabica_floating-btn,
+  .arabica_article_slider-nav,
+  .arabica_article_slider-counter,
+  .slider-btn {
+    display: none;
+  }
+  .arabica_author-role {
+    display: inline-block;
+  }
+  .arabica_article-mobile-gallery {
+    display: inline-block !important;
+    align-items: center;
+    text-align: center;
+  }
+  .arabica_article_slider_wrapper {
+    flex-direction: row;
+  }
 }
