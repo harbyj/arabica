@@ -61,6 +61,53 @@
       href="Assets/fonts/font-awesome/css/all.min.css"
       media="all"
     />
+	
+	<!-- Favicon -->
+    <link rel="icon" href="Assets/images/favicon.ico" type="image/x-icon" />
+
+    <!-- PNG Fallbacks -->
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="Assets/images/favicon-64x64.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="Assets/images/favicon-32x32.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="Assets/images/favicon-16x16.png"
+    />
+
+    <!-- SVG Icon -->
+    <link rel="icon" type="image/svg+xml" href="Assets/images/favicon.svg" />
+
+    <!-- Apple Touch Icon (for iOS home screen) -->
+    <link
+      rel="apple-touch-icon"
+      href="Assets/images/apple-touch-icon-iphone-60x60.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="60x60"
+      href="Assets/images/apple-touch-icon-ipad-76x76.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="114x114"
+      href="Assets/images/apple-touch-icon-iphone-retina-120x120.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="144x144"
+      href="Assets/images/apple-touch-icon-ipad-retina-152x152.png"
+    />
   </head>
   <body>
     <header class="header">
@@ -325,6 +372,7 @@
               المنطقة.
             </h2>
             <div class="arabica_article-image float-right-45">
+			<div class="arabica_article-gallery-container">
               <div class="arabica_article-image-gallery">
                 <a href="Assets/images/article-img1.jpg">
                   <img
@@ -353,6 +401,7 @@
                 <figcaption>صورة 3</figcaption>
               </div>
             </div>
+			</div>
             <p>
               وتستعرض مروة فكري، في دراستها "سياسة الردع والدول المراجعة من
               منظور واقعي أزمة سد النهضة نموذجا" . القدرة التفسيرية للمدرسة
@@ -420,7 +469,11 @@
               القضايا الصراعية بينهما : ما يخفف آثار المعضلة الأمنية على المديين
               المتوسط والبعيد.
             </p>
-            <div>
+			<!-- Slider Table -->
+              <div class="figtitle">
+                جدول يوضح مقارنة بين أنواع التعلم المختلفة
+              </div>
+            <div class="arabica_table-container">
               <table>
                 <thead>
                   <tr>
@@ -447,11 +500,39 @@
                   </tr>
                 </tbody>
               </table>
-              <figcaption>
-                جدول يوضح مقارنة بين أنواع التعلم المختلفة
-              </figcaption>
             </div>
 
+			<!-- Wrapper Table (Fit to width)-->
+			<table>
+              <caption>
+                جدول يوضح مقارنة بين أنواع التعلم المختلفة
+              </caption>
+                <thead>
+                  <tr>
+                    <th>نوع التعلم</th>
+                    <th>المزايا</th>
+                    <th>التحديات</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>التعلم الأكاديمي</td>
+                    <td>يمنح شهادات معترف بها ويوفر بيئة تعليمية منظمة.</td>
+                    <td>قد يكون مكلفًا ويستغرق وقتًا طويلاً.</td>
+                  </tr>
+                  <tr>
+                    <td>التعلم الذاتي</td>
+                    <td>مرونة في التعلم وفق الوقت الشخصي.</td>
+                    <td>يتطلب انضباطًا ذاتيًا قويًا.</td>
+                  </tr>
+                  <tr>
+                    <td>التعلم المهني</td>
+                    <td>يكتسب الشخص مهارات عملية مباشرة.</td>
+                    <td>قد يكون محدودًا في بعض المجالات.</td>
+                  </tr>
+                </tbody>
+              </table>
+            
             <blockquote>
               "التعلم ليس مجرد اكتساب المعرفة، بل هو القدرة على تطبيقها لتحقيق
               النجاح والتطور."
