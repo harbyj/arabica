@@ -917,6 +917,81 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 });
 
+// —————————————————————————————————————————————
+//  Fullscreen: Space & single‐click/tap toggle play/pause, double‐tap still skips
+// —————————————————————————————————————————————
+;(function () {
+  const playIconPath  = "M8 5v14l11-7z";
+  const pauseIconPath = "M6 19h4V5H6v14zm8-14v14h4V5h-4z";
+
+  // Master toggle: find the fullscreen video, flip play/pause, sync icons+overlay
+  function toggleFsVideo() {
+    const fs = document.fullscreenElement || document.webkitFullscreenElement;
+    if (!fs) return;
+
+    // video might be the fs element or inside it
+    const video = fs.tagName === "VIDEO" ? fs : fs.querySelector("video");
+    if (!video) return;
+
+    // 1) toggle playback
+    if (video.paused) {
+		video.play();
+	} else {
+		video.pause();
+	}
+
+
+    // 2) sync little button + big overlay
+    const container   = video.closest(".arabica_video-container");
+    const btnPath     = container.querySelector(".play-btn svg path");
+    const overlayPath = container.querySelector(".play-pause-indicator path");
+    const newD        = video.paused ? playIconPath : pauseIconPath;
+    btnPath.setAttribute("d", newD);
+    overlayPath.setAttribute("d", newD);
+
+    // 3) flash the overlay
+    const overlay = container.querySelector(".play-pause-indicator");
+    overlay.style.display = "block";
+    overlay.style.opacity = "1";
+    setTimeout(() => {
+      overlay.style.transition = "opacity 0.5s ease-out";
+      overlay.style.opacity = "0";
+      setTimeout(() => {
+        overlay.style.display = "none";
+        overlay.style.transition = "";
+      }, 500);
+    }, 800);
+  }
+
+  // Handler for both Space and click/tap
+  function fsToggleHandler(e) {
+    // 1) SPACEBAR?
+    if (e.type === "keydown") {
+      if (!(e.code === "Space" || e.key === " ")) return;
+      if (!document.fullscreenElement)               return;
+    }
+    // 2) CLICK/TAP?
+    else if (e.type === "click") {
+      // only in fullscreen
+      if (!document.fullscreenElement)                                       return;
+      // ignore clicks on controls or the overlay itself
+      if (e.target.closest(".arabica_video-controls, .play-pause-indicator")) return;
+      // only the *first* click in a sequence (so detail===1 means single tap/click)
+      if (e.detail !== 1)                                                    return;
+    }
+    else return; // we don’t care about other event types
+
+    // got here → it’s our single‐toggle event
+    e.preventDefault();
+    e.stopImmediatePropagation();
+    toggleFsVideo();
+  }
+
+  // capture‐phase so it runs before the browser’s and before your old handlers
+  document.addEventListener("keydown", fsToggleHandler, true);
+  document.addEventListener("click",    fsToggleHandler, true);
+})();
+
 document.addEventListener("DOMContentLoaded", function () {
   // **Audio Section**
   // Select all audio elements on the page
