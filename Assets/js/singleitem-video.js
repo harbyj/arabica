@@ -62,6 +62,8 @@ $(function() {
         </svg>
       `);
     container.append(playPauseIndicator);
+	
+	playPauseIndicator.css({ display: "block", opacity: 1 });
 
     const controls = $("<div>").addClass("arabica_video-controls");
 
@@ -272,7 +274,12 @@ $(function() {
     });
 
     // Reset play button on end
-    video.on("ended", () => playBtnIcon.attr("d", playIconPath));
+	video.on("ended", () => {
+		playBtnIcon.attr("d", playIconPath);
+		// Show play‐overlay when video finishes
+		playPauseIndicator.css({ display: 'block', opacity: 1 });
+	});
+
 
     function formatTime(time) {
       const m = Math.floor(time / 60);
