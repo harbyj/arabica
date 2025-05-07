@@ -4391,3 +4391,11 @@ math.inlineMath {
     flex-direction: row;
   }
 }
+#Facts figcaption,
+.arabica_facts figcaption {
+  padding: 8px 15px;
+}
+#Facts .arabica_article_slider-counter,
+.arabica_facts .arabica_article_slider-counter {
+  right: 10px;
+}
