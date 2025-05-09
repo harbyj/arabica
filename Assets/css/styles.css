@@ -4399,3 +4399,6 @@ math.inlineMath {
 .arabica_facts .arabica_article_slider-counter {
   right: 10px;
 }
+.modal-editor-bio p:not(:first-of-type) {
+  margin-top: 5px;
+}
