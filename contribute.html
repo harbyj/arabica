@@ -115,6 +115,7 @@
       sizes="144x144"
       href="Assets/images/apple-touch-icon-ipad-retina-152x152.png"
     />
+	<script src="Assets/jquery/jquery-3.7.1.min.js"></script>
   </head>
   <body>
     <header class="header">
@@ -254,7 +255,7 @@
             </svg>
           </a>
         </div>
-        <button class="menu-toggle" id="menuToggle">
+        <button type="button" class="menu-toggle" id="menuToggle">
           <svg
             class="toggle-icon"
             xmlns="http://www.w3.org/2000/svg"
@@ -779,7 +780,7 @@
                 class="full-width"
                 required
               />
-              <textarea placeholder="الرسالة"></textarea>
+              <textarea required placeholder="الرسالة"></textarea>
               <button type="submit">إرسال</button>
               <div class="arabica_contact-feedback" id="feedback"></div>
             </form>
@@ -1080,7 +1081,7 @@
     </footer>
 
     <div class="arabica_mobile_nav hidden" id="mobileNav">
-      <button class="menu-close" id="menuClose">
+      <button type="button" class="menu-close" id="menuClose">
         <svg
           class="menu-close-icon"
           xmlns="http://www.w3.org/2000/svg"

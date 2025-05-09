@@ -115,6 +115,7 @@
       sizes="144x144"
       href="Assets/images/apple-touch-icon-ipad-retina-152x152.png"
     />
+	<script src="Assets/jquery/jquery-3.7.1.min.js"></script>
   </head>
   <body>
     <header class="header">
@@ -254,7 +255,7 @@
             </svg>
           </a>
         </div>
-        <button class="menu-toggle" id="menuToggle">
+        <button type="button" class="menu-toggle" id="menuToggle">
           <svg
             class="toggle-icon"
             xmlns="http://www.w3.org/2000/svg"
@@ -361,7 +362,7 @@
 
             <div class="arabica_dropdown">
               <i class="fa fa-chevron-down"></i>
-              <button onclick="toggleDropdown(this)">الحقول المعرفية</button>
+              <button type="button" onclick="toggleDropdown(this)">الحقول المعرفية</button>
               <div class="arabica_dropdown-content-wrapper">
                 <div class="arabica_dropdown-content">
                   <label class="select-all">
@@ -387,7 +388,7 @@
 
             <div class="arabica_dropdown">
               <i class="fa fa-chevron-down"></i>
-              <button onclick="toggleDropdown(this)">البلدان العربية</button>
+              <button type="button" onclick="toggleDropdown(this)">البلدان العربية</button>
               <div class="arabica_dropdown-content-wrapper">
                 <div class="arabica_dropdown-content">
                   <label class="select-all">
@@ -1104,7 +1105,7 @@
     </footer>
 
     <div class="arabica_mobile_nav hidden" id="mobileNav">
-      <button class="menu-close" id="menuClose">
+      <button type="button" class="menu-close" id="menuClose">
         <svg
           class="menu-close-icon"
           xmlns="http://www.w3.org/2000/svg"

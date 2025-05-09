@@ -1,651 +1,421 @@
-/* jshint esversion: 11 */
+$(document).ready(function () {
+  // helper functions at top‐level of this outer function
+  var smoothScroll = function ($el) {
+    $("html, body").animate({ scrollTop: $el.offset().top }, "smooth");
+  };
 
-document
-  .querySelectorAll(".arabica_article-gallery-container")
-  .forEach((container) => {
-    if (container.querySelector(".arabica_article-mobile-gallery")) {
-      container.classList.add("has-mobile-gallery");
-    }
-  });
-
-// Move paragraphs with footnotes (excluding those with "ref")
-document.addEventListener("DOMContentLoaded", function () {
-  const articleContent = document.querySelector(".arabica_article-content");
-  const footnoteContainer = document.querySelector(".arabica_foot-reference");
-  if (!articleContent || !footnoteContainer) return;
-
-  let hasFootnotes = false;
-  let node = articleContent.firstElementChild;
-
-  while (node) {
-    const ftnLink =
-      node.tagName === "P" ? node.querySelector('a[name^="_ftn"]') : null;
-    if (
-      node.tagName === "P" &&
-      ftnLink &&
-      !ftnLink.getAttribute("name").includes("ref")
-    ) {
-      hasFootnotes = true;
-      let currentNode = node;
-      let next = node.nextElementSibling;
-
-      footnoteContainer.appendChild(currentNode);
-
-      while (next && ["P", "UL", "OL"].includes(next.tagName)) {
-        if (next.tagName === "P") {
-          const ednLink = next.querySelector('a[name^="_edn"]');
-          if (ednLink) break;
-        }
-        let toMove = next;
-        next = toMove.nextElementSibling;
-        footnoteContainer.appendChild(toMove);
-      }
-      node = next;
-    } else {
-      node = node.nextElementSibling;
-    }
-  }
-
-  if (!hasFootnotes) {
-    footnoteContainer.remove();
-
-    // Inject CSS rule only if there are no footnotes
-    const style = document.createElement("style");
-    style.textContent = `
-      .arabica_article-sources {
-        border-top: 0 !important;
-        margin-top: 0 !important;
-        padding-top: 0 !important;
-      }
-    `;
-    document.head.appendChild(style);
-  }
-});
-
-document.addEventListener("DOMContentLoaded", () => {
-  document
-    .querySelectorAll(
-      ".arabica_foot-reference p, .arabica_foot-source li, .arabica_foot-reference li, .arabica_foot-source p"
-    )
-    .forEach((el) => {
-      // Regex checks for any Arabic characters in the range \u0600 to \u06FF
-      if (!/[\u0600-\u06FF]/.test(el.textContent)) {
-        el.setAttribute("dir", "ltr");
-      }
-    });
-});
-
-// Define reference title keywords.
-const referenceTitles = [
-  "Reference",
-  "Sources",
-  "Citations",
-  "Bibliography",
-  "المراجع",
-  "المصادر",
-  "الاستشهادات",
-  "قائمةالمراجع",
-  "المرجعية",
-  "المصادر والمراجع",
-];
-
-// Find all h2 elements within the article content.
-const headings = document.querySelectorAll("div.arabica_article-content h2");
-let referenceFound = false;
-
-headings.forEach((heading) => {
-  const normalizedText = heading.textContent
-    .trim()
-    .toLowerCase()
-    .replace(/\s+/g, "");
-  if (
-    referenceTitles.some((title) =>
-      normalizedText.includes(title.toLowerCase().replace(/\s+/g, ""))
-    )
-  ) {
-    referenceFound = true;
-
-    const elementsToMove = [heading];
-    let nextElem = heading.nextElementSibling;
-
-    // Collect siblings until a <p><a name="...ftn or edn..."></a></p> is found
-    while (nextElem) {
-      const isStopParagraph =
-        nextElem.tagName.toLowerCase() === "p" &&
-        nextElem.querySelector('a[name*="ftn"], a[name*="edn"]');
-
-      if (isStopParagraph) break;
-
-      elementsToMove.push(nextElem);
-      nextElem = nextElem.nextElementSibling;
-    }
-
-    const targetContainer = document.querySelector(".arabica_article-sources");
-    if (targetContainer) {
-      elementsToMove.forEach((el) => targetContainer.appendChild(el));
-    }
-  }
-});
-
-// If no reference header is found, remove the foot-source container.
-if (!referenceFound) {
-  const footSource = document.querySelector(".arabica_foot-source");
-  if (footSource) {
-    footSource.remove();
-  }
-}
-
-document.addEventListener("DOMContentLoaded", function () {
-  function smoothScroll(el) {
-    el.scrollIntoView({
-      behavior: "smooth",
-      block: "start"
-    });
-  }
-
-  const contentContainer = document.querySelector(".arabica_article-content");
-  const tocContainer     = document.querySelector(".arabica_article-table-content");
-  const footContainer    = document.querySelector(".arabica_foot-container");
-
-  if (contentContainer && tocContainer) {
-    let tocHTML        = "";
-    let currentSection = "";
-    let index          = 0;
-
-    // Function to process a container's headings (h2 & h3)
-    const processHeadings = (container) => {
-      const headings = container.querySelectorAll("h2, h3");
-      headings.forEach((heading) => {
-        // Ensure each heading has an ID
-        if (!heading.id) {
-          heading.id = "heading-" + index++;
-        }
-
-        if (heading.tagName === "H2") {
-          // Close previous section if needed
-          if (currentSection) {
-            tocHTML += "</div>";
-          }
-          // Start a new section for H2
-          currentSection = `<div class="arabica_toc-section">
-                              <a href="#${heading.id}" class="arabica_toc-link">
-                                ${heading.innerText}
-                              </a>`;
-          tocHTML += currentSection;
-        } else if (heading.tagName === "H3") {
-          // Append H3 as an indented link
-          tocHTML += `<a href="#${heading.id}" class="arabica_toc-link arabica_toc-indent">
-                        ${heading.innerText}
-                      </a>`;
-        }
-      });
-    };
-
-    // Process article headings first
-    processHeadings(contentContainer);
-    // Close the last open section if any
-    if (currentSection) {
-      tocHTML += "</div>";
-      currentSection = "";
-    }
-
-    // Process foot container headings after article headings
-    if (footContainer) {
-      processHeadings(footContainer);
-      if (currentSection) {
-        tocHTML += "</div>";
-      }
-    }
-
-    tocContainer.innerHTML = tocHTML;
-
-    // ========== Apply smooth scrolling to TOC links ==========
-    const tocLinks = tocContainer.querySelectorAll(".arabica_toc-link");
-    tocLinks.forEach((link) => {
-      link.addEventListener("click", function (event) {
-        event.preventDefault(); // Prevent default jump
-        const targetId      = this.getAttribute("href").substring(1);
-        const targetElement = document.getElementById(targetId);
-        if (targetElement) {
-          smoothScroll(targetElement);
-        }
-      });
-    });
-
-    // ========== Active TOC Link on Scroll ==========
-    const headings = document.querySelectorAll(
-      ".arabica_article-content h2, .arabica_article-content h3, " +
-      ".arabica_foot-container h2, .arabica_foot-container h3"
-    );
-
-    const updateActiveTOC = () => {
-      let currentId = "";
-      const threshold = 100;
-
-      headings.forEach((heading) => {
-        const rect = heading.getBoundingClientRect();
-        if (rect.top <= threshold) {
-          currentId = heading.id;
-        }
-      });
-
-      tocLinks.forEach((link) => {
-        const linkTarget = link.getAttribute("href").substring(1);
-        link.classList.toggle("active", linkTarget === currentId);
-      });
-    };
-
-    document.addEventListener("scroll", updateActiveTOC);
-    // Initial activation
-    updateActiveTOC();
-  }
-});
-
-document.addEventListener("DOMContentLoaded", function () {
-  // Helper: escape special characters for attribute values.
-  function escapeAttr(text) {
+  var escapeAttr = function (text) {
     return text
       .replace(/&/g, "&amp;")
       .replace(/"/g, "&quot;")
-      .replace(/'/g, "&#39;")
+      .replace(/'/g, "&#x27;")
       .replace(/</g, "&lt;")
       .replace(/>/g, "&gt;");
-  }
+  };
 
-  const article = document.querySelector(".arabica_article-content");
-  if (!article) return;
+  var getCleanHTML = function ($el) {
+    var $temp = $el.clone();
+    $temp.find('a[name^="_edn"]').remove();
+    $temp.find("li").each(function () {
+      var $li = $(this);
+      var liDir = /[\u0600-\u06FF]/.test($li.text()) ? "rtl" : "ltr";
+      $li.attr("dir", liDir);
+    });
+    var dir = /[\u0600-\u06FF]/.test($temp.text()) ? "rtl" : "ltr";
+    $temp.attr("dir", dir);
+    return $temp.prop("outerHTML");
+  };
 
-  // Helper: Clone a node, remove EDN numbering anchors, and set its direction.
-  function getCleanHTML(el) {
-    const temp = el.cloneNode(true);
-    // Remove all anchors whose name starts with "_edn"
-    temp.querySelectorAll('a[name^="_edn"]').forEach((a) => a.remove());
+  var processHeadings, updateActiveTOC;
+  var resetIconStyles, closeAllDropdowns, positionDropdown;
 
-    // For any <li> elements inside, set the direction individually.
-    temp.querySelectorAll("li").forEach((li) => {
-      const liDir = /[\u0600-\u06FF]/.test(li.textContent) ? "rtl" : "ltr";
-      li.setAttribute("dir", liDir);
+  // Move paragraphs with footnotes (excluding those with "ref")
+  var $articleContent = $(".arabica_article-content");
+  var $footnoteContainer = $(".arabica_foot-reference");
+  if ($articleContent.length && $footnoteContainer.length) {
+    var hasFootnotes = false;
+    var $footnoteParagraphs = $articleContent.find('p:has(a[name^="_ftn"]:not([name*="ref"]))');
+
+    $footnoteParagraphs.each(function () {
+      hasFootnotes = true;
+      var elementsToMove = [$(this)];
+      var $next = $(this).next();
+      while ($next.length && ["P", "UL", "OL"].indexOf($next.prop("tagName")) !== -1) {
+        if ($next.is("p") && $next.find('a[name^="_edn"]').length) break;
+        elementsToMove.push($next);
+        $next = $next.next();
+      }
+      for (var i = 0; i < elementsToMove.length; i++) {
+        $footnoteContainer.append(elementsToMove[i]);
+      }
     });
 
-    // Set direction for the outer element based on its overall text.
-    const dir = /[\u0600-\u06FF]/.test(temp.textContent) ? "rtl" : "ltr";
-    temp.setAttribute("dir", dir);
-    return temp.outerHTML;
+    if (!hasFootnotes) {
+      $footnoteContainer.remove();
+      $("<style>")
+        .text(
+          ".arabica_article-sources {" +
+            "border-top: 0 !important;" +
+            "margin-top: 0 !important;" +
+            "padding-top: 0 !important;" +
+          "}"
+        )
+        .appendTo("head");
+    }
   }
 
-  // Step 1: Extract EDN reference texts from groups of nodes.
-  // For each group, start with a <p> that contains an EDN anchor (but not one with _ednref),
-  // then append following siblings if they are <p>, <ul>, or <ol> until you encounter a new EDN group.
-  const ednRefs = {};
-  let node = article.firstElementChild;
-  while (node) {
-    // Check if this node is a paragraph containing an EDN anchor (excluding _ednref)
-    if (node.tagName === "P") {
-      const ednAnchor = node.querySelector(
-        'a[name^="_edn"]:not([name^="_ednref"])'
-      );
-      if (ednAnchor) {
-        const nameAttr = ednAnchor.getAttribute("name");
-        const key = nameAttr.replace("_edn", "");
+  // Set direction for foot reference and source elements
+  $(
+    ".arabica_foot-reference p, .arabica_foot-source li, .arabica_foot-reference li, .arabica_foot-source p"
+  ).each(function () {
+    if (!/[\u0600-\u06FF]/.test($(this).text())) {
+      $(this).attr("dir", "ltr");
+    }
+  });
 
-        // Start building the reference content with the current node's cleaned HTML.
-        let refTextHTML = getCleanHTML(node);
+  // Move reference sections
+  var referenceTitles = [
+    "Reference",
+    "Sources",
+    "Citations",
+    "Bibliography",
+    "المراجع",
+    "المراج​​ع",
+    "المصادر",
+    "الاستشهادات",
+    "قائمةالمراجع",
+    "المرجعية",
+    "المصادر والمراجع",
+  ];
+  var $headings = $(".arabica_article-content h2");
+  var referenceFound = false;
 
-        // Look at subsequent siblings while they are allowed types.
-        let next = node.nextElementSibling;
-        while (next && ["P", "UL", "OL"].includes(next.tagName)) {
-          // If the next element is a paragraph that itself starts a new EDN group, then break.
-          if (
-            next.tagName === "P" &&
-            next.querySelector('a[name^="_edn"]:not([name^="_ednref"])')
-          ) {
-            break;
-          }
-          // Append this element's cleaned HTML.
-          refTextHTML += getCleanHTML(next);
-          // Remove the element from the DOM.
-          let toRemove = next;
-          next = next.nextElementSibling;
-          toRemove.remove();
+  $headings.each(function () {
+    var normalizedText = $(this)
+      .text()
+      .trim()
+      .toLowerCase()
+      .replace(/\s+/g, "");
+    for (var j = 0; j < referenceTitles.length; j++) {
+      var key = referenceTitles[j].toLowerCase().replace(/\s+/g, "");
+      if (normalizedText.indexOf(key) !== -1) {
+        referenceFound = true;
+        var elementsToMove = [$(this)];
+        var $nextElem = $(this).next();
+        while ($nextElem.length) {
+          var isStop = $nextElem.is("p") && $nextElem.find('a[name*="ftn"], a[name*="edn"]').length;
+          if (isStop) break;
+          elementsToMove.push($nextElem);
+          $nextElem = $nextElem.next();
         }
-        ednRefs[key] = refTextHTML.trim();
-        // Remove the current group node and continue iteration from the next node.
-        let current = node;
-        node = next;
-        current.remove();
-        continue; // Skip normal iteration since we've updated node.
+        var $target = $(".arabica_article-sources");
+        if ($target.length) {
+          for (var k = 0; k < elementsToMove.length; k++) {
+            $target.append(elementsToMove[k]);
+          }
+        }
+        break;
       }
     }
-    node = node.nextElementSibling;
-  }
-
-  // Step 2: Replace EDN reference links with the clickable icon and hidden dropdown.
-  const ednRefLinks = article.querySelectorAll('a[name^="_ednref"]');
-  ednRefLinks.forEach((link) => {
-    const nameAttr = link.getAttribute("name"); // e.g. "_ednref1"
-    const key = nameAttr.replace("_ednref", "");
-    const refText = ednRefs[key] || "";
-    // Determine overall direction from the stored reference text.
-    const direction = /[\u0600-\u06FF]/.test(refText) ? "rtl" : "ltr";
-    const dropdownId =
-      "arabica_ref-dropdown-" + Math.random().toString(36).substring(2, 9);
-    const replacementHTML = `
-<a class="arabica_ref-icon" data-ref-id="${dropdownId}" data-reference="${escapeAttr(
-      refText
-    )}">
-  <i class="fa-light fa-circle-info arabica_ref-icon-light active"></i>
-  <i class="fa-solid fa-circle-info arabica_ref-icon-solid inactive"></i>
-</a>
-<div id="${dropdownId}" class="arabica_ref-dropdown">
-  <div class="arabica_ref-actions">
-    <span class="arabica_ref-copy-icon" title="Copy">
-      <i class="fa-regular fa-copy"></i>
-    </span>
-    <span class="arabica_ref-copied-text">✓ تم النسخ</span>
-    <span class="arabica_ref-close-icon" title="Close">
-      <i class="fa-regular fa-circle-xmark"></i>
-    </span>
-  </div>
-  <div class="arabica_ref-text" dir="${direction}">
-    <span dir="${direction}">${refText}</span>
-  </div>
-</div>
-`;
-    link.outerHTML = replacementHTML;
   });
 
-  // Step 3: Attach event listeners for interactivity (toggle dropdown, copy, etc.)
-  const refIcons = article.querySelectorAll(".arabica_ref-icon");
-  refIcons.forEach((icon) => {
-    const dropdownId = icon.getAttribute("data-ref-id");
-    const dropdownEl = document.getElementById(dropdownId);
+  if (!referenceFound) {
+    var $footSource = $(".arabica_foot-source");
+    if ($footSource.length) $footSource.remove();
+  }
 
-    dropdownEl.addEventListener("click", function (e) {
-      e.stopPropagation();
-    });
+  // Table of Contents generation (no declaration in block)
+  var $contentContainer = $(".arabica_article-content");
+  var $tocContainer = $(".arabica_article-table-content");
+  var $footContainer = $(".arabica_foot-container");
 
-    icon.addEventListener("click", function (e) {
-      e.stopPropagation();
-      if (dropdownEl.classList.contains("open")) {
-        dropdownEl.classList.remove("open");
-        resetIconStyles(icon);
-      } else {
-        closeAllDropdowns();
-        positionDropdown(icon, dropdownEl);
-        dropdownEl.classList.add("open");
-        icon
-          .querySelector(".arabica_ref-icon-light")
-          .classList.remove("active");
-        icon.querySelector(".arabica_ref-icon-light").classList.add("inactive");
-        icon
-          .querySelector(".arabica_ref-icon-solid")
-          .classList.remove("inactive");
-        icon.querySelector(".arabica_ref-icon-solid").classList.add("active");
-      }
-    });
+  if ($contentContainer.length && $tocContainer.length) {
+    var tocHTML = "";
+    var currentSection = "";
+    var idx = 0;
 
-    icon.addEventListener("mouseenter", function () {
-      if (!dropdownEl.classList.contains("open")) {
-        icon
-          .querySelector(".arabica_ref-icon-light")
-          .classList.remove("active");
-        icon.querySelector(".arabica_ref-icon-light").classList.add("inactive");
-        icon
-          .querySelector(".arabica_ref-icon-solid")
-          .classList.remove("inactive");
-        icon.querySelector(".arabica_ref-icon-solid").classList.add("active");
-      }
-    });
-    icon.addEventListener("mouseleave", function () {
-      if (!dropdownEl.classList.contains("open")) {
-        resetIconStyles(icon);
-      }
-    });
-
-    const closeIcon = dropdownEl.querySelector(".arabica_ref-close-icon");
-    closeIcon.addEventListener("click", function (e) {
-      e.stopPropagation();
-      dropdownEl.classList.remove("open");
-      resetIconStyles(icon);
-    });
-
-    const copyIcon = dropdownEl.querySelector(".arabica_ref-copy-icon");
-    const copiedText = dropdownEl.querySelector(".arabica_ref-copied-text");
-    copyIcon.addEventListener("click", function (e) {
-      e.stopPropagation();
-      const refTextEl = dropdownEl.querySelector(".arabica_ref-text");
-      const htmlContent = refTextEl.innerHTML.trim();
-      const plainContent = refTextEl.innerText.trim().replace(/\s+/g, " ");
-      const clipboardItem = new ClipboardItem({
-        "text/html": new Blob([htmlContent], { type: "text/html" }),
-        "text/plain": new Blob([plainContent], { type: "text/plain" }),
+    processHeadings = function ($container) {
+      var $h = $container.find("h2, h3");
+      $h.each(function () {
+        var $hd = $(this);
+        if (!$hd.attr("id")) $hd.attr("id", "heading-" + idx++);
+        if ($hd.is("h2")) {
+          if (currentSection) tocHTML += "</div>";
+          currentSection =
+            '<div class="arabica_toc-section">' +
+              '<a href="#' + $hd.attr("id") + '" class="arabica_toc-link">' +
+                $hd.text() +
+              "</a>";
+          tocHTML += currentSection;
+        } else {
+          tocHTML +=
+            '<a href="#' + $hd.attr("id") +
+            '" class="arabica_toc-link arabica_toc-indent">' +
+              $hd.text() +
+            "</a>";
+        }
       });
-      navigator.clipboard
-        .write([clipboardItem])
-        .then(() => {
-          copyIcon.style.display = "none";
-          copiedText.classList.add("show");
-          setTimeout(() => {
-            copyIcon.style.display = "inline-block";
-            copiedText.classList.remove("show");
-          }, 5000);
-        })
-        .catch((err) => {
-          console.error("Failed to copy text: ", err);
+    };
+
+    updateActiveTOC = function () {
+      var currentId = "";
+      var threshold = 100;
+      $(
+        ".arabica_article-content h2, .arabica_article-content h3, .arabica_foot-container h2, .arabica_foot-container h3"
+      ).each(function () {
+        var $hd = $(this);
+        if ($hd.offset().top - $(window).scrollTop() <= threshold) {
+          currentId = $hd.attr("id");
+        }
+      });
+      $tocContainer.find(".arabica_toc-link").each(function () {
+        var $ln = $(this);
+        var tgt = $ln.attr("href").substring(1);
+        $ln.toggleClass("active", tgt === currentId);
+      });
+    };
+
+    processHeadings($contentContainer);
+    if (currentSection) tocHTML += "</div>";
+    if ($footContainer.length) {
+      processHeadings($footContainer);
+      if (currentSection) tocHTML += "</div>";
+    }
+
+    $tocContainer.html(tocHTML);
+    $tocContainer.find(".arabica_toc-link").on("click", function (e) {
+      e.preventDefault();
+      var tgt = $(this).attr("href").substring(1);
+      var $el = $("#" + tgt);
+      if ($el.length) smoothScroll($el);
+    });
+    $(window).on("scroll", updateActiveTOC);
+    updateActiveTOC();
+  }
+
+  // Endnote extraction & dropdowns
+  var $article = $(".arabica_article-content");
+  if ($article.length) {
+    var ednRefs = {};
+    var $ends = $article.find('p:has(a[name^="_edn"]:not([name^="_ednref"]))');
+
+    $ends.each(function () {
+      var $p = $(this);
+      var name = $p.find('a[name^="_edn"]:not([name^="_ednref"])').attr("name");
+      var key = name.replace("_edn", "");
+      var txt = getCleanHTML($p);
+      var $n = $p.next();
+      while ($n.length && ["P", "UL", "OL"].indexOf($n.prop("tagName")) !== -1) {
+        if ($n.is("p") && $n.find('a[name^="_edn"]:not([name^="_ednref"])').length) break;
+        txt += getCleanHTML($n);
+        $n = $n.next();
+      }
+      ednRefs[key] = txt.trim();
+
+      var toRm = [$p];
+      $n = $p.next();
+      while ($n.length && ["P", "UL", "OL"].indexOf($n.prop("tagName")) !== -1) {
+        if ($n.is("p") && $n.find('a[name^="_edn"]:not([name^="_ednref"])').length) break;
+        toRm.push($n);
+        $n = $n.next();
+      }
+      for (var x = 0; x < toRm.length; x++) toRm[x].remove();
+    });
+
+    $article.find('a[name^="_ednref"]').each(function () {
+      var $lnk = $(this);
+      var key = $lnk.attr("name").replace("_ednref", "");
+      var refText = ednRefs[key] || "";
+      var dir = /[\u0600-\u06FF]/.test(refText) ? "rtl" : "ltr";
+      var ddId = "arabica_ref-dropdown-" + Math.random().toString(36).slice(2,9);
+      var html =
+        '<a class="arabica_ref-icon" data-ref-id="' + ddId + '" data-reference="' + escapeAttr(refText) + '">' +
+          '<i class="fa-light fa-circle-info arabica_ref-icon-light active"></i>' +
+          '<i class="fa-solid fa-circle-info arabica_ref-icon-solid inactive"></i>' +
+        "</a>" +
+        '<div id="' + ddId + '" class="arabica_ref-dropdown">' +
+          '<div class="arabica_ref-actions">' +
+            '<span class="arabica_ref-copy-icon" title="Copy"><i class="fa-regular fa-copy"></i></span>' +
+            '<span class="arabica_ref-copied-text">✓ تم النسخ</span>' +
+            '<span class="arabica_ref-close-icon" title="Close"><i class="fa-regular fa-circle-xmark"></i></span>' +
+          "</div>" +
+          '<div class="arabica_ref-text" dir="' + dir + '"><span dir="' + dir + '">' + refText + "</span></div>" +
+        "</div>";
+      $lnk.replaceWith(html);
+    });
+
+    // these helpers inside this block are now expressions
+    resetIconStyles = function ($icon) {
+      $icon.find(".arabica_ref-icon-solid").removeClass("active").addClass("inactive");
+      $icon.find(".arabica_ref-icon-light").removeClass("inactive").addClass("active");
+    };
+
+    closeAllDropdowns = function () {
+      $(".arabica_ref-dropdown.open").each(function () {
+        var $d = $(this);
+        $d.removeClass("open");
+        var $pi = $d.prev();
+        if ($pi.hasClass("arabica_ref-icon")) resetIconStyles($pi);
+      });
+    };
+
+    positionDropdown = function ($icon, $dropdown) {
+      var $parent = $icon.offsetParent();
+      if (!$parent.length) return;
+      $dropdown.css({ top: "", left: "" }).removeClass("arabica_ref-dropdown--above");
+      var iconR = $icon[0].getBoundingClientRect();
+      var parR = $parent[0].getBoundingClientRect();
+      var dropR = $dropdown[0].getBoundingClientRect();
+      var left = iconR.left - parR.left + iconR.width/2 - dropR.width/2;
+      left = Math.max(0, Math.min(left, parR.width - dropR.width));
+      $dropdown.css("left", left + "px");
+      var spaceBelow = window.innerHeight - iconR.bottom;
+      var spaceAbove = iconR.top;
+      var top;
+      if (spaceBelow < dropR.height +10 && spaceAbove >= dropR.height+10) {
+        top = iconR.top - parR.top - dropR.height - 10;
+        $dropdown.addClass("arabica_ref-dropdown--above");
+      } else {
+        top = iconR.bottom - parR.top + 10;
+      }
+      $dropdown.css("top", top + "px");
+      var arrowLeft = iconR.left - parR.left + iconR.width/2 - left;
+      $dropdown.css("--arrow-left", arrowLeft + "px");
+    };
+
+    var $refIcons = $article.find(".arabica_ref-icon");
+    $refIcons.each(function () {
+      var $icon = $(this);
+      var ddId = $icon.data("ref-id");
+      var $dd = $("#" + ddId);
+      $dd.on("click", function (e) { e.stopPropagation(); });
+      $icon.on("click", function (e) {
+        e.stopPropagation();
+        if ($dd.hasClass("open")) {
+          $dd.removeClass("open");
+          resetIconStyles($icon);
+        } else {
+          closeAllDropdowns();
+          positionDropdown($icon, $dd);
+          $dd.addClass("open");
+          $icon.find(".arabica_ref-icon-light").removeClass("active").addClass("inactive");
+          $icon.find(".arabica_ref-icon-solid").removeClass("inactive").addClass("active");
+        }
+      });
+      $icon.on("mouseenter", function () {
+        if (!$dd.hasClass("open")) {
+          $icon.find(".arabica_ref-icon-light").removeClass("active").addClass("inactive");
+          $icon.find(".arabica_ref-icon-solid").removeClass("inactive").addClass("active");
+        }
+      });
+      $icon.on("mouseleave", function () {
+        if (!$dd.hasClass("open")) resetIconStyles($icon);
+      });
+      $dd.find(".arabica_ref-close-icon").on("click", function (e) {
+        e.stopPropagation();
+        $dd.removeClass("open");
+        resetIconStyles($icon);
+      });
+      $dd.find(".arabica_ref-copy-icon").on("click", function (e) {
+        e.stopPropagation();
+        var $txtEl = $dd.find(".arabica_ref-text");
+        var htmlC = $txtEl.html().trim();
+        var plainC = $txtEl.text().trim().replace(/\s+/g," ");
+        var clip = new ClipboardItem({
+          "text/html": new Blob([htmlC], {type:"text/html"}),
+          "text/plain": new Blob([plainC], {type:"text/plain"})
         });
+        navigator.clipboard.write([clip]).then(function(){
+          $(this).hide();
+          $dd.find(".arabica_ref-copied-text").addClass("show");
+          setTimeout(function(){
+            $dd.find(".arabica_ref-copy-icon").show();
+            $dd.find(".arabica_ref-copied-text").removeClass("show");
+          },5000);
+        }.bind(this)).catch(function(err){ console.error(err); });
+      });
     });
-  });
 
-  // Close dropdowns when clicking anywhere outside
-  document.addEventListener("click", function () {
-    closeAllDropdowns();
-  });
-
-  // Close dropdowns when pressing the Escape key
-  document.addEventListener("keydown", function (e) {
-    if (e.key === "Escape") {
-      closeAllDropdowns();
-    }
-  });
-
-  // Helper to reset icon styles.
-  function resetIconStyles(icon) {
-    icon.querySelector(".arabica_ref-icon-solid").classList.remove("active");
-    icon.querySelector(".arabica_ref-icon-solid").classList.add("inactive");
-    icon.querySelector(".arabica_ref-icon-light").classList.remove("inactive");
-    icon.querySelector(".arabica_ref-icon-light").classList.add("active");
-  }
-
-  // Close all open dropdowns.
-  function closeAllDropdowns() {
-    const allDropdowns = document.querySelectorAll(
-      ".arabica_ref-dropdown.open"
-    );
-    allDropdowns.forEach((d) => {
-      d.classList.remove("open");
-      const parentIcon = d.previousElementSibling;
-      if (parentIcon && parentIcon.classList.contains("arabica_ref-icon")) {
-        resetIconStyles(parentIcon);
-      }
+    $(document).on("click", closeAllDropdowns);
+    $(document).on("keydown", function (e) {
+      if (e.key === "Escape") closeAllDropdowns();
     });
   }
 
-  // Position dropdown relative to its icon, switching above if needed.
-  function positionDropdown(icon, dropdown) {
-    const parent = icon.offsetParent;
-    if (!parent) return;
+  // Side content & floating button
+  var $toggleBtn = $(".arabica_floating-btn");
+  var $sideContent = $(".arabica_side-content");
+  var $closeBtn = $(".arabica_close-button");
+  var $overlay = $(".arabica_overlay");
 
-    // Reset positioning and class.
-    dropdown.style.top = "";
-    dropdown.style.left = "";
-    dropdown.classList.remove("arabica_ref-dropdown--above");
+  var openSideContent = function () {
+    $sideContent.addClass("arabica_show-content");
+    $overlay.addClass("arabica_show-overlay");
+    $("body").addClass("no-scroll");
+  };
+  var closeSideContent = function () {
+    $sideContent.removeClass("arabica_show-content");
+    $overlay.removeClass("arabica_show-overlay");
+    $("body").removeClass("no-scroll");
+  };
 
-    const iconRect = icon.getBoundingClientRect();
-    const parentRect = parent.getBoundingClientRect();
-    const dropRect = dropdown.getBoundingClientRect();
-
-    // Center dropdown horizontally over the icon.
-    let left =
-      iconRect.left - parentRect.left + iconRect.width / 2 - dropRect.width / 2;
-    if (left < 0) {
-      left = 0;
-    } else if (left + dropRect.width > parentRect.width) {
-      left = parentRect.width - dropRect.width;
-    }
-    dropdown.style.left = left + "px";
-
-    // Determine available space above and below.
-    const spaceBelow = window.innerHeight - iconRect.bottom;
-    const spaceAbove = iconRect.top;
-    let top;
-    // If there isn't enough space below and there is enough above, position above.
-    if (
-      spaceBelow < dropRect.height + 10 &&
-      spaceAbove >= dropRect.height + 10
-    ) {
-      top = iconRect.top - parentRect.top - dropRect.height - 10;
-      dropdown.classList.add("arabica_ref-dropdown--above");
-    } else {
-      top = iconRect.bottom - parentRect.top + 10;
-    }
-    dropdown.style.top = top + "px";
-
-    // Set the arrow offset so it points to the center of the icon.
-    const arrowLeft =
-      iconRect.left - parentRect.left + iconRect.width / 2 - left;
-    dropdown.style.setProperty("--arrow-left", arrowLeft + "px");
-  }
-});
-
-document.addEventListener("DOMContentLoaded", function () {
-  /* ========= Side Content Open/Close ========= */
-  const toggleBtn = document.querySelector(".arabica_floating-btn");
-  const sideContent = document.querySelector(".arabica_side-content");
-  const closeBtn = document.querySelector(".arabica_close-button");
-  const overlay = document.querySelector(".arabica_overlay");
-
-  function openSideContent() {
-    sideContent.classList.add("arabica_show-content");
-    overlay.classList.add("arabica_show-overlay");
-    // Prevent body scroll when side content is open
-    document.body.classList.add("no-scroll");
-  }
-
-  function closeSideContent() {
-    sideContent.classList.remove("arabica_show-content");
-    overlay.classList.remove("arabica_show-overlay");
-    // Restore body scroll when side content is closed
-    document.body.classList.remove("no-scroll");
-  }
-
-  // Open/close when clicking toggle, close button, or overlay
-  toggleBtn.addEventListener("click", openSideContent);
-  closeBtn.addEventListener("click", closeSideContent);
-  overlay.addEventListener("click", closeSideContent);
-
-  // Close side content when pressing the Esc key
-  document.addEventListener("keydown", (event) => {
-    if (event.key === "Escape") {
-      closeSideContent();
-    }
+  $toggleBtn.on("click", openSideContent);
+  $closeBtn.on("click", closeSideContent);
+  $overlay.on("click", closeSideContent);
+  $(document).on("keydown", function (e) {
+    if (e.key === "Escape") closeSideContent();
   });
+  $sideContent.on("click", "a", closeSideContent);
 
-  // Close side content when any link (<a>) inside it is clicked
-  sideContent.addEventListener("click", function (e) {
-    if (e.target.closest("a")) {
-      closeSideContent();
-    }
-  });
-
-  /* ========= Toggle Button Hide/Show on Scroll ========= */
-  // This element is the footer wrapper
-  const footerWrapper = document.querySelector(".arabica_footer");
-
-  function checkToggleBtnVisibility() {
-    if (!footerWrapper) return;
-    const footerRect = footerWrapper.getBoundingClientRect();
-    // If the footer is visible in the viewport, hide the toggle button; otherwise, show it.
-    if (footerRect.top < window.innerHeight) {
-      toggleBtn.classList.add("hidden");
-    } else {
-      toggleBtn.classList.remove("hidden");
-    }
-  }
-
-  // Check visibility on scroll and on resize, and run once on load
-  window.addEventListener("scroll", checkToggleBtnVisibility);
-  window.addEventListener("resize", checkToggleBtnVisibility);
+  // Footer toggle visibility
+  var $footerWrapper = $(".arabica_footer");
+  var checkToggleBtnVisibility = function () {
+    if (!$footerWrapper.length) return;
+    var footerTop = $footerWrapper.offset().top;
+    if (footerTop < window.innerHeight) $toggleBtn.addClass("hidden");
+    else $toggleBtn.removeClass("hidden");
+  };
+  $(window).on("scroll resize", checkToggleBtnVisibility);
   checkToggleBtnVisibility();
-});
 
-document
-  .querySelectorAll('[class*="float-right-"], [class*="float-left-"]')
-  .forEach((el) => {
-    let match = el.className.match(/float-(right|left)-(\d+)/); // Extract float direction & number
+  // Float styling
+  $('[class*="float-right-"], [class*="float-left-"]').each(function () {
+    var $el = $(this);
+    var match = $el.attr("class").match(/float-(right|left)-(\d+)/);
     if (match) {
-      let direction = match[1]; // "right" or "left"
-      let width = match[2] + "%"; // Convert extracted number to percentage
-
-      el.style.width = width;
-      el.style.float = direction; // Apply float dynamically
-      el.style.marginBottom = "0";
+      var dir = match[1], w = match[2] + "%";
+      $el.css({ width: w, float: dir, marginBottom: "0" });
     }
   });
-(function () {
-  const sidebar = document.querySelector(".arabica_sticky-sidebar");
-  const overlay = document.querySelector(".arabica_overlay");
 
-  let lastScrollY = window.pageYOffset;
-  let currentTranslation = 0;
-
-  function updateSidebarPosition() {
-    if (window.innerWidth <= 991) {
-      // Reset styles if screen width is 991px or smaller
-      sidebar.style.position = "static";
-      overlay.style.transform = "none";
-      return;
-    }
-
-    const scrollY = window.pageYOffset;
-    const viewportHeight = window.innerHeight;
-    const overlayHeight = overlay.offsetHeight;
-    const maxTranslation = overlayHeight - viewportHeight;
-
-    // If we're at the bottom of the page, force the translation to maxTranslation
-    if (scrollY + viewportHeight >= document.documentElement.scrollHeight - 1) {
-      currentTranslation = maxTranslation;
-    } else {
-      // Calculate how far we've scrolled since the last event.
-      const delta = scrollY - lastScrollY;
-
-      if (delta > 0) {
-        // Scrolling down: increase translation up to the max.
-        currentTranslation = Math.min(
-          currentTranslation + delta,
-          maxTranslation
-        );
-      } else if (delta < 0) {
-        // Scrolling up: decrease translation but never below 0.
-        currentTranslation = Math.max(currentTranslation + delta, 0);
+  // Sticky sidebar (IIFE is its own function scope, so declarations here are fine)
+  (function () {
+    var $sidebar = $(".arabica_sticky-sidebar");
+    var $overlay = $(".arabica_overlay");
+    var lastScrollY = $(window).scrollTop();
+    var currentTranslation = 0;
+    function updateSidebarPosition() {
+      if (window.innerWidth <= 991) {
+        $sidebar.css("position", "static");
+        $overlay.css("transform", "none");
+        return;
       }
+      var scrollY = $(window).scrollTop();
+      var viewportH = $(window).height();
+      var overlayH = $overlay.outerHeight();
+      var maxTrans = overlayH - viewportH;
+      if (scrollY + viewportH >= $(document).height() - 1) {
+        currentTranslation = maxTrans;
+      } else {
+        var delta = scrollY - lastScrollY;
+        if (delta > 0) currentTranslation = Math.min(currentTranslation + delta, maxTrans);
+        else if (delta < 0) currentTranslation = Math.max(currentTranslation + delta, 0);
+      }
+      $sidebar.css({ position: "sticky", top: "0px", height: "fit-content" });
+      $overlay.css({ transform: "translateY(-" + currentTranslation + "px)", paddingBottom: "30px" });
+      lastScrollY = scrollY;
     }
-
-    // Always keep the sidebar sticky at the top.
-    sidebar.style.position = "sticky";
-    sidebar.style.top = "0px";
-    sidebar.style.height = "fit-content";
-    overlay.style.transform = `translateY(-${currentTranslation}px)`;
-    overlay.style.paddingBottom = `30px`;
-
-    lastScrollY = scrollY;
-  }
-
-  function checkScreenSize() {
+    $(window).on("scroll resize", updateSidebarPosition);
     updateSidebarPosition();
-  }
-
-  window.addEventListener("scroll", updateSidebarPosition);
-  window.addEventListener("resize", checkScreenSize);
-  checkScreenSize();
-})();
-
+  })();
+});

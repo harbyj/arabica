@@ -1,34 +1,34 @@
- /* jshint esversion: 6 */
-      function updateLineHeight() {
-        const container = document.querySelector(".arabica_timeline-container");
-        // Select the last timeline item's content element.
-        const lastContent = container.querySelector(
-          ".arabica_timeline-items .arabica_timeline-item:last-of-type .arabica_timeline-content"
-        );
-        const containerRect = container.getBoundingClientRect();
-        const lastRect = lastContent.getBoundingClientRect();
+$(function() {
+  function updateLineHeight() {
+    var $container = $(".arabica_timeline-container");
+    // grab the last item's content
+    var $lastContent = $container
+      .find(".arabica_timeline-items .arabica_timeline-item:last-of-type .arabica_timeline-content");
 
-        const viewportWidth = window.innerWidth;
-        let targetBottom;
-        let startOffset;
+    var containerRect = $container[0].getBoundingClientRect();
+    var lastRect = $lastContent[0].getBoundingClientRect();
+    var viewportWidth = $(window).width();
+    var targetBottom, startOffset;
 
-        if (viewportWidth <= 767) {
-          // Mobile view: height ends at 36px of the last content; line starts at 60px.
-          targetBottom = lastRect.top - containerRect.top + 36;
-          startOffset = 60;
-        } else if (viewportWidth <= 991) {
-          // Tablet view: height ends at 42px of the last content; line starts at 70px.
-          targetBottom = lastRect.top - containerRect.top + 42;
-          startOffset = 70;
-        } else {
-          // Desktop view (min-width 992px): default behavior.
-          targetBottom = lastRect.top - containerRect.top + lastRect.height / 2;
-          startOffset = 125;
-        }
+    if (viewportWidth <= 767) {
+      // Mobile view
+      targetBottom = lastRect.top - containerRect.top + 36;
+      startOffset = 60;
+    } else if (viewportWidth <= 991) {
+      // Tablet view
+      targetBottom = lastRect.top - containerRect.top + 42;
+      startOffset = 70;
+    } else {
+      // Desktop view
+      targetBottom = lastRect.top - containerRect.top + (lastRect.height / 2);
+      startOffset = 125;
+    }
 
-        const newHeight = targetBottom - startOffset;
-        container.style.setProperty("--line-height", newHeight + "px");
-      }
+    var newHeight = targetBottom - startOffset;
+    // set the CSS custom property
+    $container.css("--line-height", newHeight + "px");
+  }
 
-      window.addEventListener("load", updateLineHeight);
-      window.addEventListener("resize", updateLineHeight);
+  // Run on load and resize
+  $(window).on("load resize", updateLineHeight);
+});

@@ -1,198 +1,154 @@
-/* jshint esversion: 6 */
-      document.addEventListener("DOMContentLoaded", function () {
-        var gridButton = document.querySelector(".arabica_grid");
-        var listButton = document.querySelector(".arabica_list");
-        var contentContainer = document.querySelector(
-          ".arabica_featured-content"
-        );
+$(function() {
+  //
+  // 1) GRID / LIST LAYOUT TOGGLE
+  //
+  var $gridBtn    = $('.arabica_grid');
+  var $listBtn    = $('.arabica_list');
+  var $container  = $('.arabica_featured-content');
+  var storageKey  = 'layoutPreference';
 
-        // Load saved preference
-        var savedLayout = localStorage.getItem("layoutPreference") || "list";
+  // Apply saved preference
+  var saved = localStorage.getItem(storageKey) || 'list';
+  if (saved === 'grid') {
+    $container.addClass('grid-posts');
+    $gridBtn.addClass('active');
+    $listBtn.removeClass('active');
+  } else {
+    $container.removeClass('grid-posts');
+    $listBtn.addClass('active');
+    $gridBtn.removeClass('active');
+  }
 
-        // Apply the saved layout preference immediately
-        if (savedLayout === "grid") {
-          contentContainer.classList.add("grid-posts");
-          gridButton.classList.add("active");
-          listButton.classList.remove("active");
-        } else {
-          contentContainer.classList.remove("grid-posts");
-          listButton.classList.add("active");
-          gridButton.classList.remove("active");
-        }
+  // Fade-out / fade-in switch
+  function applyLayout(isGrid) {
+    var isCurrentlyGrid = $container.hasClass('grid-posts');
+    if ((isGrid && isCurrentlyGrid) || (!isGrid && !isCurrentlyGrid)) {
+      return; // nothing to do
+    }
 
-        // Function to switch layouts with animation
-        function applyLayout(isGrid) {
-          // Prevent switching if the current layout is already active
-          if (
-            (isGrid && contentContainer.classList.contains("grid-posts")) ||
-            (!isGrid && !contentContainer.classList.contains("grid-posts"))
-          ) {
-            return;
-          }
+    $container.addClass('fade-out');
 
-          // Add fade-out effect before switching
-          contentContainer.classList.add("fade-out");
+    // after fade-out completes (timeout matches your CSS transition)
+    setTimeout(function() {
+      $container.removeClass('fade-out');
 
-          setTimeout(function () {
-            // Remove fade-out
-            contentContainer.classList.remove("fade-out");
-
-            if (isGrid) {
-              contentContainer.classList.add("grid-posts");
-              gridButton.classList.add("active");
-              listButton.classList.remove("active");
-              localStorage.setItem("layoutPreference", "grid");
-            } else {
-              contentContainer.classList.remove("grid-posts");
-              listButton.classList.add("active");
-              gridButton.classList.remove("active");
-              localStorage.setItem("layoutPreference", "list");
-            }
-
-            // Force reflow to restart animation
-            void contentContainer.offsetWidth;
-
-            // Add fade-in effect
-            contentContainer.classList.add("fade-in");
-
-            // Remove fade-in after animation completes
-            setTimeout(function () {
-              contentContainer.classList.remove("fade-in");
-            }, 0); // Matches CSS transition time
-          }, 0); // Matches fade-out transition time
-        }
-
-        // Add event listeners for layout switching
-        gridButton.addEventListener("click", function () {
-          applyLayout(true);
-        });
-        listButton.addEventListener("click", function () {
-          applyLayout(false);
-        });
-      });
-	  
-      function toggleDropdown(button) {
-        const currentDropdown = button.parentElement;
-        const dropdownWrapper = currentDropdown.querySelector(
-          ".arabica_dropdown-content-wrapper"
-        );
-        const allDropdowns = document.querySelectorAll(".arabica_dropdown");
-
-        allDropdowns.forEach((dropdown) => {
-          if (dropdown !== currentDropdown) {
-            dropdown.classList.remove("active");
-            dropdown.querySelector(
-              ".arabica_dropdown-content-wrapper"
-            ).style.maxHeight = null;
-          }
-        });
-
-        currentDropdown.classList.toggle("active");
-
-        if (currentDropdown.classList.contains("active")) {
-          dropdownWrapper.style.maxHeight = dropdownWrapper.scrollHeight + "px";
-        } else {
-          dropdownWrapper.style.maxHeight = null;
-        }
+      if (isGrid) {
+        $container.addClass('grid-posts');
+        $gridBtn.addClass('active');
+        $listBtn.removeClass('active');
+        localStorage.setItem(storageKey, 'grid');
+      } else {
+        $container.removeClass('grid-posts');
+        $listBtn.addClass('active');
+        $gridBtn.removeClass('active');
+        localStorage.setItem(storageKey, 'list');
       }
 
-      // Function to handle "Select All" checkbox
-      function toggleSelectAll(selectAllCheckbox) {
-        const dropdownContent = selectAllCheckbox.closest(
-          ".arabica_dropdown-content"
-        );
-        const checkboxes = dropdownContent.querySelectorAll(
-          'input[type="checkbox"]:not(.select-all input)'
-        );
-        const selectAllLabel = selectAllCheckbox.closest("label");
+      // force reflow then fade in
+      void $container[0].offsetWidth;
+      $container.addClass('fade-in');
 
-        checkboxes.forEach((checkbox) => {
-          checkbox.checked = selectAllCheckbox.checked;
-          const label = checkbox.closest("label");
-          if (selectAllCheckbox.checked) {
-            label.classList.add("checked");
-          } else {
-            label.classList.remove("checked");
-          }
-        });
+      // cleanup fade-in after its transition
+      setTimeout(function() {
+        $container.removeClass('fade-in');
+      }, 0);
+    }, 0);
+  }
 
-        // Ensure "Select All" label follows the checked state
-        if (selectAllCheckbox.checked) {
-          selectAllLabel.classList.add("checked");
-        } else {
-          selectAllLabel.classList.remove("checked");
-        }
-      }
+  $gridBtn.on('click', function(){ applyLayout(true); });
+  $listBtn.on('click', function(){ applyLayout(false); });
 
-      // Function to handle individual checkbox changes
-      function handleCheckboxChange(event) {
-        const dropdownContent = event.target.closest(
-          ".arabica_dropdown-content"
-        );
-        const checkboxes = dropdownContent.querySelectorAll(
-          'input[type="checkbox"]:not(.select-all input)'
-        );
-        const selectAllCheckbox =
-          dropdownContent.querySelector(".select-all input");
-        const selectAllLabel = selectAllCheckbox.closest("label");
-        const checkbox = event.target;
-        const label = checkbox.closest("label");
 
-        // Toggle .checked class for individual checkboxes
-        if (checkbox.checked) {
-          label.classList.add("checked");
-        } else {
-          label.classList.remove("checked");
-        }
 
-        // Check if all individual checkboxes are selected
-        const allChecked = Array.from(checkboxes).every((cb) => cb.checked);
+  //
+  // 2) DROPDOWN TOGGLE + “SELECT ALL” HANDLING
+  //
+  // Toggle a dropdown open/closed
+  window.toggleDropdown = function(btn) {
+    var $curr  = $(btn).closest('.arabica_dropdown');
+    var $wrap  = $curr.find('.arabica_dropdown-content-wrapper');
+    var $other = $('.arabica_dropdown').not($curr);
 
-        if (allChecked) {
-          selectAllCheckbox.checked = true;
-          selectAllLabel.classList.add("checked");
-        } else {
-          selectAllCheckbox.checked = false;
-          selectAllLabel.classList.remove("checked");
-        }
-      }
+    // close all others
+    $other.removeClass('active')
+          .find('.arabica_dropdown-content-wrapper')
+          .css('max-height', '');
 
-      // Initialize event listeners
-      document.addEventListener("DOMContentLoaded", function () {
-        // Set all checkboxes to checked by default
-        document
-          .querySelectorAll(".arabica_dropdown-content")
-          .forEach((dropdownContent) => {
-            const selectAllCheckbox =
-              dropdownContent.querySelector(".select-all input");
-            selectAllCheckbox.checked = true;
-            selectAllCheckbox.closest("label").classList.add("checked");
+    // toggle this one
+    $curr.toggleClass('active');
+    if ($curr.hasClass('active')) {
+      $wrap.css('max-height', $wrap.prop('scrollHeight') + 'px');
+    } else {
+      $wrap.css('max-height', '');
+    }
+  };
 
-            const checkboxes = dropdownContent.querySelectorAll(
-              'input[type="checkbox"]:not(.select-all input)'
-            );
-            checkboxes.forEach((checkbox) => {
-              checkbox.checked = true;
-              checkbox.closest("label").classList.add("checked");
+  // “Select All” toggles every non-select-all checkbox
+  function toggleSelectAll($allCheckbox) {
+    var $cont = $allCheckbox.closest('.arabica_dropdown-content');
+    var $boxes = $cont.find('input[type="checkbox"]').not('.select-all input');
+    var checked = $allCheckbox.prop('checked');
+    var $labelAll = $allCheckbox.closest('label');
 
-              checkbox.addEventListener("change", handleCheckboxChange);
-            });
+    $boxes.each(function() {
+      var $cb = $(this),
+          $lbl = $cb.closest('label');
+      $cb.prop('checked', checked);
+      $lbl.toggleClass('checked', checked);
+    });
 
-            selectAllCheckbox.addEventListener("click", function () {
-              toggleSelectAll(selectAllCheckbox);
-            });
-          });
-      });
+    $labelAll.toggleClass('checked', checked);
+  }
 
-      // Close dropdown when clicking outside
-      window.onclick = function (event) {
-        if (
-          !event.target.closest(".arabica_dropdown") &&
-          !event.target.matches('input[type="checkbox"]')
-        ) {
-          document.querySelectorAll(".arabica_dropdown").forEach((dropdown) => {
-            dropdown.classList.remove("active");
-          });
-        }
-      };
-    
+  // Individual checkbox change → update its label + “select all” state
+  function handleCheckboxChange() {
+    var $cb    = $(this),
+        $lbl   = $cb.closest('label'),
+        $cont  = $cb.closest('.arabica_dropdown-content'),
+        $allCB = $cont.find('.select-all input'),
+        $allLbl= $allCB.closest('label'),
+        $boxes = $cont.find('input[type="checkbox"]').not('.select-all input');
+
+    $lbl.toggleClass('checked', $cb.prop('checked'));
+
+    // if every individual is checked → set select-all
+    if ($boxes.length && $boxes.filter(':checked').length === $boxes.length) {
+      $allCB.prop('checked', true);
+      $allLbl.addClass('checked');
+    } else {
+      $allCB.prop('checked', false);
+      $allLbl.removeClass('checked');
+    }
+  }
+
+  // Init dropdowns on DOM ready
+  $('.arabica_dropdown-content').each(function() {
+    var $cont = $(this);
+    var $allCB = $cont.find('.select-all input');
+    var $allLbl= $allCB.closest('label');
+    var $boxes = $cont.find('input[type="checkbox"]').not('.select-all input');
+
+    // default: all checked
+    $allCB.prop('checked', true);
+    $allLbl.addClass('checked');
+
+    $boxes.each(function() {
+      var $cb  = $(this),
+          $lbl = $cb.closest('label');
+      $cb.prop('checked', true);
+      $lbl.addClass('checked');
+      $cb.on('change', handleCheckboxChange);
+    });
+
+    $allCB.on('click', function() {
+      toggleSelectAll($(this));
+    });
+  });
+
+  // clicking outside closes dropdown
+  $(window).on('click', function(e) {
+    if (!$(e.target).closest('.arabica_dropdown').length && !$(e.target).is('input[type="checkbox"]')) {
+      $('.arabica_dropdown').removeClass('active');
+    }
+  });
+});

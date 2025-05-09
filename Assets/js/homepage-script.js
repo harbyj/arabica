@@ -1,231 +1,169 @@
-/* jshint esversion: 6 */
-document.addEventListener("DOMContentLoaded", function () {
-  const slides = document.querySelectorAll(".arabica_slide");
-  const buttonsContainer = document.querySelector(".arabica_slider-buttons");
-  let currentSlide = 0;
-  let autoSlideInterval;
-  let isPageVisible = true;
+$(function() {
+  //
+  // 1) SLIDER WITH AUTO-SLIDE, MANUAL BUTTONS & SWIPES
+  //
+  var $slides          = $('.arabica_slide'),
+      $btnContainer    = $('.arabica_slider-buttons'),
+      currentSlide     = 0,
+      autoSlideTimer,
+      isPageVisible    = true,
+      $slider          = $('.arabica_slider');
 
-  // Clear existing buttons (if any) and dynamically create buttons based on the number of slides
-  buttonsContainer.innerHTML = "";
-  slides.forEach((_, i) => {
-    const button = document.createElement("button");
-    button.dataset.slide = i;
-    if (i === 0) button.classList.add("active"); // Set the first button as active initially
-    buttonsContainer.appendChild(button);
+  // build buttons
+  $btnContainer.empty();
+  $slides.each(function(i) {
+    $('<button type="button">')
+      .attr('data-slide', i)
+      .toggleClass('active', i === 0)
+      .appendTo($btnContainer);
   });
+  var $buttons = $btnContainer.find('button');
 
-  const buttons = buttonsContainer.querySelectorAll("button");
-
-  // Function to show a specific slide immediately
-  function showSlide(index) {
-    slides.forEach((slide, i) => {
-      slide.classList.toggle("active", i === index);
-    });
-    buttons.forEach((button, i) => {
-      button.classList.toggle("active", i === index);
-    });
+  function showSlide(idx) {
+    $slides.toggleClass('active', false)
+           .eq(idx).addClass('active');
+    $buttons.toggleClass('active', false)
+            .eq(idx).addClass('active');
   }
-
-  // Function to move to the next slide
   function nextSlide() {
-    currentSlide = (currentSlide + 1) % slides.length;
+    currentSlide = (currentSlide + 1) % $slides.length;
     showSlide(currentSlide);
   }
-
-  // Function to start the auto-slide interval
-  function startAutoSlide() {
-    autoSlideInterval = setInterval(nextSlide, 10000); // Change slide every 10 seconds
+  function startAuto() {
+    stopAuto();
+    autoSlideTimer = setInterval(nextSlide, 10000);
+  }
+  function stopAuto() {
+    clearInterval(autoSlideTimer);
+  }
+  function resetAuto() {
+    stopAuto();
+    startAuto();
   }
 
-  // Function to stop the auto-slide interval
-  function stopAutoSlide() {
-    clearInterval(autoSlideInterval);
-  }
-
-  // Function to reset the timer when manually navigating
-  function resetTimer() {
-    stopAutoSlide();
-    startAutoSlide();
-  }
-
-  // Handle manual navigation via dynamically created buttons
-  buttons.forEach((button, i) => {
-    button.addEventListener("click", () => {
-      currentSlide = i;
-      showSlide(currentSlide);
-      resetTimer(); // Reset the timer on manual navigation
-    });
-  });
-
-  // Handle touch swipe events
-  let touchStartX = 0;
-  let touchEndX = 0;
-  const slider = document.querySelector(".arabica_slider");
-
-  slider.addEventListener("touchstart", (e) => {
-    touchStartX = e.touches[0].clientX;
-  });
-
-  slider.addEventListener("touchend", (e) => {
-    touchEndX = e.changedTouches[0].clientX;
-    handleSwipe();
-  });
-
-  function handleSwipe() {
-    const swipeThreshold = 50;
-    const swipeDistance = touchEndX - touchStartX;
-
-    if (swipeDistance > swipeThreshold) {
-      currentSlide = (currentSlide - 1 + slides.length) % slides.length;
-    } else if (swipeDistance < -swipeThreshold) {
-      currentSlide = (currentSlide + 1) % slides.length;
-    }
+  // nav-button click
+  $buttons.on('click', function() {
+    currentSlide = +$(this).data('slide');
     showSlide(currentSlide);
-    resetTimer();
-  }
-
-  // Pause auto-slide when the page is not visible
-  document.addEventListener("visibilitychange", () => {
-    isPageVisible = !document.hidden;
-    if (isPageVisible) {
-      startAutoSlide();
-    } else {
-      stopAutoSlide();
-    }
+    resetAuto();
   });
 
-  // Show the first slide and start auto-slide
+  // swipe handling
+  var touchStartX = 0, touchEndX = 0;
+  $slider.on('touchstart', function(e) {
+    touchStartX = e.originalEvent.touches[0].clientX;
+  }).on('touchend', function(e) {
+    touchEndX = e.originalEvent.changedTouches[0].clientX;
+    var dist = touchEndX - touchStartX;
+    if      (dist > 50)  currentSlide = (currentSlide - 1 + $slides.length) % $slides.length;
+    else if (dist < -50) currentSlide = (currentSlide + 1) % $slides.length;
+    showSlide(currentSlide);
+    resetAuto();
+  });
+
+  // pause when tab hidden
+  $(document).on('visibilitychange', function() {
+    if (document.hidden) stopAuto();
+    else               startAuto();
+  });
+
+  // init
   showSlide(currentSlide);
-  startAutoSlide();
-});
+  startAuto();
 
-// Get Load More
-const loadMoreBtn = document.getElementById("loadMoreBtn");
-const articles = document.querySelectorAll(".arabica_featured-article");
-const plusIcon = loadMoreBtn.querySelector(".arabica_featured-pager .fa-plus");
-const minusIcon = loadMoreBtn.querySelector(
-  ".arabica_featured-pager .fa-minus"
-);
-const loadingIcon = loadMoreBtn.querySelector(
-  ".arabica_featured-pager .arabica_loading-icon"
-);
 
-// Initial state: show only first 2 articles and set icons
-let expanded = false;
-for (let i = 2; i < articles.length; i++) {
-  articles[i].classList.add("hidden");
-}
-plusIcon.style.display = "inline-block";
-minusIcon.style.display = "none";
-loadingIcon.style.display = "none";
 
-// Button click event with simulated loading and animation
-loadMoreBtn.addEventListener("click", function (event) {
-  event.preventDefault();
+  //
+  // 2) “LOAD MORE” #1: featured-article, first 2 shown
+  //
+  var $load1       = $('#loadMoreBtn'),
+      $arts1       = $('.arabica_featured-article'),
+      $plus1       = $load1.find('.fa-plus'),
+      $minus1      = $load1.find('.fa-minus'),
+      $loading1    = $load1.find('.arabica_loading-icon'),
+      expanded1    = false;
 
-  // Hide plus/minus icons and show loading icon
-  plusIcon.style.display = "none";
-  minusIcon.style.display = "none";
-  loadingIcon.style.display = "inline-block";
-  loadMoreBtn.style.pointerEvents = "none"; // Prevent multiple clicks
+  // initial state
+  $arts1.slice(2).addClass('hidden');
+  $plus1.show();
+  $minus1.hide();
+  $loading1.hide();
 
-  // Simulate loading delay (2 seconds)
-  setTimeout(() => {
-    if (!expanded) {
-      // Expand: remove the hidden class to animate showing the extra articles
-      for (let i = 2; i < articles.length; i++) {
-        articles[i].classList.remove("hidden");
+  $load1.on('click', function(e) {
+    e.preventDefault();
+    $plus1.hide();
+    $minus1.hide();
+    $loading1.show();
+    $load1.css('pointer-events','none');
+
+    setTimeout(function() {
+      if (!expanded1) {
+        $arts1.slice(2).removeClass('hidden');
+        $minus1.show();
+      } else {
+        $arts1.slice(2).addClass('hidden');
+        $plus1.show();
       }
-      minusIcon.style.display = "inline-block";
-    } else {
-      // Collapse: add the hidden class to animate hiding the extra articles
-      for (let i = 2; i < articles.length; i++) {
-        articles[i].classList.add("hidden");
-      }
-      plusIcon.style.display = "inline-block";
-    }
-    loadingIcon.style.display = "none";
-    loadMoreBtn.style.pointerEvents = "auto";
-    expanded = !expanded;
-  }, 0);
-});
+      $loading1.hide();
+      $load1.css('pointer-events','auto');
+      expanded1 = !expanded1;
+    }, 0);
+  });
 
-// Get elements for the second load-more functionality
-const loadMoreBtn2 = document.getElementById("loadMoreBtn2");
-const shortArticles = document.querySelectorAll(".arabica_short-article");
-const plusIcon2 = loadMoreBtn2.querySelector(".arabica_short-pager .fa-plus");
-const minusIcon2 = loadMoreBtn2.querySelector(".arabica_short-pager .fa-minus");
-const loadingIcon2 = loadMoreBtn2.querySelector(
-  ".arabica_short-pager .arabica_loading-icon"
-);
 
-// Initial state: show first 6 articles, hide the rest
-let expandedShort = false;
-shortArticles.forEach((article, index) => {
-  if (index >= 6) {
-    article.classList.add("hidden");
-    article.style.display = "none"; // Completely remove from layout initially
+
+  //
+  // 3) “LOAD MORE” #2: short-article, first 6 shown
+  //
+  var $load2       = $('#loadMoreBtn2'),
+      $arts2       = $('.arabica_short-article'),
+      $plus2       = $load2.find('.fa-plus'),
+      $minus2      = $load2.find('.fa-minus'),
+      $loading2    = $load2.find('.arabica_loading-icon'),
+      expanded2    = false;
+
+  // initial state
+  $arts2.each(function(i, el) {
+    if (i >= 6) $(el).addClass('hidden').hide();
+  });
+  $plus2.show();
+  $minus2.hide();
+  $loading2.hide();
+
+  function showArticle($art) {
+    $art.show();
+    // force reflow
+    void $art[0].offsetWidth;
+    $art.removeClass('hidden');
   }
-});
+  function hideArticle($art) {
+    $art.addClass('hidden').one('transitionend', function() {
+      if ($art.hasClass('hidden')) $art.hide();
+    });
+  }
 
-// Set initial icon states for the second container
-plusIcon2.style.display = "inline-block";
-minusIcon2.style.display = "none";
-loadingIcon2.style.display = "none";
+  $load2.on('click', function(e) {
+    e.preventDefault();
+    $plus2.hide();
+    $minus2.hide();
+    $loading2.show();
+    $load2.css('pointer-events','none');
 
-// Function to show an article with animation
-function showArticle(article) {
-  article.style.display = "block"; // Restore to layout
-  void article.offsetWidth; // Force reflow for transition
-  article.classList.remove("hidden");
-}
-
-// Function to hide an article with animation and remove it from layout
-function hideArticle(article) {
-  article.classList.add("hidden");
-  article.addEventListener(
-    "transitionend",
-    () => {
-      if (article.classList.contains("hidden")) {
-        article.style.display = "none"; // Remove from layout after transition
+    setTimeout(function() {
+      if (!expanded2) {
+        $arts2.slice(6).each(function(_, el) {
+          showArticle($(el));
+        });
+        $minus2.show();
+      } else {
+        $arts2.slice(6).each(function(_, el) {
+          hideArticle($(el));
+        });
+        $plus2.show();
       }
-    },
-    { once: true } // Ensures the event listener runs once per transition
-  );
-}
-
-// Button click event with a simulated loading delay and animation
-loadMoreBtn2.addEventListener("click", function (event) {
-  event.preventDefault();
-
-  // Hide plus/minus icons and show loading icon
-  plusIcon2.style.display = "none";
-  minusIcon2.style.display = "none";
-  loadingIcon2.style.display = "inline-block";
-  loadMoreBtn2.style.pointerEvents = "none"; // Prevent multiple clicks
-
-  // Simulate a loading delay (0ms for instant effect)
-  setTimeout(() => {
-    if (!expandedShort) {
-      // Expand: show extra articles with animation
-      for (let i = 6; i < shortArticles.length; i++) {
-        showArticle(shortArticles[i]);
-      }
-      minusIcon2.style.display = "inline-block";
-    } else {
-      // Collapse: hide extra articles with animation
-      for (let i = 6; i < shortArticles.length; i++) {
-        hideArticle(shortArticles[i]);
-      }
-      plusIcon2.style.display = "inline-block";
-    }
-
-    // Hide loading icon and re-enable the button
-    loadingIcon2.style.display = "none";
-    loadMoreBtn2.style.pointerEvents = "auto";
-
-    // Toggle the state for next click
-    expandedShort = !expandedShort;
-  }, 0);
+      $loading2.hide();
+      $load2.css('pointer-events','auto');
+      expanded2 = !expanded2;
+    }, 0);
+  });
 });

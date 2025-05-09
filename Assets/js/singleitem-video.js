@@ -67,7 +67,7 @@ $(function() {
 
     const controls = $("<div>").addClass("arabica_video-controls");
 
-    const playPauseBtn = $("<button>")
+    const playPauseBtn = $('<button type="button">')
       .addClass("play-btn")
       .attr("id", "playPause-" + index)
       .html(`
@@ -77,7 +77,7 @@ $(function() {
       `);
     controls.append(playPauseBtn);
 
-    const restartBtn = $("<button>")
+    const restartBtn = $('<button type="button">')
       .addClass("restart-btn")
       .attr("id", "restart-" + index)
       .html(`
@@ -107,7 +107,7 @@ $(function() {
       .html(`<span id="duration-${index}">0:00</span>`);
     controls.append(duration);
 
-    const volumeBtn = $("<button>")
+    const volumeBtn = $('<button type="button">')
       .addClass("volume-btn")
       .attr("id", "volume-" + index)
       .html(`
@@ -118,7 +118,7 @@ $(function() {
       `);
     controls.append(volumeBtn);
 
-    const fullscreenBtn = $("<button>")
+    const fullscreenBtn = $('<button type="button">')
       .addClass("fullscreen-btn")
       .attr("id", "fullscreen-" + index)
       .html(`
