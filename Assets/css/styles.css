@@ -800,7 +800,6 @@ a.arabica_tag:hover {
   display: flex;
   justify-content: center;
   gap: 10%;
-  flex-direction: row-reverse;
   margin-top: -80px;
 }
 .arabica_card {
