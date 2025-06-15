@@ -381,7 +381,7 @@ if ($article.length) {
         if (!$dropdown.is(":hover") && !$span.is(":hover")) {
           $dropdown.removeClass("open");
         }
-      }, 300);
+      }, 200);
       $span.data('hideTimer', hideTimer);
     });
     
@@ -481,7 +481,7 @@ if ($article.length) {
             $(".arabica_bracket-dropdown.open").removeClass("open");
             positionBracketDropdown($span, $dropdown);
             $dropdown.addClass("open");
-          }, 300);
+          }, 200);
           $span.data('showTimer', showTimer);
         }
       }
@@ -496,7 +496,7 @@ if ($article.length) {
         if ($dropdown.length && !$dropdown.is(":hover") && !$span.is(":hover")) {
           $dropdown.removeClass("open");
         }
-      }, 300);
+      }, 200);
       $span.data('hideTimer', hideTimer);
     });
     
@@ -584,7 +584,7 @@ if ($article.length) {
       // Store reference to dropdown in data attribute
       $ftnrefLink.data("dropdown-id", ddId);
       
-      // Hover event handlers with 300ms delays
+      // Hover event handlers with 200ms delays
       var showTimer, hideTimer;
       
       $ftnrefLink.on("mouseenter", function (e) {
@@ -599,7 +599,7 @@ if ($article.length) {
           // Position and show dropdown
           positionFootnoteDropdown($ftnrefLink, $dropdown);
           $dropdown.addClass("open");
-        }, 300);
+        }, 200);
       });
       
       $ftnrefLink.on("mouseleave", function (e) {
@@ -610,7 +610,7 @@ if ($article.length) {
           if (!$dropdown.is(":hover") && !$ftnrefLink.is(":hover")) {
             $dropdown.removeClass("open");
           }
-        }, 300);
+        }, 200);
       });
       
       // Keep dropdown open when hovering over it
@@ -626,7 +626,7 @@ if ($article.length) {
           if (!$dropdown.is(":hover") && !$ftnrefLink.is(":hover")) {
             $dropdown.removeClass("open");
           }
-        }, 300);
+        }, 200);
       });
       
       // Copy functionality
@@ -880,7 +880,7 @@ if ($article.length) {
           if (!$dropdown.is(":hover") && !$link.is(":hover")) {
             $dropdown.removeClass("open");
           }
-        }, 300);
+        }, 200);
         $link.data('hideTimer', hideTimer);
       });
       
@@ -907,7 +907,7 @@ if ($article.length) {
             $(".arabica_link-dropdown.open").removeClass("open");
             positionLinkDropdown($link, $dropdown);
             $dropdown.addClass("open");
-          }, 300);
+          }, 200);
           return;
         }
       }
@@ -925,7 +925,7 @@ if ($article.length) {
                 positionLinkDropdown($link, $dropdown);
                 $dropdown.addClass("open");
               }
-            }, 300);
+            }, 200);
           }
         });
       }
@@ -940,7 +940,7 @@ if ($article.length) {
         if ($dropdown.length && !$dropdown.is(":hover") && !$link.is(":hover")) {
           $dropdown.removeClass("open");
         }
-      }, 300);
+      }, 200);
     });
   });
 
