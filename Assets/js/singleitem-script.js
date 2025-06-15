@@ -343,7 +343,6 @@ $(document).ready(function () {
   }
 
 // Convert links with following double brackets to interactive spans with dropdowns
-// IMPORTANT: This script should run BEFORE the original link dropdown script
 var $article = $(".arabica_article-content");
 if ($article.length) {
   
@@ -381,7 +380,7 @@ if ($article.length) {
         if (!$dropdown.is(":hover") && !$span.is(":hover")) {
           $dropdown.removeClass("open");
         }
-      }, 200);
+      }, 300);
       $span.data('hideTimer', hideTimer);
     });
     
@@ -481,7 +480,7 @@ if ($article.length) {
             $(".arabica_bracket-dropdown.open").removeClass("open");
             positionBracketDropdown($span, $dropdown);
             $dropdown.addClass("open");
-          }, 200);
+          }, 300);
           $span.data('showTimer', showTimer);
         }
       }
@@ -496,7 +495,7 @@ if ($article.length) {
         if ($dropdown.length && !$dropdown.is(":hover") && !$span.is(":hover")) {
           $dropdown.removeClass("open");
         }
-      }, 200);
+      }, 300);
       $span.data('hideTimer', hideTimer);
     });
     
@@ -520,7 +519,7 @@ if ($article.length) {
       $(".arabica_bracket-dropdown.open").removeClass("open");
     }
   });
-}
+} 
 
  // Footnote hover dropdowns
 var $article = $(".arabica_article-content");
@@ -584,7 +583,7 @@ if ($article.length) {
       // Store reference to dropdown in data attribute
       $ftnrefLink.data("dropdown-id", ddId);
       
-      // Hover event handlers with 200ms delays
+      // Hover event handlers with 300ms delays
       var showTimer, hideTimer;
       
       $ftnrefLink.on("mouseenter", function (e) {
@@ -599,7 +598,7 @@ if ($article.length) {
           // Position and show dropdown
           positionFootnoteDropdown($ftnrefLink, $dropdown);
           $dropdown.addClass("open");
-        }, 200);
+        }, 300);
       });
       
       $ftnrefLink.on("mouseleave", function (e) {
@@ -610,7 +609,7 @@ if ($article.length) {
           if (!$dropdown.is(":hover") && !$ftnrefLink.is(":hover")) {
             $dropdown.removeClass("open");
           }
-        }, 200);
+        }, 300);
       });
       
       // Keep dropdown open when hovering over it
@@ -626,7 +625,7 @@ if ($article.length) {
           if (!$dropdown.is(":hover") && !$ftnrefLink.is(":hover")) {
             $dropdown.removeClass("open");
           }
-        }, 200);
+        }, 300);
       });
       
       // Copy functionality
@@ -768,7 +767,7 @@ if ($article.length) {
             
             if ($factsSection.length) {
               // Find all paragraphs within the #Facts section
-              var $paragraphs = $factsSection.find('p');
+              var $paragraphs = $factsSection.find('#facts-desc');
               
               if ($paragraphs.length) {
                 var content = '';
@@ -880,7 +879,7 @@ if ($article.length) {
           if (!$dropdown.is(":hover") && !$link.is(":hover")) {
             $dropdown.removeClass("open");
           }
-        }, 200);
+        }, 300);
         $link.data('hideTimer', hideTimer);
       });
       
@@ -907,7 +906,7 @@ if ($article.length) {
             $(".arabica_link-dropdown.open").removeClass("open");
             positionLinkDropdown($link, $dropdown);
             $dropdown.addClass("open");
-          }, 200);
+          }, 300);
           return;
         }
       }
@@ -925,7 +924,7 @@ if ($article.length) {
                 positionLinkDropdown($link, $dropdown);
                 $dropdown.addClass("open");
               }
-            }, 200);
+            }, 300);
           }
         });
       }
@@ -940,7 +939,7 @@ if ($article.length) {
         if ($dropdown.length && !$dropdown.is(":hover") && !$link.is(":hover")) {
           $dropdown.removeClass("open");
         }
-      }, 200);
+      }, 300);
     });
   });
 
