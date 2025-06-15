@@ -193,442 +193,129 @@ $(document).ready(function () {
     updateActiveTOC();
   }
 
-  // Endnote extraction & dropdowns
+// Unified Interactive Dropdown System
+(function() {
+  'use strict';
+  
   var $article = $(".arabica_article-content");
-  if ($article.length) {
-    var ednRefs = {};
-    var $ends = $article.find('p:has(a[name^="_edn"]:not([name^="_ednref"]))');
-
-    $ends.each(function () {
-      var $p = $(this);
-      var name = $p.find('a[name^="_edn"]:not([name^="_ednref"])').attr("name");
-      var key = name.replace("_edn", "");
-      var txt = getCleanHTML($p);
-      var $n = $p.next();
-      while ($n.length && ["P", "UL", "OL"].indexOf($n.prop("tagName")) !== -1) {
-        if ($n.is("p") && $n.find('a[name^="_edn"]:not([name^="_ednref"])').length) break;
-        txt += getCleanHTML($n);
-        $n = $n.next();
-      }
-      ednRefs[key] = txt.trim();
-
-      var toRm = [$p];
-      $n = $p.next();
-      while ($n.length && ["P", "UL", "OL"].indexOf($n.prop("tagName")) !== -1) {
-        if ($n.is("p") && $n.find('a[name^="_edn"]:not([name^="_ednref"])').length) break;
-        toRm.push($n);
-        $n = $n.next();
-      }
-      for (var x = 0; x < toRm.length; x++) toRm[x].remove();
-    });
-
-    $article.find('a[name^="_ednref"]').each(function () {
-      var $lnk = $(this);
-      var key = $lnk.attr("name").replace("_ednref", "");
-      var refText = ednRefs[key] || "";
-      var dir = /[\u0600-\u06FF]/.test(refText) ? "rtl" : "ltr";
-      var ddId = "arabica_ref-dropdown-" + Math.random().toString(36).slice(2,9);
-      var html =
-        '<a class="arabica_ref-icon" data-ref-id="' + ddId + '" data-reference="' + escapeAttr(refText) + '">' +
-          '<i class="fa-light fa-circle-info arabica_ref-icon-light active"></i>' +
-          '<i class="fa-solid fa-circle-info arabica_ref-icon-solid inactive"></i>' +
-        "</a>" +
-        '<div id="' + ddId + '" class="arabica_ref-dropdown">' +
-          '<div class="arabica_ref-actions">' +
-            '<span class="arabica_ref-copy-icon" title="Copy"><i class="fa-regular fa-copy"></i></span>' +
-            '<span class="arabica_ref-copied-text">✓ تم النسخ</span>' +
-            '<span class="arabica_ref-close-icon" title="Close"><i class="fa-regular fa-circle-xmark"></i></span>' +
-          "</div>" +
-          '<div class="arabica_ref-text" dir="' + dir + '"><span dir="' + dir + '">' + refText + "</span></div>" +
-        "</div>";
-      $lnk.replaceWith(html);
-    });
-
-    // these helpers inside this block are now expressions
-    resetIconStyles = function ($icon) {
-      $icon.find(".arabica_ref-icon-solid").removeClass("active").addClass("inactive");
-      $icon.find(".arabica_ref-icon-light").removeClass("inactive").addClass("active");
-    };
-
-    closeAllDropdowns = function () {
-      $(".arabica_ref-dropdown.open").each(function () {
-        var $d = $(this);
-        $d.removeClass("open");
-        var $pi = $d.prev();
-        if ($pi.hasClass("arabica_ref-icon")) resetIconStyles($pi);
-      });
-    };
-
-    positionDropdown = function ($icon, $dropdown) {
-      var $parent = $icon.offsetParent();
+  if (!$article.length) return;
+  
+  // Common utilities
+  var utils = {
+    hasArabicText: function(text) {
+      return /[\u0600-\u06FF]/.test(text);
+    },
+    
+    generateId: function(prefix) {
+      return prefix + "-" + Math.random().toString(36).slice(2, 9);
+    },
+    
+    createDropdownHtml: function(id, content, direction, includeActions) {
+      var actionsHtml = includeActions ? 
+        '<div class="arabica_ref-actions">' +
+          '<span class="arabica_ref-copy-icon" title="Copy"><i class="fa-regular fa-copy"></i></span>' +
+          '<span class="arabica_ref-copied-text">✓ تم النسخ</span>' +
+          '<span class="arabica_ref-close-icon" title="Close"><i class="fa-regular fa-circle-xmark"></i></span>' +
+        '</div>' : '';
+      
+      return '<div id="' + id + '" class="arabica_ref-dropdown ' + this.getDropdownClass(includeActions) + '">' +
+               actionsHtml +
+               '<div class="arabica_ref-text" dir="' + direction + '">' + content + '</div>' +
+             '</div>';
+    },
+    
+    getDropdownClass: function(includeActions) {
+      return includeActions ? 'arabica_ftn-dropdown' : 'arabica_bracket-dropdown arabica_link-dropdown';
+    }
+  };
+  
+  // Common dropdown management
+  var dropdownManager = {
+    position: function($trigger, $dropdown) {
+      var $parent = $trigger.offsetParent();
       if (!$parent.length) return;
+      
       $dropdown.css({ top: "", left: "" }).removeClass("arabica_ref-dropdown--above");
-      var iconR = $icon[0].getBoundingClientRect();
+      
+      var triggerR = $trigger[0].getBoundingClientRect();
       var parR = $parent[0].getBoundingClientRect();
       var dropR = $dropdown[0].getBoundingClientRect();
-      var left = iconR.left - parR.left + iconR.width/2 - dropR.width/2;
+      
+      // Calculate horizontal position (center dropdown on trigger)
+      var left = triggerR.left - parR.left + triggerR.width/2 - dropR.width/2;
       left = Math.max(0, Math.min(left, parR.width - dropR.width));
       $dropdown.css("left", left + "px");
-      var spaceBelow = window.innerHeight - iconR.bottom;
-      var spaceAbove = iconR.top;
+      
+      // Calculate vertical position
+      var spaceBelow = window.innerHeight - triggerR.bottom;
+      var spaceAbove = triggerR.top;
       var top;
-      if (spaceBelow < dropR.height +10 && spaceAbove >= dropR.height+10) {
-        top = iconR.top - parR.top - dropR.height - 10;
+      
+      if (spaceBelow < dropR.height + 10 && spaceAbove >= dropR.height + 10) {
+        // Show above
+        top = triggerR.top - parR.top - dropR.height - 10;
         $dropdown.addClass("arabica_ref-dropdown--above");
       } else {
-        top = iconR.bottom - parR.top + 10;
+        // Show below
+        top = triggerR.bottom - parR.top + 10;
       }
       $dropdown.css("top", top + "px");
-      var arrowLeft = iconR.left - parR.left + iconR.width/2 - left;
+      
+      // Position arrow
+      var arrowLeft = triggerR.left - parR.left + triggerR.width/2 - left;
       $dropdown.css("--arrow-left", arrowLeft + "px");
-    };
-
-    var $refIcons = $article.find(".arabica_ref-icon");
-    $refIcons.each(function () {
-      var $icon = $(this);
-      var ddId = $icon.data("ref-id");
-      var $dd = $("#" + ddId);
-      $dd.on("click", function (e) { e.stopPropagation(); });
-      $icon.on("click", function (e) {
-        e.stopPropagation();
-        if ($dd.hasClass("open")) {
-          $dd.removeClass("open");
-          resetIconStyles($icon);
-        } else {
-          closeAllDropdowns();
-          positionDropdown($icon, $dd);
-          $dd.addClass("open");
-          $icon.find(".arabica_ref-icon-light").removeClass("active").addClass("inactive");
-          $icon.find(".arabica_ref-icon-solid").removeClass("inactive").addClass("active");
-        }
-      });
-      $icon.on("mouseenter", function () {
-        if (!$dd.hasClass("open")) {
-          $icon.find(".arabica_ref-icon-light").removeClass("active").addClass("inactive");
-          $icon.find(".arabica_ref-icon-solid").removeClass("inactive").addClass("active");
-        }
-      });
-      $icon.on("mouseleave", function () {
-        if (!$dd.hasClass("open")) resetIconStyles($icon);
-      });
-      $dd.find(".arabica_ref-close-icon").on("click", function (e) {
-        e.stopPropagation();
-        $dd.removeClass("open");
-        resetIconStyles($icon);
-      });
-      $dd.find(".arabica_ref-copy-icon").on("click", function (e) {
-        e.stopPropagation();
-        var $txtEl = $dd.find(".arabica_ref-text");
-        var htmlC = $txtEl.html().trim();
-        var plainC = $txtEl.text().trim().replace(/\s+/g," ");
-        var clip = new ClipboardItem({
-          "text/html": new Blob([htmlC], {type:"text/html"}),
-          "text/plain": new Blob([plainC], {type:"text/plain"})
-        });
-        navigator.clipboard.write([clip]).then(function(){
-          $(this).hide();
-          $dd.find(".arabica_ref-copied-text").addClass("show");
-          setTimeout(function(){
-            $dd.find(".arabica_ref-copy-icon").show();
-            $dd.find(".arabica_ref-copied-text").removeClass("show");
-          },5000);
-        }.bind(this)).catch(function(err){ console.error(err); });
-      });
-    });
-
-    $(document).on("click", closeAllDropdowns);
-    $(document).on("keydown", function (e) {
-      if (e.key === "Escape") closeAllDropdowns();
-    });
-  }
-
-// Convert links with following double brackets to interactive spans with dropdowns
-var $article = $(".arabica_article-content");
-if ($article.length) {
-  
-  // Function to detect Arabic text
-  function hasArabicText(text) {
-    return /[\u0600-\u06FF]/.test(text);
-  }
-  
-  // Function to create dropdown for bracket content
-  function createBracketDropdown($span, content) {
-    var ddId = "arabica_bracket-dropdown-" + Math.random().toString(36).slice(2,9);
-    var direction = hasArabicText(content) ? "rtl" : "ltr";
+    },
     
-    // Create dropdown element
-    var dropdownHtml = 
-      '<div id="' + ddId + '" class="arabica_ref-dropdown arabica_bracket-dropdown">' +
-        '<div class="arabica_ref-text" dir="' + direction + '">' + content + '</div>' +
-      '</div>';
-    
-    // Insert dropdown after the span
-    $span.after(dropdownHtml);
-    var $dropdown = $("#" + ddId);
-    
-    // Store reference to dropdown in data attribute
-    $span.data("dropdown-id", ddId);
-    
-    // Set up hover events for the dropdown itself
-    $dropdown.on("mouseenter", function (e) {
-      clearTimeout($span.data('hideTimer'));
-      clearTimeout($span.data('showTimer'));
-    });
-    
-    $dropdown.on("mouseleave", function (e) {
-      var hideTimer = setTimeout(function() {
-        if (!$dropdown.is(":hover") && !$span.is(":hover")) {
-          $dropdown.removeClass("open");
-        }
-      }, 300);
-      $span.data('hideTimer', hideTimer);
-    });
-    
-    // Prevent dropdown clicks from bubbling
-    $dropdown.on("click", function (e) { 
-      e.stopPropagation(); 
-    });
-  }
-  
-  // Function to position bracket dropdowns
-  function positionBracketDropdown($span, $dropdown) {
-    var $parent = $span.offsetParent();
-    if (!$parent.length) return;
-    
-    $dropdown.css({ top: "", left: "" }).removeClass("arabica_ref-dropdown--above");
-    
-    var spanR = $span[0].getBoundingClientRect();
-    var parR = $parent[0].getBoundingClientRect();
-    var dropR = $dropdown[0].getBoundingClientRect();
-    
-    // Calculate horizontal position (center dropdown on span)
-    var left = spanR.left - parR.left + spanR.width/2 - dropR.width/2;
-    left = Math.max(0, Math.min(left, parR.width - dropR.width));
-    $dropdown.css("left", left + "px");
-    
-    // Calculate vertical position
-    var spaceBelow = window.innerHeight - spanR.bottom;
-    var spaceAbove = spanR.top;
-    var top;
-    
-    if (spaceBelow < dropR.height + 10 && spaceAbove >= dropR.height + 10) {
-      // Show above
-      top = spanR.top - parR.top - dropR.height - 10;
-      $dropdown.addClass("arabica_ref-dropdown--above");
-    } else {
-      // Show below
-      top = spanR.bottom - parR.top + 10;
-    }
-    $dropdown.css("top", top + "px");
-    
-    // Position arrow
-    var arrowLeft = spanR.left - parR.left + spanR.width/2 - left;
-    $dropdown.css("--arrow-left", arrowLeft + "px");
-  }
-  
-  // Process the article content
-  var articleHtml = $article.html();
-  
-  // Regular expression to find links followed by double brackets
-  // This matches: <a href="...">text</a> {{content}}
-  var linkBracketRegex = /(<a[^>]*href[^>]*>.*?<\/a>)\s*\{\{(.*?)\}\}/gi;
-  
-  var processedHtml = articleHtml.replace(linkBracketRegex, function(match, linkHtml, bracketContent) {
-    // Extract the link text from the link HTML
-    var $tempLink = $(linkHtml);
-    var linkText = $tempLink.text();
-    
-    // Create a unique ID for this span
-    var spanId = "arabica_bracket-span-" + Math.random().toString(36).slice(2,9);
-    
-    // Create the span replacement with dotted underline styling
-    var spanHtml = '<span id="' + spanId + '" class="arabica_bracket-span" ' +
-                   'style="text-decoration: underline;' +
-                   'text-decoration-color: #c93; cursor: pointer;" ' +
-                   'data-bracket-content="' + bracketContent.replace(/"/g, '&quot;') + '">' +
-                   linkText + '</span>';
-    
-    return spanHtml;
-  });
-  
-  // Update the article content
-  $article.html(processedHtml);
-  
-  // Trigger a custom event to let other scripts know the content has been modified
-  $article.trigger('content-modified');
-  
-  // Set up event handlers for the newly created spans
-  $article.find('.arabica_bracket-span').each(function() {
-    var $span = $(this);
-    var bracketContent = $span.data('bracket-content');
-    var isDropdownCreated = false;
-    
-    // Create dropdown content
-    createBracketDropdown($span, bracketContent);
-    isDropdownCreated = true;
-    
-    // Set up hover events
-    $span.on("mouseenter", function(e) {
-      e.stopPropagation();
-      clearTimeout($span.data('hideTimer'));
-      clearTimeout($span.data('showTimer'));
-      
-      if (isDropdownCreated && $span.data("dropdown-id")) {
-        var $dropdown = $("#" + $span.data("dropdown-id"));
-        if ($dropdown.length) {
-          var showTimer = setTimeout(function() {
-            $(".arabica_bracket-dropdown.open").removeClass("open");
-            positionBracketDropdown($span, $dropdown);
-            $dropdown.addClass("open");
-          }, 300);
-          $span.data('showTimer', showTimer);
-        }
-      }
-    });
-    
-    $span.on("mouseleave", function(e) {
-      clearTimeout($span.data('showTimer'));
-      clearTimeout($span.data('hideTimer'));
-      
-      var hideTimer = setTimeout(function() {
-        var $dropdown = $("#" + $span.data("dropdown-id"));
-        if ($dropdown.length && !$dropdown.is(":hover") && !$span.is(":hover")) {
-          $dropdown.removeClass("open");
-        }
-      }, 300);
-      $span.data('hideTimer', hideTimer);
-    });
-    
-    // Add click handler to prevent default link behavior
-    $span.on("click", function(e) {
-      e.preventDefault();
-      e.stopPropagation();
-    });
-  });
-  
-  // Close all bracket dropdowns when clicking elsewhere
-  $(document).on("click", function(e) {
-    if (!$(e.target).closest(".arabica_bracket-dropdown, .arabica_bracket-span").length) {
-      $(".arabica_bracket-dropdown.open").removeClass("open");
-    }
-  });
-  
-  // Close on ESC key
-  $(document).on("keydown", function (e) {
-    if (e.key === "Escape") {
-      $(".arabica_bracket-dropdown.open").removeClass("open");
-    }
-  });
-} 
-
- // Footnote hover dropdowns
-var $article = $(".arabica_article-content");
-if ($article.length) {
-  var ftnRefs = {};
-  var $ftns = $('a[name^="_ftn"]:not([name^="_ftnref"])');
-
-  // Extract footnote content
-  $ftns.each(function () {
-    var $ftnAnchor = $(this);
-    var name = $ftnAnchor.attr("name");
-    var key = name.replace("_ftn", "");
-    var $p = $ftnAnchor.closest("p");
-    
-    if ($p.length) {
-      // Get content excluding the anchor text
-      var $clonedP = $p.clone();
-      $clonedP.find('a[name^="_ftn"]:not([name^="_ftnref"])').remove();
-      var txt = $clonedP.prop('outerHTML');
-      
-      // Get subsequent elements until next footnote or end of container
-      var $current = $p.next();
-      while ($current.length && ["P", "UL", "OL", "DIV"].indexOf($current.prop("tagName")) !== -1) {
-        // Check if this element contains the next footnote
-        if ($current.find('a[name^="_ftn"]:not([name^="_ftnref"])').length) {
-          break;
-        }
-        txt += $current.prop('outerHTML');
-        $current = $current.next();
-      }
-      
-      ftnRefs[key] = txt.trim();
-    }
-  });
-
-  // Add hover functionality to footnote reference links
-  $article.find('a[name^="_ftnref"]').each(function () {
-    var $ftnrefLink = $(this);
-    var key = $ftnrefLink.attr("name").replace("_ftnref", "");
-    var refText = ftnRefs[key] || "";
-    
-    if (refText) {
-      var dir = /[\u0600-\u06FF]/.test(refText) ? "rtl" : "ltr";
-      var ddId = "arabica_ftn-dropdown-" + Math.random().toString(36).slice(2,9);
-      
-      // Create dropdown element
-      var dropdownHtml = 
-        '<div id="' + ddId + '" class="arabica_ref-dropdown arabica_ftn-dropdown">' +
-          '<div class="arabica_ref-actions">' +
-            '<span class="arabica_ref-copy-icon" title="Copy"><i class="fa-regular fa-copy"></i></span>' +
-            '<span class="arabica_ref-copied-text">✓ تم النسخ</span>' +
-            '<span class="arabica_ref-close-icon" title="Close"><i class="fa-regular fa-circle-xmark"></i></span>' +
-          '</div>' +
-          '<div class="arabica_ref-text" dir="' + dir + '">' + refText + '</div>' +
-        '</div>';
-      
-      // Insert dropdown after the link
-      $ftnrefLink.after(dropdownHtml);
-      var $dropdown = $("#" + ddId);
-      
-      // Store reference to dropdown in data attribute
-      $ftnrefLink.data("dropdown-id", ddId);
-      
-      // Hover event handlers with 300ms delays
+    setupHoverEvents: function($trigger, $dropdown, dropdownType) {
       var showTimer, hideTimer;
       
-      $ftnrefLink.on("mouseenter", function (e) {
+      $trigger.on("mouseenter", function(e) {
         e.stopPropagation();
         clearTimeout(hideTimer);
         clearTimeout(showTimer);
         
         showTimer = setTimeout(function() {
-          // Close other footnote dropdowns
-          $(".arabica_ftn-dropdown.open").removeClass("open");
-          
-          // Position and show dropdown
-          positionFootnoteDropdown($ftnrefLink, $dropdown);
+          $(".arabica_ref-dropdown.open").removeClass("open");
+          dropdownManager.position($trigger, $dropdown);
           $dropdown.addClass("open");
         }, 300);
+        $trigger.data('showTimer', showTimer);
       });
       
-      $ftnrefLink.on("mouseleave", function (e) {
+      $trigger.on("mouseleave", function(e) {
         clearTimeout(showTimer);
         clearTimeout(hideTimer);
         
         hideTimer = setTimeout(function() {
-          if (!$dropdown.is(":hover") && !$ftnrefLink.is(":hover")) {
+          if (!$dropdown.is(":hover") && !$trigger.is(":hover")) {
             $dropdown.removeClass("open");
           }
         }, 300);
+        $trigger.data('hideTimer', hideTimer);
       });
       
       // Keep dropdown open when hovering over it
-      $dropdown.on("mouseenter", function (e) {
-        clearTimeout(hideTimer);
-        clearTimeout(showTimer);
+      $dropdown.on("mouseenter", function(e) {
+        clearTimeout($trigger.data('hideTimer'));
+        clearTimeout($trigger.data('showTimer'));
       });
       
-      $dropdown.on("mouseleave", function (e) {
-        clearTimeout(hideTimer);
-        
-        hideTimer = setTimeout(function() {
-          if (!$dropdown.is(":hover") && !$ftnrefLink.is(":hover")) {
+      $dropdown.on("mouseleave", function(e) {
+        var hideTimer = setTimeout(function() {
+          if (!$dropdown.is(":hover") && !$trigger.is(":hover")) {
             $dropdown.removeClass("open");
           }
         }, 300);
+        $trigger.data('hideTimer', hideTimer);
       });
       
-      // Copy functionality
+      // Prevent dropdown clicks from bubbling
+      $dropdown.on("click", function(e) { 
+        e.stopPropagation(); 
+      });
+    },
+    
+    setupCopyFunctionality: function($dropdown) {
       $dropdown.find(".arabica_ref-copy-icon").on("click", function (e) {
         e.stopPropagation();
         var $txtEl = $dropdown.find(".arabica_ref-text");
@@ -648,113 +335,227 @@ if ($article.length) {
         }.bind(this)).catch(function(err){ console.error(err); });
       });
       
-      // Close button functionality
       $dropdown.find(".arabica_ref-close-icon").on("click", function (e) {
         e.stopPropagation();
         $dropdown.removeClass("open");
       });
+    },
+    
+    createDropdown: function($trigger, content, includeActions, additionalClass) {
+      var direction = utils.hasArabicText(content) ? "rtl" : "ltr";
+      var ddId = utils.generateId("arabica_dropdown");
+      var dropdownHtml = utils.createDropdownHtml(ddId, content, direction, includeActions);
       
-      // Prevent dropdown clicks from bubbling
-      $dropdown.on("click", function (e) { 
-        e.stopPropagation(); 
+      if (additionalClass) {
+        dropdownHtml = dropdownHtml.replace('class="arabica_ref-dropdown', 'class="arabica_ref-dropdown ' + additionalClass);
+      }
+      
+      $trigger.after(dropdownHtml);
+      var $dropdown = $("#" + ddId);
+      $trigger.data("dropdown-id", ddId);
+      
+      this.setupHoverEvents($trigger, $dropdown);
+      
+      if (includeActions) {
+        this.setupCopyFunctionality($dropdown);
+      }
+      
+      return $dropdown;
+    }
+  };
+  
+  // 1. Bracket Links Processor
+  var bracketProcessor = {
+    init: function() {
+      var articleHtml = $article.html();
+      var linkBracketRegex = /(<a[^>]*href[^>]*>.*?<\/a>)\s*\{\{(.*?)\}\}/gi;
+      
+      var processedHtml = articleHtml.replace(linkBracketRegex, function(match, linkHtml, bracketContent) {
+        var $tempLink = $(linkHtml);
+        var linkText = $tempLink.text();
+        var spanId = utils.generateId("arabica_bracket-span");
+        
+        return '<span id="' + spanId + '" class="arabica_bracket-span" ' +
+               'style="text-decoration: underline; text-decoration-color: #c93; cursor: pointer;" ' +
+               'data-bracket-content="' + bracketContent.replace(/"/g, '&quot;') + '">' +
+               linkText + '</span>';
+      });
+      
+      $article.html(processedHtml);
+      $article.trigger('content-modified');
+      
+      this.setupBracketSpans();
+    },
+    
+    setupBracketSpans: function() {
+      $article.find('.arabica_bracket-span').each(function() {
+        var $span = $(this);
+        var bracketContent = $span.data('bracket-content');
+        
+        dropdownManager.createDropdown($span, bracketContent, false, 'arabica_bracket-dropdown');
+        
+        // Add click handler to prevent default link behavior
+        $span.on("click", function(e) {
+          e.preventDefault();
+          e.stopPropagation();
+        });
       });
     }
-  });
-
-  // Positioning function for footnote dropdowns
-  function positionFootnoteDropdown($link, $dropdown) {
-    var $parent = $link.offsetParent();
-    if (!$parent.length) return;
-    
-    $dropdown.css({ top: "", left: "" }).removeClass("arabica_ref-dropdown--above");
-    
-    var linkR = $link[0].getBoundingClientRect();
-    var parR = $parent[0].getBoundingClientRect();
-    var dropR = $dropdown[0].getBoundingClientRect();
-    
-    // Calculate horizontal position (center dropdown on link)
-    var left = linkR.left - parR.left + linkR.width/2 - dropR.width/2;
-    left = Math.max(0, Math.min(left, parR.width - dropR.width));
-    $dropdown.css("left", left + "px");
-    
-    // Calculate vertical position
-    var spaceBelow = window.innerHeight - linkR.bottom;
-    var spaceAbove = linkR.top;
-    var top;
-    
-    if (spaceBelow < dropR.height + 10 && spaceAbove >= dropR.height + 10) {
-      // Show above
-      top = linkR.top - parR.top - dropR.height - 10;
-      $dropdown.addClass("arabica_ref-dropdown--above");
-    } else {
-      // Show below
-      top = linkR.bottom - parR.top + 10;
-    }
-    $dropdown.css("top", top + "px");
-    
-    // Position arrow
-    var arrowLeft = linkR.left - parR.left + linkR.width/2 - left;
-    $dropdown.css("--arrow-left", arrowLeft + "px");
-  }
-
-  // Close all footnote dropdowns when clicking elsewhere
-  $(document).on("click", function(e) {
-    if (!$(e.target).closest(".arabica_ftn-dropdown, a[name^='_ftnref']").length) {
-      $(".arabica_ftn-dropdown.open").removeClass("open");
-    }
-  });
+  };
   
-  // Close on ESC key
-  $(document).on("keydown", function (e) {
-    if (e.key === "Escape") {
-      $(".arabica_ftn-dropdown.open").removeClass("open");
+  // 2. Footnote Processor
+  var footnoteProcessor = {
+    init: function() {
+      var ftnRefs = this.extractFootnotes();
+      this.setupFootnoteLinks(ftnRefs);
+    },
+    
+    extractFootnotes: function() {
+      var ftnRefs = {};
+      var $ftns = $('a[name^="_ftn"]:not([name^="_ftnref"])');
+      
+      $ftns.each(function () {
+        var $ftnAnchor = $(this);
+        var name = $ftnAnchor.attr("name");
+        var key = name.replace("_ftn", "");
+        var $p = $ftnAnchor.closest("p");
+        
+        if ($p.length) {
+          var $clonedP = $p.clone();
+          $clonedP.find('a[name^="_ftn"]:not([name^="_ftnref"])').remove();
+          var txt = $clonedP.prop('outerHTML');
+          
+          var $current = $p.next();
+          while ($current.length && ["P", "UL", "OL", "DIV"].indexOf($current.prop("tagName")) !== -1) {
+            if ($current.find('a[name^="_ftn"]:not([name^="_ftnref"])').length) {
+              break;
+            }
+            txt += $current.prop('outerHTML');
+            $current = $current.next();
+          }
+          
+          ftnRefs[key] = txt.trim();
+        }
+      });
+      
+      return ftnRefs;
+    },
+    
+    setupFootnoteLinks: function(ftnRefs) {
+      $article.find('a[name^="_ftnref"]').each(function () {
+        var $ftnrefLink = $(this);
+        var key = $ftnrefLink.attr("name").replace("_ftnref", "");
+        var refText = ftnRefs[key];
+        
+        if (refText) {
+          dropdownManager.createDropdown($ftnrefLink, refText, true, 'arabica_ftn-dropdown');
+        }
+      });
     }
-  });
-}
-
-// Cross-page link hover dropdowns
-var $article = $(".arabica_article-content");
-if ($article.length) {
-  var linkContentCache = {}; // Cache to avoid repeated fetches
+  };
   
-  // Find all anchor links pointing to other pages in the same domain
-  $article.find('a[href]').each(function() {
-    var $link = $(this);
-    var href = $link.attr('href');
+  // 3. Cross-page Link Processor
+  var linkProcessor = {
+    linkContentCache: {},
     
-    // Skip if it's an external link, anchor link, or already processed
-    if (!href || 
-        href.startsWith('http://') || 
-        href.startsWith('https://') || 
-        href.startsWith('#') || 
-        href.startsWith('mailto:') || 
-        href.startsWith('tel:') || 
-        href.startsWith('javascript:') ||
-        $link.data('dropdown-processed')) {
-      return;
-    }
+    init: function() {
+      this.setupCrossPageLinks();
+    },
     
-    // Skip if it's a file download (common file extensions)
-    var fileExtensions = /\.(pdf|doc|docx|xls|xlsx|ppt|pptx|zip|rar|jpg|jpeg|png|gif|mp3|mp4|avi)$/i;
-    if (fileExtensions.test(href)) {
-      return;
-    }
+    isValidInternalLink: function(href) {
+      if (!href || 
+          href.startsWith('http://') || 
+          href.startsWith('https://') || 
+          href.startsWith('#') || 
+          href.startsWith('mailto:') || 
+          href.startsWith('tel:') || 
+          href.startsWith('javascript:')) {
+        return false;
+      }
+      
+      var fileExtensions = /\.(pdf|doc|docx|xls|xlsx|ppt|pptx|zip|rar|jpg|jpeg|png|gif|mp3|mp4|avi)$/i;
+      return !fileExtensions.test(href);
+    },
     
-    // Mark as processed to avoid duplicate processing
-    $link.data('dropdown-processed', true);
+    setupCrossPageLinks: function() {
+      var self = this;
+      
+      $article.find('a[href]').each(function() {
+        var $link = $(this);
+        var href = $link.attr('href');
+        
+        if (!self.isValidInternalLink(href) || $link.data('dropdown-processed')) {
+          return;
+        }
+        
+        $link.data('dropdown-processed', true);
+        self.setupLinkHover($link, href);
+      });
+    },
     
-    // Function to fetch and process the linked page
-    function fetchAndProcessPage($targetLink, url, callback) {
-      // Check cache first
-      if (linkContentCache[url]) {
-        if (linkContentCache[url].content) {
-          createLinkDropdown($targetLink, linkContentCache[url].content, linkContentCache[url].direction);
+    setupLinkHover: function($link, href) {
+      var self = this;
+      var showTimer, hideTimer;
+      var isContentFetched = false;
+      
+      $link.on("mouseenter", function(e) {
+        e.stopPropagation();
+        clearTimeout(hideTimer);
+        clearTimeout(showTimer);
+        
+        if (isContentFetched && $link.data("dropdown-id")) {
+          var $dropdown = $("#" + $link.data("dropdown-id"));
+          if ($dropdown.length) {
+            showTimer = setTimeout(function() {
+              $(".arabica_ref-dropdown.open").removeClass("open");
+              dropdownManager.position($link, $dropdown);
+              $dropdown.addClass("open");
+            }, 300);
+            return;
+          }
+        }
+        
+        if (!isContentFetched) {
+          isContentFetched = true;
+          self.fetchPageContent($link, href, function() {
+            if ($link.is(":hover")) {
+              showTimer = setTimeout(function() {
+                var $dropdown = $("#" + $link.data("dropdown-id"));
+                if ($dropdown.length) {
+                  $(".arabica_ref-dropdown.open").removeClass("open");
+                  dropdownManager.position($link, $dropdown);
+                  $dropdown.addClass("open");
+                }
+              }, 300);
+            }
+          });
+        }
+      });
+      
+      $link.on("mouseleave", function(e) {
+        clearTimeout(showTimer);
+        clearTimeout(hideTimer);
+        
+        hideTimer = setTimeout(function() {
+          var $dropdown = $("#" + $link.data("dropdown-id"));
+          if ($dropdown.length && !$dropdown.is(":hover") && !$link.is(":hover")) {
+            $dropdown.removeClass("open");
+          }
+        }, 300);
+      });
+    },
+    
+    fetchPageContent: function($link, url, callback) {
+      var self = this;
+      
+      if (self.linkContentCache[url]) {
+        if (self.linkContentCache[url].content) {
+          dropdownManager.createDropdown($link, self.linkContentCache[url].content, false, 'arabica_link-dropdown');
         }
         if (callback) callback();
         return;
       }
       
-      // Fetch the page
       $.ajax({
         url: url,
         type: 'GET',
@@ -762,238 +563,272 @@ if ($article.length) {
         timeout: 5000,
         success: function(data) {
           try {
-            var $pageContent = $(data);
-            var $factsSection = $pageContent.find('#Facts');
-            
-            if ($factsSection.length) {
-              // Find all paragraphs within the #Facts section
-              var $paragraphs = $factsSection.find('#facts-desc');
-              
-              if ($paragraphs.length) {
-                var content = '';
-                var hasArabic = false;
-                
-                $paragraphs.each(function() {
-                  var $para = $(this);
-                  var paraText = $para.text();
-                  var isArabic = /[\u0600-\u06FF]/.test(paraText);
-                  
-                  if (isArabic) {
-                    hasArabic = true;
-                    $para.attr('dir', 'rtl');
-                  } else {
-                    $para.attr('dir', 'ltr');
-                  }
-                  
-                  // Also handle lists within paragraphs
-                  $para.find('ul, ol').each(function() {
-                    var $list = $(this);
-                    var listText = $list.text();
-                    var listIsArabic = /[\u0600-\u06FF]/.test(listText);
-                    $list.attr('dir', listIsArabic ? 'rtl' : 'ltr');
-                  });
-                  
-                  content += $para.prop('outerHTML');
-                });
-                
-                // Also check for any direct ul/ol elements in the Facts section
-                $factsSection.find('ul, ol').each(function() {
-                  var $list = $(this);
-                  var listText = $list.text();
-                  var isArabic = /[\u0600-\u06FF]/.test(listText);
-                  
-                  if (isArabic) {
-                    hasArabic = true;
-                    $list.attr('dir', 'rtl');
-                  } else {
-                    $list.attr('dir', 'ltr');
-                  }
-                  
-                  content += $list.prop('outerHTML');
-                });
-                
-                // Overall container direction based on predominant content
-                var direction = hasArabic ? "rtl" : "ltr";
-                
-                // Cache the result
-                linkContentCache[url] = {
-                  content: content,
-                  direction: direction
-                };
-                
-                // Create the dropdown
-                createLinkDropdown($targetLink, content, direction);
-                if (callback) callback();
-              } else {
-                // Cache empty result to avoid repeated attempts
-                linkContentCache[url] = { content: null };
-                if (callback) callback();
-              }
+            var content = self.extractFactsContent(data);
+            if (content) {
+              self.linkContentCache[url] = { content: content };
+              dropdownManager.createDropdown($link, content, false, 'arabica_link-dropdown');
             } else {
-              // Cache empty result to avoid repeated attempts
-              linkContentCache[url] = { content: null };
-              if (callback) callback();
+              self.linkContentCache[url] = { content: null };
             }
           } catch (error) {
             console.error('Error processing page content:', error);
-            linkContentCache[url] = { content: null };
-            if (callback) callback();
+            self.linkContentCache[url] = { content: null };
           }
+          if (callback) callback();
         },
         error: function(xhr, status, error) {
           console.error('Error fetching page:', url, error);
-          // Cache the failure to avoid repeated attempts
-          linkContentCache[url] = { content: null };
+          self.linkContentCache[url] = { content: null };
           if (callback) callback();
         }
       });
-    }
+    },
     
-    // Function to create the dropdown for a link
-    function createLinkDropdown($targetLink, content, direction) {
-      var ddId = "arabica_link-dropdown-" + Math.random().toString(36).slice(2,9);
+    extractFactsContent: function(data) {
+      var $pageContent = $(data);
+      var $factsSection = $pageContent.find('#Facts');
       
-      // Create dropdown element
-      var dropdownHtml = 
-        '<div id="' + ddId + '" class="arabica_ref-dropdown arabica_link-dropdown">' +
-          '<div class="arabica_ref-text" dir="' + direction + '">' + content + '</div>' +
-        '</div>';
+      if (!$factsSection.length) return null;
       
-      // Insert dropdown after the link
-      $targetLink.after(dropdownHtml);
-      var $dropdown = $("#" + ddId);
+      var content = '';
+      var $paragraphs = $factsSection.find('#facts-desc');
       
-      // Store reference to dropdown in data attribute
-      $targetLink.data("dropdown-id", ddId);
-      
-      // Set up hover events for the dropdown itself
-      $dropdown.on("mouseenter", function (e) {
-        var $link = $targetLink;
-        clearTimeout($link.data('hideTimer'));
-        clearTimeout($link.data('showTimer'));
-      });
-      
-      $dropdown.on("mouseleave", function (e) {
-        var $link = $targetLink;
-        var hideTimer = setTimeout(function() {
-          if (!$dropdown.is(":hover") && !$link.is(":hover")) {
-            $dropdown.removeClass("open");
-          }
-        }, 300);
-        $link.data('hideTimer', hideTimer);
-      });
-      
-      // Prevent dropdown clicks from bubbling
-      $dropdown.on("click", function (e) { 
-        e.stopPropagation(); 
-      });
-    }
-    
-    // Set up hover events immediately, fetch content on demand
-    var showTimer, hideTimer;
-    var isContentFetched = false;
-    
-    $link.on("mouseenter", function(e) {
-      e.stopPropagation();
-      clearTimeout(hideTimer);
-      clearTimeout(showTimer);
-      
-      // If content already fetched and dropdown exists, show it
-      if (isContentFetched && $link.data("dropdown-id")) {
-        var $dropdown = $("#" + $link.data("dropdown-id"));
-        if ($dropdown.length) {
-          showTimer = setTimeout(function() {
-            $(".arabica_link-dropdown.open").removeClass("open");
-            positionLinkDropdown($link, $dropdown);
-            $dropdown.addClass("open");
-          }, 300);
-          return;
-        }
-      }
-      
-      // If content not fetched yet, fetch it
-      if (!isContentFetched) {
-        isContentFetched = true;
-        fetchAndProcessPage($link, href, function() {
-          // After content is fetched and dropdown created, show it if still hovering
-          if ($link.is(":hover")) {
-            showTimer = setTimeout(function() {
-              var $dropdown = $("#" + $link.data("dropdown-id"));
-              if ($dropdown.length) {
-                $(".arabica_link-dropdown.open").removeClass("open");
-                positionLinkDropdown($link, $dropdown);
-                $dropdown.addClass("open");
-              }
-            }, 300);
-          }
+      if ($paragraphs.length) {
+        $paragraphs.each(function() {
+          var $para = $(this);
+          var paraText = $para.text();
+          var isArabic = utils.hasArabicText(paraText);
+          
+          $para.attr('dir', isArabic ? 'rtl' : 'ltr');
+          $para.find('ul, ol').each(function() {
+            var $list = $(this);
+            var listText = $list.text();
+            var listIsArabic = utils.hasArabicText(listText);
+            $list.attr('dir', listIsArabic ? 'rtl' : 'ltr');
+          });
+          
+          content += $para.prop('outerHTML');
         });
       }
-    });
-    
-    $link.on("mouseleave", function(e) {
-      clearTimeout(showTimer);
-      clearTimeout(hideTimer);
       
-      hideTimer = setTimeout(function() {
-        var $dropdown = $("#" + $link.data("dropdown-id"));
-        if ($dropdown.length && !$dropdown.is(":hover") && !$link.is(":hover")) {
-          $dropdown.removeClass("open");
-        }
-      }, 300);
-    });
-  });
-
-  // Positioning function for link dropdowns
-  function positionLinkDropdown($link, $dropdown) {
-    var $parent = $link.offsetParent();
-    if (!$parent.length) return;
-    
-    $dropdown.css({ top: "", left: "" }).removeClass("arabica_ref-dropdown--above");
-    
-    var linkR = $link[0].getBoundingClientRect();
-    var parR = $parent[0].getBoundingClientRect();
-    var dropR = $dropdown[0].getBoundingClientRect();
-    
-    // Calculate horizontal position (center dropdown on link)
-    var left = linkR.left - parR.left + linkR.width/2 - dropR.width/2;
-    left = Math.max(0, Math.min(left, parR.width - dropR.width));
-    $dropdown.css("left", left + "px");
-    
-    // Calculate vertical position
-    var spaceBelow = window.innerHeight - linkR.bottom;
-    var spaceAbove = linkR.top;
-    var top;
-    
-    if (spaceBelow < dropR.height + 10 && spaceAbove >= dropR.height + 10) {
-      // Show above
-      top = linkR.top - parR.top - dropR.height - 10;
-      $dropdown.addClass("arabica_ref-dropdown--above");
-    } else {
-      // Show below
-      top = linkR.bottom - parR.top + 10;
+      $factsSection.find('ul, ol').each(function() {
+        var $list = $(this);
+        var listText = $list.text();
+        var isArabic = utils.hasArabicText(listText);
+        $list.attr('dir', isArabic ? 'rtl' : 'ltr');
+        content += $list.prop('outerHTML');
+      });
+      
+      return content || null;
     }
-    $dropdown.css("top", top + "px");
-    
-    // Position arrow
-    var arrowLeft = linkR.left - parR.left + linkR.width/2 - left;
-    $dropdown.css("--arrow-left", arrowLeft + "px");
-  }
-
-  // Close all link dropdowns when clicking elsewhere
-  $(document).on("click", function(e) {
-    if (!$(e.target).closest(".arabica_link-dropdown, a[href]:not([href^='http']):not([href^='#']):not([href^='mailto']):not([href^='tel'])").length) {
-      $(".arabica_link-dropdown.open").removeClass("open");
-    }
-  });
+  };
   
-  // Close on ESC key
-  $(document).on("keydown", function (e) {
-    if (e.key === "Escape") {
-      $(".arabica_link-dropdown.open").removeClass("open");
+  // Global event handlers
+  var globalEvents = {
+    init: function() {
+      // Close all dropdowns when clicking elsewhere
+      $(document).on("click", function(e) {
+        if (!$(e.target).closest(".arabica_ref-dropdown, .arabica_bracket-span, a[name^='_ftnref'], a[href]").length) {
+          $(".arabica_ref-dropdown.open").removeClass("open");
+        }
+      });
+      
+      // Close on ESC key
+      $(document).on("keydown", function (e) {
+        if (e.key === "Escape") {
+          $(".arabica_ref-dropdown.open").removeClass("open");
+        }
+      });
     }
-  });
-}
+  };
+  
+  // 4. Endnote Processor
+  var endnoteProcessor = {
+    init: function() {
+      var ednRefs = this.extractEndnotes();
+      this.setupEndnoteLinks(ednRefs);
+      this.setupEndnoteEvents();
+    },
+    
+    extractEndnotes: function() {
+      var ednRefs = {};
+      var $ends = $article.find('p:has(a[name^="_edn"]:not([name^="_ednref"]))');
+      
+      $ends.each(function () {
+        var $p = $(this);
+        var name = $p.find('a[name^="_edn"]:not([name^="_ednref"])').attr("name");
+        var key = name.replace("_edn", "");
+        var txt = $p.prop('outerHTML');
+        var $n = $p.next();
+        
+        while ($n.length && ["P", "UL", "OL"].indexOf($n.prop("tagName")) !== -1) {
+          if ($n.is("p") && $n.find('a[name^="_edn"]:not([name^="_ednref"])').length) break;
+          txt += $n.prop('outerHTML');
+          $n = $n.next();
+        }
+        ednRefs[key] = txt.trim();
 
+        // Remove the endnote content from the article
+        var toRm = [$p];
+        $n = $p.next();
+        while ($n.length && ["P", "UL", "OL"].indexOf($n.prop("tagName")) !== -1) {
+          if ($n.is("p") && $n.find('a[name^="_edn"]:not([name^="_ednref"])').length) break;
+          toRm.push($n);
+          $n = $n.next();
+        }
+        for (var x = 0; x < toRm.length; x++) toRm[x].remove();
+      });
+      
+      return ednRefs;
+    },
+    
+    setupEndnoteLinks: function(ednRefs) {
+      var self = this;
+      
+      $article.find('a[name^="_ednref"]').each(function () {
+        var $lnk = $(this);
+        var key = $lnk.attr("name").replace("_ednref", "");
+        var refText = ednRefs[key] || "";
+        
+        if (refText) {
+          var dir = utils.hasArabicText(refText) ? "rtl" : "ltr";
+          var ddId = utils.generateId("arabica_edn-dropdown");
+          
+          var html =
+            '<a class="arabica_ref-icon" data-ref-id="' + ddId + '" data-reference="' + refText.replace(/"/g, '&quot;') + '">' +
+              '<i class="fa-light fa-circle-info arabica_ref-icon-light active"></i>' +
+              '<i class="fa-solid fa-circle-info arabica_ref-icon-solid inactive"></i>' +
+            "</a>" +
+            '<div id="' + ddId + '" class="arabica_ref-dropdown arabica_edn-dropdown">' +
+              '<div class="arabica_ref-actions">' +
+                '<span class="arabica_ref-copy-icon" title="Copy"><i class="fa-regular fa-copy"></i></span>' +
+                '<span class="arabica_ref-copied-text">✓ تم النسخ</span>' +
+                '<span class="arabica_ref-close-icon" title="Close"><i class="fa-regular fa-circle-xmark"></i></span>' +
+              "</div>" +
+              '<div class="arabica_ref-text" dir="' + dir + '"><span dir="' + dir + '">' + refText + "</span></div>" +
+            "</div>";
+          
+          $lnk.replaceWith(html);
+        }
+      });
+    },
+    
+    resetIconStyles: function($icon) {
+      $icon.find(".arabica_ref-icon-solid").removeClass("active").addClass("inactive");
+      $icon.find(".arabica_ref-icon-light").removeClass("inactive").addClass("active");
+    },
+    
+    setIconActive: function($icon) {
+      $icon.find(".arabica_ref-icon-light").removeClass("active").addClass("inactive");
+      $icon.find(".arabica_ref-icon-solid").removeClass("inactive").addClass("active");
+    },
+    
+    closeAllEndnoteDropdowns: function() {
+      var self = this;
+      $(".arabica_edn-dropdown.open").each(function () {
+        var $d = $(this);
+        $d.removeClass("open");
+        var $icon = $d.prev(".arabica_ref-icon");
+        if ($icon.length) {
+          self.resetIconStyles($icon);
+        }
+      });
+    },
+    
+    setupEndnoteEvents: function() {
+      var self = this;
+      
+      $article.find(".arabica_ref-icon").each(function () {
+        var $icon = $(this);
+        var ddId = $icon.data("ref-id");
+        var $dd = $("#" + ddId);
+        
+        // Prevent dropdown clicks from bubbling
+        $dd.on("click", function (e) { e.stopPropagation(); });
+        
+        // Icon click handler
+        $icon.on("click", function (e) {
+          e.stopPropagation();
+          if ($dd.hasClass("open")) {
+            $dd.removeClass("open");
+            self.resetIconStyles($icon);
+          } else {
+            self.closeAllEndnoteDropdowns();
+            dropdownManager.position($icon, $dd);
+            $dd.addClass("open");
+            self.setIconActive($icon);
+          }
+        });
+        
+        // Icon hover handlers
+        $icon.on("mouseenter", function () {
+          if (!$dd.hasClass("open")) {
+            self.setIconActive($icon);
+          }
+        });
+        
+        $icon.on("mouseleave", function () {
+          if (!$dd.hasClass("open")) {
+            self.resetIconStyles($icon);
+          }
+        });
+        
+        // Close button handler
+        $dd.find(".arabica_ref-close-icon").on("click", function (e) {
+          e.stopPropagation();
+          $dd.removeClass("open");
+          self.resetIconStyles($icon);
+        });
+        
+        // Copy functionality
+        dropdownManager.setupCopyFunctionality($dd);
+      });
+    }
+  };
+  
+  // Enhanced global events to handle endnote dropdowns
+  var globalEvents = {
+    init: function() {
+      var self = this;
+      
+      // Close all dropdowns when clicking elsewhere
+      $(document).on("click", function(e) {
+        if (!$(e.target).closest(".arabica_ref-dropdown, .arabica_bracket-span, a[name^='_ftnref'], a[href], .arabica_ref-icon").length) {
+          $(".arabica_ref-dropdown.open").removeClass("open");
+          self.resetAllEndnoteIcons();
+        }
+      });
+      
+      // Close on ESC key
+      $(document).on("keydown", function (e) {
+        if (e.key === "Escape") {
+          $(".arabica_ref-dropdown.open").removeClass("open");
+          self.resetAllEndnoteIcons();
+        }
+      });
+    },
+    
+    resetAllEndnoteIcons: function() {
+      $(".arabica_ref-icon").each(function() {
+        var $icon = $(this);
+        var ddId = $icon.data("ref-id");
+        var $dd = $("#" + ddId);
+        if (!$dd.hasClass("open")) {
+          endnoteProcessor.resetIconStyles($icon);
+        }
+      });
+    }
+  };
+
+  // Initialize all processors
+  bracketProcessor.init();
+  footnoteProcessor.init();
+  linkProcessor.init();
+  endnoteProcessor.init();
+  globalEvents.init();
+  
+})();
+  
   // Side content & floating button
   var $toggleBtn = $(".arabica_floating-btn");
   var $sideContent = $(".arabica_side-content");
