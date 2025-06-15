@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Arabica Picks Homepage</title>
+    <!-- Global Fonts Preload -->
+    <link rel="preload" href="Assets/fonts/BahijTheSans/Bahij_TheSansArabic-Black.ttf" as="font" type="font/ttf" crossorigin />
+    <link rel="preload" href="Assets/fonts/BahijTheSans/Bahij_TheSansArabic-Bold.ttf" as="font" type="font/ttf" crossorigin />
+    <link rel="preload" href="Assets/fonts/BahijTheSans/Bahij_TheSansArabic-ExtraBold.ttf" as="font" type="font/ttf" crossorigin />
+    <link rel="preload" href="Assets/fonts/BahijTheSans/Bahij_TheSansArabic-ExtraLight.ttf" as="font" type="font/ttf" crossorigin />
+    <link rel="preload" href="Assets/fonts/BahijTheSans/Bahij_TheSansArabic-Plain.ttf" as="font" type="font/ttf" crossorigin />
+    <link rel="preload" href="Assets/fonts/BahijTheSans/Bahij_TheSansArabic-SemiBold.ttf" as="font" type="font/ttf" crossorigin />
+    <link rel="preload" href="Assets/fonts/BahijTheSans/Bahij_TheSansArabic-SemiLight.ttf" as="font" type="font/ttf" crossorigin />
+    <!-- Homepage Preload -->
+    <link rel="preload" href="Assets/images/main-top-bg.png" as="image" fetchpriority="high" />
+    <!-- Preload End -->
+    <link rel="stylesheet" href="Assets/css/styles.min.css" />
+    <link rel="stylesheet" href="Assets/fonts/font-awesome/css/all.min.css" media="all" />
+
+    <!-- Favicon -->
+    <link rel="icon" href="Assets/images/favicon.ico" type="image/x-icon" />
+
+    <!-- PNG Fallbacks -->
+    <link rel="icon" type="image/png" sizes="32x32" href="Assets/images/favicon-64x64.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="Assets/images/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="Assets/images/favicon-16x16.png" />
+
+    <!-- SVG Icon -->
+    <link rel="icon" type="image/svg+xml" href="Assets/images/favicon.svg" />
+
+    <!-- Apple Touch Icon (for iOS home screen) -->
+    <link rel="apple-touch-icon" href="Assets/images/apple-touch-icon-iphone-60x60.png" />
+    <link rel="apple-touch-icon" sizes="60x60" href="Assets/images/apple-touch-icon-ipad-76x76.png" />
+    <link rel="apple-touch-icon" sizes="114x114" href="Assets/images/apple-touch-icon-iphone-retina-120x120.png" />
+    <link rel="apple-touch-icon" sizes="144x144" href="Assets/images/apple-touch-icon-ipad-retina-152x152.png" />
+    <script src="Assets/jquery/jquery-3.7.1.min.js"></script>
+</head>
+
+<body>
+Gallery 1: Show normal gallery images on all devices
+<div class="arabica_article-content">
+<!-- Gallery 1 Container -->
+<div class="arabica_article-image">
+  <!-- 
+    Optional Modifiers:
+    - Add `float-left-(percent)` or `float-right-(percent)` to float the image with a specific width (e.g., float-left-30).
+    - Add `vertical-image` if all images are vertical.
+    - Add `square-image` if all images are square.
+    - Leave as-is if the gallery contains mixed or horizontal images.
+  -->
+
+  <!-- <div class="figtitle">Images Title</div> -->
+
+  <div class="arabica_article-gallery-container">
+    
+    <!-- Image 1 -->
+    <div class="arabica_article-image-gallery">
+      <a href="Assets/images/square.jpg">
+        <img src="Assets/images/square.jpg" alt="article image 1" />
+      </a>
+      <figcaption>صورة 0</figcaption>
+    </div>
+
+    <!-- Image 2 -->
+    <div class="arabica_article-image-gallery">
+      <a href="Assets/images/Siyassat51-2021-Cover.png">
+        <img src="Assets/images/Siyassat51-2021-Cover.png" alt="article image 2" />
+      </a>
+      <figcaption>صورة 1</figcaption>
+    </div>
+
+    <!-- Image 3 -->
+    <div class="arabica_article-image-gallery">
+      <a href="Assets/images/slider-img1.jpg">
+        <img src="Assets/images/slider-img1.jpg" alt="article image 3" />
+      </a>
+      <figcaption>صورة 2</figcaption>
+    </div>
+
+    <!-- Image 4 -->
+    <div class="arabica_article-image-gallery">
+      <a href="Assets/images/slider-img2.jpg">
+        <img src="Assets/images/slider-img2.jpg" alt="article image 4" />
+      </a>
+      <figcaption>صورة 3</figcaption>
+    </div>
+
+    <!-- Add more images as needed -->
+
+  </div>
+</div>
+
+<hr/>
+             
+
+Gallery 2: Show max 4 image on post then scroller if more than 4 (in tab and desktop view), show normal gallery on mobile
+
+<!-- Gallery 2 Container -->
+<div class="arabica_article-image">
+  <!-- 
+    Optional Modifier:
+    - Add `vertical-image` only if all images are vertical.
+  -->
+
+  <!-- <div class="figtitle">Images Title</div> -->
+
+  <div class="arabica_article-gallery-container">
+    
+    <!-- Image 1 -->
+    <div class="arabica_article-mobile-gallery">
+      <a href="Assets/images/Circle Structure-01.svg">
+        <img src="Assets/images/Circle Structure-01.svg" alt="الدائرة" style="width: 100%;" />
+      </a>
+      <figcaption>الدائرة</figcaption>
+    </div>
+
+    <!-- Image 2 -->
+    <div class="arabica_article-mobile-gallery">
+      <a href="Assets/images/Circle Structure-02.svg">
+        <img src="Assets/images/Circle Structure-02.svg" alt="القطع الناقص" style="width: 100%;" />
+      </a>
+      <figcaption>القطع الناقص</figcaption>
+    </div>
+
+    <!-- Image 3 -->
+    <div class="arabica_article-mobile-gallery">
+      <a href="Assets/images/Circle Structure-03.svg">
+        <img src="Assets/images/Circle Structure-03.svg" alt="القطع المكافئ" style="width: 100%;" />
+      </a>
+      <figcaption>القطع المكافئ</figcaption>
+    </div>
+
+    <!-- Image 4 -->
+    <div class="arabica_article-mobile-gallery">
+      <a href="Assets/images/Circle Structure-04.svg">
+        <img src="Assets/images/Circle Structure-04.svg" alt="القطع الزائد" style="width: 100%;" />
+      </a>
+      <figcaption>القطع الزائد</figcaption>
+    </div>
+
+    <!-- Add more images as needed -->
+
+  </div>
+</div>
+
+
+<br/>
+Difference in the two:
+Gallery 1 uses class 'arabica_article-image-gallery' to wrap the images
+<br/>
+Gallery 2 uses class 'arabica_article-mobile-gallery' to wrap the images
+</div>
+
+        <script src="Assets/js/singleitem-lightbox.js"></script>
+</body>
+
+</html>
