@@ -3358,12 +3358,9 @@ input:checked + .arabica_toggle:before {
 }
 .arabica_ref-dropdown {
   position: absolute;
-  min-width: 270px;
-  max-width: 370px;
   background-color: #fff;
   border-radius: 10px;
   box-shadow: 0 5px 15px rgb(0 0 0 / 0.25);
-  padding: 10px 14px 5px 14px;
   z-index: 25;
   transform: translateY(10px);
   transition: opacity 0.3s, transform 0.3s;
@@ -3387,6 +3384,9 @@ input:checked + .arabica_toggle:before {
   font-size: 14px;
   color: #333;
   margin-bottom: 0;
+  min-width: 270px;
+  max-width: 370px;
+  padding: 10px 14px 10px 14px;
 }
 .arabica_ref-text p {
   font-size: 14px;
@@ -3398,6 +3398,8 @@ input:checked + .arabica_toggle:before {
   display: flex;
   justify-content: flex-end;
   gap: 10px;
+  padding: 10px 14px 0 14px;
+  margin-bottom: -5px;
 }
 .arabica_ref-close-icon,
 .arabica_ref-copy-icon {
@@ -3702,10 +3704,11 @@ input:checked + .arabica_toggle:before {
   }
   .arabica_ref-dropdown {
     position: absolute;
-    min-width: 200px;
-    max-width: 270px;
     border-radius: 7px;
-    padding: 15px 20px;
+  }
+  .arabica_ref-title
+  {
+    font-size: 14px !important;
   }
   .arabica_article-foot-wrapper h2,
   .arabica_article-references h2,
@@ -4470,3 +4473,46 @@ button.arabica_featured-article-button:hover {
     font-weight: normal;
     }
 }
+
+.arabica_ref-row {
+  display: flex;
+  align-items: flex-start; 
+}
+
+.arabica_ref-text {
+  flex: 1; 
+}
+
+.arabica_ref-image {
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+}
+
+.arabica_ref-image img {
+  max-width: 200px !important; 
+  height: 100%; 
+  object-fit: cover; 
+  display: block !important;
+  border-radius: 0 10px 10px 0;
+  border: 1px solid #eee;
+}
+.arabica_ref-title {
+  font-weight: bold;
+  font-size: 16px;
+  text-align: right;
+}
+.arabica_ref-row.landscape .arabica_ref-image img {
+    width: 370px !important;
+    max-width: none !important;
+    border-radius: 10px 10px 0 0;
+    height: 200px !important; 
+}
+.arabica_ref-row.landscape {
+    flex-direction: column;
+}
+.arabica_ref-more {
+  text-align: left;
+  display: block;
+}
+

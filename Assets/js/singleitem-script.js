@@ -193,7 +193,7 @@ $(document).ready(function () {
     updateActiveTOC();
   }
 
-// Unified Interactive Dropdown System
+// Unified Interactive Dropdown System (with responsive image layout)
 (function() {
   'use strict';
   
@@ -210,7 +210,7 @@ $(document).ready(function () {
       return prefix + "-" + Math.random().toString(36).slice(2, 9);
     },
     
-    createDropdownHtml: function(id, content, direction, includeActions) {
+    createDropdownHtml: function(id, content, direction, includeActions, skipTextWrapper) {
       var actionsHtml = includeActions ? 
         '<div class="arabica_ref-actions">' +
           '<span class="arabica_ref-copy-icon" title="Copy"><i class="fa-regular fa-copy"></i></span>' +
@@ -218,9 +218,13 @@ $(document).ready(function () {
           '<span class="arabica_ref-close-icon" title="Close"><i class="fa-regular fa-circle-xmark"></i></span>' +
         '</div>' : '';
       
+      var textDiv = skipTextWrapper ? 
+        content : 
+        '<div class="arabica_ref-text" dir="' + direction + '">' + content + '</div>';
+      
       return '<div id="' + id + '" class="arabica_ref-dropdown ' + this.getDropdownClass(includeActions) + '">' +
                actionsHtml +
-               '<div class="arabica_ref-text" dir="' + direction + '">' + content + '</div>' +
+               textDiv +
              '</div>';
     },
     
@@ -270,17 +274,17 @@ $(document).ready(function () {
       var showTimer, hideTimer;
       
       $trigger.on("mouseenter", function(e) {
-        e.stopPropagation();
-        clearTimeout(hideTimer);
-        clearTimeout(showTimer);
-        
-        showTimer = setTimeout(function() {
-          $(".arabica_ref-dropdown.open").removeClass("open");
-          dropdownManager.position($trigger, $dropdown);
-          $dropdown.addClass("open");
-        }, 300);
-        $trigger.data('showTimer', showTimer);
-      });
+      e.stopPropagation();
+      clearTimeout(hideTimer);
+      clearTimeout(showTimer);
+      
+      showTimer = setTimeout(function() {
+        $(".arabica_ref-dropdown.open").removeClass("open");
+        dropdownManager.position($trigger, $dropdown);
+        $dropdown.addClass("open");
+      }, 300);
+
+    });
       
       $trigger.on("mouseleave", function(e) {
         clearTimeout(showTimer);
@@ -313,6 +317,16 @@ $(document).ready(function () {
       $dropdown.on("click", function(e) { 
         e.stopPropagation(); 
       });
+    // PREVENT CLICK FROM OPENING DROPDOWNS
+      $trigger.on('click', function(e) {
+        // Only prevent default for non-link elements
+        if ($trigger.is('a')) {
+          // Allow normal link behavior
+          return true;
+        }
+        e.preventDefault();
+        e.stopPropagation();
+      });
     },
     
     setupCopyFunctionality: function($dropdown) {
@@ -341,10 +355,13 @@ $(document).ready(function () {
       });
     },
     
-    createDropdown: function($trigger, content, includeActions, additionalClass) {
-      var direction = utils.hasArabicText(content) ? "rtl" : "ltr";
+    createDropdown: function($trigger, content, includeActions, additionalClass, options) {
+      options = options || {};
+      var direction = options.direction || utils.hasArabicText(content) ? "rtl" : "ltr";
+      var skipTextWrapper = options.skipTextWrapper || false;
+      
       var ddId = utils.generateId("arabica_dropdown");
-      var dropdownHtml = utils.createDropdownHtml(ddId, content, direction, includeActions);
+      var dropdownHtml = utils.createDropdownHtml(ddId, content, direction, includeActions, skipTextWrapper);
       
       if (additionalClass) {
         dropdownHtml = dropdownHtml.replace('class="arabica_ref-dropdown', 'class="arabica_ref-dropdown ' + additionalClass);
@@ -364,41 +381,120 @@ $(document).ready(function () {
     }
   };
   
+  // Updated Image Layout Manager
+var imageLayoutManager = {
+  adjustLayout: function($dropdown) {
+    var $row = $dropdown.find('.arabica_ref-row');
+    if (!$row.length) return;
+    
+    var $img = $row.find('img');
+    if (!$img.length) return;
+    
+    // Use natural dimensions if available
+    if ($img[0].naturalWidth) {
+      this.checkImageRatio($img, $row);
+      this.adjustDynamicLayout($dropdown);
+    } else {
+      // Wait for image to load
+      $img.one('load', function() {
+        imageLayoutManager.checkImageRatio($(this), $row);
+        imageLayoutManager.adjustDynamicLayout($dropdown);
+      });
+    }
+  },
+  
+  checkImageRatio: function($img, $row) {
+    var width = $img[0].naturalWidth;
+    var height = $img[0].naturalHeight;
+    
+    // If width is at least 30% larger than height, apply landscape layout
+    if (width > 0 && height > 0 && width/height > 1.3) {
+      $row.addClass('landscape');
+    }
+  },
+  
+  adjustDynamicLayout: function($dropdown) {
+    var $row = $dropdown.find('.arabica_ref-row');
+    if (!$row.length || $row.hasClass('landscape')) return;
+
+    var $text = $row.find('.arabica_ref-text');
+    var $imageContainer = $row.find('.arabica_ref-image');
+    var $img = $imageContainer.find('img');
+
+    // Get text container height
+    var textHeight = $text.outerHeight();
+
+    // Set image container height to match text container
+    $imageContainer.height(textHeight);
+
+    // Adjust image to fit within container
+    $img.css({
+      'height': textHeight,
+      'width': 'auto',
+      'object-fit': 'cover'
+    });
+  }
+};
+  
   // 1. Bracket Links Processor
   var bracketProcessor = {
-    init: function() {
-      var articleHtml = $article.html();
-      var linkBracketRegex = /(<a[^>]*href[^>]*>.*?<\/a>)\s*\{\{(.*?)\}\}/gi;
-      
-      var processedHtml = articleHtml.replace(linkBracketRegex, function(match, linkHtml, bracketContent) {
-        var $tempLink = $(linkHtml);
-        var linkText = $tempLink.text();
-        var spanId = utils.generateId("arabica_bracket-span");
-        
-        return '<span id="' + spanId + '" class="arabica_bracket-span" ' +
-               'style="text-decoration: underline; text-decoration-color: #c93; cursor: pointer;" ' +
-               'data-bracket-content="' + bracketContent.replace(/"/g, '&quot;') + '">' +
-               linkText + '</span>';
-      });
-      
-      $article.html(processedHtml);
-      $article.trigger('content-modified');
-      
-      this.setupBracketSpans();
-    },
+  init: function() {
+    var articleHtml = $article.html();
+    var linkBracketRegex = /(<a[^>]*href[^>]*>.*?<\/a>)\s*\{\{(.*?)\}\}/gi;
     
-    setupBracketSpans: function() {
+    var processedHtml = articleHtml.replace(linkBracketRegex, function(match, linkHtml, bracketContent) {
+      var $tempLink = $(linkHtml);
+      var linkText = $tempLink.text().trim();
+      var spanId = utils.generateId("arabica_bracket-span");
+      
+      // Store both the bracket content and the link text
+      return '<span id="' + spanId + '" class="arabica_bracket-span" ' +
+             'style="text-decoration: underline; text-decoration-color: #c93; cursor: pointer;" ' +
+             'data-bracket-content="' + bracketContent.replace(/"/g, '&quot;') + '" ' +
+             'data-link-text="' + linkText.replace(/"/g, '&quot;') + '">' +
+             linkText + '</span>';
+    });
+    
+    $article.html(processedHtml);
+    $article.trigger('content-modified');
+    
+    this.setupBracketSpans();
+  },
+  
+  setupBracketSpans: function() {
       $article.find('.arabica_bracket-span').each(function() {
         var $span = $(this);
         var bracketContent = $span.data('bracket-content');
+        var linkText = $span.data('link-text');
         
-        dropdownManager.createDropdown($span, bracketContent, false, 'arabica_bracket-dropdown');
+        // Create title element
+        var titleHtml = '<div class="arabica_ref-title">' + linkText + '</div>';
         
-        // Add click handler to prevent default link behavior
+        // Wrap content in text container with proper direction
+        var direction = utils.hasArabicText(bracketContent) ? "rtl" : "ltr";
+        var contentHtml = titleHtml + bracketContent;
+        
+        // Create dropdown and get reference
+        var $dropdown = dropdownManager.createDropdown($span, contentHtml, false, 'arabica_bracket-dropdown');
+        
+        // Add click handler to toggle dropdown
         $span.on("click", function(e) {
           e.preventDefault();
           e.stopPropagation();
+          
+          // Toggle dropdown
+          if ($dropdown.hasClass('open')) {
+            $dropdown.removeClass('open');
+          } else {
+            // Close other dropdowns before opening this one
+            $(".arabica_ref-dropdown.open").not($dropdown).removeClass("open");
+            dropdownManager.position($span, $dropdown);
+            $dropdown.addClass('open');
+          }
         });
+        
+        // Remove hover events for bracket spans
+        // $span.off('mouseenter mouseleave');
       });
     }
   };
@@ -448,13 +544,18 @@ $(document).ready(function () {
         var refText = ftnRefs[key];
         
         if (refText) {
-          dropdownManager.createDropdown($ftnrefLink, refText, true, 'arabica_ftn-dropdown');
+          var $dropdown = dropdownManager.createDropdown($ftnrefLink, refText, true, 'arabica_ftn-dropdown');
+          
+          // Allow normal link click behavior
+          $ftnrefLink.on('click', function(e) {
+            return true;
+          });
         }
       });
     }
   };
   
-  // 3. Cross-page Link Processor
+  // 3. Cross-page Link Processor (with image layout adjustment)
   var linkProcessor = {
     linkContentCache: {},
     
@@ -463,23 +564,19 @@ $(document).ready(function () {
     },
     
     isValidInternalLink: function(href) {
-      if (!href || 
-          href.startsWith('http://') || 
-          href.startsWith('https://') || 
-          href.startsWith('#') || 
-          href.startsWith('mailto:') || 
-          href.startsWith('tel:') || 
+      if (!href ||
+          href.startsWith('#') ||
+          href.startsWith('mailto:') ||
+          href.startsWith('tel:') ||
           href.startsWith('javascript:')) {
         return false;
       }
-      
-      var fileExtensions = /\.(pdf|doc|docx|xls|xlsx|ppt|pptx|zip|rar|jpg|jpeg|png|gif|mp3|mp4|avi)$/i;
+      var fileExtensions = /\.(pdf|doc|docx|xls|xlsx|ppt|pptx|zip|rar|jpg|jpeg|png|gif|mp3|mp4|avi|svg|webp)$/i;
       return !fileExtensions.test(href);
     },
     
     setupCrossPageLinks: function() {
       var self = this;
-      
       $article.find('a[href]').each(function() {
         var $link = $(this);
         var href = $link.attr('href');
@@ -498,59 +595,76 @@ $(document).ready(function () {
       var showTimer, hideTimer;
       var isContentFetched = false;
       
-      $link.on("mouseenter", function(e) {
+      function openDropdown() {
+        $('.arabica_ref-dropdown.open').removeClass('open');
+        var ddId = $link.data('dropdown-id');
+        if (!ddId) return;
+        var $dd = $('#' + ddId);
+        dropdownManager.position($link, $dd);
+        $dd.addClass('open');
+      }
+      
+      function onMouseEnter(e) {
         e.stopPropagation();
         clearTimeout(hideTimer);
         clearTimeout(showTimer);
         
-        if (isContentFetched && $link.data("dropdown-id")) {
-          var $dropdown = $("#" + $link.data("dropdown-id"));
-          if ($dropdown.length) {
-            showTimer = setTimeout(function() {
-              $(".arabica_ref-dropdown.open").removeClass("open");
-              dropdownManager.position($link, $dropdown);
-              $dropdown.addClass("open");
-            }, 300);
-            return;
-          }
+        // If content already fetched and dropdown exists, show it immediately
+        if (isContentFetched && $link.data('dropdown-id')) {
+          showTimer = setTimeout(openDropdown, 300);
+          return;
         }
         
+        // First-time fetch
         if (!isContentFetched) {
           isContentFetched = true;
           self.fetchPageContent($link, href, function() {
-            if ($link.is(":hover")) {
-              showTimer = setTimeout(function() {
-                var $dropdown = $("#" + $link.data("dropdown-id"));
-                if ($dropdown.length) {
-                  $(".arabica_ref-dropdown.open").removeClass("open");
-                  dropdownManager.position($link, $dropdown);
-                  $dropdown.addClass("open");
-                }
-              }, 300);
+            // After fetch completes:
+            if ($link.data('dropdown-id') && $link.is(':hover')) {
+              // show on first hover once fetched
+              showTimer = setTimeout(openDropdown, 300);
+            }
+            // If no preview content, unbind handlers so link behaves normally
+            if (!$link.data('dropdown-id')) {
+              $link.off('mouseenter', onMouseEnter);
+              $link.off('mouseleave', onMouseLeave);
             }
           });
         }
-      });
+      }
       
-      $link.on("mouseleave", function(e) {
+      function onMouseLeave() {
         clearTimeout(showTimer);
         clearTimeout(hideTimer);
-        
         hideTimer = setTimeout(function() {
-          var $dropdown = $("#" + $link.data("dropdown-id"));
-          if ($dropdown.length && !$dropdown.is(":hover") && !$link.is(":hover")) {
-            $dropdown.removeClass("open");
+          var ddId = $link.data('dropdown-id');
+          if (ddId) {
+            var $dd = $('#' + ddId);
+            if (!$dd.is(':hover') && !$link.is(':hover')) {
+              $dd.removeClass('open');
+            }
           }
         }, 300);
+      }
+      
+      $link.on('mouseenter', onMouseEnter);
+      $link.on('mouseleave', onMouseLeave);
+      // MODIFIED: Remove click handler that might interfere
+      $link.off('click').on('click', function(e) {
+        return true; // Allow normal link behavior
       });
     },
     
     fetchPageContent: function($link, url, callback) {
       var self = this;
       
-      if (self.linkContentCache[url]) {
-        if (self.linkContentCache[url].content) {
-          dropdownManager.createDropdown($link, self.linkContentCache[url].content, false, 'arabica_link-dropdown');
+      if (self.linkContentCache[url] !== undefined) {
+        // Already fetched before
+        if (self.linkContentCache[url]) {
+          var $dropdown = dropdownManager.createDropdown($link, self.linkContentCache[url], false, 'arabica_link-dropdown', {
+            skipTextWrapper: true
+          });
+          imageLayoutManager.adjustLayout($dropdown);
         }
         if (callback) callback();
         return;
@@ -562,85 +676,110 @@ $(document).ready(function () {
         dataType: 'html',
         timeout: 5000,
         success: function(data) {
+          var content = null;
           try {
-            var content = self.extractFactsContent(data);
-            if (content) {
-              self.linkContentCache[url] = { content: content };
-              dropdownManager.createDropdown($link, content, false, 'arabica_link-dropdown');
-            } else {
-              self.linkContentCache[url] = { content: null };
-            }
-          } catch (error) {
-            console.error('Error processing page content:', error);
-            self.linkContentCache[url] = { content: null };
+            content = self.extractFactsContent(data, url);
+          } catch (err) {
+            console.error('Error extracting content:', err);
           }
+          self.linkContentCache[url] = content;
+          
+          if (content) {
+    var $dropdown = dropdownManager.createDropdown($link, content, false, 'arabica_link-dropdown', {
+      skipTextWrapper: true
+    });
+    
+    // Immediately adjust layout
+    imageLayoutManager.adjustLayout($dropdown);
+  }
           if (callback) callback();
         },
-        error: function(xhr, status, error) {
-          console.error('Error fetching page:', url, error);
-          self.linkContentCache[url] = { content: null };
+        error: function() {
+          self.linkContentCache[url] = null;
           if (callback) callback();
         }
       });
     },
     
-    extractFactsContent: function(data) {
-      var $pageContent = $(data);
-      var $factsSection = $pageContent.find('#Facts');
-      
-      if (!$factsSection.length) return null;
-      
+    extractFactsContent: function(data, pageUrl) {
+      var $page = $(data);
       var content = '';
-      var $paragraphs = $factsSection.find('#facts-desc');
       
-      if ($paragraphs.length) {
-        $paragraphs.each(function() {
-          var $para = $(this);
-          var paraText = $para.text();
-          var isArabic = utils.hasArabicText(paraText);
-          
-          $para.attr('dir', isArabic ? 'rtl' : 'ltr');
-          $para.find('ul, ol').each(function() {
-            var $list = $(this);
-            var listText = $list.text();
-            var listIsArabic = utils.hasArabicText(listText);
-            $list.attr('dir', listIsArabic ? 'rtl' : 'ltr');
-          });
-          
-          content += $para.prop('outerHTML');
+      // Extract page title
+      var pageTitle = $page.find('h1').first().text().trim();
+      
+      // Extract image
+      var imageUrl = null;
+      var $imageContainer = $page.find('#Facts .arabica_article-image');
+      if ($imageContainer.length) {
+        var $firstImg = $imageContainer.find('img').first();
+        if ($firstImg.length) {
+          imageUrl = $firstImg.attr('src');
+        }
+      }
+      
+      // Extract content from #Facts section
+      var factsInner = '';
+      var $factsSection = $page.find('#Facts');
+      if ($factsSection.length) {
+        // Grab paragraphs under #facts-desc
+        $factsSection.find('#facts-desc').each(function() {
+          factsInner += $(this).prop('outerHTML');
+        });
+        // Grab any lists directly under #Facts
+        $factsSection.find('ul, ol').each(function() {
+          factsInner += $(this).prop('outerHTML');
         });
       }
       
-      $factsSection.find('ul, ol').each(function() {
-        var $list = $(this);
-        var listText = $list.text();
-        var isArabic = utils.hasArabicText(listText);
-        $list.attr('dir', isArabic ? 'rtl' : 'ltr');
-        content += $list.prop('outerHTML');
-      });
+      // Determine text direction based on content
+      var textForDir = pageTitle + factsInner;
+      var direction = utils.hasArabicText(textForDir) ? "rtl" : "ltr";
       
-      return content || null;
+      // Build text content with title
+      var textContent = '<div class="arabica_ref-text" dir="' + direction + '">' +
+                          '<div class="arabica_ref-title">' + pageTitle + '</div>';
+      
+      if (factsInner) {
+        textContent += factsInner;
+      } else {
+        // Fallback: first paragraph in article body
+        var $firstPara = $page.find('.arabica_article-content p').first();
+        if ($firstPara.length) {
+          // Remove any {{…}} templates
+          var raw = $firstPara.text().replace(/\{\{[\s\S]*?\}\}/g, '').trim();
+          // Truncate only if longer than 200 chars
+          var truncated = raw.length > 200
+            ? raw.slice(0, 200).trim() + '…'
+            : raw;
+          var paraDir = utils.hasArabicText(raw) ? "rtl" : "ltr";
+          textContent += $('<p>').attr('dir', paraDir).text(truncated).prop('outerHTML');
+        }
+      }
+      textContent += '<div class="arabica_ref-more"><a href="' + pageUrl + '">اقرأ المزيد</a></div></div>';
+      
+      // Combine image and text content
+      if (imageUrl) {
+        content = '<div class="arabica_ref-row">' +
+        '<div class="arabica_ref-image">' +
+            '<a href="' + pageUrl + '">' +
+              '<img src="' + imageUrl + '" alt="' + pageTitle.replace(/"/g, '&quot;') + '">' +
+            '</a>' +
+            '</div>' +
+            textContent +
+          '</div>';
+      } else {
+        content = textContent;
+      }
+      
+      return content;
     }
   };
   
-  // Global event handlers
-  var globalEvents = {
-    init: function() {
-      // Close all dropdowns when clicking elsewhere
-      $(document).on("click", function(e) {
-        if (!$(e.target).closest(".arabica_ref-dropdown, .arabica_bracket-span, a[name^='_ftnref'], a[href]").length) {
-          $(".arabica_ref-dropdown.open").removeClass("open");
-        }
-      });
-      
-      // Close on ESC key
-      $(document).on("keydown", function (e) {
-        if (e.key === "Escape") {
-          $(".arabica_ref-dropdown.open").removeClass("open");
-        }
-      });
-    }
-  };
+  // Initialize on document ready
+  $(document).ready(function() {
+    linkProcessor.init();
+  });
   
   // 4. Endnote Processor
   var endnoteProcessor = {
@@ -667,7 +806,7 @@ $(document).ready(function () {
           $n = $n.next();
         }
         ednRefs[key] = txt.trim();
-
+        
         // Remove the endnote content from the article
         var toRm = [$p];
         $n = $p.next();
