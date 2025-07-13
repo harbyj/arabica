@@ -1574,6 +1574,8 @@ a.arabica_latest-article-more:hover {
 .arabica_article-content li,
 .arabica_news-content li {
   margin-bottom: 5px;
+  line-height: 1.8;
+    text-align: justify;
 }
 .arabica_about-content img,
 .arabica_article-content img:not(p > img),
@@ -1592,13 +1594,14 @@ a.arabica_latest-article-more:hover {
   font-size: 14px;
 }
 table {
-  width: 100%;
+  max-width: 100%;
   border-collapse: collapse;
   background-color: #fff;
   text-align: right;
 }
 .arabica_table-container table:not(.arabica_facts):not(#Facts) {
   margin-bottom: 0;
+  width: 100%;
 }
 table:not(.arabica_facts):not(#Facts) {
   margin-bottom: 15px;
@@ -2631,7 +2634,7 @@ input:checked + .arabica_toggle:before {
 }
 .arabica_timeline {
   width: 100%;
-  padding-top: 60px;
+  margin-top: 20px;
 }
 .arabica_timeline h2 span {
   display: block;
@@ -2772,7 +2775,7 @@ input:checked + .arabica_toggle:before {
   font-weight: 700;
 }
 .arabica_stages {
-  padding: 85px 0 0;
+  padding: 30px 0 30px;
 }
 .arabica_timeline-header-row {
   margin-bottom: 60px;
@@ -3507,10 +3510,6 @@ input:checked + .arabica_toggle:before {
     font-size: 21px;
     font-weight: 700;
   }
-  .arabica_timeline,
-  .arabica_stages {
-    padding-top: 20px;
-  }
   .arabica_timeline-container {
     padding: 10px 0;
   }
@@ -4083,6 +4082,7 @@ audio {
   margin-top: 0;
   margin-bottom: 0;
   display: block;
+  width: 100%;
 }
 #Facts td,
 .arabica_facts td {
@@ -4279,6 +4279,7 @@ math.inlineMath {
 }
 .align-center {
   text-align: center !important;
+  margin: auto !important;
 }
 .arabica_article-gallery-containerr {
   padding-bottom: 10px;
@@ -4516,3 +4517,7 @@ button.arabica_featured-article-button:hover {
   display: block;
 }
 
+table:not(.arabica_facts):not(#Facts) p {
+  margin: 0 !important;
+  text-align: right !important;
+}
