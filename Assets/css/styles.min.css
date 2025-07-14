@@ -4473,6 +4473,8 @@ button.arabica_featured-article-button:hover {
     padding: 0 15px;
     font-weight: normal;
     }
+    .arabica_about-content ol, .arabica_about-content ul, .arabica_article-content ol, .arabica_article-content ul, .arabica_news-content ol, .arabica_news-content ul {
+    margin: 10px 10px 10px 0;}
 }
 
 .arabica_ref-row {
