@@ -201,14 +201,20 @@ $(document).ready(function () {
   /* ------------------------------
          GALLERY SLIDER SETUP
      ------------------------------ */
-  $(".arabica_article-gallery-container").each(function () {
+  $(".arabica_gallery").each(function () {
     const $container = $(this);
+    const isHorizontal = $container.hasClass("horizontal");
     const isMobile = window.matchMedia(
       "only screen and (max-width: 767px)"
     ).matches;
-    const selector = isMobile ? ".arabica_article-image-gallery, .arabica_article-mobile-gallery"
-      : ".arabica_article-image-gallery";
-    const $galleryItems = $container.find(selector);
+    
+    // For mobile, both gallery types show as sliders
+    // For desktop, only vertical galleries show as sliders (horizontal galleries show as scrollable grid)
+    const shouldCreateSlider = isMobile || !isHorizontal;
+    
+    if (!shouldCreateSlider) return;
+
+    const $galleryItems = $container.find(".arabica_gallery-image");
 
     if (!$galleryItems.length) return;
 
@@ -374,11 +380,11 @@ $(document).ready(function () {
   });
 
   /* ------------------------------
-     MOBILE GALLERY LIGHTBOX ON DESKTOP
+     HORIZONTAL GALLERY LIGHTBOX ON DESKTOP
      ------------------------------ */
   if (!window.matchMedia("only screen and (max-width: 767px)").matches) {
     $(
-      ".arabica_article-gallery-container .arabica_article-mobile-gallery a"
+      ".arabica_gallery.horizontal .arabica_gallery-image a"
     ).each(function () {
       const href = $(this).attr("href");
       if (/\.(jpe?g|png|gif|webp|svg)$/i.test(href)) {
@@ -387,11 +393,9 @@ $(document).ready(function () {
           const $imgEl = $(this).find("img");
           const altText = $imgEl.attr("alt") || "";
           const captionText = $(this).next("figcaption").text() || "";
-          const $containerEl = $(this).closest(
-            ".arabica_article-gallery-container"
-          );
+          const $containerEl = $(this).closest(".arabica_gallery");
           const gallery = $containerEl
-            .find(".arabica_article-mobile-gallery a")
+            .find(".arabica_gallery-image a")
             .map(function () {
               return {
                 src: $(this).attr("href"),
@@ -415,9 +419,7 @@ $(document).ready(function () {
     const href = $(this).attr("href");
     if (
       /\.(jpe?g|png|gif|webp|svg)$/i.test(href) &&
-      !$(this).closest(
-        ".arabica_article-image-gallery, .arabica_article-mobile-gallery"
-      ).length
+      !$(this).closest(".arabica_gallery-image").length
     ) {
       $(this).on("click", function (e) {
         e.preventDefault();
@@ -432,12 +434,12 @@ $(document).ready(function () {
   /* ------------------------------
          GALLERY IMAGE OBJECT-FIT
      ------------------------------ */
-  $(".arabica_article-image-gallery, .arabica_article-mobile-gallery").each(
+  $(".arabica_gallery-image").each(
     function () {
-      const $gallery = $(this);
-      const $img = $gallery.find("img");
+      const $galleryItem = $(this);
+      const $img = $galleryItem.find("img");
       if ($img.length) {
-        const galleryRatio = $gallery.width() / $gallery.height();
+        const galleryRatio = $galleryItem.width() / $galleryItem.height();
         const imageRatio = $img[0].naturalWidth / $img[0].naturalHeight;
         const lowerBound = galleryRatio * 0.85;
         const upperBound = galleryRatio * 1.15;
@@ -451,12 +453,11 @@ $(document).ready(function () {
   );
 
   /* ------------------------------
-         DESKTOP GALLERY BUTTONS
+         DESKTOP HORIZONTAL GALLERY BUTTONS
      ------------------------------ */
   if (window.innerWidth >= 768) {
-    $(".arabica_article-gallery-container").each(function () {
+    $(".arabica_gallery.horizontal").each(function () {
       const $container = $(this);
-      if (!$container.find(".arabica_article-mobile-gallery").length) return;
 
       const $wrapper = $(
         '<div class="slider-container" style="position: relative;"></div>'
@@ -489,7 +490,7 @@ $(document).ready(function () {
         $next.css("right", "8px");
       }
 
-      const $items = $container.find(".arabica_article-mobile-gallery");
+      const $items = $container.find(".arabica_gallery-image");
       const gap = parseInt($container.css("gap")) || 0;
       const step = () => $items.first().width() + gap;
 
@@ -520,6 +521,7 @@ $(document).ready(function () {
 
       const $img = $container.find("img");
       function positionButtons() {
+        if (!$img.length) return;
         const imgRect = $img[0].getBoundingClientRect();
         const wrapRect = $wrapper[0].getBoundingClientRect();
         const centerY = imgRect.top - wrapRect.top + imgRect.height / 2;
@@ -534,8 +536,6 @@ $(document).ready(function () {
   }
 });
 
-$(".arabica_article-gallery-container").each(function () {
-  if ($(this).find(".arabica_article-mobile-gallery").length) {
-    $(this).addClass("has-mobile-gallery");
-  }
+$(".arabica_gallery.horizontal").each(function () {
+  $(this).addClass("has-horizontal-gallery");
 });

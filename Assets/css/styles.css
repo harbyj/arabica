@@ -1574,6 +1574,8 @@ a.arabica_latest-article-more:hover {
 .arabica_article-content li,
 .arabica_news-content li {
   margin-bottom: 5px;
+  line-height: 1.8;
+    text-align: justify;
 }
 .arabica_about-content img,
 .arabica_article-content img:not(p > img),
@@ -1592,13 +1594,14 @@ a.arabica_latest-article-more:hover {
   font-size: 14px;
 }
 table {
-  width: 100%;
+  max-width: 100%;
   border-collapse: collapse;
   background-color: #fff;
   text-align: right;
 }
 .arabica_table-container table:not(.arabica_facts):not(#Facts) {
   margin-bottom: 0;
+  width: 100%;
 }
 table:not(.arabica_facts):not(#Facts) {
   margin-bottom: 15px;
@@ -2631,7 +2634,7 @@ input:checked + .arabica_toggle:before {
 }
 .arabica_timeline {
   width: 100%;
-  padding-top: 60px;
+  margin-top: 20px;
 }
 .arabica_timeline h2 span {
   display: block;
@@ -2772,7 +2775,7 @@ input:checked + .arabica_toggle:before {
   font-weight: 700;
 }
 .arabica_stages {
-  padding: 85px 0 0;
+  padding: 30px 0 30px;
 }
 .arabica_timeline-header-row {
   margin-bottom: 60px;
@@ -2935,7 +2938,7 @@ input:checked + .arabica_toggle:before {
 }
 .arabica_table-of-content h2 {
   font-weight: 600;
-  color: #4d4d4f;
+  color: #333;
   padding-bottom: 0;
 }
 .arabica_article-category {
@@ -3171,21 +3174,21 @@ input:checked + .arabica_toggle:before {
   transition: transform 0.3s ease-in-out;
   flex-direction: row-reverse;
 }
-.arabica_article-image-gallery {
+.arabica_gallery:not(.horizontal) .arabica_gallery-image {
   flex: 0 0 100%;
   box-sizing: border-box;
   height: 100%;
 }
-.arabica_article-image-gallery img {
+.arabica_gallery:not(.horizontal) .arabica_gallery-image img {
   width: 100%;
   object-fit: contain;
   aspect-ratio: 177/90;
 }
-.vertical-image .arabica_article-image-gallery img {
+.vertical-image .arabica_gallery:not(.horizontal) .arabica_gallery-image img {
   aspect-ratio: 90/113;
   object-fit: cover !important;
 }
-.square-image .arabica_article-image-gallery img {
+.square-image .arabica_gallery:not(.horizontal) .arabica_gallery-image img {
   aspect-ratio: 90/90;
   object-fit: cover !important;
 }
@@ -3507,10 +3510,6 @@ input:checked + .arabica_toggle:before {
     font-size: 21px;
     font-weight: 700;
   }
-  .arabica_timeline,
-  .arabica_stages {
-    padding-top: 20px;
-  }
   .arabica_timeline-container {
     padding: 10px 0;
   }
@@ -3704,10 +3703,11 @@ input:checked + .arabica_toggle:before {
   }
   .arabica_ref-dropdown {
     position: absolute;
-    min-width: 200px;
-    max-width: 270px;
     border-radius: 7px;
-    padding: 15px 20px;
+  }
+  .arabica_ref-title
+  {
+    font-size: 14px !important;
   }
   .arabica_article-foot-wrapper h2,
   .arabica_article-references h2,
@@ -4082,6 +4082,7 @@ audio {
   margin-top: 0;
   margin-bottom: 0;
   display: block;
+  width: 100%;
 }
 #Facts td,
 .arabica_facts td {
@@ -4278,15 +4279,13 @@ math.inlineMath {
 }
 .align-center {
   text-align: center !important;
+  margin: auto !important;
 }
-.arabica_article-gallery-containerr {
-  padding-bottom: 10px;
-}
-.arabica_article-mobile-gallery {
+.arabica_gallery.horizontal .arabica_gallery-image {
   text-align: center;
 }
 @media (min-width: 768px) {
-  .arabica_article-gallery-container.has-mobile-gallery {
+  .arabica_gallery.has-mobile-gallery {
     display: flex;
     overflow-x: auto;
     gap: 10px;
@@ -4295,11 +4294,11 @@ math.inlineMath {
     scrollbar-width: none;
     -ms-overflow-style: none;
   }
-  .arabica_article-gallery-container.has-mobile-gallery::-webkit-scrollbar {
+  .arabica_gallery.has-mobile-gallery::-webkit-scrollbar {
     width: 0;
     height: 0;
   }
-  .arabica_article-mobile-gallery {
+  .arabica_gallery.horizontal .arabica_gallery-image {
     flex: 1 0 calc(25% - 7.5px);
     min-width: calc(25% - 7.5px);
     box-sizing: border-box;
@@ -4307,7 +4306,7 @@ math.inlineMath {
     flex-direction: column;
     align-items: center;
   }
-  .arabica_article-mobile-gallery figcaption {
+  .arabica_gallery.horizontal .arabica_gallery-image figcaption {
     flex-grow: 1;
     display: flex;
     flex-direction: column;
@@ -4350,19 +4349,19 @@ math.inlineMath {
   .slider-btn {
     display: none;
   }
-  .arabica_article-mobile-gallery {
+  .arabica_gallery.horizontal .arabica_gallery-image {
     flex: 0 0 100%;
     box-sizing: border-box;
     height: 100%;
   }
-  .arabica_article-mobile-gallery img {
+  .arabica_gallery.horizontal .arabica_gallery-image img {
     width: 100%;
   }
-  .vertical-image .arabica_article-mobile-gallery img {
+  .vertical-image .arabica_gallery.horizontal .arabica_gallery-image img {
     height: 300px !important;
   }
 }
-.arabica_article-mobile-gallery {
+.arabica_gallery.horizontal .arabica_gallery-image {
   align-items: center;
   text-align: center;
 }
@@ -4400,7 +4399,7 @@ math.inlineMath {
   .arabica_author-role {
     display: inline-block;
   }
-  .arabica_article-mobile-gallery {
+  .arabica_gallery.horizontal .arabica_gallery-image {
     display: inline-block !important;
     align-items: center;
     text-align: center;
@@ -4471,6 +4470,8 @@ button.arabica_featured-article-button:hover {
     padding: 0 15px;
     font-weight: normal;
     }
+    .arabica_about-content ol, .arabica_about-content ul, .arabica_article-content ol, .arabica_article-content ul, .arabica_news-content ol, .arabica_news-content ul {
+    margin: 10px 10px 10px 0;}
 }
 
 .arabica_ref-row {
@@ -4515,3 +4516,7 @@ button.arabica_featured-article-button:hover {
   display: block;
 }
 
+table:not(.arabica_facts):not(#Facts) p {
+  margin: 0 !important;
+  text-align: right !important;
+}
