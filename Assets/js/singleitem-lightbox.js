@@ -201,21 +201,36 @@ $(document).ready(function () {
   /* ------------------------------
          GALLERY SLIDER SETUP
      ------------------------------ */
-  $(".arabica_gallery").each(function () {
-    const $container = $(this);
-    const isHorizontal = $container.hasClass("horizontal");
-    const isMobile = window.matchMedia(
-      "only screen and (max-width: 767px)"
-    ).matches;
-    
-    // For mobile, both gallery types show as sliders
-    // For desktop, only vertical galleries show as sliders (horizontal galleries show as scrollable grid)
-    const shouldCreateSlider = isMobile || !isHorizontal;
-    
-    if (!shouldCreateSlider) return;
+  
+  // Function to initialize/destroy sliders based on screen size
+  function initializeGallerySliders() {
+    $(".arabica_gallery").each(function () {
+      const $container = $(this);
+      const isHorizontal = $container.hasClass("horizontal");
+      const isVertical = $container.hasClass("vertical");
+      const isMobile = window.matchMedia(
+        "only screen and (max-width: 767px)"
+      ).matches;
+      
+      // Check if slider already exists
+      const hasSlider = $container.find(".arabica_article_slider").length > 0;
+      
+      // For mobile: all gallery types show as sliders
+      // For desktop: only default galleries show as sliders (horizontal and vertical galleries show as static)
+      const shouldCreateSlider = isMobile || (!isHorizontal && !isVertical);
+      
+      if (shouldCreateSlider && !hasSlider) {
+        // Create slider
+        createSlider($container);
+      } else if (!shouldCreateSlider && hasSlider) {
+        // Remove slider and restore original gallery
+        destroySlider($container);
+      }
+    });
+  }
 
+  function createSlider($container) {
     const $galleryItems = $container.find(".arabica_gallery-image");
-
     if (!$galleryItems.length) return;
 
     const $slider = $(
@@ -302,7 +317,11 @@ $(document).ready(function () {
     };
 
     updateSliderLayout();
-    $(window).on("resize", updateSliderLayout);
+    
+    // Store resize handler on the container for later cleanup
+    const resizeHandler = () => updateSliderLayout();
+    $container.data('slider-resize-handler', resizeHandler);
+    $(window).on("resize", resizeHandler);
 
     const nextSlide = () => {
       currentSlide = (currentSlide + 1) % $galleryItems.length;
@@ -377,18 +396,41 @@ $(document).ready(function () {
         openLightbox(href, altText, captionText, gallery);
       }
     });
-  });
+  }
+
+  function destroySlider($container) {
+    // Remove resize handler
+    const resizeHandler = $container.data('slider-resize-handler');
+    if (resizeHandler) {
+      $(window).off("resize", resizeHandler);
+      $container.removeData('slider-resize-handler');
+    }
+
+    // Move gallery items back to container
+    const $slider = $container.find(".arabica_article_slider");
+    const $galleryItems = $slider.find(".arabica_gallery-image");
+    $container.empty();
+    $galleryItems.appendTo($container);
+  }
+
+  // Initialize sliders on page load
+  initializeGallerySliders();
 
   /* ------------------------------
-     HORIZONTAL GALLERY LIGHTBOX ON DESKTOP
+     RESPONSIVE HORIZONTAL/VERTICAL GALLERY LIGHTBOX
      ------------------------------ */
-  if (!window.matchMedia("only screen and (max-width: 767px)").matches) {
-    $(
-      ".arabica_gallery.horizontal .arabica_gallery-image a"
-    ).each(function () {
-      const href = $(this).attr("href");
-      if (/\.(jpe?g|png|gif|webp|svg)$/i.test(href)) {
-        $(this).on("click", function (e) {
+  function initializeLightboxHandlers() {
+    // Remove existing handlers to prevent duplicates
+    $(".arabica_gallery.horizontal .arabica_gallery-image a, .arabica_gallery.vertical .arabica_gallery-image a").off("click.gallery-lightbox");
+    
+    const isMobile = window.matchMedia("only screen and (max-width: 767px)").matches;
+    
+    if (!isMobile) {
+      $(
+        ".arabica_gallery.horizontal .arabica_gallery-image a, .arabica_gallery.vertical .arabica_gallery-image a"
+      ).on("click.gallery-lightbox", function (e) {
+        const href = $(this).attr("href");
+        if (/\.(jpe?g|png|gif|webp|svg)$/i.test(href)) {
           e.preventDefault();
           const $imgEl = $(this).find("img");
           const altText = $imgEl.attr("alt") || "";
@@ -405,10 +447,13 @@ $(document).ready(function () {
             })
             .get();
           openLightbox(href, altText, captionText, gallery);
-        });
-      }
-    });
+        }
+      });
+    }
   }
+  
+  // Initialize lightbox handlers
+  initializeLightboxHandlers();
 
   /* ------------------------------
          SINGLE IMAGE SETUP
@@ -432,32 +477,77 @@ $(document).ready(function () {
   });
 
   /* ------------------------------
-         GALLERY IMAGE OBJECT-FIT
+         RESPONSIVE GALLERY IMAGE OBJECT-FIT
      ------------------------------ */
-  $(".arabica_gallery-image").each(
-    function () {
+  function updateGalleryImageObjectFit() {
+    $(".arabica_gallery-image").each(function () {
       const $galleryItem = $(this);
       const $img = $galleryItem.find("img");
-      if ($img.length) {
+      if ($img.length && $img[0].naturalWidth && $img[0].naturalHeight) {
         const galleryRatio = $galleryItem.width() / $galleryItem.height();
         const imageRatio = $img[0].naturalWidth / $img[0].naturalHeight;
         const lowerBound = galleryRatio * 0.85;
         const upperBound = galleryRatio * 1.15;
         $img.css(
           "object-fit",
-          imageRatio >= lowerBound && imageRatio <= upperBound ? "cover"
-            : "contain"
+          imageRatio >= lowerBound && imageRatio <= upperBound ? "cover" : "contain"
         );
       }
+    });
+  }
+
+  // Initialize object-fit on page load
+  updateGalleryImageObjectFit();
+
+  // Also update object-fit when images load (for cases where naturalWidth/Height aren't available immediately)
+  $(".arabica_gallery-image img").on("load", function() {
+    const $img = $(this);
+    const $galleryItem = $img.closest(".arabica_gallery-image");
+    if ($img[0].naturalWidth && $img[0].naturalHeight) {
+      const galleryRatio = $galleryItem.width() / $galleryItem.height();
+      const imageRatio = $img[0].naturalWidth / $img[0].naturalHeight;
+      const lowerBound = galleryRatio * 0.85;
+      const upperBound = galleryRatio * 1.15;
+      $img.css(
+        "object-fit",
+        imageRatio >= lowerBound && imageRatio <= upperBound ? "cover" : "contain"
+      );
     }
-  );
+  });
 
   /* ------------------------------
-         DESKTOP HORIZONTAL GALLERY BUTTONS
+         RESPONSIVE DESKTOP HORIZONTAL GALLERY BUTTONS
      ------------------------------ */
-  if (window.innerWidth >= 768) {
+  function initializeHorizontalButtons() {
+    // Clean up existing button containers
+    $(".arabica_gallery.horizontal").each(function() {
+      const $container = $(this);
+      const $wrapper = $container.parent('.slider-container');
+      if ($wrapper.length) {
+        // Remove resize and scroll handlers
+        const resizeHandler = $container.data('button-resize-handler');
+        const scrollHandler = $container.data('button-scroll-handler');
+        if (resizeHandler) $(window).off("resize", resizeHandler);
+        if (scrollHandler) $container.off("scroll", scrollHandler);
+        $container.removeData('button-resize-handler button-scroll-handler');
+        
+        // Move container back and remove wrapper
+        $wrapper.before($container);
+        $wrapper.remove();
+      }
+    });
+
+    const isDesktop = window.innerWidth >= 768;
+    if (!isDesktop) return;
+
     $(".arabica_gallery.horizontal").each(function () {
       const $container = $(this);
+      const $items = $container.find(".arabica_gallery-image");
+      
+      // Hide buttons if 4 or fewer images
+      if ($items.length <= 4) {
+        return;
+      }
 
       const $wrapper = $(
         '<div class="slider-container" style="position: relative;"></div>'
@@ -490,7 +580,6 @@ $(document).ready(function () {
         $next.css("right", "8px");
       }
 
-      const $items = $container.find(".arabica_gallery-image");
       const gap = parseInt($container.css("gap")) || 0;
       const step = () => $items.first().width() + gap;
 
@@ -502,6 +591,16 @@ $(document).ready(function () {
         $next
           .toggleClass("visible", norm + 1 < max)
           .toggleClass("hidden", norm + 1 >= max);
+      }
+
+      function positionButtons() {
+        const $img = $container.find("img");
+        if (!$img.length) return;
+        const imgRect = $img[0].getBoundingClientRect();
+        const wrapRect = $wrapper[0].getBoundingClientRect();
+        const centerY = imgRect.top - wrapRect.top + imgRect.height / 2;
+        $prev.css("top", centerY);
+        $next.css("top", centerY);
       }
 
       $prev.on("click", () => {
@@ -516,26 +615,51 @@ $(document).ready(function () {
           300
         );
       });
-      $container.on("scroll", updateButtons);
-      $(window).on("resize", updateButtons);
 
-      const $img = $container.find("img");
-      function positionButtons() {
-        if (!$img.length) return;
-        const imgRect = $img[0].getBoundingClientRect();
-        const wrapRect = $wrapper[0].getBoundingClientRect();
-        const centerY = imgRect.top - wrapRect.top + imgRect.height / 2;
-        $prev.css("top", centerY);
-        $next.css("top", centerY);
-      }
-      $(window).on("resize", positionButtons);
-      $container.on("scroll", positionButtons);
+      // Store handlers for cleanup
+      const resizeHandler = () => {
+        positionButtons();
+        updateButtons();
+      };
+      const scrollHandler = () => {
+        positionButtons();
+        updateButtons();
+      };
+      
+      $container.data('button-resize-handler', resizeHandler);
+      $container.data('button-scroll-handler', scrollHandler);
+      
+      $(window).on("resize", resizeHandler);
+      $container.on("scroll", scrollHandler);
+      
       positionButtons();
       updateButtons();
     });
   }
+
+  // Initialize horizontal buttons
+  initializeHorizontalButtons();
+  /* ------------------------------
+         RESPONSIVE INITIALIZATION
+     ------------------------------ */
+  
+  // Main resize handler to reinitialize everything
+  let resizeTimeout;
+  $(window).on("resize", function() {
+    clearTimeout(resizeTimeout);
+    resizeTimeout = setTimeout(function() {
+      initializeGallerySliders();
+      initializeLightboxHandlers();
+      initializeHorizontalButtons();
+      updateGalleryImageObjectFit(); // Add object-fit recalculation
+    }, 150); // Debounce to avoid excessive calls
+  });
 });
 
 $(".arabica_gallery.horizontal").each(function () {
   $(this).addClass("has-horizontal-gallery");
+});
+
+$(".arabica_gallery.vertical").each(function () {
+  $(this).addClass("has-vertical-gallery");
 });
