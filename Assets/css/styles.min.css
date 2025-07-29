@@ -1009,7 +1009,8 @@ a.arabica_latest-article-more:hover, .buttonSearch:hover {
 }
 .arabica_featured-article-author {
   color: #999;
-  margin-top: -5px;
+    margin-bottom: 3px;
+    line-height: 1.3;
 }
 .arabica_article-list-date,
 .arabica_article-meta {
