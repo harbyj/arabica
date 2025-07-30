@@ -4155,6 +4155,7 @@ caption {
 }
 .arabica_share-link {
   cursor: pointer;
+  color: #c93;
 }
 .arabica_article-header .arabica_share-link {
   float: left;
@@ -4163,8 +4164,8 @@ caption {
 .arabica_article-header .arabica_share-link i {
   color: #c93;
 }
-.arabica_article-header .arabica_share-link:hover i,
-.arabica_article-header .arabica_share-link:hover {
+.arabica_share-link:hover i,
+.arabica_share-link:hover {
   color: #b07f2a;
 }
 .arabica_article-header {
