@@ -4183,11 +4183,12 @@ caption {
   .arabica_article-header::before {
     content: "";
     position: absolute;
-    transform: translateX(-50%);
-    left: 68.3%;
     top: 0;
-    width: 100vw;
+    left: 0;
+    right: 0;
     height: 100%;
+    width: 100vw;
+    margin-right: calc(33% - 50vw);
     background-color: inherit;
     z-index: -1;
   }
