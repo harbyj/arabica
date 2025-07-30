@@ -3687,6 +3687,9 @@ input:checked + .arabica_toggle:before {
     font-size: 23px;
     transition: opacity 0.3s, transform 0.3s;
   }
+  .arabica_floating-btn i {
+    transform: scaleX(-1);
+  }
   .arabica_close-button {
     cursor: pointer;
     text-align: left;
