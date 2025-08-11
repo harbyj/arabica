@@ -167,3 +167,10 @@ $(function() {
     }, 0);
   });
 });
+$(document).ready(function() {
+    $('.arabica_card-container')
+        .find('br').remove().end()
+        .html(function(i, html) {
+            return html.replace(/&ZeroWidthSpace;|​|&nbsp;(?=\s*(<|$))/g, '');
+        });
+});

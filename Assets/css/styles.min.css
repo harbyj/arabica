@@ -44,13 +44,6 @@ svg {
 }
 @font-face {
   font-family: "Bahij TheSansArabic";
-  src: url(../fonts/BahijTheSans/Bahij_TheSansArabic-Bold.ttf)
-    format("truetype");
-  font-weight: 700;
-  font-style: normal;
-}
-@font-face {
-  font-family: "Bahij TheSansArabic";
   src: url(../fonts/BahijTheSans/Bahij_TheSansArabic-ExtraBold.ttf)
     format("truetype");
   font-weight: 800;
@@ -58,16 +51,9 @@ svg {
 }
 @font-face {
   font-family: "Bahij TheSansArabic";
-  src: url(../fonts/BahijTheSans/Bahij_TheSansArabic-ExtraLight.ttf)
+  src: url(../fonts/BahijTheSans/Bahij_TheSansArabic-Bold.ttf)
     format("truetype");
-  font-weight: 200;
-  font-style: normal;
-}
-@font-face {
-  font-family: "Bahij TheSansArabic";
-  src: url(../fonts/BahijTheSans/Bahij_TheSansArabic-Plain.ttf)
-    format("truetype");
-  font-weight: 400;
+  font-weight: 700;
   font-style: normal;
 }
 @font-face {
@@ -79,9 +65,23 @@ svg {
 }
 @font-face {
   font-family: "Bahij TheSansArabic";
+  src: url(../fonts/BahijTheSans/Bahij_TheSansArabic-Plain.ttf)
+    format("truetype");
+  font-weight: 400;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Bahij TheSansArabic";
   src: url(../fonts/BahijTheSans/Bahij_TheSansArabic-SemiLight.ttf)
     format("truetype");
   font-weight: 300;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Bahij TheSansArabic";
+  src: url(../fonts/BahijTheSans/Bahij_TheSansArabic-ExtraLight.ttf)
+    format("truetype");
+  font-weight: 200;
   font-style: normal;
 }
 @font-face {
@@ -142,8 +142,16 @@ h6 {
   line-height: 1.3;
   text-align: right;
 }
+h1 strong,
+h2 strong,
+h3 strong,
+h4 strong,
+h5 strong,
+h6 strong {
+  font-weight: inherit;
+}
 .arabica_additional-info h2 a:hover,
-.arabica_article .arabica_article-author-wrapper a,
+.arabica_article .arabica_article-author a,
 .arabica_article-author a:hover,
 .arabica_article-title a:hover,
 .arabica_author a,
@@ -335,7 +343,6 @@ hr.arabica_tab-show {
   background: 0 0;
 }
 .arabica_dropdown-content input[type="checkbox"]:checked::after,
-.arabica_dropdown.active .arabica_dropdown-content-wrapper,
 .arabica_latest-article:nth-child(-n + 8),
 .menu-toggle span,
 .volume-btn.muted .slash,
@@ -709,7 +716,7 @@ hr {
 }
 .arabica_article-about {
   text-align: center;
-  padding: 70px 0;
+  padding: 70px 0 150px;
   background: url(./../images/main-top-bg-2.jpg) center center/cover no-repeat
     #eee;
 }
@@ -741,7 +748,7 @@ hr {
 }
 .arabica_editors-top h1 {
   text-align: center;
-  color: #fff;
+  color: #fff !important;
 }
 .arabica_editors-top span.arabica_title {
   text-align: right;
@@ -807,7 +814,7 @@ a.arabica_tag:hover {
 .arabica_about-top .arabica_title,
 .arabica_additional-info h2 a,
 .arabica_contribute-top .arabica_title {
-  color: #fff;
+  color: #fff !important;
 }
 .arabica_date {
   font-size: 21px;
@@ -893,6 +900,7 @@ a.arabica_tag:hover {
   text-align: center;
   font-size: 35px;
   margin-bottom: 30px;
+  color: #17355d !important;
 }
 .arabica_article-list-title {
   text-align: right;
@@ -1010,6 +1018,25 @@ a.arabica_latest-article-more:hover, .buttonSearch:hover {
   background: #b07f2a;
   color: #fff !important;
 }
+.arabica_search-reset {
+ display: inline-block;
+  background-color: #fff;
+  border: 1px solid #c93;
+  color: #c93;
+  padding: 3px 10px;
+  border-radius: 20px;
+  text-decoration: none;
+  font-size: 12px;
+  width: 100%;
+    height: 40px;
+    margin-bottom: 15px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+}
+.arabica_search-reset:hover{
+  color: #b07f2a;
+  border: 1px solid #b07f2a;
+}
 .arabica_featured-article-share {
   font-size: 14px;
   color: #17355d;
@@ -1125,10 +1152,13 @@ a.arabica_latest-article-more:hover, .buttonSearch:hover {
     text-align: center;
     padding: 40px 0 35px;
   }
-  .arabica_about-top,
-  .arabica_article-about {
+  .arabica_about-top {
     text-align: center;
     padding: 40px 0;
+  }
+  .arabica_article-about {
+    text-align: center;
+    padding: 40px 0 110px;
   }
   .arabica_contribute-top {
     text-align: center;
@@ -1409,7 +1439,7 @@ a.arabica_latest-article-more:hover, .buttonSearch:hover {
   color: #999;
 }
 .arabica_list-grid .active {
-  background-color: #c93;
+  background-color: #666;
 }
 .arabica_list-grid .active  i{
   color: #fff ;
@@ -1816,7 +1846,7 @@ table:not(.arabica_facts):not(#Facts) tr:nth-child(odd) td {
     width: 480px;
   }
   .arabica_article-list .arabica_left-column .arabica_featured-content:not(.grid-posts) .arabica_featured-article-image img {
-    width: 400px;
+    width: 388px;
   }
   .arabica_short-article-image,
   .grid-posts .arabica_featured-article-image {
@@ -1853,7 +1883,6 @@ table:not(.arabica_facts):not(#Facts) tr:nth-child(odd) td {
     align-items: center;
   }
   .arabica_editor-info .arabica_editor-title {
-    display: flex;
     justify-content: center;
     width: 100%;
   }
@@ -1974,7 +2003,9 @@ table:not(.arabica_facts):not(#Facts) tr:nth-child(odd) td {
   font-size: 16px;
 }
 .arabica_editor-bio,
-.arabica_editor-email {
+.arabica_editor-email,
+.arabica_author-socials,
+.arabica_author-bio {
   display: none !important;
 }
 .modal-contact-btn {
@@ -2254,9 +2285,6 @@ table:not(.arabica_facts):not(#Facts) tr:nth-child(odd) td {
     column-gap: 50px;
     padding: 20px 50px 65px;
   }
-  .arabica_editor-profile .arabica_editor-info span {
-    display: block;
-  }
   .arabica_editor-profile .arabica_editor-image-wrapper {
     margin-bottom: 10px;
   }
@@ -2273,9 +2301,6 @@ table:not(.arabica_facts):not(#Facts) tr:nth-child(odd) td {
   .modal-footer a,
   .modal-separator {
     font-size: 12px;
-  }
-  .editor-separator {
-    display: none !important;
   }
   .modal-contact-btn i {
     color: #c93;
@@ -2351,80 +2376,98 @@ table:not(.arabica_facts):not(#Facts) tr:nth-child(odd) td {
   align-items: center;
   flex-wrap: wrap;
   gap: 10px;
-  margin-bottom: 40px;
+  margin-bottom: 30px;
 }
 .arabica_search-content .arabica_list,
 .arabica_search-content .arabica_grid {
-  height: 42px;
-    width: 42px;
-    font-size: 21px;
+  height: 36px;
+    width: 36px;
+    font-size: 18px;
 }
 .arabica_dropdown,
 .arabica_search-box,
+.arabica_author-box,
 .arabica_switch-container {
   display: flex;
   align-items: center;
-  color: #a2a2a2;
+  color: #666;
 }
 .arabica_search-content .arabica_list-grid {
   margin-right: auto;
   align-items: center;
 }
-.arabica_search-box {
+.arabica_search-box, .arabica_author-box {
   position: relative;
-  width: 16%;
 }
 .arabica_dropdown button,
-.arabica_search-box input {
+.arabica_search-box input,
+.arabica_author-box input {
   width: 100%;
-  height: 39px;
+  height: 40px;
   padding: 10px 15px 10px 40px;
-  background-color: #f3f3f3;
+  background-color: #fff;
   border-radius: 20px;
   font-size: 14px;
-  color: #a2a2a2;
+  color: #ccc;
   border: 0;
   display: flex;
   align-items: center;
+  border: 1px solid #ccc;
 }
-.arabica_search-box input::placeholder {
-  color: #a2a2a2;
+.arabica_search-box input, .arabica_author-box input {
+  color: #666;
+}
+.arabica_search-box input::placeholder, .arabica_author-box input::placeholder {
+  color: #ccc;
   opacity: 1;
   display: flex;
   align-items: center;
 }
 .arabica_dropdown button,
-.arabica_search-box input {
+.arabica_search-box input,
+.arabica_author-box input {
   transition: border-color 0.3s ease, box-shadow 0.3s ease,
     background-color 0.3s ease;
 }
 .arabica_dropdown.active button,
 .arabica_search-box input:focus,
+.arabica_author-box input:focus,
 .arabica_dropdown:hover button,
-.arabica_search-box:hover input {
+.arabica_search-box:hover input,
+.arabica_author-box:hover input {
   outline: 0;
   box-shadow: 0 0 5px rgb(204 153 51 / 0.8);
   background-color: #fdf6e3;
+  border: 1px solid #c93;
 }
+
+
 .arabica_dropdown i,
 .arabica_dropdown svg,
 .arabica_search-box i,
-.arabica_search-box svg {
+.arabica_search-box svg,
+.arabica_author-box i,
+.arabica_author-box svg {
   position: absolute;
   left: 15px;
   top: 50%;
   transform: translateY(-50%);
-  color: #c93;
+  color: #ccc;
   font-size: 14px;
 }
 .arabica_dropdown svg,
-.arabica_search-box svg {
+.arabica_search-box svg,
+.arabica_author-box svg {
   width: 14px;
   height: 14px;
 }
+.arabica_dropdown svg path,
+.arabica_search-box svg path
+.arabica_author-box svg path {
+  fill: #ccc
+}
 .arabica_dropdown {
   position: relative;
-  display: inline-block;
 }
 .arabica_dropdown button {
   cursor: pointer;
@@ -2435,23 +2478,22 @@ table:not(.arabica_facts):not(#Facts) tr:nth-child(odd) td {
 .arabica_dropdown-content-wrapper {
   position: absolute;
   background: #f3f3f3;
-  padding: 20px;
   box-shadow: 4px 4px 9px #00000029;
   overflow: hidden;
-  display: none;
   border-radius: 20px;
   z-index: 1;
-  margin-top: 10px;
   max-height: 0;
   transition: max-height 0.3s ease-in-out;
+  top: 100%;
+    left: 0;
+    right: 0;
 }
 .arabica_dropdown-content {
   max-height: 290px;
-  min-width: 180px;
-  width: max-content;
   white-space: nowrap;
   overflow-y: auto;
   padding-left: 15px;
+  margin: 20px;
 }
 .arabica_dropdown-content input {
   vertical-align: middle;
@@ -2517,15 +2559,15 @@ table:not(.arabica_facts):not(#Facts) tr:nth-child(odd) td {
 .arabica_switch {
   position: relative;
   display: inline-block;
-  width: 35px;
-  height: 20px;
+  width: 32px;
+  height: 18px;
   flex-shrink: 0;
 }
 .arabica_switch-container {
   height: 39px;
   border-radius: 20px;
   font-size: 14px;
-  color: #a2a2a2;
+  color: #666;
   border: 0;
 }
 .arabica_switch input {
@@ -2542,26 +2584,30 @@ table:not(.arabica_facts):not(#Facts) tr:nth-child(odd) td {
   left: 0;
   width: 100%;
   height: 100%;
-  border: 2px solid #a2a2a2;
+  border: 1px solid #666;
   border-radius: 20px;
   transition: 0.4s;
 }
 .arabica_toggle:before {
   position: absolute;
   content: "";
-  height: 12px;
-  width: 12px;
-  border: 2px solid #a2a2a2;
+  height: 11px;
+  width: 11px;
+  border: 1px solid #666;
   border-radius: 50%;
   transition: 0.4s;
   right: 2px;
   top: 50%;
   transform: translateY(-50%);
 }
+input:checked + .arabica_toggle {
+  background: #c93;
+  border: 1px solid #c93;
+}
 input:checked + .arabica_toggle:before {
   transform: translateX(-15px) translateY(-50%);
-  background: #c93;
-  border: 2px solid #c93;
+  background: #fff;
+  border: 1px solid #fff;
 }
 .arabica_dropdown-content::-webkit-scrollbar {
   width: 4px;
@@ -2580,26 +2626,10 @@ input:checked + .arabica_toggle:before {
 .arabica_dropdown-content::-webkit-scrollbar-button {
   display: none;
 }
-@media (min-width: 768px) {
-  .arabica_dropdown {
-    width: 25%;
-  }
-  .arabica_switch-container {
-    padding: 10px 10px 10px 0;
-  }
-}
 @media (min-width: 992px) {
-  .arabica_dropdown {
-    width: 16%;
-  }
   .arabica_timeline h2 {
     text-align: center;
     margin: 0 0 20px;
-  }
-}
-@media (max-width: 485px) {
-  .arabica_dropdown {
-    width: 48.4%;
   }
 }
 .arabica_contact-feedback {
@@ -2860,7 +2890,7 @@ input:checked + .arabica_toggle:before {
 [class*="float-right-"] {
   margin-left: 1em !important;
   float: right;
-  clear: right;
+  clear: right !important;
 }
 .float-right-30 {
   width: 30%;
@@ -2891,7 +2921,7 @@ input:checked + .arabica_toggle:before {
 }
 [class*="float-left-"] {
   float: left;
-  clear: left;
+  clear: left !important;
   margin-right: 1em !important;
 }
 .float-left-30 {
@@ -2929,8 +2959,20 @@ input:checked + .arabica_toggle:before {
     padding-top: 60px;
     padding-bottom: 60px;
   }
+  .arabica_article-top {
+    padding: 0;
+  }
+  .arabica_article-top .arabica_column-container {
+    padding-top: 0px;
+    margin-top: -80px;
+  }
   .arabica_left-column {
     width: 75%;
+  }
+  .arabica_article-list .arabica_left-column {
+    padding: 16px 16px 0;
+    border-radius: 10px;
+    background: #fff;
   }
   .arabica_right-column-15 {
     width: 15%;
@@ -2962,11 +3004,20 @@ input:checked + .arabica_toggle:before {
   padding-bottom: 0;
 }
 .arabica_article-category {
-  font-weight: 700;
-  margin-top: -6px;
+  font-weight: 600;
 }
 .arabica_article-category a {
-  text-decoration: none !important;
+  text-decoration: none;
+  margin-left: 9px;
+  padding: 4px 8px;
+  border-radius: 4px;
+  border: 1px solid #17355d;
+  color: #17355D;
+  transition: background-color 0.3s, color 0.3s;
+}
+.arabica_article-category a:hover {
+  background-color: #17355d;
+  color: #fff;
 }
 .arabica_article .arabica_article-subtitle {
   font-size: 25px;
@@ -3200,6 +3251,9 @@ input:checked + .arabica_toggle:before {
   aspect-ratio: 177/90;
 }
 @media (max-width: 767px) {
+  .arabica_article-category a {
+  padding: 0 4px;
+}
 .arabica_gallery:not(.horizontal) .arabica_gallery-image {
   flex: 0 0 100%;
   box-sizing: border-box;
@@ -3473,17 +3527,15 @@ input:checked + .arabica_toggle:before {
 }
 @media (max-width: 991px) {
   .arabica_article-top {
-    padding: 30px 0 15px;
-  }
-  .arabica_search-box {
-    width: 49.3%;
+    padding: 0 0 15px;
+    margin-top: -80px;
   }
   .arabica_dropdown-content {
     min-width: 150px;
     max-height: 256px;
   }
   .arabica_switch {
-    width: 32px;
+    width: 30px;
     height: 16px;
   }
   .arabica_toggle:before {
@@ -3498,16 +3550,23 @@ input:checked + .arabica_toggle:before {
   .arabica_search-box i,
   .arabica_search-box svg,
   .arabica_switch-container,
-  .arabica_timeline h2 span {
+  .arabica_timeline h2 span,
+  .arabica_author-box,
+  .arabica_author-box i,
+  .arabica_author-box svg,
+  .empty-selection
+   {
     font-size: 12px;
   }
   .arabica_dropdown svg,
-  .arabica_search-box svg {
+  .arabica_search-box svg,
+  .arabica_author-box svg {
     width: 12px;
     height: 12px;
   }
   .arabica_dropdown button,
   .arabica_search-box input,
+  .arabica_author-box input,
   .arabica_switch-container {
     height: 33px;
     font-size: 12px;
@@ -3519,7 +3578,7 @@ input:checked + .arabica_toggle:before {
     font-size: 16px;
   }
   .arabica_search-content {
-    margin-bottom: 30px;
+    margin-bottom: 15px;
   }
   .arabica_dropdown-content label {
     margin-bottom: 4px;
@@ -3632,21 +3691,23 @@ input:checked + .arabica_toggle:before {
     margin: 0 0 15px !important;
   }
   .arabica_side-content {
+    box-shadow: -3px 5px 17px #00000029;
+    border: 0;
+  }
+  .arabica_right-column-25 .arabica_side-content {
     position: fixed;
     top: 0;
     right: -100%;
     width: 50%;
     height: auto;
     background: no-repeat padding-box #fff;
-    box-shadow: -3px 5px 17px #00000029;
-    border: 0;
     border-radius: 16px 0 0 16px;
     transition: right 0.3s ease-in-out;
     z-index: 30;
     padding: 30px 30px 15px;
     min-height: 100%;
   }
-  .arabica_show-content {
+  .arabica_right-column-25 .arabica_show-content {
     right: 0;
   }
   .arabica_overlay {
@@ -3841,7 +3902,8 @@ input:checked + .arabica_toggle:before {
   .arabica_featured-article-content,
   .arabica_featured-article-image,
   .arabica_latest-article-content,
-  .arabica_search-box {
+  .arabica_search-box,
+  .arabica_author-box {
     width: 100%;
   }
   .arabica_short .arabica_featured-article-author {
@@ -3938,20 +4000,19 @@ input:checked + .arabica_toggle:before {
     min-width: 130px;
   }
   .arabica_toggle {
-    border: 1px solid #a2a2a2;
+    border: 1px solid #666;
     height: 90%;
   }
   .arabica_toggle:before {
-    border: 1px solid #a2a2a2;
+    border: 1px solid #666;
     transform: translateY(-50%);
   }
   input:checked + .arabica_toggle:before {
-    border: 1px solid #c93;
     transform: translateX(-11px) translateY(-50%);
   }
   .arabica_switch {
     width: 26px;
-    height: 15px;
+    height: 16px;
   }
   .arabica_dropdown-content::-webkit-scrollbar {
     width: 3px;
@@ -3995,7 +4056,7 @@ input:checked + .arabica_toggle:before {
   .arabica_timeline-item .arabica_timeline-year {
     font-size: 25px;
   }
-  .arabica_side-content {
+  .arabica_right-column-25 .arabica_side-content {
     width: 80%;
   }
   .arabica_article .arabica_article-date,
@@ -4278,12 +4339,16 @@ math.inlineMath {
 .Math_box hr {
   margin: 15px 0;
 }
+mjx-box {
+  padding: 0 !important;
+  border: 0 !important;
+}
 @media (max-width: 991px) {
   .Math_box {
     padding: 10px 35px;
   }
   .Math_box * {
-    font-size: 16px;
+    font-size: 16px !important;
   }
   .Math_box hr {
     margin: 10px 0;
@@ -4406,6 +4471,7 @@ table.align-center {
 }
 .arabica_article-image {
   border: 1px solid #eee;
+  clear: both;
 }
 .arabica_article_lightbox-content img[src$=".svg"] {
   width: 65vh;
@@ -4493,6 +4559,8 @@ button.arabica_featured-article-button, button.buttonSearch {
     background-color:#c93;
     cursor: pointer;
     transition: all 0.3s ease;
+    width: 100%;
+    height: 40px;
 }
 button.arabica_featured-article-button:hover, button.buttonSearch:hover {
     background-color: #b07f2a;
@@ -4559,11 +4627,368 @@ table:not(.arabica_facts):not(#Facts) p {
   margin: 0 !important;
   text-align: right !important;
 }
-.arabica_featured-article-author .arabica_author a:not(:first-of-type)::before, .arabica_featured-article-content .arabica_article-author a:not(:first-of-type)::before {
+.arabica_featured-article-author .arabica_author a:not(:last-of-type)::after, .arabica_article-author a:not(:last-of-type)::after, .arabica_article-author span:not(:last-of-type)::after {
   content: "|";
-  margin: 0 5px 0 9px;
+  margin: 0 9px;
   color: #ccc;
 }
 i.fa-user {
   display: none;
 }
+.arabica_search-input {
+  margin-bottom: 30px;
+  margin-top: 4px;
+}
+.arabica_search-header .arabica_search-title {
+  display: block;
+  color: #333;
+}
+.arabica_search-head .arabica_search-title {
+  font-weight: bold;
+  color: #666;
+}
+.arabica_search-head .arabica_search-query {
+  color: #fff;
+  margin-left: 4px;
+  background-color: #17355D;
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-size: 12px;
+  display: inline-block;
+  margin-bottom: 5px;
+}
+.arabica_search-head .arabica_search-category, .arabica_search-head .arabica_search-country, .arabica_search-head .arabica_search-author {
+  color: #333;
+  margin-left: 4px;
+  background-color: #eee;
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-size: 12px;
+  display: inline-block;
+  margin-bottom: 5px;
+}
+.arabica_search-head .arabica_search-author i {
+  font-size: 11px;
+}
+.selected-items {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 8px;
+}
+
+.arabica_entries-search .selected-item, .arabica_entries-search .all-selected-indicator {
+  color: #fff;
+  background-color: #666;
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-size: 12px;
+  display: inline-flex;
+  align-items: center;
+  white-space: nowrap;
+  gap: 6px; /* space between text and the remove icon */
+}
+.arabica_entries-search .selected-item i, .arabica_entries-search .all-selected-indicator i {
+  align-items: center;
+  font-size: 11px;
+  cursor: pointer;
+}
+
+/* Author search specific styles */
+        .author-dropdown {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            z-index: 3;
+            background: #f3f3f3;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+  border-radius: 20px;
+  box-shadow: 4px 4px 9px #00000029;
+        }
+
+        .author-dropdown.show {
+            max-height: 240px;
+        }
+
+        .author-dropdown-content {
+          margin: 20px;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+
+        .author-option {
+            padding: 5px 0;
+            cursor: pointer;
+            transition: background 0.2s ease;
+            text-align: right;
+        }
+
+        .author-option:hover {
+            background: #f8f9fa;
+        }
+
+        .author-option.selected {
+            background: rgba(204, 154, 52, 0.1);
+            color: #cc9a34;
+        }
+
+
+
+
+        .author-dropdown-content::-webkit-scrollbar {
+  width: 4px;
+}
+
+.author-dropdown-content::-webkit-scrollbar-track {
+  background: #c9c9c9;
+  border-radius: 4px;
+}
+
+.author-dropdown-content::-webkit-scrollbar-thumb {
+  background: #c93;
+  border-radius: 4px;
+}
+
+.author-dropdown-content::-webkit-scrollbar-thumb:hover {
+  background: #b07f2a;
+}
+
+.author-dropdown-content::-webkit-scrollbar-button {
+  display: none;
+}
+.arabica_article-author-wrapper a {
+  display: inline-block;
+}
+
+
+
+/* Author list */
+    /* Modal backdrop + blur */
+    .arabica_author-modal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw; height: 100vh;
+      z-index: 999;
+      backdrop-filter: blur(5px);
+      background-color: rgba(0, 0, 0, 0.4);
+    overflow-y: auto;
+    }
+    /* Modal content */
+    .arabica_modal-content {
+      position: absolute;
+      transform: translate(-50%, -50%) scale(0.8);
+      background: #fff;
+      border-radius: 15px;
+      padding: 32px;
+      width: 100%;
+      box-shadow: 0 5px 30px rgba(0, 0, 0, 0.3);
+      opacity: 0;
+      transition: all 0.4s ease;
+      top: 50%; left: 50%;
+    }
+    .arabica_author-modal.active .arabica_modal-content {
+      transform: translate(-50%, -50%) scale(1);
+      opacity: 1;
+    }
+
+    /* Close button */
+    .close-modal {
+      position: absolute;
+      top: 32px; left: 32px;
+      background: #c93;
+      border: none;
+      color: #fff;
+      border-radius: 50%;
+      width: 32px;
+      height: 32px;
+      font-size: 20px;
+      line-height: 0;
+      cursor: pointer;
+    }
+
+    .author-name {
+      font-size: 24px;
+      color: #17355d;
+      margin-bottom: 16px;
+      padding-bottom: 0;
+    }
+
+    .author-bio {
+      text-align: justify;
+      color: #333;
+      margin-bottom: 16px;
+    }
+.author-bio p:not(:first-of-type) {
+    margin-top: 5px;
+}
+    /* Bottom controls */
+    .author-controls {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    /* circular social icons */
+    .author-controls .social-icon {
+      width: 34px;
+      height: 34px;
+      border: 1px solid #c93;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #c93;
+      font-size: 16px;
+      text-decoration: none;
+    }
+
+    /* pill-shaped search link */
+    .author-controls .search-link {
+      display: inline-flex;
+      align-items: center;
+      background: #c93;
+      color: #fff;
+      padding: 6px 12px;
+      border-radius: 20px;
+      text-decoration: none;
+      font-size: 14px;
+      height: 34px;
+    }
+    .author-controls .search-link i {
+      margin: 0 0 0 12px;
+      font-size: 14px;
+    }
+
+    @media (max-width: 767px) {
+      .arabica_author-modal {
+      padding: 60px 30px;
+    }
+      .arabica_modal-content {
+        padding: 24px;
+         position: relative;
+      transform: scale(0.8);
+      top:0; left:0;
+      }
+      .author-bio {
+        font-size: 13px;
+      }
+      .close-modal {
+      top: 24px; left: 24px;
+      width: 26px;
+    height: 26px;
+      }
+      .author-name {
+    font-size: 18px;
+    margin-bottom: 12px;}
+.author-controls .social-icon {
+    width: 28px;
+    height: 28px;
+    font-size: 13px;
+}
+.author-controls {
+    gap: 8px;
+}
+.author-controls .search-link {
+    padding: 4px 10px;
+    font-size: 12px;
+    height: 28px;
+}
+    .arabica_author-modal.active .arabica_modal-content {
+      transform: scale(1);
+    }
+    }
+@media (min-width: 768px) {
+    .arabica_article_lightbox.active .arabica_article_lightbox-content {
+    transform: scale(1);
+}
+  .modal.show .modal-content {
+    transform: translate(-50%, -50%) scale(1);
+}
+.modal-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    max-width: 90%;
+    transform: translate(-50%, -50%) scale(0.8);
+}
+.arabica_modal-content {
+        width: 1000px;
+        max-width: 90%;
+      }
+}
+
+  .arabica_editor-profile .arabica_editor-info span {
+    display: block;
+  }
+  .editor-separator {
+    display: none !important;
+  }
+
+
+  /* 1) Basic header layout */
+.arabica_search-header {
+  display: flex;
+  align-items: center;
+}
+.arabica_advance-search {
+  margin-right: auto;
+  background: none;
+  border: none;
+  font-size: 14px;
+  cursor: pointer;
+  display: none;
+}
+.arabica_advance-search i {
+  margin-left: 4px;
+}
+
+/* 2) Mobile-only: hide advanced-fields by default & transition its height */
+@media (max-width: 991px) {
+  .advanced-fields {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s ease;
+  }
+  .arabica_entries-search.expanded .advanced-fields {
+    /* big enough to contain all fields */
+    max-height: 1000px;
+    overflow: visible;
+    padding-top: 0.1px;
+  }
+  .arabica_search-input {
+    margin-bottom: 15px;
+    margin-top: 4px;
+}
+.arabica_article-list .arabica_left-column {
+  margin-top: 20px;
+}
+.arabica_search-reset, .arabica_featured-article-button {
+  height: 33px !important;
+}
+.arabica_advance-search {
+  display: block;
+}
+.arabica_entries-search {
+  padding: 15px;
+}
+}
+
+/* 3) Desktop: always show everything */
+@media (min-width: 992px) {
+  .advanced-fields {
+    max-height: none !important;
+    overflow: visible !important;
+    transition: none !important;
+  }
+
+.arabica_search-head {
+  width: 85%;
+}
+}
+

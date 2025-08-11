@@ -215,9 +215,13 @@ $(document).ready(function () {
       // Check if slider already exists
       const hasSlider = $container.find(".arabica_article_slider").length > 0;
       
-      // For mobile: all gallery types show as sliders
+      // Check if this is a single image gallery (only one .arabica_gallery-image)
+      const imageCount = $container.find(".arabica_gallery-image").length;
+      const isSingleImage = imageCount === 1;
+      
+      // For mobile: all gallery types show as sliders (except single images)
       // For desktop: only default galleries show as sliders (horizontal and vertical galleries show as static)
-      const shouldCreateSlider = isMobile || (!isHorizontal && !isVertical);
+      const shouldCreateSlider = !isSingleImage && (isMobile || (!isHorizontal && !isVertical));
       
       if (shouldCreateSlider && !hasSlider) {
         // Create slider
@@ -376,6 +380,7 @@ $(document).ready(function () {
         $sliderWrapper.css("transition", "transform 0.3s ease-in-out");
       });
 
+    // Attach lightbox handlers to slider images
     $sliderWrapper.find("a").on("click", function (e) {
       const href = $(this).attr("href");
       if (/\.(jpe?g|png|gif|webp|svg)$/i.test(href)) {
@@ -413,51 +418,141 @@ $(document).ready(function () {
     $galleryItems.appendTo($container);
   }
 
+  /* ------------------------------
+         IMAGE ORIENTATION DETECTION (PRIORITY)
+     ------------------------------ */
+  function getImageOrientation(naturalWidth, naturalHeight) {
+    const ratio = naturalWidth / naturalHeight;
+    const threshold = 0.1; // 10% threshold for square detection
+    
+    if (Math.abs(ratio - 1) <= threshold) {
+      return 'square';
+    } else if (ratio > 1) {
+      return 'horizontal';
+    } else {
+      return 'vertical';
+    }
+  }
+
+  function updateImageOrientationClasses() {
+    $(".arabica_article-image").each(function () {
+      const $container = $(this);
+      const $gallery = $container.find(".arabica_gallery");
+      
+      if (!$gallery.length) return;
+      
+      const $images = $gallery.find(".arabica_gallery-image img");
+      if (!$images.length) return;
+      
+      // Remove existing orientation classes first
+      $container.removeClass('vertical-image horizontal-image square-image single-image');
+      
+      // For single images, add single-image class
+      if ($images.length === 1) {
+        $container.addClass('single-image');
+        return;
+      }
+      
+      let orientations = [];
+      let allImagesLoaded = true;
+      
+      $images.each(function() {
+        const img = this;
+        if (img.naturalWidth && img.naturalHeight) {
+          const orientation = getImageOrientation(img.naturalWidth, img.naturalHeight);
+          orientations.push(orientation);
+        } else {
+          allImagesLoaded = false;
+        }
+      });
+      
+      // Only proceed if all images are loaded
+      if (!allImagesLoaded || orientations.length === 0) return;
+      
+      // Check if all images have the same orientation
+      const uniqueOrientations = [...new Set(orientations)];
+      
+      if (uniqueOrientations.length === 1) {
+        // All images have the same orientation
+        const orientation = uniqueOrientations[0];
+        $container.addClass(orientation + '-image');
+      }
+      // If mixed orientations, don't add any class (as requested)
+    });
+  }
+
+  // PRIORITY: Initialize orientation classes FIRST
+  updateImageOrientationClasses();
+
   // Initialize sliders on page load
   initializeGallerySliders();
 
   /* ------------------------------
-     RESPONSIVE HORIZONTAL/VERTICAL GALLERY LIGHTBOX
+     UNIFIED LIGHTBOX HANDLERS FOR ALL GALLERY IMAGES
      ------------------------------ */
   function initializeLightboxHandlers() {
     // Remove existing handlers to prevent duplicates
-    $(".arabica_gallery.horizontal .arabica_gallery-image a, .arabica_gallery.vertical .arabica_gallery-image a").off("click.gallery-lightbox");
+    $(".arabica_gallery-image a").off("click.gallery-lightbox");
     
     const isMobile = window.matchMedia("only screen and (max-width: 767px)").matches;
     
-    if (!isMobile) {
-      $(
-        ".arabica_gallery.horizontal .arabica_gallery-image a, .arabica_gallery.vertical .arabica_gallery-image a"
-      ).on("click.gallery-lightbox", function (e) {
-        const href = $(this).attr("href");
-        if (/\.(jpe?g|png|gif|webp|svg)$/i.test(href)) {
-          e.preventDefault();
-          const $imgEl = $(this).find("img");
-          const altText = $imgEl.attr("alt") || "";
-          const captionText = $(this).next("figcaption").text() || "";
-          const $containerEl = $(this).closest(".arabica_gallery");
-          const gallery = $containerEl
-            .find(".arabica_gallery-image a")
-            .map(function () {
-              return {
-                src: $(this).attr("href"),
-                alt: $(this).find("img").attr("alt") || "",
-                caption: $(this).next("figcaption").text() || "",
-              };
-            })
-            .get();
-          openLightbox(href, altText, captionText, gallery);
-        }
-      });
-    }
+    // Handle all gallery images (including single images) that are NOT in sliders
+    $(".arabica_gallery-image a").each(function() {
+      const $link = $(this);
+      const $container = $link.closest(".arabica_gallery");
+      const isInSlider = $link.closest(".arabica_article_slider").length > 0;
+      
+      // Skip if it's in a slider (sliders handle their own lightbox)
+      if (isInSlider) return;
+      
+      const isHorizontal = $container.hasClass("horizontal");
+      const isVertical = $container.hasClass("vertical");
+      const imageCount = $container.find(".arabica_gallery-image").length;
+      const isSingleImage = imageCount === 1;
+      
+      // For mobile: handle horizontal/vertical galleries and single images
+      // For desktop: handle all types (horizontal, vertical, default, single)
+      const shouldHandleLightbox = isMobile ? (isHorizontal || isVertical || isSingleImage) : true;
+      
+      if (shouldHandleLightbox) {
+        $link.on("click.gallery-lightbox", function (e) {
+          const href = $(this).attr("href");
+          if (/\.(jpe?g|png|gif|webp|svg)$/i.test(href)) {
+            e.preventDefault();
+            const $imgEl = $(this).find("img");
+            const altText = $imgEl.attr("alt") || "";
+            const captionText = $(this).next("figcaption").text() || "";
+            
+            // For single images, don't create a gallery
+            if (isSingleImage) {
+              openLightbox(href, altText, captionText);
+            } else {
+              // For multiple images, create gallery
+              const gallery = $container
+                .find(".arabica_gallery-image a")
+                .map(function () {
+                  return {
+                    src: $(this).attr("href"),
+                    alt: $(this).find("img").attr("alt") || "",
+                    caption: $(this).next("figcaption").text() || "",
+                  };
+                })
+                .get();
+              openLightbox(href, altText, captionText, gallery);
+            }
+          }
+        });
+      }
+    });
   }
   
   // Initialize lightbox handlers
   initializeLightboxHandlers();
 
   /* ------------------------------
-         SINGLE IMAGE SETUP
+         LEGACY SINGLE IMAGE SUPPORT (for backward compatibility)
      ------------------------------ */
+  // Handle any remaining single images that are not in .arabica_gallery-image format
   $(
     ".arabica_article-content a, .arabica_article-image a, .arabica_news-content a, .arabica_news-image a"
   ).each(function () {
@@ -496,13 +591,24 @@ $(document).ready(function () {
     });
   }
 
-  // Initialize object-fit on page load
+  // Initialize object-fit on page load (after orientation classes)
   updateGalleryImageObjectFit();
 
-  // Also update object-fit when images load (for cases where naturalWidth/Height aren't available immediately)
+  // Also update object-fit and orientation classes when images load
   $(".arabica_gallery-image img").on("load", function() {
     const $img = $(this);
     const $galleryItem = $img.closest(".arabica_gallery-image");
+    
+    // PRIORITY: Update orientation classes FIRST
+    const $container = $img.closest(".arabica_article-image");
+    if ($container.length) {
+      // Use setTimeout to ensure all images in the gallery have a chance to load
+      setTimeout(() => {
+        updateImageOrientationClasses();
+      }, 50); // Reduced timeout for faster execution
+    }
+    
+    // Then update object-fit
     if ($img[0].naturalWidth && $img[0].naturalHeight) {
       const galleryRatio = $galleryItem.width() / $galleryItem.height();
       const imageRatio = $img[0].naturalWidth / $img[0].naturalHeight;
@@ -544,7 +650,7 @@ $(document).ready(function () {
       const $container = $(this);
       const $items = $container.find(".arabica_gallery-image");
       
-      // Hide buttons if 4 or fewer images
+      // Hide buttons if 4 or fewer images (or single image)
       if ($items.length <= 4) {
         return;
       }
@@ -639,6 +745,7 @@ $(document).ready(function () {
 
   // Initialize horizontal buttons
   initializeHorizontalButtons();
+  
   /* ------------------------------
          RESPONSIVE INITIALIZATION
      ------------------------------ */
@@ -648,10 +755,11 @@ $(document).ready(function () {
   $(window).on("resize", function() {
     clearTimeout(resizeTimeout);
     resizeTimeout = setTimeout(function() {
+      updateImageOrientationClasses(); // PRIORITY: Orientation classes first
       initializeGallerySliders();
       initializeLightboxHandlers();
       initializeHorizontalButtons();
-      updateGalleryImageObjectFit(); // Add object-fit recalculation
+      updateGalleryImageObjectFit(); // Object-fit recalculation last
     }, 150); // Debounce to avoid excessive calls
   });
 });
