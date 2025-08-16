@@ -692,7 +692,7 @@ $('#toggleAdvanced').on('click', function () {
             // If all countries selected, don't add parameter (default behavior)
 
             // Navigate to search results page
-            const searchUrl = `/entries.html${params.toString() ? '?' + params.toString() : ''}`;
+            const searchUrl = `entries.html${params.toString() ? '?' + params.toString() : ''}`;
             
             // Add loading state to button
             const $btn = $('.arabica_featured-article-button');
