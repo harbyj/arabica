@@ -67,13 +67,6 @@ $('#toggleAdvanced').on('click', function () {
 
   // Toggle 'expanded' class
   const isExpanded = $searchContainer.toggleClass('expanded').hasClass('expanded');
-
-  // Conditionally apply or remove 'display: inline'
-  if (isExpanded) {
-    $advancedFields.css('display', 'inline');
-  } else {
-    $advancedFields.css('display', '');
-  }
 });
 
 
