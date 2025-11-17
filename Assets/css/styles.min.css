@@ -2,6 +2,9 @@
 body {
   font-family: "Bahij TheSansArabic";
 }
+button:focus, select:focus {
+  outline: none;
+}
 .arabica_footer hr,
 hr {
   border-top: 0;
@@ -115,7 +118,11 @@ ol,
 ul {
   padding: 0;
 }
-a, a:visited {
+a {
+  text-decoration: none !important;
+  color: #c93;
+}
+ a:visited {
   text-decoration: none !important;
   color: #c93;
 }
@@ -124,10 +131,10 @@ a, a:visited {
 }
 .arabica_featured-article-share a:hover i,
 .arabica_featured-article-share span:hover i,
-.arabica_pagination a.page-next:hover,
-.arabica_pagination a.page-prev:hover,
-a:hover {
-  color: #b07f2a;
+.arabica_pagination .page-linkBtn[value="التالي"]:hover,
+.arabica_pagination .page-linkBtn[value="السابق"]:hover,
+a:hover, .arabica_article-foot-wrapper a:visited {
+  color: #b07f2a ;
 }
 h1,
 h2,
@@ -217,6 +224,9 @@ h6 {
     font-size: 0.875rem;
   }
 }
+button:hover {
+background: transparent;
+}
 .grid-posts .arabica_featured-article-image,
 .no-scrolls {
   overflow: hidden;
@@ -260,7 +270,7 @@ h6 {
     padding: 50px 200px;
   }
   .arabica_contribute-info {
-    padding: 50px 200px 100px;
+    padding: 50px 200px 35px;
   }
 }
 @media (min-width: 1200px) {
@@ -313,12 +323,12 @@ hr.arabica_tab-show {
   justify-content: flex-end;
   align-content: flex-end;
 }
-.arabica_nav ul li {
+.arabica_nav > ul > li {
   margin-bottom: 5px;
   margin-top: 5px;
   margin-right: 10px;
 }
-.arabica_nav ul li a {
+.arabica_nav > ul > li > a {
   text-decoration: none !important;
   padding: 10px;
   color: #17355d;
@@ -334,11 +344,10 @@ hr.arabica_tab-show {
   border: none;
   cursor: pointer;
 }
-.arabica_nav ul li a.current,
-.arabica_nav ul li a:hover,
-.arabica_pagination a.page-numbers:hover,
-.arabica_pagination a.page-link:hover {
-  background: rgb(153 153 153 / 0.15);
+.arabica_nav > ul > li > a.current,
+.arabica_pagination input.page-numbers:hover,
+.arabica_pagination input.page-linkBtn:hover:not([value="التالي"]):not([value="السابق"]):not(.current-page) {
+  background: rgb(153 153 153 / 0.15) !important;
 }
 .menu-toggle {
   background: 0 0;
@@ -359,8 +368,8 @@ span.arabica_date {
   height: 21px;
 }
 .modal-close-icon {
-  width: 17px;
-  height: 17px;
+  width: 13px;
+  height: 13px;
 }
 .arabica_mobile_nav {
   position: fixed;
@@ -797,15 +806,16 @@ hr {
   margin-left: auto;
 }
 .arabica_tag {
-  background: #724c3a;
+  background: #17355d;
   color: #fff !important;
   display: inline-block;
   padding: 6px 15px;
   font-size: 14px;
+border-radius: 4px;
 }
 a.arabica_tag:hover {
   color: #fff;
-  background: #5a3a29;
+  background: #17355d;
 }
 .arabica_additional-info h2 {
   font-size: 35px;
@@ -926,10 +936,13 @@ a.arabica_tag:hover {
   position: relative;
   flex: 1;
 }
+.grid-posts .arabica_featured-article-image {
+    flex: none; /* or flex: 0 0 auto; */
+}
 .arabica_latest-article-image {
-  aspect-ratio: 121/64;
   width: 100%;
   flex: 1;
+  height: 68px;
 }
 .arabica_featured-article-image img,
 .arabica_short-article-image img,
@@ -976,6 +989,12 @@ a.arabica_featured-article-category:hover {
 .arabica_article-title {
   font-size: 22px;
   margin-bottom: 0;
+  display: inline;
+}
+.arabica_article-english-title {
+font-size: 20px;
+font-family: 'Times New Roman', Times, serif;
+font-style: italic;
 }
 .arabica_latest-article-title {
   font-size: 19px;
@@ -1238,17 +1257,16 @@ a.arabica_latest-article-more:hover, .buttonSearch:hover {
 }
 .arabica_featured-article-image {
   width: 100%;
-  aspect-ratio: 375/191;
 }
 .arabica_post-image {
   background: url(./../images/nophoto.jpg)
     center/cover no-repeat;
   position: relative;
-  border-radius: 4px;
+  border-radius: 5px;
+  border: 1px solid #ddd;
 }
 .arabica_short-article-image {
   width: 100%;
-  aspect-ratio: 375/196;
   overflow: hidden;
 }
 .arabica_featured-pager,
@@ -1259,7 +1277,7 @@ a.arabica_latest-article-more:hover, .buttonSearch:hover {
   flex-direction: column;
   align-items: center;
   transition: 0.3s;
-  margin: 100px 0 -40px;
+  margin: 50px 0 -40px;
 }
 .arabica_featured-pager .arabica_icon,
 .arabica_short-pager .arabica_icon {
@@ -1374,14 +1392,14 @@ a.arabica_latest-article-more:hover, .buttonSearch:hover {
     padding: 30px 0 0;
   }
   .arabica_featured-article-image {
-    aspect-ratio: 375/191;
+    height: 191px;
   }
   .arabica_featured-article-image img {
     width: 375px;
   }
   .arabica_short-article-image,
   .grid-posts .arabica_featured-article-image {
-    aspect-ratio: 360/188;
+   height: 245px;
   }
   .grid-posts,
   .latest-posts,
@@ -1471,76 +1489,68 @@ a.arabica_latest-article-more:hover, .buttonSearch:hover {
   border-top: 2px solid #fff;
   margin-top: -31px;
   font-weight: 600;
+flex-wrap: wrap;
 }
-.arabica_pagination a,
+.arabica_pagination input,
 .arabica_pagination span {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 8px 12px;
-  text-decoration: none !important;
-  color: #999;
-  border-radius: 50%;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 0 !important;
+  text-decoration: none !important !important;
+  color: #999 !important;
+  border-radius: 50% !important;
 }
 .arabica_pagination .page-numbers,
-.arabica_pagination .page-link {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: 0 0;
-  border: 1px solid #fff0;
-  height: 36px;
-  width: 36px;
-  font-size: 18px;
-  text-align: center;
-  line-height: 1;
+.arabica_pagination .page-linkBtn {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  background: 0 0 !important;
+  border: 1px solid #fff0 !important;
+  height: 36px !important;
+  width: 36px !important;
+  font-size: 18px !important;
+  text-align: center !important;
+  line-height: 2 !important;
 }
-.arabica_pagination .current {
-  background: #c93;
-  color: #fff;
-  cursor: default;
+.arabica_pagination .current-page {
+  background: #c93 !important;
+  color: #fff !important;
+  cursor: default !important;
 }
-.arabica_pagination .page-next,
-.arabica_pagination .page-prev {
-  color: #c93;
-  font-size: 18px;
-  border: 0;
-  background: transparent;
+.arabica_pagination .page-linkBtn[value="التالي"],
+.arabica_pagination .page-linkBtn[value="السابق"] {
+  color: transparent !important; /* Hide text */
+  font-size: 0 !important;        /* Ensure no text space */
+  width: 34px !important;         /* Adjust size */
+  height: 34px !important;
+  background-color: #fff !important;
+  border: none !important;
+  background-repeat: no-repeat !important;
+  background-position: center !important;
+  background-size: 16px 16px !important;
+  cursor: pointer !important;
 }
-.page-next {
-    color: transparent !important; /* Hide text */
-    font-size: 0 !important;        /* Ensure no text space */
-    width: 34px !important;         /* Adjust size */
-    height: 34px !important;
-    background-color: #fff !important;
-    border: none !important;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23c93' viewBox='0 0 320 512'%3E%3Cpath d='M310.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-192 192c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L242.7 256 73.4 86.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l192 192z'/%3E%3C/svg%3E") !important;
-    background-repeat: no-repeat !important;
-    background-position: center !important;
-    background-size: 16px 16px !important;
-    cursor: pointer !important;
+/* Next button (التالي) */
+.arabica_pagination .page-linkBtn[value="السابق"] {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23c93' viewBox='0 0 320 512'%3E%3Cpath d='M310.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-192 192c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L242.7 256 73.4 86.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l192 192z'/%3E%3C/svg%3E") !important;
 }
 
-.page-prev {
-    color: transparent !important; /* Hide text */
-    font-size: 0 !important;       /* Ensure no text space */
-    width: 34px !important;        /* Adjust size */
-    height: 34px !important;
-    background-color: #fff !important;
-    border: none !important;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23c93' viewBox='0 0 320 512'%3E%3Cpath d='M9.4 278.6c-12.5-12.5-12.5-32.8 0-45.3l192-192c12.5-12.5 32.8-12.5 45.3 0s12.5 32.8 0 45.3L77.3 256l169.4 169.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0l-192-192z'/%3E%3C/svg%3E") !important;
-    background-repeat: no-repeat !important;
-    background-position: center !important;
-    background-size: 16px 16px !important;
-    cursor: pointer !important;
+/* Previous button (السابق) */
+.arabica_pagination .page-linkBtn[value="التالي"] {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23c93' viewBox='0 0 320 512'%3E%3Cpath d='M9.4 278.6c-12.5-12.5-12.5-32.8 0-45.3l192-192c12.5-12.5 32.8-12.5 45.3 0s12.5 32.8 0 45.3L77.3 256l169.4 169.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0l-192-192z'/%3E%3C/svg%3E") !important;
 }
-.aspNetDisabled.page-next {
+
+/* Disabled state for next button */
+.arabica_pagination .page-linkBtn[value="السابق"][disabled] {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23ccc' viewBox='0 0 320 512'%3E%3Cpath d='M310.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-192 192c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L242.7 256 73.4 86.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l192 192z'/%3E%3C/svg%3E") !important;
-  cursor: unset !important;
-}
-.aspNetDisabled.page-prev {
+cursor: unset !important;}
+
+/* Disabled state for previous button */
+.arabica_pagination .page-linkBtn[value="التالي"][disabled] {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23ccc' viewBox='0 0 320 512'%3E%3Cpath d='M9.4 278.6c-12.5-12.5-12.5-32.8 0-45.3l192-192c12.5-12.5 32.8-12.5 45.3 0s12.5 32.8 0 45.3L77.3 256l169.4 169.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0l-192-192z'/%3E%3C/svg%3E") !important;
-  cursor: unset !important;
+cursor: unset !important;
 }
 
 .arabica_pagination .ellipsis {
@@ -1554,9 +1564,7 @@ a.arabica_latest-article-more:hover, .buttonSearch:hover {
 .grid-posts {
   margin-bottom: 30px;
 }
-.arabica_article-author,
-.arabica_article-date,
-.arabica_article-doi {
+.arabica_article-author {
   margin-left: 15px;
 }
 .arabica_article-list-head.arabica_search-content {
@@ -1607,7 +1615,7 @@ a.arabica_latest-article-more:hover, .buttonSearch:hover {
 .arabica_news-content h5,
 .arabica_news-content h6 {
   color: #17355d;
-  margin-top: 20px;
+  margin-top: 30px;
   margin-bottom: 10px;
   padding-bottom: 0;
 }
@@ -1684,11 +1692,11 @@ table {
   background-color: #fff;
   text-align: right;
 }
-.arabica_table-container table:not(.arabica_facts):not(#Facts) {
+.arabica_table-container table {
   margin-bottom: 0;
   width: 100%;
 }
-table:not(.arabica_facts):not(#Facts) {
+table {
   margin-bottom: 15px;
 }
 @media screen {
@@ -1698,26 +1706,27 @@ table:not(.arabica_facts):not(#Facts) {
     width: 100%;
     margin-bottom: 15px;
   }
-  .arabica_table-container table:not(.arabica_facts):not(#Facts),
-  .arabica_table-container table:not(.arabica_facts):not(#Facts) td,
-  .arabica_table-container table:not(.arabica_facts):not(#Facts) th {
+  .arabica_table-container table,
+  .arabica_table-container table td,
+  .arabica_table-container table th {
     white-space: nowrap;
   }
 }
-table:not(.arabica_facts):not(#Facts) th {
+table th {
   background-color: #17355d;
   color: #fff;
 }
-table:not(.arabica_facts):not(#Facts) td,
-table:not(.arabica_facts):not(#Facts) th {
+table td,
+table th {
   border: 1px solid #ccc;
   padding: 8px;
+  word-break: normal;
 }
 table td.dark-column {
   background-color: #666 !important;
   color: #fff;
 }
-table:not(.arabica_facts):not(#Facts) tr:nth-child(odd) td {
+table tr:nth-child(odd) td {
   background-color: #eee;
 }
 .arabica_about-content code,
@@ -1786,14 +1795,33 @@ table:not(.arabica_facts):not(#Facts) tr:nth-child(odd) td {
 .arabica_editor-container {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  row-gap: 60px;
-  column-gap: 90px;
-  padding: 20px 90px 120px;
+  gap: 20px;
+  padding: 20px 0 120px;
 }
 .arabica_editor-profile {
   text-align: center;
-  width: 100%;
-  position: relative;
+    width: 100%;
+    position: relative;
+    box-shadow: 0px 9px 15px rgb(0 0 0 / 0.2);
+    border-radius: 20px;
+    padding: 20px;
+}
+.arabica_editor-email-link {
+  background: #c93;
+    color: #fff;
+    height: 32px;
+    width: 32px;
+    border-radius: 50%;
+    font-size: 13px;
+    display: flex
+;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.3s ease;
+}
+.arabica_editor-email-link:hover {
+  background: #17355d;
+    color: #fff;
 }
 .arabica_editor-profile .arabica_editor-image-wrapper {
   width: 100%;
@@ -1830,7 +1858,6 @@ table:not(.arabica_facts):not(#Facts) tr:nth-child(odd) td {
   border-color: #c93;
 }
 .arabica_editor-profile .arabica_editor-info {
-  margin-top: 10px;
   width: 100%;
 }
 .arabica_editor-profile .arabica_editor-info span {
@@ -1844,9 +1871,12 @@ table:not(.arabica_facts):not(#Facts) tr:nth-child(odd) td {
   font-size: 15px;
 }
 .arabica_editor-info .arabica_editor-name {
-  color: #414042;
-  font-size: 25px;
+  color: #17355d;
+  font-size: 22px;
   font-weight: 600;
+}
+.arabica_editor-info .arabica_editor-category {
+  color: #c93;
 }
 .arabica_editor-profile .arabica_editor-info span.arabica_editor-name {
   margin: 0;
@@ -1880,7 +1910,7 @@ table:not(.arabica_facts):not(#Facts) tr:nth-child(odd) td {
     padding: 60px 0 0;
   }
   .arabica_featured-article-image {
-    aspect-ratio: 480/245;
+    height: 245px;
   }
   .arabica_featured-article-image img {
     width: 480px;
@@ -1890,7 +1920,7 @@ table:not(.arabica_facts):not(#Facts) tr:nth-child(odd) td {
   }
   .arabica_short-article-image,
   .grid-posts .arabica_featured-article-image {
-    aspect-ratio: 380/199;
+    height: 191px;
   }
   .arabica_featured-article-text {
     line-height: 2;
@@ -1925,10 +1955,17 @@ table:not(.arabica_facts):not(#Facts) tr:nth-child(odd) td {
   .arabica_editor-info .arabica_editor-title {
     justify-content: center;
     width: 100%;
+    margin-bottom: 20px;
   }
   .arabica_editor-info .arabica_editor-name {
     text-align: center;
-    margin-top: 5px;
+    margin-top: br5px;
+  }
+}
+@media (min-width: 1201px) {
+.arabica_short-article-image,
+  .grid-posts .arabica_featured-article-image {
+    height: 245px;
   }
 }
 .modal {
@@ -1941,7 +1978,7 @@ table:not(.arabica_facts):not(#Facts) tr:nth-child(odd) td {
   background-color: rgb(20 52 92 / 0.5);
   display: flex;
   justify-content: center;
-  align-items: flex-start;
+  align-items: center;
   opacity: 0;
   transition: opacity 0.4s, visibility 0.4s;
   overflow-y: auto;
@@ -1977,32 +2014,34 @@ table:not(.arabica_facts):not(#Facts) tr:nth-child(odd) td {
 }
 .modal-close {
   transition: color 0.3s;
-  position: absolute;
-  top: 24px;
-  left: 24px;
-  background: #17355d;
-  border: none;
-  color: #fff;
-  cursor: pointer;
-  border-radius: 50%;
-  height: 35px;
-  width: 35px;
+    position: absolute;
+    top: 16px;
+    left: 16px;
+    background: #fff;
+    border: none;
+    color: #333;
+    cursor: pointer;
+    border-radius: 50%;
+    height: 28px;
+    width: 28px;
 }
 .modal-editor-details {
   flex: 1;
   padding: 30px 40px 30px 30px;
   color: #666;
+  text-align: center;
 }
 .modal-editor-bio {
-  color: #666;
+  color: #000;
   line-height: 1.8;
   font-size: 16px;
-  margin-bottom: 10px;
+  margin: 20px 10px;
 }
 .modal-editor-category {
   display: inline-flex;
   align-items: center;
   padding: 0 0 0 10px;
+  color: #c93 !important;
 }
 .editor-separator,
 .modal-separator,
@@ -2020,8 +2059,8 @@ table:not(.arabica_facts):not(#Facts) tr:nth-child(odd) td {
   font-size: 25px;
   display: block;
   font-weight: 600;
-  margin: 10px 0 20px;
-  color: #414042;
+  margin: 0 0 10px;
+  color: #17355d;
 }
 .editor-separator,
 .modal-editor-category,
@@ -2223,15 +2262,14 @@ table:not(.arabica_facts):not(#Facts) tr:nth-child(odd) td {
   }
   .arabica_pagination .ellipsis,
   .arabica_pagination .page-numbers,
-  .arabica_pagination .page-link {
-    height: 30px;
-    width: 30px;
-    font-size: 15px;
+  .arabica_pagination .page-linkBtn {
+    height: 30px !important;
+    width: 30px !important;
+    font-size: 15px !important;
   }
-  .arabica_pagination .page-next,
-  .arabica_pagination .page-prev {
-    color: #c93;
-    font-size: 15px;
+  .arabica_pagination .page-linkBtn[value="التالي"],
+.arabica_pagination .page-linkBtn[value="السابق"] {
+    color: #c93 !important;
   }
   .arabica_news {
     margin: 50px 0;
@@ -2310,11 +2348,13 @@ table:not(.arabica_facts):not(#Facts) tr:nth-child(odd) td {
   .arabica_editor-info {
     display: flex;
     flex-direction: column;
+    align-items: center;
   }
   .arabica_editor-info .arabica_editor-title {
     flex-direction: column;
     gap: 5px;
     font-weight: 600;
+    margin-bottom: 15px;
   }
   .arabica_editor-info .arabica_editor-name {
     margin-top: 5px;
@@ -2322,9 +2362,8 @@ table:not(.arabica_facts):not(#Facts) tr:nth-child(odd) td {
     font-weight: 700;
   }
   .arabica_editor-container {
-    row-gap: 40px;
-    column-gap: 50px;
-    padding: 20px 50px 65px;
+    gap: 20px;
+    padding: 20px 0 65px;
   }
   .arabica_editor-profile .arabica_editor-image-wrapper {
     margin-bottom: 10px;
@@ -2350,7 +2389,7 @@ table:not(.arabica_facts):not(#Facts) tr:nth-child(odd) td {
   .modal-editor-name {
     font-size: 15px;
     font-weight: 700;
-    margin: 5px 0 15px;
+    margin: 5px 0;
   }
   .modal-editor-bio {
     color: #747474;
@@ -2370,8 +2409,8 @@ table:not(.arabica_facts):not(#Facts) tr:nth-child(odd) td {
     padding-top: 10px;
   }
   .modal-close {
-    top: 18px;
-    left: 18px;
+    top: 10px;
+    left: 8px;
   }
   .arabica_contact-box {
     flex-direction: column-reverse;
@@ -2417,7 +2456,7 @@ table:not(.arabica_facts):not(#Facts) tr:nth-child(odd) td {
   align-items: center;
   flex-wrap: wrap;
   gap: 10px;
-  margin-bottom: 30px;
+  margin-bottom: 10px;
 }
 .arabica_search-content .arabica_list,
 .arabica_search-content .arabica_grid {
@@ -2526,12 +2565,11 @@ table:not(.arabica_facts):not(#Facts) tr:nth-child(odd) td {
   max-height: 0;
   transition: max-height 0.3s ease-in-out;
   top: 100%;
-    left: 0;
     right: 0;
+width: 100%
 }
 .arabica_dropdown-content {
   max-height: 290px;
-  white-space: nowrap;
   overflow-y: auto;
   padding-left: 15px;
   margin: 20px;
@@ -2756,17 +2794,7 @@ input:checked + .arabica_toggle:before {
   height: auto;
   margin: 0;
 }
-.arabica_timeline-container::before {
-  content: "";
-  position: absolute;
-  top: 125px;
-  left: 50%;
-  width: 4px;
-  height: var(--line-height, 100%);
-  background: #17355d;
-  transform: translateX(-50%);
-  z-index: 1;
-}
+
 .arabica_timeline-item {
   position: relative;
   width: calc(50% + 70px);
@@ -2998,8 +3026,12 @@ input:checked + .arabica_toggle:before {
     flex-direction: row-reverse;
     gap: 20px;
     padding-top: 60px;
-    padding-bottom: 60px;
+    padding-bottom: 30px;
   }
+.arabica_article-foot-wrapper .arabica_column-container {
+    padding-top: 30px;
+    padding-bottom: 0;
+}
   .arabica_article-top {
     padding: 0;
   }
@@ -3082,6 +3114,11 @@ input:checked + .arabica_toggle:before {
   padding-bottom: 15px;
   border-bottom: 1px solid #ddd;
 }
+.arabica_article-info-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
 .arabica_article .arabica_article-date,
 .arabica_article .arabica_article-doi,
 .arabica_article .arabica_article-read,
@@ -3089,10 +3126,6 @@ input:checked + .arabica_toggle:before {
 .arabica_article-references h2,
 .arabica_article-sources h2 {
   color: #333;
-}
-.arabica_article .arabica_article-date,
-.arabica_article .arabica_article-doi {
-  margin-left: 30px;
 }
 .arabica_article-content hr,
 .arabica_news-content hr {
@@ -3225,8 +3258,7 @@ input:checked + .arabica_toggle:before {
 }
 .arabica_article-sources {
   border-top: 1px solid #ccc;
-  margin-top: 30px;
-  padding: 20px 0 10px;
+  padding: 30px 0 0;
 }
 .arabica_article-foot-wrapper li,
 .arabica_article-foot-wrapper p,
@@ -3618,9 +3650,6 @@ input:checked + .arabica_toggle:before {
     width: 33px;
     font-size: 16px;
   }
-  .arabica_search-content {
-    margin-bottom: 15px;
-  }
   .arabica_dropdown-content label {
     margin-bottom: 4px;
   }
@@ -3816,10 +3845,10 @@ input:checked + .arabica_toggle:before {
     font-weight: 700;
   }
   .arabica_article {
-    margin: 0 0 40px;
+    margin: 0 0 20px;
   }
   .arabica_article-foot-wrapper {
-    padding: 30px 0;
+    padding: 20px 0;
   }
   .arabica_article .arabica_article-subtitle {
     font-size: 14px;
@@ -3961,8 +3990,9 @@ input:checked + .arabica_toggle:before {
   .arabica_contact-form .form-group {
     display: block;
   }
-  .arabica_featured-article-image {
+  .arabica_featured-article-image, .arabica_short-article-image {
     overflow: hidden;
+    height: 365px;
   }
   .arabica_article-list .arabica_featured-article-inner {
     flex-direction: column;
@@ -3982,9 +4012,8 @@ input:checked + .arabica_toggle:before {
   }
   .arabica_editor-container {
     grid-template-columns: repeat(2, 1fr);
-    padding: 0 10px 50px;
-    row-gap: 30px;
-    column-gap: 30px;
+        padding: 0 0 50px;
+        gap: 15px;
   }
   .arabica_editor-content {
     padding: 50px 0 0;
@@ -3999,13 +4028,13 @@ input:checked + .arabica_toggle:before {
   .arabica_editor-profile .arabica_editor-info span {
     margin: 0;
   }
-  .arabica_editor-profile .arabica_editor-info span.arabica_editor-name {
-    margin-top: 5px;
+  .arabica_editor-info .arabica_editor-job {
+    font-size: 12px;
   }
-  .arabica_editor-info .arabica_editor-job,
   .arabica_timeline-content p {
     font-size: 11px;
   }
+
   .modal {
     padding: 60px 30px;
   }
@@ -4033,7 +4062,6 @@ input:checked + .arabica_toggle:before {
     width: 32px;
     height: 32px;
   }
-  .arabica_search-content,
   .arabica_timeline-header-row {
     margin-bottom: 15px;
   }
@@ -4090,7 +4118,7 @@ input:checked + .arabica_toggle:before {
   .arabica_timeline-items
     .arabica_timeline-item:nth-child(odd)
     .arabica_timeline-content::before {
-    right: 13px;
+    right: 12px;
     border: 5px solid #17355d;
     top: 36px;
   }
@@ -4108,6 +4136,27 @@ input:checked + .arabica_toggle:before {
   .arabica_article_lightbox-gallery-grid {
     gap: 5px;
     padding: 5px;
+  }
+  .arabica_latest-article-image {
+    height: 123px;
+  }
+}
+@media screen and (max-width: 575px) {
+.arabica_featured-article-image, .arabica_short-article-image,
+  .grid-posts .arabica_featured-article-image {
+    height: 270px;
+  }
+  .arabica_latest-article-image {
+    height: 90px;
+  }
+}
+@media screen and (max-width: 450px) {
+.arabica_featured-article-image, .arabica_short-article-image,
+  .grid-posts .arabica_featured-article-image {
+    height: 181px;
+  }
+  .arabica_latest-article-image {
+    height: 60px;
   }
 }
 .arabica_article_lightbox.closing {
@@ -4159,7 +4208,7 @@ input:checked + .arabica_toggle:before {
   margin: 0 0 20px;
 }
 @media (max-width: 1024px) {
-  .arabica_nav ul li a {
+  .arabica_nav > ul > li > a {
     font-size: 13px;
   }
 }
@@ -4190,8 +4239,12 @@ li[dir="ltr"] {
   margin-bottom: 0;
   line-height: 1.5;
 }
-.arabica_foot-source hr {
-  margin: 30px 0 20px 0;
+.arabica_foot-container hr {
+  margin: 0 0 20px;
+  border-bottom: 1px solid #ccc;
+}
+.arabica_ref-body hr {
+  margin: 20px 0;
   border-bottom: 1px solid #ccc;
 }
 audio {
@@ -4212,29 +4265,43 @@ audio {
   color: #b07f2a;
 }
 #Facts,
-.arabica_facts {
+#FactsDiv {
   border: 1px solid #ccc;
   border-radius: 10px;
-  padding-bottom: 15px;
   margin-top: 0;
   margin-bottom: 0;
   display: block;
   width: 100%;
+  font-size: 14px;
+  overflow: hidden;
 }
 #Facts td,
-.arabica_facts td {
+#FactsDiv td {
   border: 0;
+vertical-align: baseline;
+}
+#Facts td:not(:has(img)),
+#FactsDiv td:not(:has(img)) {
   padding: 15px 15px 0;
 }
+#Facts td:has(img),
+#FactsDiv td:has(img) {
+  padding: 0;
+}
+#Facts img, #FactsDiv img {
+  width: 100% !important;
+  margin: 0 !important;
+}
 #Facts p:last-of-type,
-.arabica_facts p:last-of-type {
+#FactsDiv p:last-of-type {
   margin-bottom: 0;
 }
-.arabica_sticky-sidebar {
-  padding-top: 15px;
+#Facts .arabica_article-image, #FactsDiv .arabica_article-image {
+  border: 0 !important;
+  margin: 0 !important;
+}
+#FactsDiv table tr:last-child:not(:only-child) td, #Facts table tr:last-child:not(:only-child) td {
   padding-bottom: 15px;
-  margin-top: -15px;
-  margin-bottom: -30px;
 }
 caption {
   text-align: center;
@@ -4242,32 +4309,46 @@ caption {
   margin-bottom: 5px;
 }
 #Facts .arabica_article-image,
-.arabica_facts .arabica_article-image,
+#FactsDiv .arabica_article-image,
 #Facts .arabica_news-image,
-.arabica_facts .arabica_news-image,
+#FactsDiv .arabica_news-image,
 #Facts .arabica_about-image,
-.arabica_facts .arabica_about-image {
+#FactsDiv .arabica_about-image {
   padding: 0;
-}
-#Facts .arabica_article_slider,
-.arabica_facts .arabica_article_slider,
-#Facts img,
-.arabica_facts img {
-  border-radius: 10px 10px 0 0;
 }
 .arabica_article-header .arabica_article-meta i {
   color: #333;
 }
+.arabica_article-option {
+  margin-right: auto;
+float: left;
+text-align: left;
+  white-space: nowrap;}
 .arabica_share-link {
   cursor: pointer;
   color: #c93;
+  margin-right: 4px;
 }
-.arabica_article-header .arabica_share-link {
-  float: left;
+.arabica_article-cite {
+  cursor: pointer;
+}  
+.arabica_article-header .arabica_share-link, .arabica_article-cite {
   color: #c93;
+  border: 1px solid #c93;
+  padding: 4px;
+  border-radius: 4px;
+  transition: background 0.3s ease, color 0.3s ease;
 }
-.arabica_article-header .arabica_share-link i {
+.arabica_article-header .arabica_share-link i, .arabica_article-header .arabica_article-cite i {
   color: #c93;
+  transition: color 0.3s ease;
+}
+.arabica_article-header .arabica_share-link:hover, .arabica_article-cite:hover {
+  color: #fff;
+  background: #c93;
+}
+.arabica_article-header .arabica_share-link:hover i, .arabica_article-header .arabica_article-cite:hover i {
+  color: #fff;
 }
 .arabica_share-link:hover i,
 .arabica_share-link:hover {
@@ -4279,6 +4360,13 @@ caption {
   padding: 35px 20px 0;
 }
 @media (min-width: 992px) {
+.arabica_sticky-sidebar {
+  padding-top: 15px;
+  margin-top: -15px;
+  margin-bottom: -30px;
+  top: var(--sidebar-offset, 0) !important;
+  transition: top 0.3s ease;
+}
   .arabica_article-header {
     position: relative;
     background-color: #f3f3f3;
@@ -4297,26 +4385,41 @@ caption {
     background-color: inherit;
     z-index: -1;
   }
+.arabica_main-wrapper:has(.arabica_article-header) {
+  position: relative;
+}
+
+.arabica_main-wrapper:has(.arabica_article-header)::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  background: #f3f3f3;
+  height: var(--header-bg-height, 0px);
+  pointer-events: none;
+  z-index: -1;
+}
 }
 .arabica_about-content h3,
 .arabica_article-content h3,
 .arabica_news-content h3,
-.arabica_about-content h4,
-.arabica_article-content h4,
-.arabica_news-content h4,
 .arabica_about-content h5,
 .arabica_article-content h5,
-.arabica_news-content h5,
-.arabica_about-content h6,
-.arabica_article-content h6,
-.arabica_news-content h6 {
-  color: #c93;
+.arabica_news-content h5 {
+    color: #3a9ede;
 }
 .arabica_foot-container h3,
 .arabica_foot-container h4,
 .arabica_foot-container h5,
 .arabica_foot-container h6 {
-  margin-top: 10px;
+  margin-top: 20px;
+}
+.arabica_ref-body > h3:first-child,
+.arabica_ref-body > h4:first-child,
+.arabica_ref-body > h5:first-child,
+.arabica_ref-body > h6:first-child {
+  margin-top: 0;
 }
 .arabica_foot-container,
 .arabica_about-content,
@@ -4403,6 +4506,12 @@ mjx-box {
   .inlineMath mfrac mn {
     font-size: 14px;
   }
+  .arabica_article-header .arabica_share-link, .arabica_article-cite {
+    padding: 1px 4px;
+}
+.arabica_article-english-title {
+    font-size: 14px;
+}
 }
 .arabica_article_slider-counter {
   position: absolute;
@@ -4505,6 +4614,9 @@ table.align-center {
   .vertical-image .arabica_gallery.horizontal .arabica_gallery-image img {
     height: 300px !important;
   }
+.arabica_article-info-wrapper {
+display: block;
+}
 }
 .arabica_gallery.horizontal .arabica_gallery-image {
   align-items: center;
@@ -4539,7 +4651,8 @@ table.align-center {
   .arabica_floating-btn,
   .arabica_article_slider-nav,
   .arabica_article_slider-counter,
-  .slider-btn {
+  .slider-btn,
+.arabica_ref-icon-wrapper {
     display: none;
   }
   .arabica_author-role {
@@ -4553,19 +4666,25 @@ table.align-center {
   .arabica_article_slider_wrapper {
     flex-direction: row;
   }
+.arabica_ref-body {
+display: block !important;
+}
+.arabica_foot-source {
+margin-top: 30px;
+}
 }
 #Facts figcaption,
-.arabica_facts figcaption {
+#FactsDiv figcaption {
   padding: 8px 15px;
 }
 #Facts .arabica_article_slider-counter,
-.arabica_facts .arabica_article_slider-counter {
+#FactsDiv .arabica_article_slider-counter {
   right: 10px;
 }
 .modal-editor-bio p:not(:first-of-type) {
   margin-top: 5px;
 }
-#s4-workspace {
+body:not(.editor) #s4-workspace {
     height: auto !important;
     width: auto !important;
     position: inherit;
@@ -4593,7 +4712,7 @@ input[type=button], input[type=reset], input[type=submit], button {
 	margin-left: 3px;
 	color: inherit;
 }
-button.arabica_featured-article-button, button.buttonSearch {
+button.arabica_featured-article-button, input.buttonSearch {
     border: 2px solid #c93;
     padding: 5px 25px;
     font-weight: bold;
@@ -4602,6 +4721,8 @@ button.arabica_featured-article-button, button.buttonSearch {
     transition: all 0.3s ease;
     width: 100%;
     height: 40px;
+    color: #fff !important;
+margin-top: 0 !important;
 }
 button.arabica_featured-article-button:hover, button.buttonSearch:hover {
     background-color: #b07f2a;
@@ -4648,7 +4769,6 @@ button.arabica_featured-article-button:hover, button.buttonSearch:hover {
 .arabica_ref-title {
   font-weight: bold;
   font-size: 16px;
-  text-align: right;
 }
 .arabica_ref-row.landscape .arabica_ref-image img {
     width: 370px !important;
@@ -4664,13 +4784,21 @@ button.arabica_featured-article-button:hover, button.buttonSearch:hover {
   display: block;
 }
 
-table:not(.arabica_facts):not(#Facts) p {
+table p {
   margin: 0 !important;
   text-align: right !important;
 }
-.arabica_featured-article-author .arabica_author a:not(:last-of-type)::after, .arabica_article-author a:not(:last-of-type)::after, .arabica_article-author span:not(:last-of-type)::after, .arabica_featured-article-author .arabica_author:not(:last-of-type)::after {
+.arabica_featured-article-author .arabica_author a:not(:last-of-type)::after, .arabica_featured-article-author .arabica_author:not(:last-of-type)::after {
   content: "|";
   margin: 0 9px;
+  color: #ccc;
+}
+.arabica_article-author a {
+  margin-left: 9px;
+}
+.arabica_article-author span:not(:last-of-type)::after {
+  content: "|";
+  margin: 0 0 0 9px;
   color: #ccc;
 }
 i.fa-user {
@@ -4687,6 +4815,10 @@ i.fa-user {
 .arabica_search-head .arabica_search-title {
   font-weight: bold;
   color: #666;
+}
+.arabica_search-head #spnSearchText {
+  font-weight: normal;
+	margin-left: 5px;
 }
 .arabica_search-head .arabica_search-query {
   color: #fff;
@@ -4708,8 +4840,19 @@ i.fa-user {
   display: inline-block;
   margin-bottom: 5px;
 }
+.arabica_search-head .arabica_search-reset {
+  margin-left: 4px;
+  padding: 1px 8px;
+  border-radius: 12px;
+  font-size: 12px;
+  display: inline-block;
+  margin-bottom: 5px;
+  width: unset !important;
+  height: unset !important;
+}
 .arabica_search-head .arabica_search-author i {
   font-size: 11px;
+margin-left: 5px;
 }
 .selected-items {
   display: flex;
@@ -4965,12 +5108,8 @@ i.fa-user {
 }
 
   .arabica_editor-profile .arabica_editor-info span {
-    display: block;
+    display: inline-block;
   }
-  .editor-separator {
-    display: none !important;
-  }
-
 
   /* 1) Basic header layout */
 .arabica_search-header {
@@ -4989,8 +5128,147 @@ i.fa-user {
   margin-left: 4px;
 }
 
+
+.arabica_timeline-items .arabica_timeline-item:nth-child(odd)::after {
+    content: "";
+    position: absolute;
+    right: 68px;
+    top: 0;
+    width: 4px;
+    height: 100%;
+    background: #17355d;
+    z-index: 1;
+}
+.arabica_timeline-items .arabica_timeline-item:nth-child(even)::after {
+    content: "";
+    position: absolute;
+    left: 68px;
+    top: 0;
+    width: 4px;
+    height: 100%;
+    background: #17355d;
+    z-index: 1;
+}
+.arabica_timeline-items .arabica_timeline-item:first-child::after {
+    top: -100px;
+    height: calc(100% + 100px);
+}
+.arabica_timeline-items .arabica_timeline-item:last-child::after {
+    height: 50%;
+}
+
+.arabica-label {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid #17355D;
+  border-radius: 4px;
+  font-size: 14px;
+  color: #17355D;
+  background: #f3f3f3;
+  line-height: 16px;
+  margin-left: 10px;
+  overflow: hidden;
+}
+
+.arabica-label-loop {
+  color: #17355D !important;
+  text-decoration: none;
+  position: relative;
+  display: inline-flex;
+  padding: 7px 7px 7px 14px;
+}
+
+.arabica-label-loop:hover {
+  clip-path: polygon(100% 0%, 3% 0%, 0% 50%, 3% 101%, 100% 101%, 96% 50%);
+  background: #17355D;
+  margin-right: -4px;
+  padding-right: 11px;
+  color: #fff !important;
+}
+
+.arabica-label-loop::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 8px;
+  background: #17355D;
+  clip-path: polygon(100% 0, 40% 0, 0 50%, 40% 100%, 100% 100%);
+}
+
+.arabica-label-loop::after {
+  content: "";
+  position: absolute;
+  left: 1px;
+  top: 0;
+  height: 100%;
+  width: 8px;
+  background: #f3f3f3;
+  clip-path: polygon(100% 0, 40% 0, 0 50%, 40% 100%, 100% 100%);
+}
+
+.arabica-label-loop:hover::after {
+  background: #17355D;
+}
+
+.arabica-label-loop:last-child {
+  padding-left: 8px;
+}
+
+.arabica-label-loop:last-child::before,
+.arabica-label-loop:last-child::after {
+  display: none;
+}
+
+.arabica-label-loop:first-child:hover {
+  clip-path: polygon(100% 0%, 3% 0%, 0% 50%, 3% 101%, 100% 101%);
+  margin-right: 0;
+  padding-right: 7px;
+}
+
+.arabica-label-loop:last-child:hover {
+  clip-path: polygon(100% 0%, 0% 0%, 0% 50%, 0% 101%, 100% 101%, 96% 50%);
+}
+
+.arabica-label-loop:only-child {
+  padding: 7px;
+}
+
+.arabica-label-loop:only-child::before,
+.arabica-label-loop:only-child::after {
+  display: none !important;
+}
+
+.arabica-label-loop:only-child:hover {
+  clip-path: none !important;
+  background: #17355D;
+  color: #fff !important;
+  padding: 7px;
+  margin-right: 0 !important;
+}
 /* 2) Mobile-only: hide advanced-fields by default & transition its height */
 @media (max-width: 991px) {
+  .arabica-label {
+    font-size: 11px;
+  }
+  .arabica_article .arabica_article-author {
+    line-height: 2.5;
+  }
+  .arabica-label-loop {
+    padding: 2px 7px 2px 14px;
+}
+  .arabica_timeline-items .arabica_timeline-item::after {
+    right: 29px !important;
+    width: 2px !important;
+  }
+  .arabica_timeline-items .arabica_timeline-item:last-child::after {
+    height: 55px;
+}
+.arabica_timeline-items .arabica_timeline-item:first-child::after {
+    top: -50px;
+    height: calc(100% + 50px);
+}
   .advanced-fields {
     max-height: 0;
     overflow: hidden;
@@ -5019,7 +5297,17 @@ i.fa-user {
   padding: 15px;
 }
 }
-
+@media (max-width: 767px) {
+  .arabica_timeline-items .arabica_timeline-item::after {
+    right: 26px !important;
+  }
+  .arabica_timeline-icon::after {
+    width: 2px;
+  }
+  .arabica_timeline-items .arabica_timeline-item:last-child::after {
+    height: 50px;
+}
+}
 /* 3) Desktop: always show everything */
 @media (min-width: 992px) {
   .advanced-fields {
@@ -5027,9 +5315,296 @@ i.fa-user {
     overflow: visible !important;
     transition: none !important;
   }
-
+}
+.arabica_featured-content > span, .arabica_featured-content #dataContainer {
+  display: contents;
+}
+ 
+@media (min-width: 768px) {
+  .arabica_featured-content.grid-posts .arabica_pagination {
+    grid-column: span 2;
+  }
+}
+#Facts table td, #FactsDiv table td {
+    background-color: transparent;
+}
+a[name^="_ftnref"] {
+  font-size: smaller;      
+  vertical-align: super;   
+  text-decoration: none;    
+}
+#Facts table, #FactsDiv table {
+  border: 0 !important;
+  background: transparent;
+  margin-bottom: 0 !important;
+	width: 100%;
+}
+#Facts .figtitle, #FactsDiv .figtitle {
+  display: none;
+}
+#Facts .arabica_gallery-image, #FactsDiv .arabica_gallery-image {
+  display: block;
+}
+#FactsDiv td:not(:first-child) {
+  padding-right: 0;
+}
+#FactsDiv:has(.ms-rtestate-write[contenteditable="true"]) {
+  display: block !important;
+}
+.arabica_search-head:nth-of-type(1) {
+  order: 1;
+}
+.arabica_list-grid {
+  order: 2;
+}
+@media (min-width: 768px) {
+.arabica_search-head:nth-of-type(1) {
+  width: 83%;
+}
+}
 .arabica_search-head {
-  width: 85%;
+  order: 3;
+width: 100%;
 }
+a.buttonSearchAll {
+    background-color: #fff !important;
+    color: #c93 !important;
+    cursor: pointer !important;
+    border: 1px solid #c93 !important;
+margin-top: 0 !important;
+margin-bottom: 15px !important;
+padding: 8px 25px !important;
+font-size: 14px !important;
+}
+a.buttonSearchAll:hover {
+    background-color: #fff !important;
+    color: #b07f2a !important;
+    border: 1px solid #b07f2a !important;
+}
+.arabica_side-content br, #FactsDiv br {
+display: none;
+}
+.advanced-fields br {
+display: block
 }
 
+input.buttonSearch {
+font-size: 14px !important;
+padding: 8px 25px !important;
+}
+#divSearchCriteria {
+display: contents
+}
+/* Bold first cell only if there’s more than one cell in the row */
+#FactsDiv table tr:has(td:nth-child(2)) td:first-child,
+#Facts table tr:has(td:nth-child(2)) td:first-child {
+  font-weight: bold;
+}
+
+/* Prevent double-bold inside <b> or <strong> */
+#FactsDiv table tr:has(td:nth-child(2)) td:first-child b,
+#Facts table tr:has(td:nth-child(2)) td:first-child b,
+#FactsDiv table tr:has(td:nth-child(2)) td:first-child strong,
+#Facts table tr:has(td:nth-child(2)) td:first-child strong {
+  font-weight: inherit;
+}
+sup {
+all: unset;
+}
+
+.arabica_ref-toggle {
+  cursor: pointer;
+  padding: 0 0 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.arabica_ref-toggle h2 {
+  margin: 0;
+  text-align: right;
+}
+.arabica_foot-container h2 {
+  font-size: 24px;
+}
+.arabica_foot-container h3 {
+  font-size: 21px;
+}
+.arabica_foot-container h4 {
+  font-size: 18px;
+}
+.arabica_foot-container h5 {
+  font-size: 16px;
+}
+.arabica_foot-container h6 {
+  font-size: 14px;
+}
+.arabica_ref-icon-wrapper i {
+  transition: transform 0.3s;
+}
+
+.arabica_ref-toggle.active .chevron-icon, .arabica_foot-source .arabica_ref-toggle .chevron-icon {
+  transform: rotate(180deg);
+}
+.arabica_foot-source .arabica_ref-toggle.active .chevron-icon {
+  transform: none;
+}
+.arabica_ref-body {
+  margin-bottom: 30px;
+}
+.arabica_foot-reference .arabica_ref-body, .arabica_ref-body br {
+  display: none;
+}
+.header {
+  position: sticky;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 27;
+  transform: translateY(0);
+  opacity: 1;
+  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+              opacity 0.4s ease,
+              box-shadow 0.3s ease;
+}
+
+.header.hidden {
+  transform: translateY(-100%);
+  opacity: 0;
+}
+
+.header.scrolled {
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.12);
+}
+.ms-input-divAroundTextArea {
+  direction: ltr;
+}
+@media (min-width: 992px) {
+/* Submenu Styles */
+.arabica_nav > ul > li {
+    position: relative;
+}
+
+.has-submenu {
+    position: relative;
+}
+
+
+.submenu-toggle {
+  padding-left: 30px !important;
+}
+.submenu-toggle::after {
+  content: "\f078";
+    font-family: "Font Awesome 6 Pro";
+    position: absolute;
+    top: 4px;
+    left: 10px;
+    font-size: 12px;
+    transition: transform 0.3s 
+ease;
+}
+.submenu-toggle.active::after {
+    transform: rotate(180deg);
+}
+
+.submenu {
+    display: none !important;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    background: #fff;
+    border-radius: 5px;
+    overflow: hidden;
+        width: max-content;
+        min-width: auto;
+        
+        position: absolute;
+        top: 34px;
+        right: 0;
+        margin-top: 8px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        border: 1px solid #e0e0e0;
+}
+
+.submenu.active {
+    display: block !important;
+    animation: slideDown 0.3s ease;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+.submenu li:last-child {
+    border-bottom: none;
+}
+
+.submenu a {
+    display: block;
+    padding: 12px 20px;
+    color: #17355d;
+    text-decoration: none;
+    font-size: 14px;
+    transition: background 0.2s ease, padding-right 0.2s ease;
+    white-space: nowrap;
+}
+
+.submenu a:hover {
+    background: #f7f7f7;
+}
+.arabica_nav > ul > li > a:hover {
+    background: #c93 !important;
+    color: #fff !important;
+}
+/* Current page styling - only for parent navigation item */
+.arabica_nav > ul > li.current > a {
+    background-color: #f7f7f7;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+}
+
+/* Ensure text remains white on hover for current items */
+.arabica_nav > ul > li.current > a:hover {
+    color: #17355d;
+}
+}
+@media (max-width: 991px) {
+  .arabica_ref-toggle {
+  cursor: pointer;
+  padding: 0 0 20px;
+  }
+  .arabica_article-sources {
+    padding: 20px 0 0;
+}
+.arabica_foot-container h3, .arabica_foot-container h4, .arabica_foot-container h5, .arabica_foot-container h6 {
+    margin-top: 15px;
+}
+  .submenu-toggle::after {
+    display: none !important;
+  }
+  .submenu a {
+    font-size: 12px !important;
+  }
+  .arabica_mobile_nav_list  {
+    font-weight: bold;
+  }
+}
+
+@media (max-width: 767px) {
+.arabica_editor-info .arabica_editor-category, .arabica_editor-info .arabica_editor-job, .arabica_editor-info .arabica_editor-region {
+  display: block;
+}
+.editor-separator {
+  display: none !important;}
+}
+.arabica_ref-dropdown, .arabica_ftn-dropdown {
+left: 0;
+}
