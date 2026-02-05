@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 
@@ -14,146 +15,1535 @@
     <link rel="preload" href="Assets/fonts/BahijTheSans/Bahij_TheSansArabic-SemiBold.ttf" as="font" type="font/ttf" crossorigin />
     <link rel="preload" href="Assets/fonts/BahijTheSans/Bahij_TheSansArabic-SemiLight.ttf" as="font" type="font/ttf" crossorigin />
     <!-- Homepage Preload -->
-    <link rel="preload" href="Assets/images/main-top-bg.png" as="image" fetchpriority="high" />
+    <link rel="preload" href="https://harbyj.github.io/arabica/Assets/images/main-top-bg.png" as="image" fetchpriority="high" />
     <!-- Preload End -->
     <link rel="stylesheet" href="Assets/css/styles.min.css" />
     <link rel="stylesheet" href="Assets/fonts/font-awesome/css/all.min.css" media="all" />
 
     <!-- Favicon -->
-    <link rel="icon" href="Assets/images/favicon.ico" type="image/x-icon" />
+    <link rel="icon" href="https://harbyj.github.io/arabica/Assets/images/favicon.ico" type="image/x-icon" />
 
     <!-- PNG Fallbacks -->
-    <link rel="icon" type="image/png" sizes="32x32" href="Assets/images/favicon-64x64.png" />
-    <link rel="icon" type="image/png" sizes="32x32" href="Assets/images/favicon-32x32.png" />
-    <link rel="icon" type="image/png" sizes="16x16" href="Assets/images/favicon-16x16.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="https://harbyj.github.io/arabica/Assets/images/favicon-64x64.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="https://harbyj.github.io/arabica/Assets/images/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="https://harbyj.github.io/arabica/Assets/images/favicon-16x16.png" />
 
     <!-- SVG Icon -->
-    <link rel="icon" type="image/svg+xml" href="Assets/images/favicon.svg" />
+    <link rel="icon" type="image/svg+xml" href="https://harbyj.github.io/arabica/Assets/images/favicon.svg" />
 
     <!-- Apple Touch Icon (for iOS home screen) -->
-    <link rel="apple-touch-icon" href="Assets/images/apple-touch-icon-iphone-60x60.png" />
-    <link rel="apple-touch-icon" sizes="60x60" href="Assets/images/apple-touch-icon-ipad-76x76.png" />
-    <link rel="apple-touch-icon" sizes="114x114" href="Assets/images/apple-touch-icon-iphone-retina-120x120.png" />
-    <link rel="apple-touch-icon" sizes="144x144" href="Assets/images/apple-touch-icon-ipad-retina-152x152.png" />
+    <link rel="apple-touch-icon" href="https://harbyj.github.io/arabica/Assets/images/apple-touch-icon-iphone-60x60.png" />
+    <link rel="apple-touch-icon" sizes="60x60" href="https://harbyj.github.io/arabica/Assets/images/apple-touch-icon-ipad-76x76.png" />
+    <link rel="apple-touch-icon" sizes="114x114" href="https://harbyj.github.io/arabica/Assets/images/apple-touch-icon-iphone-retina-120x120.png" />
+    <link rel="apple-touch-icon" sizes="144x144" href="https://harbyj.github.io/arabica/Assets/images/apple-touch-icon-ipad-retina-152x152.png" />
     <script src="Assets/jquery/jquery-3.7.1.min.js"></script>
 </head>
 
 <body>
-Gallery 1: Show normal gallery images on all devices
-<div class="arabica_article-content">
-<!-- Gallery 1 Container -->
-<div class="arabica_article-image">
-  <!-- 
-    Optional Modifiers:
-    - Add `float-left-(percent)` or `float-right-(percent)` to float the image with a specific width (e.g., float-left-30).
-    - Add `vertical-image` if all images are vertical.
-    - Add `square-image` if all images are square.
-    - Leave as-is if the gallery contains mixed or horizontal images.
-  -->
+    <header class="header">
+        <div class="arabica_header arabica_container">
+            <div class="logo">
+                <a href="index.html">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 666.31 129.77">
+                        <g>
+                            <path class="cls-2" d="M601.23,0c-35.88,0-65.08,29.11-65.08,64.89s29.19,64.89,65.08,64.89,65.08-29.11,65.08-64.89S637.11,0,601.23,0ZM540.06,64.89c0-33.63,27.44-60.99,61.17-60.99s61.17,27.36,61.17,60.99-27.44,60.99-61.17,60.99-61.17-27.36-61.17-60.99Z"
+                            />
+                            <path class="cls-2" d="M594.61,13.8c-1.44.18-2.87.43-4.26.73.21.62.42,1.24.62,1.86,2.45,8.11,4.21,16.39,5.53,24.77-2.36-7.99-5.57-15.78-9.99-22.65-.96-1.48-2.82-2.1-4.45-1.43-1.59.63-3.14,1.35-4.65,2.14.93,1.04,1.84,2.12,2.69,3.24,4.49,6.12,8.09,12.82,10.97,19.88-4.32-7.17-9.88-13.58-16.52-18.5-1.33-.98-3.14-.98-4.46.02-1.55,1.18-3.02,2.43-4.41,3.76,1.92.9,3.81,1.91,5.61,3.09,6.8,4.53,12.47,10.51,16.97,17.34-6.34-7.2-14.4-12.89-23.38-16.13-1.51-.55-3.2-.06-4.2,1.2-1.31,1.67-2.52,3.41-3.63,5.24,9.53,1.24,18.88,6.06,26.05,12.35.74.64,1.46,1.32,2.16,2-.77-.56-1.56-1.09-2.35-1.59-7.45-4.67-16.19-8.21-25.11-9.1-1.59-.16-3.11.71-3.76,2.17-.88,2.01-1.64,4.09-2.26,6.22,9.48-1.6,19.89,1.15,28.36,5.36.84.42,1.65.88,2.47,1.35-9.34-3.39-20.44-3.64-29.56-1.9h-.04c-1.52.31-2.67,1.55-2.87,3.08-.31,2.38-.45,4.82-.41,7.3h.01c8.95-4.69,20.5-5.51,30.34-3.63,9.69,1.88,16.55,7.74,19.23,16.31l-.36,16.49c-3.29-2.35-7.02-4.12-10.82-5.48-10.64-3.72-22.21-3.86-33.26-2.1.42.86.86,1.69,1.32,2.51.76,1.36,2.29,2.12,3.82,1.86,3.27-.55,6.58-.91,9.92-1.03,5.77-.16,11.59.41,17.15,2.02,5.13,1.52,10.2,3.81,14.19,7.41,3.99-3.6,9.06-5.89,14.19-7.41,5.56-1.6,11.38-2.17,17.15-2.02,3.33.12,6.62.47,9.88,1.02,1.52.26,3.06-.5,3.81-1.85.46-.82.9-1.67,1.32-2.52-11.03-1.76-22.6-1.63-33.23,2.1-3.81,1.37-7.54,3.14-10.85,5.51l-.35-16.45c2.66-8.61,9.54-14.48,19.24-16.37,9.84-1.87,21.37-1.06,30.33,3.62h.01c.04-2.48-.11-4.91-.41-7.29-.19-1.53-1.35-2.77-2.88-3.08h-.02c-9.48-1.87-20.42-1.41-29.57,1.96,6.11-3.71,13.16-6.07,20.17-6.85,3.43-.41,7.15-.48,10.66.05-.62-2.13-1.37-4.19-2.25-6.19-.64-1.46-2.16-2.33-3.76-2.17-8.92.89-17.64,4.43-25.09,9.1-.78.49-1.55,1.02-2.31,1.55,5.32-5.23,11.74-9.37,18.71-11.93,3.08-1.14,6.27-1.96,9.43-2.37-1.09-1.82-2.31-3.56-3.61-5.22-1-1.26-2.67-1.74-4.19-1.2-8.85,3.19-16.86,8.75-23.16,15.81,4.44-6.74,10.04-12.67,16.74-17.03,1.8-1.18,3.67-2.19,5.59-3.09-1.4-1.34-2.87-2.59-4.41-3.76-1.31-.99-3.12-1-4.45-.03-6.61,4.86-12.13,11.17-16.45,18.32,3.34-8.42,7.74-16.5,13.58-22.93-1.49-.78-3.02-1.49-4.59-2.11-1.63-.65-3.5-.05-4.45,1.42-4.27,6.65-7.54,14.23-9.96,22.17,1.31-8.21,3.05-16.34,5.45-24.3.19-.62.41-1.24.62-1.86-1.41-.3-2.82-.55-4.26-.73-1.85-.24-3.6.98-3.99,2.8-1.17,5.32-2.03,10.72-2.64,16.14-.61-5.43-1.47-10.82-2.64-16.15-.36-1.67-1.87-2.82-3.53-2.82-.15,0-.3,0-.46.03M558.83,93.93c.7,1,1.43,1.98,2.19,2.93.82,1,2.07,1.53,3.36,1.38,1.84-.2,3.68-.34,5.53-.42,5.77-.16,11.59.41,17.15,2.02,5.13,1.52,10.2,3.81,14.19,7.41,3.99-3.6,9.06-5.89,14.19-7.41,5.56-1.6,11.38-2.17,17.15-2.02,1.84.06,3.67.2,5.49.41,1.29.14,2.54-.37,3.36-1.38.76-.95,1.5-1.92,2.19-2.93-9.81-1.13-19.89-.63-29.24,2.64-4.71,1.69-9.33,4-13.14,7.27-3.81-3.28-8.41-5.58-13.14-7.27-6.44-2.26-13.21-3.2-20-3.2-3.1,0-6.2.19-9.27.56M564.52,100.79c1.22,1.24,2.51,2.42,3.85,3.52.68.56,1.53.84,2.41.82,2.9-.07,10.03,0,16.26,2.04,5.09,1.67,10.2,3.81,14.19,7.41,3.99-3.6,9.09-5.78,14.19-7.41,6.27-2,13.35-2.1,16.24-2.04.88.02,1.73-.27,2.4-.82,1.35-1.11,2.64-2.29,3.86-3.53-7.97-.37-16,.47-23.56,3.11-4.71,1.69-9.33,4-13.14,7.27-3.81-3.28-8.41-5.58-13.14-7.27-6.44-2.26-13.22-3.2-20.03-3.2-1.19,0-2.38.03-3.56.09M597.93,116c-3.04-2-6.4-3.56-9.81-4.78-4.61-1.61-9.4-2.54-14.25-2.95,7.05,4.42,15.25,7.17,24.06,7.73ZM614.38,111.22c-3.41,1.23-6.76,2.78-9.8,4.78,8.79-.57,16.97-3.31,24.01-7.73-4.83.41-9.6,1.34-14.21,2.95Z"
+                            />
+                        </g>
+                        <g>
+                            <path class="cls-2" d="M274.4,129.27v-1.24c2.74-.38,3.12-.77,2.53-2.5-.62-1.71-1.41-3.86-2.36-6.33h-9.46c-.74,1.97-1.33,3.65-1.89,5.36-.94,2.62-.59,3.12,2.74,3.48v1.24h-9.72v-1.24c2.86-.44,3.48-.74,5.04-4.57l9.25-22.48,1.53-.38c2.83,7.63,5.66,15.29,8.57,22.86,1.41,3.8,2.03,4.27,4.89,4.57v1.24h-11.14ZM270.07,106.52h-.09c-1.41,3.57-2.8,7.25-4.12,10.73h8.07l-3.86-10.73Z"
+                            />
+                            <path class="cls-2" d="M295.72,114.63c1.44-2.36,3.24-4.66,5.27-4.66,1.59,0,2.65,1.15,2.65,2.21,0,1-.59,1.89-1.53,2.33-.53.21-.91.12-1.18-.12-.68-.62-1.18-.88-1.92-.88-1.12,0-2.45,1.27-3.39,3.57v7.69c0,2.83.21,3.09,3.62,3.36v1.15h-10.46v-1.15c2.65-.26,3.04-.53,3.04-3.36v-8.93c0-2.74-.24-2.92-2.68-3.27v-.97c2.18-.35,4.24-.85,6.48-1.77v4.8h.09Z"
+                            />
+                            <path class="cls-2" d="M320.71,129.77c-.83,0-1.77-.38-2.24-.85-.59-.56-.85-1.15-1.06-1.83-1.77,1.12-3.83,2.68-5.07,2.68-3.27,0-5.42-2.59-5.42-5.3,0-2.15,1.18-3.45,3.57-4.21,2.8-.88,5.83-2,6.78-2.8v-.77c0-3.09-1.41-4.74-3.51-4.74-.77,0-1.41.29-1.86.77-.56.56-.94,1.53-1.33,2.92-.27.77-.74,1.06-1.41,1.06-.85,0-2-.88-2-1.92,0-.65.56-1.18,1.41-1.77,1.27-.91,4.24-2.56,6.69-3.04,1.38,0,2.65.32,3.65,1.09,1.62,1.36,2.09,3.15,2.09,5.45v7.75c0,1.92.77,2.56,1.56,2.56.5,0,1.09-.21,1.56-.47l.44,1.15-3.86,2.27ZM317.26,118.96c-.88.44-2.65,1.27-3.57,1.68-1.71.74-2.65,1.59-2.65,3.18,0,2.27,1.71,3.27,3.01,3.27,1.03,0,2.45-.65,3.21-1.41v-6.72Z"
+                            />
+                            <path class="cls-2" d="M335.85,110.47c.82-.35,1.47-.5,1.97-.5,4.8,0,8.81,3.98,8.81,9.05,0,6.28-5.21,10.75-11.17,10.75-1.89,0-4.15-.41-6.69-1.53v-23.81c0-2.71-.15-3-2.89-3.27v-1.03c2.06-.27,4.95-.91,6.69-1.5v13.23l3.27-1.38ZM332.58,124.2c0,.65.09,1.09.27,1.47.29.88,1.59,2.39,3.77,2.39,3.48,0,5.77-2.86,5.77-7.9s-3.09-7.72-6.57-7.72c-1.18,0-2.42.35-3.24.74v11.02Z"
+                            />
+                            <path class="cls-2" d="M350.31,129.27v-1.15c2.74-.26,3.06-.53,3.06-3.54v-8.66c0-2.71-.15-2.92-2.74-3.36v-1.03c2.36-.38,4.57-.88,6.54-1.65v14.7c0,2.98.29,3.21,3.09,3.54v1.15h-9.96ZM352.61,103.99c0-1.39,1.12-2.42,2.42-2.42s2.3,1.03,2.3,2.42c0,1.24-1,2.33-2.36,2.33-1.24,0-2.36-1.09-2.36-2.33Z"
+                            />
+                            <path class="cls-2" d="M380.27,125.29c-1.97,2.56-4.95,4.48-7.51,4.48-5.72,0-9.02-4.42-9.02-8.99,0-3.27,1.5-6.19,4.45-8.37,2.42-1.77,5.07-2.45,6.75-2.45h.06c1.8,0,3.24.53,3.95,1.15.59.47.71.85.71,1.33,0,1-.97,1.97-1.53,1.97-.26,0-.47-.12-.85-.5-1.41-1.27-2.92-1.86-4.48-1.86-2.71,0-5.19,2.18-5.19,6.75,0,5.92,4.3,7.84,6.66,7.84,1.83,0,3.3-.5,5.27-2.33l.74.97Z"
+                            />
+                            <path class="cls-2" d="M397.65,129.77c-.83,0-1.77-.38-2.24-.85-.59-.56-.85-1.15-1.06-1.83-1.77,1.12-3.83,2.68-5.07,2.68-3.27,0-5.42-2.59-5.42-5.3,0-2.15,1.18-3.45,3.57-4.21,2.8-.88,5.83-2,6.78-2.8v-.77c0-3.09-1.41-4.74-3.51-4.74-.77,0-1.41.29-1.86.77-.56.56-.94,1.53-1.33,2.92-.27.77-.74,1.06-1.41,1.06-.85,0-2-.88-2-1.92,0-.65.56-1.18,1.41-1.77,1.27-.91,4.24-2.56,6.69-3.04,1.38,0,2.65.32,3.65,1.09,1.62,1.36,2.09,3.15,2.09,5.45v7.75c0,1.92.77,2.56,1.56,2.56.5,0,1.09-.21,1.56-.47l.44,1.15-3.86,2.27ZM394.2,118.96c-.88.44-2.65,1.27-3.57,1.68-1.71.74-2.65,1.59-2.65,3.18,0,2.27,1.71,3.27,3,3.27,1.03,0,2.45-.65,3.21-1.41v-6.72Z"
+                            />
+                            <path class="cls-2" d="M430.72,101.25c3.15,0,5.69.5,7.45,1.8s2.89,3.3,2.89,6.13c0,5.63-4.3,8.34-8.6,8.84-.68.09-1.59.09-2.06.06l-3.3-.83v6.57c0,3.68.38,3.92,4.39,4.21v1.24h-12.32v-1.24c3.51-.29,3.89-.65,3.89-4.24v-17c0-3.86-.38-4.04-3.65-4.24v-1.3h11.31ZM427.1,115.74c.56.21,1.77.53,3.15.53,2.74,0,6.22-1.47,6.22-6.95,0-4.69-3-6.63-6.48-6.63-1.21,0-2.12.24-2.42.53-.29.29-.47.77-.47,1.97v10.55Z"
+                            />
+                            <path class="cls-2" d="M444.83,129.27v-1.15c2.74-.26,3.06-.53,3.06-3.54v-8.66c0-2.71-.15-2.92-2.74-3.36v-1.03c2.36-.38,4.57-.88,6.54-1.65v14.7c0,2.98.29,3.21,3.09,3.54v1.15h-9.96ZM447.13,103.99c0-1.39,1.12-2.42,2.42-2.42s2.3,1.03,2.3,2.42c0,1.24-1,2.33-2.36,2.33-1.24,0-2.36-1.09-2.36-2.33Z"
+                            />
+                            <path class="cls-2" d="M474.79,125.29c-1.97,2.56-4.95,4.48-7.51,4.48-5.72,0-9.02-4.42-9.02-8.99,0-3.27,1.5-6.19,4.45-8.37,2.42-1.77,5.07-2.45,6.75-2.45h.06c1.8,0,3.24.53,3.95,1.15.59.47.71.85.71,1.33,0,1-.97,1.97-1.53,1.97-.26,0-.47-.12-.85-.5-1.41-1.27-2.92-1.86-4.48-1.86-2.71,0-5.19,2.18-5.19,6.75,0,5.92,4.3,7.84,6.66,7.84,1.83,0,3.3-.5,5.27-2.33l.74.97Z"
+                            />
+                            <path class="cls-2" d="M492.76,129.36c-2-2.18-4.74-5.75-7.04-8.49-.53-.65-.88-.88-1.27-.88-.18-.03-.38,0-.65.06v4.69c0,2.86.38,3.06,3.18,3.39v1.15h-10.14v-1.15c2.92-.32,3.21-.62,3.21-3.39v-20.27c0-2.8-.27-3.03-2.92-3.3v-1.03c2.06-.21,4.71-.91,6.66-1.5v20.3c1.3-.27,2-.85,2.71-1.5.94-.91,2.27-2.65,3-3.77.88-1.3.71-1.65-1.3-1.89v-1.18l9.19-.38v1.12c-2.98.47-4.1.94-5.77,2.5-1.15,1.09-1.89,1.92-3.68,3.98.91,1.33,5.45,6.48,6.84,7.96,1.5,1.56,2.74,2.27,4.33,2.36v1.15l-6.36.09Z"
+                            />
+                            <path class="cls-2" d="M512.5,115.72c-.85-2.53-2.39-4.33-4.54-4.33-1.59,0-2.71,1.18-2.71,2.86,0,1.77,1.65,2.8,3.62,3.57,3.33,1.33,5.6,2.89,5.6,5.92,0,4.04-3.71,6.04-7.34,6.04-2.27,0-4.33-.8-5.07-1.41-.29-.56-.71-3.59-.77-5.3l1.21-.18c.82,2.89,2.8,5.45,5.39,5.45,1.59,0,3.01-1.21,3.01-2.92s-1.15-2.74-3.39-3.74c-2.53-1.15-5.57-2.62-5.57-6.04,0-3.06,2.65-5.66,6.78-5.66,1.89,0,3.06.38,3.95.77.38.94.91,3.59,1,4.63l-1.18.35Z"
+                            />
+                        </g>
+                        <g>
+                            <path class="cls-2" d="M18.99,77.4v.85c0,.36-.24.6-.61.6H4.42v-35.21c0-5.02-.36-5.56-4.42-5.99v-.91c3.08-.24,8.59-1.15,13.07-2.48v42.52h5.32c.36,0,.61.24.61.6Z" />
+                            <path class="cls-2" d="M40.59,46.43c-1.75,2.36-3.69,5.44-5.26,7.99h18.39c8.23,0,13.97,5.38,13.97,11.79,0,3.93-1.63,6.96-4.05,9.07,2.24,1.09,4.6,1.51,6.41,1.51h.3c.36,0,.6.24.6.6v.85c0,.36-.24.6-.6.6h-.91c-3.27,0-6.05-.67-8.35-1.82-2.3,1.21-4.9,1.82-7.38,1.82H18.45c-.36,0-.61-.24-.61-.6v-.85c0-.36.24-.6.61-.6h33.39c4.78,0,6.9-5.08,6.59-10.16-.3-5.08-2.96-10.16-7.62-10.16h-24.62v-2.06c2.06-3.45,5.02-8.29,7.14-11.07,3.21-4.3,6.47-5.26,15.18-5.44l.24.79c-2.42.85-3.63,1.82-8.17,7.74Z"
+                            />
+                            <path class="cls-2" d="M76.57,56.77v-.91c3.08-.24,8.59-1.15,13.07-2.48v23.41h5.32c.36,0,.61.24.61.6v.85c0,.36-.24.6-.61.6h-24.62c-.36,0-.6-.24-.6-.6v-.85c0-.36.24-.6.6-.6h10.65v-14.03c0-5.02-.36-5.57-4.42-5.99ZM75.18,82.91c2.36,0,4.17,1.75,4.17,4.11s-1.82,4.11-4.23,4.11c-2.18,0-4.11-1.87-4.11-4.11,0-2.36,1.94-4.11,4.17-4.11ZM86.37,82.91c2.36,0,4.17,1.75,4.17,4.11s-1.82,4.11-4.23,4.11c-2.18,0-4.11-1.87-4.11-4.11,0-2.36,1.94-4.11,4.17-4.11ZM110.38,82.91c2.36,0,4.17,1.75,4.17,4.11s-1.82,4.11-4.23,4.11c-2.18,0-4.11-1.87-4.11-4.11,0-2.36,1.94-4.11,4.17-4.11Z"
+                            />
+                            <path class="cls-2" d="M101.19,56.77v-.91c3.08-.24,8.59-1.15,13.07-2.48v25.47h-19.3c-.36,0-.6-.24-.6-.6v-.85c0-.36.24-.6.6-.6h10.65v-14.03c0-5.02-.36-5.57-4.42-5.99Z" />
+                            <path class="cls-2" d="M124.96,78.85v-35.21c0-5.02-.36-5.56-4.42-5.99v-.91c3.08-.24,8.59-1.15,13.07-2.48v44.58h-8.65Z" />
+                            <path class="cls-2" d="M147.58,88.59c-3.99,3.93-9.13,5.32-13.25,6.41l-.48-.91c6.9-2.84,10.46-5.5,10.46-18.87v-12.46c0-5.02-.36-5.57-4.42-5.99v-.91c3.08-.24,8.59-1.15,13.07-2.48v15.3c0,8.65-.3,14.88-5.38,19.9Z" />
+                            <path class="cls-2" d="M163.67,78.85v-35.21c0-5.02-.36-5.56-4.42-5.99v-.91c3.08-.24,8.59-1.15,13.07-2.48v44.58h-8.65ZM174.74,31.37l-.85.91h-14.4v-1.21h3.69c-1.39-.91-2.42-2.48-2.42-4.54,0-2.9,2.66-5.32,6.41-5.32,2.6,0,5.2.67,6.05.85.12.55.6,3.93.6,4.3l-.48.12c-.91-3.69-3.57-4.11-5.38-4.11-2,0-3.02,2-3.02,4.66,0,3.33,1.39,4.05,2.84,4.05h6.83l.12.3Z"
+                            />
+                            <path class="cls-2" d="M202.02,76.55c0,6.53,2.24,12.58,8.77,12.76,6.41.24,7.68-4.66,7.68-11.01v-15.55c0-5.02-.36-5.57-4.42-5.99v-.91c3.08-.24,8.59-1.15,13.07-2.48v23.41h5.32c.36,0,.6.24.6.6v.85c0,.36-.24.6-.6.6h-5.32c0,8.47-8.59,12.28-16.7,12.28-10.28,0-16.76-5.38-16.76-12.7,0-8.11,7.98-12.1,13.97-14.03l.18.79c-3.33,2.24-5.81,5.2-5.81,11.37Z"
+                            />
+                            <path class="cls-2" d="M241.7,71.05v-5.93c0-10.1,9.13-14.82,15.97-14.82,9.62,0,16.39,6.23,16.39,13.79,0,9.8-8.71,14.76-16.39,14.76-3.75,0-6.83-.91-9.32-2.3-1.45,1.57-3.75,2.3-6.77,2.3h-9.13c-.36,0-.6-.24-.6-.6v-.85c0-.36.24-.6.6-.6h5.02c1.69,0,3.99-.91,4.23-5.75ZM249.8,74.01c2.78,2,6.05,2.78,8.47,2.78,3.69,0,6.53-2.84,6.53-11.49,0-6.78-2.54-12.95-7.74-12.95-3.93,0-6.71,4.23-6.71,10.77v6.9c0,1.57-.18,2.9-.54,3.99Z"
+                            />
+                            <path class="cls-2" d="M309.8,76.8h28.85v-14.03c0-5.02-.36-5.57-4.42-5.99v-.91c3.08-.24,8.59-1.15,13.07-2.48v25.47h-36.9c-7.68,0-16.39-4.96-16.39-14.76,0-5.02-.36-5.57-4.42-5.99v-.91c3.08-.24,8.59-1.15,13.07-2.48v10.59c0,8.65,3.45,11.49,7.14,11.49ZM316.28,40.32c2.36,0,4.17,1.75,4.17,4.11s-1.82,4.11-4.23,4.11c-2.18,0-4.11-1.87-4.11-4.11,0-2.36,1.94-4.11,4.17-4.11ZM209.81,40.32c2.36,0,4.17,1.75,4.17,4.11s-1.82,4.11-4.23,4.11c-2.18,0-4.11-1.87-4.11-4.11,0-2.36,1.94-4.11,4.17-4.11ZM327.47,40.32c2.36,0,4.17,1.75,4.17,4.11s-1.81,4.11-4.23,4.11c-2.18,0-4.11-1.87-4.11-4.11,0-2.36,1.94-4.11,4.17-4.11Z"
+                            />
+                            <path class="cls-2" d="M357.95,78.85v-35.21c0-5.02-.36-5.56-4.42-5.99v-.91c3.08-.24,8.59-1.15,13.07-2.48v44.58h-8.65Z" />
+                            <path class="cls-2" d="M380.57,88.59c-3.99,3.93-9.13,5.32-13.25,6.41l-.48-.91c6.9-2.84,10.46-5.5,10.46-18.87v-12.46c0-5.02-.36-5.57-4.42-5.99v-.91c3.08-.24,8.59-1.15,13.07-2.48v15.3c0,8.65-.3,14.88-5.38,19.9Z" />
+                            <path class="cls-2" d="M411.24,77.4v.85c0,.36-.24.6-.6.6h-13.97v-35.21c0-5.02-.36-5.56-4.42-5.99v-.91c3.08-.24,8.59-1.15,13.07-2.48v42.52h5.32c.36,0,.6.24.6.6Z" />
+                            <path class="cls-2" d="M416.86,56.77v-.91c3.08-.24,8.59-1.15,13.07-2.48v23.41h5.32c.36,0,.6.24.6.6v.85c0,.36-.24.6-.6.6h-24.62c-.36,0-.6-.24-.6-.6v-.85c0-.36.24-.6.6-.6h10.65v-14.03c0-5.02-.36-5.57-4.42-5.99ZM418.25,37.78c2.36,0,4.17,1.75,4.17,4.11,0,2.24-1.82,4.11-4.23,4.11-2.18,0-4.11-1.87-4.11-4.11,0-2.36,1.93-4.11,4.17-4.11ZM429.44,37.78c2.36,0,4.17,1.75,4.17,4.11,0,2.24-1.81,4.11-4.23,4.11-2.18,0-4.11-1.87-4.11-4.11,0-2.36,1.94-4.11,4.17-4.11ZM455.17,37.78c2.36,0,4.17,1.75,4.17,4.11,0,2.24-1.81,4.11-4.23,4.11-2.18,0-4.11-1.87-4.11-4.11,0-2.36,1.94-4.11,4.17-4.11Z"
+                            />
+                            <path class="cls-2" d="M434.64,78.25v-.85c0-.36.24-.6.6-.6h28.01c-1.45-1.39-2.24-3.63-2.24-6.78v-2.66c0-9.38-4.36-12.34-9.01-12.34-3.27,0-6.77,1.51-8.95,3.33l-.67-.97c5.02-5.2,10.04-7.32,14.4-7.32,7.44,0,12.89,6.35,12.89,14.76v5.32c0,5.57,2.42,6.65,4.23,6.65h.12c.36,0,.6.24.6.6v.85c0,.36-.24.6-.6.6h-38.77c-.36,0-.6-.24-.6-.6Z"
+                            />
+                            <path class="cls-2" d="M483.27,71.05v-5.93c0-10.1,9.13-14.82,15.97-14.82,9.62,0,16.39,6.23,16.39,13.79,0,9.8-8.71,14.76-16.39,14.76-3.75,0-6.83-.91-9.32-2.3-1.45,1.57-3.75,2.3-6.77,2.3h-9.13c-.36,0-.6-.24-.6-.6v-.85c0-.36.24-.6.6-.6h5.02c1.69,0,3.99-.91,4.23-5.75ZM491.38,74.01c2.78,2,6.05,2.78,8.47,2.78,3.69,0,6.53-2.84,6.53-11.49,0-6.78-2.54-12.95-7.74-12.95-3.93,0-6.71,4.23-6.71,10.77v6.9c0,1.57-.18,2.9-.54,3.99Z"
+                            />
+                        </g>
+                    </svg>
+                </a>
+            </div>
+            <button type="button" class="menu-toggle" id="menuToggle">
+                <svg class="toggle-icon" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24.518" height="16.395" viewBox="0 0 24.518 16.395">
+                    <defs>
+                        <clipPath id="clip-path">
+                            <rect id="Rectangle_2" data-name="Rectangle 2" width="24.518" height="16.395" transform="translate(0 0)" fill="none" />
+                        </clipPath>
+                    </defs>
+                    <g id="Group_3" data-name="Group 3" transform="translate(0 0)" clip-path="url(#clip-path)">
+                        <line id="Line_1" data-name="Line 1" x2="21.518" transform="translate(1.5 1.5)" fill="none" stroke="#05284c" stroke-linecap="round" stroke-linejoin="round" stroke-width="3" />
+                        <line id="Line_2" data-name="Line 2" x2="21.518" transform="translate(1.5 14.895)" fill="none" stroke="#05284c" stroke-linecap="round" stroke-linejoin="round" stroke-width="3" />
+                    </g>
+                </svg>
+            </button>
 
-  <!-- <div class="figtitle">Images Title</div> -->
+            <div class="arabica_nav" id="navMenu">
+                <ul>
+                    <li><a href="about.html">حول الموسوعة</a></li>
+                    <li><a href="stages.html">منهجية العمل</a></li>
+                    <li><a href="editors.html">المحررون العلميون</a></li>
+                    <li><a href="entries.html">المداخل الموسوعية</a></li>
+                    <li><a href="news.html">الأخبار</a></li>
+                    <li><a href="contribute.html">ساهم في أرابيكا</a></li>
+                </ul>
+            </div>
+        </div>
+    </header>
 
-  <div class="arabica_article-gallery-container">
-    
-    <!-- Image 1 -->
-    <div class="arabica_article-image-gallery">
-      <a href="Assets/images/square.jpg">
-        <img src="Assets/images/square.jpg" alt="article image 1" />
-      </a>
-      <figcaption>صورة 0</figcaption>
+    <!-- Content Start -->
+    <div class="arabica_main-wrapper">
+        <h1 id="h1-off">Arabica Picks Homepage</h1>
+        <div class="arabica_slider">
+            <div class="arabica_slides">
+                <!-- Slider Begin -->
+                <div class="arabica_slide">
+                    <img class="arabica-lazy" data-src="Assets/images/shutterstock_2477652549.jpg" alt="Slide 1" />
+                    <div class="arabica_slide-content">
+                        <div>
+                            <div class="arabica_additional-info arabica_container">
+                                <a href="entries.html" class="arabica_tag">تاريخ</a>
+                                <h2><a href="single-article.html">معركة أبو قير</a></h2>
+                                <span class="arabica_date">25 يوليو 1799</span>
+                                <span class="arabica_author">
+                    <a href="entries.html">إبراهيم حسنين</a>
+                  </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="arabica_slide">
+                    <img class="arabica-lazy" data-src="Assets/images/الإعلان العالمي لحقوق الإنسان.jpg" alt="Slide 2" />
+                    <div class="arabica_slide-content">
+                        <div>
+                            <div class="arabica_additional-info arabica_container">
+                                <a href="entries.html" class="arabica_tag">أحداث</a>
+                                <h2><a href="single-article.html">حصار الطائف</a></h2>
+                                <span class="arabica_date">23 سبتمبر 1813</span>
+                                <span class="arabica_author">
+                    <a href="entries.html">عبد الرحمن الطحاوي</a>
+                  </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="arabica_slide">
+                    <img class="arabica-lazy" data-src="https://harbyj.github.io/arabica/Assets/images/slider-img3.jpg" alt="Slide 3" />
+                    <div class="arabica_slide-content">
+                        <div>
+                            <div class="arabica_additional-info arabica_container">
+                                <a href="entries.html" class="arabica_tag">معارك</a>
+                                <h2><a href="single-article.html">معركة المريقب</a></h2>
+                                <span class="arabica_date">12 نوفمبر 1842</span>
+                                <span class="arabica_author">
+                    <a href="entries.html">خالد الزهراني</a>
+                  </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="arabica_slide">
+                    <img class="arabica-lazy" data-src="https://harbyj.github.io/arabica/Assets/images/slider-img4.jpg" alt="Slide 4" />
+                    <div class="arabica_slide-content">
+                        <div>
+                            <div class="arabica_additional-info arabica_container">
+                                <a href="entries.html" class="arabica_tag">تاريخ</a>
+                                <h2>
+                    <a href="single-article.html">حملة محمد علي على السودان</a>
+                  </h2>
+                                <span class="arabica_date">5 مايو 1820</span>
+                                <span class="arabica_author">
+                    <a href="entries.html">ياسين الفهري</a>
+                  </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Slider End -->
+            </div>
+            <div class="arabica_slider-buttons"></div>
+        </div>
+
+        <div class="arabica_main-about">
+            <div>
+                <div class="arabica_fit-container arabica_container">
+                    <h2 class="arabica_title">الموسوعة العربية - أرابيكا</h2>
+                    <p>
+الموسوعة العربية مشروع نهضوي طموح يهدف إلى إنشاء مصدر شامل وموثوق للمعارف، يوفّر مرجعًا للقارئ العربي. تغطي الموسوعة فروع المعرفة في العلوم والفنون والآداب والأديان والفكر والفلسفة والاقتصاد، والمعلومات العامة التاريخية والجغرافية والديموغرافية وغيرها، وتولي اهتمامًا خاصًا للحضارة الإسلامية والبلدان العربية. يهدف المشروع إلى إنتاج موسوعة رقمية عامة تكون متاحة بولوجٍ مفتوحٍ لكل من يبحث عن معارف موثوقة باللغة العربية. يؤلف مقالات الموسوعة علماء وباحثون من مختلف الاختصاصات ويوقّعونها بأسمائهم.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div>
+            <div class="arabica_fit-container arabica_container">
+                <div class="arabica_card-container">
+                    <a href="editors.html" class="arabica_card">
+                        <div class="arabica_icon">
+                            <i class="fa-light fa-newspaper"></i>
+                        </div>
+                        <span class="arabica_text">المحررون العلميون</span>
+                    </a>
+                    <a href="entries.html" class="arabica_card">
+                        <div class="arabica_icon">
+                            <i class="fa-light fa-book-atlas"></i>
+                        </div>
+                        <span class="arabica_text">المداخل الموسوعية</span>
+                    </a>
+                    <a href="contribute.html" class="arabica_card">
+                        <div class="arabica_icon">
+                            <i class="fa-light fa-file-circle-plus"></i>
+                        </div>
+                        <span class="arabica_text">ساهم معنا</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="arabica_featured">
+            <div class="arabica_fit-container arabica_container">
+                <h2 class="arabica_featured-title">اخترنا لكم</h2>
+                <div class="arabica_featured-content featured-posts">
+                    <div class="arabica_featured-article">
+                        <h3 class="arabica_featured-article-title arabica-mobile-tab">
+                <a href="art01.html">التوحيد (في علم الكلام) </a>
+              </h3>
+                        <div class="arabica_featured-article-inner">
+                            <div class="arabica_featured-article-image arabica_post-image">
+                                <a href="art01.html"><img class="arabica-lazy" data-src="https://harbyj.github.io/arabica/Assets/images/Monotheism.jpg" alt="العلم" /></a>
+                                <a href="entries.html" class="arabica_featured-article-category">علم اللاهوت</a
+                  >
+                </div>
+                <div class="arabica_featured-article-content">
+                  <span class="arabica_featured-article-title arabica-desktop">
+                    <a href="art01.html">التوحيد (في علم الكلام) </a>
+                                </span>
+                                <div class="arabica_featured-article-author">
+                                    <!-- Author 1 -->
+                                      <span class="arabica_author"><a href="entries.html">رائد السمهوري </a> </span>
+                                      <!-- Author 2 -->
+                                       <span class="arabica_author"><a href="entries.html">رائد السمهوري </a></span>
+                  </div>
+                  <p class="arabica_featured-article-text">
+                    التوحيد هو الإيمان بوحدانية الله وأنه وحده يستحق العبادة،
+                    ويعد الركن الأول في الإسلام. يشترك جميع المسلمين في هذا
+                    الاعتقاد، إذ لا يصح الإسلام بدونه. ويُسمى من يؤمن بتعدد
+                    الآلهة "مشركًا". رغم الاتفاق على المعنى العام للتوحيد، فقد
+                    اختلف العلماء في تفاصيله، خاصة في مسائل الأسماء والصفات
+                    وأفعال الله والعباد.
+                  </p>
+                  <div class="arabica_featured-article-actions">
+                    <a href="art01.html" class="arabica_featured-article-button"
+                      >إقرأ المزيد</a
+                    >
+                    <div class="arabica_featured-article-share">
+                      <span
+                        class="arabica_share-link"
+                        data-share-title="توجيه الدواء"
+                        data-share-url="art01.html"
+                        ><i class="fa-light fa-share"></i> شارك</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="arabica_featured-article">
+                    <h3 class="arabica_featured-article-title arabica-mobile-tab">
+                <a href="single-article.html">توجيه الدواء</a>
+              </h3>
+
+                    <div class="arabica_featured-article-inner">
+                        <div class="arabica_featured-article-image arabica_post-image">
+                            <a href="single-article.html"><img class="arabica-lazy" data-src="https://harbyj.github.io/arabica/Assets/images/post-img2.jpg" alt="الكيمياء" /></a>
+                            <a href="entries.html" class="arabica_featured-article-category">الإسلام وعلومه</a
+                  >
+                </div>
+                <div class="arabica_featured-article-content">
+                  <span class="arabica_featured-article-title arabica-desktop">
+                    <a href="single-article.html">توجيه الدواء</a>
+                            </span>
+                            <div class="arabica_featured-article-author">
+                                <i class="fa-light fa-user"></i
+                    ><span class="arabica_author"
+                      ><a href="entries.html">إبراهيم حسن</a></span
+                    >
+                  </div>
+                  <p class="arabica_featured-article-text">
+                    محمد محمد مرسي عيسى العياط (8 أغسطس 1951 – 17 يونيو 2019)،
+                    مهندس فلزات، وأستاذ جامعي، وسياسي مصري وهو الرئيس الخامس
+                    لجمهورية مصر العربية[8] والأول بعد ثورة 25 يناير وهو أول
+                    رئيس مدني منتخب للبلاد وأول.
+                  </p>
+                  <div class="arabica_featured-article-actions">
+                    <a
+                      href="single-article.html"
+                      class="arabica_featured-article-button"
+                      >إقرأ المزيد</a
+                    >
+                    <div class="arabica_featured-article-share">
+                      <span
+                        class="arabica_share-link"
+                        data-share-title="توجيه الدواء"
+                        data-share-url="single-article.html"
+                        ><i class="fa-light fa-share"></i> شارك</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="arabica_featured-article">
+                <h3 class="arabica_featured-article-title arabica-mobile-tab">
+                <a href="single-article.html">علم الفلك في الحضارة الإسلامية</a>
+              </h3>
+                <div class="arabica_featured-article-inner">
+                    <div class="arabica_featured-article-image arabica_post-image">
+                        <a href="single-article.html"><img class="arabica-lazy" data-src="https://harbyj.github.io/arabica/Assets/images/post-img3.jpg" alt="العلم" /></a>
+                        <a href="entries.html" class="arabica_featured-article-category">العلوم الرياضية والفيزياء</a
+                  >
+                </div>
+                <div class="arabica_featured-article-content">
+                  <span class="arabica_featured-article-title arabica-desktop">
+                    <a href="single-article.html"
+                      >علم الفلك في الحضارة الإسلامية</a
+                    >
+                  </span>
+                  <div class="arabica_featured-article-author">
+                    <i class="fa-light fa-user"></i
+                    ><span class="arabica_author"
+                      ><a href="entries.html">إبراهيم حسن</a></span><span class="arabica_author-role">
+                      مدرس مساعد للتراث التطبيقي في جامعة بغداد
+                    </span>
+                    </div>
+                    <p class="arabica_featured-article-text">
+                        محمد محمد مرسي عيسى العياط (8 أغسطس 1951 – 17 يونيو 2019)، مهندس فلزات، وأستاذ جامعي، وصدر عن المركز العربي للأبحاث ودراسة السياسات كتاب اقتصاديات الطاقة المتجددة في ألمانيا ومصر والعراق، للكاتب هيثم عبد الله سلمان. ويأتي هذا الكتاب الذي يشتمل على 360
+                        صفحةً من القطع الكبير في وقت تشغل فيه مسألة الطاقة المتجددة .
+                    </p>
+                    <div class="arabica_featured-article-actions">
+                        <a href="single-article.html" class="arabica_featured-article-button">إقرأ المزيد</a
+                    >
+                    <div class="arabica_featured-article-share">
+                      <span
+                        class="arabica_share-link"
+                        data-share-title="توجيه الدواء"
+                        data-share-url="single-article.html"
+                        ><i class="fa-light fa-share"></i> شارك</a
+                      >
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="arabica_featured-article">
+              <h3 class="arabica_featured-article-title arabica-mobile-tab">
+                <a href="single-article.html">توجيه الدواء</a>
+                        </h3>
+
+                        <div class="arabica_featured-article-inner">
+                            <div class="arabica_featured-article-image arabica_post-image">
+                                <a href="single-article.html"><img class="arabica-lazy" data-src="https://harbyj.github.io/arabica/Assets/images/post-img4.jpg" alt="الكيمياء" /></a>
+                                <a href="entries.html" class="arabica_featured-article-category">الإسلام وعلومه</a
+                  >
+                </div>
+                <div class="arabica_featured-article-content">
+                  <span class="arabica_featured-article-title arabica-desktop">
+                    <a href="single-article.html">توجيه الدواء</a>
+                                </span>
+                                <div class="arabica_featured-article-author">
+                                    <i class="fa-light fa-user"></i
+                    ><span class="arabica_author"
+                      ><a href="entries.html">إبراهيم حسن</a></span
+                    ><span class="arabica_author-role">
+                      مدرس مساعد للتراث التطبيقي في جامعة بغداد</span
+                    >
+                  </div>
+                  <p class="arabica_featured-article-text">
+                    محمد محمد مرسي عيسى العياط (8 أغسطس 1951 – 17 يونيو 2019)،
+                    مهندس فلزات، وأستاذ جامعي، وسياسي مصري وهو الرئيس الخامس
+                    لجمهورية مصر العربية[8] والأول بعد ثورة 25 يناير وهو أول
+                    رئيس مدني منتخب للبلاد وأول.
+                  </p>
+                  <div class="arabica_featured-article-actions">
+                    <a
+                      href="single-article.html"
+                      class="arabica_featured-article-button"
+                      >إقرأ المزيد</a
+                    >
+                    <div class="arabica_featured-article-share">
+                      <span
+                        class="arabica_share-link"
+                        data-share-title="توجيه الدواء"
+                        data-share-url="single-article.html"
+                        ><i class="fa-light fa-share"></i> شارك</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="arabica_featured-pager">
+                <a href="#" class="arabica_icon arabica_load-more" id="loadMoreBtn">
+                    <i class="fa-regular fa-plus"></i>
+                    <i class="fa-regular fa-minus"></i>
+                    <span class="arabica_loading-icon"></span>
+                    <!-- Hidden by default -->
+                </a>
+            </div>
+        </div>
     </div>
 
-    <!-- Image 2 -->
-    <div class="arabica_article-image-gallery">
-      <a href="Assets/images/Siyassat51-2021-Cover.png">
-        <img src="Assets/images/Siyassat51-2021-Cover.png" alt="article image 2" />
-      </a>
-      <figcaption>صورة 1</figcaption>
-    </div>
+    <div class="arabica_short">
+        <div class="arabica_fit-container arabica_container">
+            <h2 class="arabica_featured-title">مداخل قصيرة</h2>
 
-    <!-- Image 3 -->
-    <div class="arabica_article-image-gallery">
-      <a href="Assets/images/slider-img1.jpg">
-        <img src="Assets/images/slider-img1.jpg" alt="article image 3" />
-      </a>
-      <figcaption>صورة 2</figcaption>
-    </div>
+            <div class="arabica_featured-content short-posts">
+                <div class="arabica_short-article">
+                    <div class="arabica_short-article-inner">
+                        <div class="arabica_short-article-image arabica_post-image">
+                            <a href="single-article.html"><img class="arabica-lazy" data-src="https://harbyj.github.io/arabica/Assets/images/post-img3.jpg" alt="العلم" /></a>
+                            <a href="entries.html" class="arabica_featured-article-category">العلوم الرياضية والفيزياء</a
+                  >
+                </div>
+                <div class="arabica_featured-article-content">
+                  <h3 class="arabica_featured-article-title">
+                    <a href="single-article.html"
+                      >علم الفلك في الحضارة الإسلامية</a
+                    >
+                  </h3>
 
-    <!-- Image 4 -->
-    <div class="arabica_article-image-gallery">
-      <a href="Assets/images/slider-img2.jpg">
-        <img src="Assets/images/slider-img2.jpg" alt="article image 4" />
-      </a>
-      <figcaption>صورة 3</figcaption>
-    </div>
+                  <div class="arabica_featured-article-author">
+                    <i class="fa-light fa-user"></i
+                    ><span class="arabica_author"
+                      ><a href="entries.html">إبراهيم حسن</a><a href="entries.html">إبراهيم حسن</a></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-    <!-- Add more images as needed -->
+            <div class="arabica_short-article">
+                <div class="arabica_short-article-inner">
+                    <div class="arabica_short-article-image arabica_post-image">
+                        <a href="single-article.html"><img class="arabica-lazy" data-src="" alt="الكيمياء" /></a>
+                        <a href="entries.html" class="arabica_featured-article-category">الإسلام وعلومه</a
+                  >
+                </div>
+                <div class="arabica_featured-article-content">
+                  <h3 class="arabica_featured-article-title">
+                    <a href="single-article.html">توجيه الدواء</a>
+                        </h3>
+                        <div class="arabica_featured-article-author">
+                            <i class="fa-light fa-user"></i
+                    ><span class="arabica_author"
+                      ><a href="entries.html">إبراهيم حسن</a></span
+                    >
+                  </div>
+                </div>
+              </div>
+            </div>
 
-  </div>
-</div>
+            <div class="arabica_short-article">
+              <div class="arabica_short-article-inner">
+                <div class="arabica_short-article-image arabica_post-image">
+                  <a href="single-article.html"
+                    ><img class="arabica-lazy" data-src="https://harbyj.github.io/arabica/Assets/images/post-img5.jpg" alt="العلم"
+                  /></a>
+                  <a
+                    href="entries.html"
+                    class="arabica_featured-article-category"
+                    >العلوم الرياضية والفيزياء</a
+                  >
+                </div>
+                <div class="arabica_featured-article-content">
+                  <h3 class="arabica_featured-article-title">
+                    <a href="single-article.html"
+                      >علم الفلك في الحضارة الإسلامية</a
+                    >
+                  </h3>
 
-<hr/>
-             
+                  <div class="arabica_featured-article-author">
+                    <i class="fa-light fa-user"></i
+                    ><span class="arabica_author"
+                      ><a href="entries.html">إبراهيم حسن</a></span
+                    >
+                  </div>
+                </div>
+              </div>
+            </div>
 
-Gallery 2: Show max 4 image on post then scroller if more than 4 (in tab and desktop view), show normal gallery on mobile
+            <div class="arabica_short-article">
+              <div class="arabica_short-article-inner">
+                <div class="arabica_short-article-image arabica_post-image">
+                  <a href="single-article.html"
+                    ><img class="arabica-lazy" data-src="https://harbyj.github.io/arabica/Assets/images/post-img3.jpg" alt="الكيمياء"
+                  /></a>
+                  <a
+                    href="entries.html"
+                    class="arabica_featured-article-category"
+                    >الإسلام وعلومه</a
+                  >
+                </div>
+                <div class="arabica_featured-article-content">
+                  <h3 class="arabica_featured-article-title">
+                    <a href="single-article.html">توجيه الدواء</a>
+                  </h3>
+                  <div class="arabica_featured-article-author">
+                    <i class="fa-light fa-user"></i
+                    ><span class="arabica_author"
+                      ><a href="entries.html">إبراهيم حسن</a></span
+                    >
+                  </div>
+                </div>
+              </div>
+            </div>
 
-<!-- Gallery 2 Container -->
-<div class="arabica_article-image">
-  <!-- 
-    Optional Modifier:
-    - Add `vertical-image` only if all images are vertical.
-  -->
+            <div class="arabica_short-article">
+              <div class="arabica_short-article-inner">
+                <div class="arabica_short-article-image arabica_post-image">
+                  <a href="single-article.html"
+                    ><img class="arabica-lazy" data-src="https://harbyj.github.io/arabica/Assets/images/post-img4.jpg" alt="العلم"
+                  /></a>
+                  <a
+                    href="entries.html"
+                    class="arabica_featured-article-category"
+                    >العلوم الرياضية والفيزياء</a
+                  >
+                </div>
+                <div class="arabica_featured-article-content">
+                  <h3 class="arabica_featured-article-title">
+                    <a href="single-article.html"
+                      >علم الفلك في الحضارة الإسلامية</a
+                    >
+                  </h3>
 
-  <!-- <div class="figtitle">Images Title</div> -->
+                  <div class="arabica_featured-article-author">
+                    <i class="fa-light fa-user"></i
+                    ><span class="arabica_author"
+                      ><a href="entries.html">إبراهيم حسن</a></span
+                    >
+                  </div>
+                </div>
+              </div>
+            </div>
 
-  <div class="arabica_article-gallery-container">
-    
-    <!-- Image 1 -->
-    <div class="arabica_article-mobile-gallery">
-      <a href="Assets/images/Circle Structure-01.svg">
-        <img src="Assets/images/Circle Structure-01.svg" alt="الدائرة" style="width: 100%;" />
-      </a>
-      <figcaption>الدائرة</figcaption>
-    </div>
+            <div class="arabica_short-article">
+              <div class="arabica_short-article-inner">
+                <div class="arabica_short-article-image arabica_post-image">
+                  <a href="single-article.html"
+                    ><img class="arabica-lazy" data-src="https://harbyj.github.io/arabica/Assets/images/post-img5.jpg" alt="الكيمياء"
+                  /></a>
+                  <a
+                    href="entries.html"
+                    class="arabica_featured-article-category"
+                    >الإسلام وعلومه</a
+                  >
+                </div>
+                <div class="arabica_featured-article-content">
+                  <h3 class="arabica_featured-article-title">
+                    <a href="single-article.html">توجيه الدواء</a>
+                  </h3>
+                  <div class="arabica_featured-article-author">
+                    <i class="fa-light fa-user"></i
+                    ><span class="arabica_author"
+                      ><a href="entries.html">إبراهيم حسن</a></span
+                    >
+                  </div>
+                </div>
+              </div>
+            </div>
 
-    <!-- Image 2 -->
-    <div class="arabica_article-mobile-gallery">
-      <a href="Assets/images/Circle Structure-02.svg">
-        <img src="Assets/images/Circle Structure-02.svg" alt="القطع الناقص" style="width: 100%;" />
-      </a>
-      <figcaption>القطع الناقص</figcaption>
-    </div>
+            <div class="arabica_short-article">
+              <div class="arabica_short-article-inner">
+                <div class="arabica_short-article-image arabica_post-image">
+                  <a href="single-article.html"
+                    ><img class="arabica-lazy" data-src="https://harbyj.github.io/arabica/Assets/images/post-img1.jpg" alt="العلم"
+                  /></a>
+                  <a
+                    href="entries.html"
+                    class="arabica_featured-article-category"
+                    >العلوم الرياضية والفيزياء</a
+                  >
+                </div>
+                <div class="arabica_featured-article-content">
+                  <h3 class="arabica_featured-article-title">
+                    <a href="single-article.html"
+                      >علم الفلك في الحضارة الإسلامية</a
+                    >
+                  </h3>
 
-    <!-- Image 3 -->
-    <div class="arabica_article-mobile-gallery">
-      <a href="Assets/images/Circle Structure-03.svg">
-        <img src="Assets/images/Circle Structure-03.svg" alt="القطع المكافئ" style="width: 100%;" />
-      </a>
-      <figcaption>القطع المكافئ</figcaption>
-    </div>
+                  <div class="arabica_featured-article-author">
+                    <i class="fa-light fa-user"></i
+                    ><span class="arabica_author"
+                      ><a href="entries.html">إبراهيم حسن</a></span
+                    >
+                  </div>
+                </div>
+              </div>
+            </div>
 
-    <!-- Image 4 -->
-    <div class="arabica_article-mobile-gallery">
-      <a href="Assets/images/Circle Structure-04.svg">
-        <img src="Assets/images/Circle Structure-04.svg" alt="القطع الزائد" style="width: 100%;" />
-      </a>
-      <figcaption>القطع الزائد</figcaption>
-    </div>
+            <div class="arabica_short-article">
+              <div class="arabica_short-article-inner">
+                <div class="arabica_short-article-image arabica_post-image">
+                  <a href="single-article.html"
+                    ><img class="arabica-lazy" data-src="https://harbyj.github.io/arabica/Assets/images/post-img2.jpg" alt="الكيمياء"
+                  /></a>
+                  <a
+                    href="entries.html"
+                    class="arabica_featured-article-category"
+                    >الإسلام وعلومه</a
+                  >
+                </div>
+                <div class="arabica_featured-article-content">
+                  <h3 class="arabica_featured-article-title">
+                    <a href="single-article.html">توجيه الدواء</a>
+                  </h3>
+                  <div class="arabica_featured-article-author">
+                    <i class="fa-light fa-user"></i
+                    ><span class="arabica_author"
+                      ><a href="entries.html">إبراهيم حسن</a></span
+                    >
+                  </div>
+                </div>
+              </div>
+            </div>
 
-    <!-- Add more images as needed -->
+            <div class="arabica_short-article">
+              <div class="arabica_short-article-inner">
+                <div class="arabica_short-article-image arabica_post-image">
+                  <a href="single-article.html"
+                    ><img class="arabica-lazy" data-src="https://harbyj.github.io/arabica/Assets/images/post-img3.jpg" alt="العلم"
+                  /></a>
+                  <a
+                    href="entries.html"
+                    class="arabica_featured-article-category"
+                    >العلوم الرياضية والفيزياء</a
+                  >
+                </div>
+                <div class="arabica_featured-article-content">
+                  <h3 class="arabica_featured-article-title">
+                    <a href="single-article.html"
+                      >علم الفلك في الحضارة الإسلامية</a
+                    >
+                  </h3>
 
-  </div>
-</div>
+                  <div class="arabica_featured-article-author">
+                    <i class="fa-light fa-user"></i
+                    ><span class="arabica_author"
+                      ><a href="entries.html">إبراهيم حسن</a></span
+                    >
+                  </div>
+                </div>
+              </div>
+            </div>
 
+            <div class="arabica_short-article">
+              <div class="arabica_short-article-inner">
+                <div class="arabica_short-article-image arabica_post-image">
+                  <a href="single-article.html"
+                    ><img class="arabica-lazy" data-src="https://harbyj.github.io/arabica/Assets/images/post-img4.jpg" alt="الكيمياء"
+                  /></a>
+                  <a
+                    href="entries.html"
+                    class="arabica_featured-article-category"
+                    >الإسلام وعلومه</a
+                  >
+                </div>
+                <div class="arabica_featured-article-content">
+                  <h3 class="arabica_featured-article-title">
+                    <a href="single-article.html">توجيه الدواء</a>
+                  </h3>
+                  <div class="arabica_featured-article-author">
+                    <i class="fa-light fa-user"></i
+                    ><span class="arabica_author"
+                      ><a href="entries.html">إبراهيم حسن</a></span
+                    >
+                  </div>
+                </div>
+              </div>
+            </div>
 
-<br/>
-Difference in the two:
-Gallery 1 uses class 'arabica_article-image-gallery' to wrap the images
-<br/>
-Gallery 2 uses class 'arabica_article-mobile-gallery' to wrap the images
-</div>
+            <div class="arabica_short-article">
+              <div class="arabica_short-article-inner">
+                <div class="arabica_short-article-image arabica_post-image">
+                  <a href="single-article.html"
+                    ><img class="arabica-lazy" data-src="https://harbyj.github.io/arabica/Assets/images/post-img5.jpg" alt="العلم"
+                  /></a>
+                  <a
+                    href="entries.html"
+                    class="arabica_featured-article-category"
+                    >العلوم الرياضية والفيزياء</a
+                  >
+                </div>
+                <div class="arabica_featured-article-content">
+                  <h3 class="arabica_featured-article-title">
+                    <a href="single-article.html"
+                      >علم الفلك في الحضارة الإسلامية</a
+                    >
+                  </h3>
 
-        <script src="Assets/js/singleitem-lightbox.js"></script>
+                  <div class="arabica_featured-article-author">
+                    <i class="fa-light fa-user"></i
+                    ><span class="arabica_author"
+                      ><a href="entries.html">إبراهيم حسن</a></span
+                    >
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="arabica_short-article">
+              <div class="arabica_short-article-inner">
+                <div class="arabica_short-article-image arabica_post-image">
+                  <a href="single-article.html"
+                    ><img class="arabica-lazy" data-src="https://harbyj.github.io/arabica/Assets/images/post-img6.jpg" alt="الكيمياء"
+                  /></a>
+                  <a
+                    href="entries.html"
+                    class="arabica_featured-article-category"
+                    >الإسلام وعلومه</a
+                  >
+                </div>
+                <div class="arabica_featured-article-content">
+                  <h3 class="arabica_featured-article-title">
+                    <a href="single-article.html">توجيه الدواء</a>
+                  </h3>
+                  <div class="arabica_featured-article-author">
+                    <i class="fa-light fa-user"></i
+                    ><span class="arabica_author"
+                      ><a href="entries.html">إبراهيم حسن</a></span
+                    >
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="arabica_short-pager">
+            <a
+              href="#"
+              class="arabica_icon arabica_load-more"
+              id="loadMoreBtn2"
+            >
+              <i class="fa-regular fa-plus"></i>
+                            <i class="fa-regular fa-minus"></i>
+                            <span class="arabica_loading-icon"></span>
+                            <!-- Hidden by default -->
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="arabica_latest">
+                    <div class="arabica_fit-container arabica_container">
+                        <h2 class="arabica_featured-title">أحدث المداخل</h2>
+                        <div class="arabica_featured-content latest-posts">
+                            <div class="arabica_latest-article">
+                                <div class="arabica_latest-article-inner">
+                                    <div class="arabica_latest-article-image arabica_post-image">
+                                        <a href="single-article.html">
+                                            <img class="arabica-lazy" data-src="https://harbyj.github.io/arabica/Assets/images/post-img1.jpg" alt="عن الاسلامية ومظاهرات الطلاب" />
+                                        </a>
+                                    </div>
+                                    <div class="arabica_latest-article-content">
+                                        <span class="arabica_latest-article-category">
+                    <a href="entries.html">الفلسفة والفكر العربي الحديث</a>
+                  </span>
+                                        <h3 class="arabica_latest-article-title">
+                    <a href="single-article.html"
+                      >عن الاسلامية ومظاهرات الطلاب</a
+                    >
+                  </h3>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="arabica_latest-article">
+                                <div class="arabica_latest-article-inner">
+                                    <div class="arabica_latest-article-image arabica_post-image">
+                                        <a href="single-article.html">
+                                            <img class="arabica-lazy" data-src="https://harbyj.github.io/arabica/Assets/images/post-img2.jpg" alt="زنوبيا وحضارة تدمر" />
+                                        </a>
+                                    </div>
+                                    <div class="arabica_latest-article-content">
+                                        <span class="arabica_latest-article-category">
+                    <a href="entries.html">التاريخ والآثار</a>
+                  </span>
+                                        <h3 class="arabica_latest-article-title">
+                    <a href="single-article.html">زنوبيا وحضارة تدمر</a>
+                  </h3>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="arabica_latest-article">
+                                <div class="arabica_latest-article-inner">
+                                    <div class="arabica_latest-article-image arabica_post-image">
+                                        <a href="single-article.html">
+                                            <img class="arabica-lazy" data-src="https://harbyj.github.io/arabica/Assets/images/post-img3.jpg" alt="العلاقات الخليجية السورية" />
+                                        </a>
+                                    </div>
+                                    <div class="arabica_latest-article-content">
+                                        <span class="arabica_latest-article-category">
+                    <a href="entries.html">العلوم الاجتماعية</a>
+                  </span>
+                                        <h3 class="arabica_latest-article-title">
+                    <a href="single-article.html">العلاقات الخليجية السورية</a>
+                  </h3>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="arabica_latest-article">
+                                <div class="arabica_latest-article-inner">
+                                    <div class="arabica_latest-article-image arabica_post-image">
+                                        <a href="single-article.html">
+                                            <img class="arabica-lazy" data-src="https://harbyj.github.io/arabica/Assets/images/post-img4.jpg" alt="محمد مرسي الحبط" />
+                                        </a>
+                                    </div>
+                                    <div class="arabica_latest-article-content">
+                                        <span class="arabica_latest-article-category">
+                    <a href="entries.html">العلوم الاجتماعية</a>
+                  </span>
+                                        <h3 class="arabica_latest-article-title">
+                    <a href="single-article.html">محمد مرسي الحبط</a>
+                  </h3>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="arabica_latest-article">
+                                <div class="arabica_latest-article-inner">
+                                    <div class="arabica_latest-article-image arabica_post-image">
+                                        <a href="single-article.html">
+                                            <img class="arabica-lazy" data-src="https://harbyj.github.io/arabica/Assets/images/post-img5.jpg" alt="عن الاسلامية ومظاهرات الطلاب" />
+                                        </a>
+                                    </div>
+                                    <div class="arabica_latest-article-content">
+                                        <span class="arabica_latest-article-category">
+                    <a href="entries.html">الفنون</a>
+                  </span>
+                                        <h3 class="arabica_latest-article-title">
+                    <a href="single-article.html"
+                      >عن الاسلامية ومظاهرات الطلاب</a
+                    >
+                  </h3>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="arabica_latest-article">
+                                <div class="arabica_latest-article-inner">
+                                    <div class="arabica_latest-article-image arabica_post-image">
+                                        <a href="single-article.html">
+                                            <img class="arabica-lazy" data-src="https://harbyj.github.io/arabica/Assets/images/post-img6.jpg" alt="زنوبيا وحضارة تدمر" />
+                                        </a>
+                                    </div>
+                                    <div class="arabica_latest-article-content">
+                                        <span class="arabica_latest-article-category">
+                    <a href="entries.html">التاريخ والآثار</a>
+                  </span>
+                                        <h3 class="arabica_latest-article-title">
+                    <a href="single-article.html">زنوبيا وحضارة تدمر</a>
+                  </h3>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="arabica_latest-article">
+                                <div class="arabica_latest-article-inner">
+                                    <div class="arabica_latest-article-image arabica_post-image">
+                                        <a href="single-article.html">
+                                            <img class="arabica-lazy" data-src="https://harbyj.github.io/arabica/Assets/images/post-img7.jpg" alt="رفيق الحريري" />
+                                        </a>
+                                    </div>
+                                    <div class="arabica_latest-article-content">
+                                        <span class="arabica_latest-article-category">
+                    <a href="entries.html">العلوم السياسية والعلاقات الدولية</a>
+                  </span>
+                                        <h3 class="arabica_latest-article-title">
+                    <a href="single-article.html">رفيق الحريري</a>
+                  </h3>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="arabica_latest-article">
+                                <div class="arabica_latest-article-inner">
+                                    <div class="arabica_latest-article-image arabica_post-image">
+                                        <a href="single-article.html">
+                                            <img class="arabica-lazy" data-src="https://harbyj.github.io/arabica/Assets/images/post-img8.jpg" alt="ماريا متفائلة" />
+                                        </a>
+                                    </div>
+                                    <div class="arabica_latest-article-content">
+                                        <span class="arabica_latest-article-category">
+                    <a href="entries.html">الاقتصاد والأعمال</a>
+                  </span>
+                                        <h3 class="arabica_latest-article-title">
+                    <a href="single-article.html">ماريا متفائلة</a>
+                  </h3>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="arabica_latest-article">
+                                <div class="arabica_latest-article-inner">
+                                    <div class="arabica_latest-article-image arabica_post-image">
+                                        <a href="single-article.html">
+                                            <img class="arabica-lazy" data-src="https://harbyj.github.io/arabica/Assets/images/post-img1.jpg" alt="عن الاسلامية ومظاهرات الطلاب" />
+                                        </a>
+                                    </div>
+                                    <div class="arabica_latest-article-content">
+                                        <span class="arabica_latest-article-category">
+                    <a href="entries.html">الفلسفة والفكر العربي الحديث</a>
+                  </span>
+                                        <h3 class="arabica_latest-article-title">
+                    <a href="single-article.html"
+                      >عن الاسلامية ومظاهرات الطلاب</a
+                    >
+                  </h3>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="arabica_latest-article">
+                                <div class="arabica_latest-article-inner">
+                                    <div class="arabica_latest-article-image arabica_post-image">
+                                        <a href="single-article.html">
+                                            <img class="arabica-lazy" data-src="https://harbyj.github.io/arabica/Assets/images/post-img2.jpg" alt="زنوبيا وحضارة تدمر" />
+                                        </a>
+                                    </div>
+                                    <div class="arabica_latest-article-content">
+                                        <span class="arabica_latest-article-category">
+                    <a href="entries.html">التاريخ والآثار</a>
+                  </span>
+                                        <h3 class="arabica_latest-article-title">
+                    <a href="single-article.html">زنوبيا وحضارة تدمر</a>
+                  </h3>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="arabica_latest-article">
+                                <div class="arabica_latest-article-inner">
+                                    <div class="arabica_latest-article-image arabica_post-image">
+                                        <a href="single-article.html">
+                                            <img class="arabica-lazy" data-src="https://harbyj.github.io/arabica/Assets/images/post-img3.jpg" alt="العلاقات الخليجية السورية" />
+                                        </a>
+                                    </div>
+                                    <div class="arabica_latest-article-content">
+                                        <span class="arabica_latest-article-category">
+                    <a href="entries.html">العلوم الاجتماعية</a>
+                  </span>
+                                        <h3 class="arabica_latest-article-title">
+                    <a href="single-article.html">العلاقات الخليجية السورية</a>
+                  </h3>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="arabica_latest-article">
+                                <div class="arabica_latest-article-inner">
+                                    <div class="arabica_latest-article-image arabica_post-image">
+                                        <a href="single-article.html">
+                                            <img class="arabica-lazy" data-src="https://harbyj.github.io/arabica/Assets/images/post-img4.jpg" alt="محمد مرسي الحبط" />
+                                        </a>
+                                    </div>
+                                    <div class="arabica_latest-article-content">
+                                        <span class="arabica_latest-article-category">
+                    <a href="entries.html">العلوم الاجتماعية</a>
+                  </span>
+                                        <h3 class="arabica_latest-article-title">
+                    <a href="single-article.html">محمد مرسي الحبط</a>
+                  </h3>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="arabica_latest-article">
+                                <div class="arabica_latest-article-inner">
+                                    <div class="arabica_latest-article-image arabica_post-image">
+                                        <a href="single-article.html">
+                                            <img class="arabica-lazy" data-src="https://harbyj.github.io/arabica/Assets/images/post-img5.jpg" alt="عن الاسلامية ومظاهرات الطلاب" />
+                                        </a>
+                                    </div>
+                                    <div class="arabica_latest-article-content">
+                                        <span class="arabica_latest-article-category">
+                    <a href="entries.html">الفنون</a>
+                  </span>
+                                        <h3 class="arabica_latest-article-title">
+                    <a href="single-article.html"
+                      >عن الاسلامية ومظاهرات الطلاب</a
+                    >
+                  </h3>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="arabica_latest-article">
+                                <div class="arabica_latest-article-inner">
+                                    <div class="arabica_latest-article-image arabica_post-image">
+                                        <a href="single-article.html">
+                                            <img class="arabica-lazy" data-src="https://harbyj.github.io/arabica/Assets/images/post-img6.jpg" alt="زنوبيا وحضارة تدمر" />
+                                        </a>
+                                    </div>
+                                    <div class="arabica_latest-article-content">
+                                        <span class="arabica_latest-article-category">
+                    <a href="entries.html">التاريخ والآثار</a>
+                  </span>
+                                        <h3 class="arabica_latest-article-title">
+                    <a href="single-article.html">زنوبيا وحضارة تدمر</a>
+                  </h3>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="arabica_latest-article">
+                                <div class="arabica_latest-article-inner">
+                                    <div class="arabica_latest-article-image arabica_post-image">
+                                        <a href="single-article.html">
+                                            <img class="arabica-lazy" data-src="https://harbyj.github.io/arabica/Assets/images/post-img7.jpg" alt="رفيق الحريري" />
+                                        </a>
+                                    </div>
+                                    <div class="arabica_latest-article-content">
+                                        <span class="arabica_latest-article-category">
+                    <a href="entries.html">العلوم السياسية والعلاقات الدولية</a>
+                  </span>
+                                        <h3 class="arabica_latest-article-title">
+                    <a href="single-article.html">رفيق الحريري</a>
+                  </h3>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="arabica_latest-article">
+                                <div class="arabica_latest-article-inner">
+                                    <div class="arabica_latest-article-image arabica_post-image">
+                                        <a href="single-article.html">
+                                            <img class="arabica-lazy" data-src="https://harbyj.github.io/arabica/Assets/images/post-img8.jpg" alt="ماريا متفائلة" />
+                                        </a>
+                                    </div>
+                                    <div class="arabica_latest-article-content">
+                                        <span class="arabica_latest-article-category">
+                    <a href="entries.html">الاقتصاد والأعمال</a>
+                  </span>
+                                        <h3 class="arabica_latest-article-title">
+                    <a href="single-article.html">ماريا متفائلة</a>
+                  </h3>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="arabica_latest-article">
+                                <div class="arabica_latest-article-inner">
+                                    <div class="arabica_latest-article-image arabica_post-image">
+                                        <a href="single-article.html">
+                                            <img class="arabica-lazy" data-src="https://harbyj.github.io/arabica/Assets/images/post-img1.jpg" alt="عن الاسلامية ومظاهرات الطلاب" />
+                                        </a>
+                                    </div>
+                                    <div class="arabica_latest-article-content">
+                                        <span class="arabica_latest-article-category">
+                    <a href="entries.html">الفلسفة والفكر العربي الحديث</a>
+                  </span>
+                                        <h3 class="arabica_latest-article-title">
+                    <a href="single-article.html"
+                      >عن الاسلامية ومظاهرات الطلاب</a
+                    >
+                  </h3>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="arabica_latest-article">
+                                <div class="arabica_latest-article-inner">
+                                    <div class="arabica_latest-article-image arabica_post-image">
+                                        <a href="single-article.html">
+                                            <img class="arabica-lazy" data-src="https://harbyj.github.io/arabica/Assets/images/post-img2.jpg" alt="زنوبيا وحضارة تدمر" />
+                                        </a>
+                                    </div>
+                                    <div class="arabica_latest-article-content">
+                                        <span class="arabica_latest-article-category">
+                    <a href="entries.html">التاريخ والآثار</a>
+                  </span>
+                                        <h3 class="arabica_latest-article-title">
+                    <a href="single-article.html">زنوبيا وحضارة تدمر</a>
+                  </h3>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="arabica_latest-article">
+                                <div class="arabica_latest-article-inner">
+                                    <div class="arabica_latest-article-image arabica_post-image">
+                                        <a href="single-article.html">
+                                            <img class="arabica-lazy" data-src="https://harbyj.github.io/arabica/Assets/images/post-img3.jpg" alt="العلاقات الخليجية السورية" />
+                                        </a>
+                                    </div>
+                                    <div class="arabica_latest-article-content">
+                                        <span class="arabica_latest-article-category">
+                    <a href="entries.html">العلوم الاجتماعية</a>
+                  </span>
+                                        <h3 class="arabica_latest-article-title">
+                    <a href="single-article.html">العلاقات الخليجية السورية</a>
+                  </h3>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="arabica_latest-article">
+                                <div class="arabica_latest-article-inner">
+                                    <div class="arabica_latest-article-image arabica_post-image">
+                                        <a href="single-article.html">
+                                            <img class="arabica-lazy" data-src="https://harbyj.github.io/arabica/Assets/images/post-img4.jpg" alt="محمد مرسي الحبط" />
+                                        </a>
+                                    </div>
+                                    <div class="arabica_latest-article-content">
+                                        <span class="arabica_latest-article-category">
+                    <a href="entries.html">العلوم الاجتماعية</a>
+                  </span>
+                                        <h3 class="arabica_latest-article-title">
+                    <a href="single-article.html">محمد مرسي الحبط</a>
+                  </h3>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="arabica_latest-article">
+                                <div class="arabica_latest-article-inner">
+                                    <div class="arabica_latest-article-image arabica_post-image">
+                                        <a href="single-article.html">
+                                            <img class="arabica-lazy" data-src="https://harbyj.github.io/arabica/Assets/images/post-img5.jpg" alt="عن الاسلامية ومظاهرات الطلاب" />
+                                        </a>
+                                    </div>
+                                    <div class="arabica_latest-article-content">
+                                        <span class="arabica_latest-article-category">
+                    <a href="entries.html">الفنون</a>
+                  </span>
+                                        <h3 class="arabica_latest-article-title">
+                    <a href="single-article.html"
+                      >عن الاسلامية ومظاهرات الطلاب</a
+                    >
+                  </h3>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="arabica_latest-article">
+                                <div class="arabica_latest-article-inner">
+                                    <div class="arabica_latest-article-image arabica_post-image">
+                                        <a href="single-article.html">
+                                            <img class="arabica-lazy" data-src="https://harbyj.github.io/arabica/Assets/images/post-img6.jpg" alt="زنوبيا وحضارة تدمر" />
+                                        </a>
+                                    </div>
+                                    <div class="arabica_latest-article-content">
+                                        <span class="arabica_latest-article-category">
+                    <a href="entries.html">التاريخ والآثار</a>
+                  </span>
+                                        <h3 class="arabica_latest-article-title">
+                    <a href="single-article.html">زنوبيا وحضارة تدمر</a>
+                  </h3>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="arabica_latest-article">
+                                <div class="arabica_latest-article-inner">
+                                    <div class="arabica_latest-article-image arabica_post-image">
+                                        <a href="single-article.html">
+                                            <img class="arabica-lazy" data-src="https://harbyj.github.io/arabica/Assets/images/post-img7.jpg" alt="رفيق الحريري" />
+                                        </a>
+                                    </div>
+                                    <div class="arabica_latest-article-content">
+                                        <span class="arabica_latest-article-category">
+                    <a href="entries.html">العلوم السياسية والعلاقات الدولية</a>
+                  </span>
+                                        <h3 class="arabica_latest-article-title">
+                    <a href="single-article.html">رفيق الحريري</a>
+                  </h3>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="arabica_latest-article">
+                                <div class="arabica_latest-article-inner">
+                                    <div class="arabica_latest-article-image arabica_post-image">
+                                        <a href="single-article.html">
+                                            <img class="arabica-lazy" data-src="https://harbyj.github.io/arabica/Assets/images/post-img8.jpg" alt="ماريا متفائلة" />
+                                        </a>
+                                    </div>
+                                    <div class="arabica_latest-article-content">
+                                        <span class="arabica_latest-article-category">
+                    <a href="entries.html">الاقتصاد والأعمال</a>
+                  </span>
+                                        <h3 class="arabica_latest-article-title">
+                    <a href="single-article.html">ماريا متفائلة</a>
+                  </h3>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="arabica_latest-pager">
+                            <a href="entries.html" class="arabica_latest-article-more">
+              المزيد
+            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Content End -->
+            <footer class="arabica_footer">
+                <div class="arabica_footer-container">
+                    <!-- Right Side (65%) -->
+                    <div class="arabica_footer-right">
+                        <!-- Top Image -->
+                        <div class="arabica_footer-logo">
+                            <a href="index.html">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 666.31 129.77">
+                                    <g>
+                                        <path class="cls-3" d="M601.23,0c-35.88,0-65.08,29.11-65.08,64.89s29.19,64.89,65.08,64.89,65.08-29.11,65.08-64.89S637.11,0,601.23,0ZM540.06,64.89c0-33.63,27.44-60.99,61.17-60.99s61.17,27.36,61.17,60.99-27.44,60.99-61.17,60.99-61.17-27.36-61.17-60.99Z"
+                                        />
+                                        <path class="cls-3" d="M594.61,13.8c-1.44.18-2.87.43-4.26.73.21.62.42,1.24.62,1.86,2.45,8.11,4.21,16.39,5.53,24.77-2.36-7.99-5.57-15.78-9.99-22.65-.96-1.48-2.82-2.1-4.45-1.43-1.59.63-3.14,1.35-4.65,2.14.93,1.04,1.84,2.12,2.69,3.24,4.49,6.12,8.09,12.82,10.97,19.88-4.32-7.17-9.88-13.58-16.52-18.5-1.33-.98-3.14-.98-4.46.02-1.55,1.18-3.02,2.43-4.41,3.76,1.92.9,3.81,1.91,5.61,3.09,6.8,4.53,12.47,10.51,16.97,17.34-6.34-7.2-14.4-12.89-23.38-16.13-1.51-.55-3.2-.06-4.2,1.2-1.31,1.67-2.52,3.41-3.63,5.24,9.53,1.24,18.88,6.06,26.05,12.35.74.64,1.46,1.32,2.16,2-.77-.56-1.56-1.09-2.35-1.59-7.45-4.67-16.19-8.21-25.11-9.1-1.59-.16-3.11.71-3.76,2.17-.88,2.01-1.64,4.09-2.26,6.22,9.48-1.6,19.89,1.15,28.36,5.36.84.42,1.65.88,2.47,1.35-9.34-3.39-20.44-3.64-29.56-1.9h-.04c-1.52.31-2.67,1.55-2.87,3.08-.31,2.38-.45,4.82-.41,7.3h.01c8.95-4.69,20.5-5.51,30.34-3.63,9.69,1.88,16.55,7.74,19.23,16.31l-.36,16.49c-3.29-2.35-7.02-4.12-10.82-5.48-10.64-3.72-22.21-3.86-33.26-2.1.42.86.86,1.69,1.32,2.51.76,1.36,2.29,2.12,3.82,1.86,3.27-.55,6.58-.91,9.92-1.03,5.77-.16,11.59.41,17.15,2.02,5.13,1.52,10.2,3.81,14.19,7.41,3.99-3.6,9.06-5.89,14.19-7.41,5.56-1.6,11.38-2.17,17.15-2.02,3.33.12,6.62.47,9.88,1.02,1.52.26,3.06-.5,3.81-1.85.46-.82.9-1.67,1.32-2.52-11.03-1.76-22.6-1.63-33.23,2.1-3.81,1.37-7.54,3.14-10.85,5.51l-.35-16.45c2.66-8.61,9.54-14.48,19.24-16.37,9.84-1.87,21.37-1.06,30.33,3.62h.01c.04-2.48-.11-4.91-.41-7.29-.19-1.53-1.35-2.77-2.88-3.08h-.02c-9.48-1.87-20.42-1.41-29.57,1.96,6.11-3.71,13.16-6.07,20.17-6.85,3.43-.41,7.15-.48,10.66.05-.62-2.13-1.37-4.19-2.25-6.19-.64-1.46-2.16-2.33-3.76-2.17-8.92.89-17.64,4.43-25.09,9.1-.78.49-1.55,1.02-2.31,1.55,5.32-5.23,11.74-9.37,18.71-11.93,3.08-1.14,6.27-1.96,9.43-2.37-1.09-1.82-2.31-3.56-3.61-5.22-1-1.26-2.67-1.74-4.19-1.2-8.85,3.19-16.86,8.75-23.16,15.81,4.44-6.74,10.04-12.67,16.74-17.03,1.8-1.18,3.67-2.19,5.59-3.09-1.4-1.34-2.87-2.59-4.41-3.76-1.31-.99-3.12-1-4.45-.03-6.61,4.86-12.13,11.17-16.45,18.32,3.34-8.42,7.74-16.5,13.58-22.93-1.49-.78-3.02-1.49-4.59-2.11-1.63-.65-3.5-.05-4.45,1.42-4.27,6.65-7.54,14.23-9.96,22.17,1.31-8.21,3.05-16.34,5.45-24.3.19-.62.41-1.24.62-1.86-1.41-.3-2.82-.55-4.26-.73-1.85-.24-3.6.98-3.99,2.8-1.17,5.32-2.03,10.72-2.64,16.14-.61-5.43-1.47-10.82-2.64-16.15-.36-1.67-1.87-2.82-3.53-2.82-.15,0-.3,0-.46.03M558.83,93.93c.7,1,1.43,1.98,2.19,2.93.82,1,2.07,1.53,3.36,1.38,1.84-.2,3.68-.34,5.53-.42,5.77-.16,11.59.41,17.15,2.02,5.13,1.52,10.2,3.81,14.19,7.41,3.99-3.6,9.06-5.89,14.19-7.41,5.56-1.6,11.38-2.17,17.15-2.02,1.84.06,3.67.2,5.49.41,1.29.14,2.54-.37,3.36-1.38.76-.95,1.5-1.92,2.19-2.93-9.81-1.13-19.89-.63-29.24,2.64-4.71,1.69-9.33,4-13.14,7.27-3.81-3.28-8.41-5.58-13.14-7.27-6.44-2.26-13.21-3.2-20-3.2-3.1,0-6.2.19-9.27.56M564.52,100.79c1.22,1.24,2.51,2.42,3.85,3.52.68.56,1.53.84,2.41.82,2.9-.07,10.03,0,16.26,2.04,5.09,1.67,10.2,3.81,14.19,7.41,3.99-3.6,9.09-5.78,14.19-7.41,6.27-2,13.35-2.1,16.24-2.04.88.02,1.73-.27,2.4-.82,1.35-1.11,2.64-2.29,3.86-3.53-7.97-.37-16,.47-23.56,3.11-4.71,1.69-9.33,4-13.14,7.27-3.81-3.28-8.41-5.58-13.14-7.27-6.44-2.26-13.22-3.2-20.03-3.2-1.19,0-2.38.03-3.56.09M597.93,116c-3.04-2-6.4-3.56-9.81-4.78-4.61-1.61-9.4-2.54-14.25-2.95,7.05,4.42,15.25,7.17,24.06,7.73ZM614.38,111.22c-3.41,1.23-6.76,2.78-9.8,4.78,8.79-.57,16.97-3.31,24.01-7.73-4.83.41-9.6,1.34-14.21,2.95Z"
+                                        />
+                                    </g>
+                                    <g>
+                                        <path class="cls-3" d="M274.4,129.27v-1.24c2.74-.38,3.12-.77,2.53-2.5-.62-1.71-1.41-3.86-2.36-6.33h-9.46c-.74,1.97-1.33,3.65-1.89,5.36-.94,2.62-.59,3.12,2.74,3.48v1.24h-9.72v-1.24c2.86-.44,3.48-.74,5.04-4.57l9.25-22.48,1.53-.38c2.83,7.63,5.66,15.29,8.57,22.86,1.41,3.8,2.03,4.27,4.89,4.57v1.24h-11.14ZM270.07,106.52h-.09c-1.41,3.57-2.8,7.25-4.12,10.73h8.07l-3.86-10.73Z"
+                                        />
+                                        <path class="cls-3" d="M295.72,114.63c1.44-2.36,3.24-4.66,5.27-4.66,1.59,0,2.65,1.15,2.65,2.21,0,1-.59,1.89-1.53,2.33-.53.21-.91.12-1.18-.12-.68-.62-1.18-.88-1.92-.88-1.12,0-2.45,1.27-3.39,3.57v7.69c0,2.83.21,3.09,3.62,3.36v1.15h-10.46v-1.15c2.65-.26,3.04-.53,3.04-3.36v-8.93c0-2.74-.24-2.92-2.68-3.27v-.97c2.18-.35,4.24-.85,6.48-1.77v4.8h.09Z"
+                                        />
+                                        <path class="cls-3" d="M320.71,129.77c-.83,0-1.77-.38-2.24-.85-.59-.56-.85-1.15-1.06-1.83-1.77,1.12-3.83,2.68-5.07,2.68-3.27,0-5.42-2.59-5.42-5.3,0-2.15,1.18-3.45,3.57-4.21,2.8-.88,5.83-2,6.78-2.8v-.77c0-3.09-1.41-4.74-3.51-4.74-.77,0-1.41.29-1.86.77-.56.56-.94,1.53-1.33,2.92-.27.77-.74,1.06-1.41,1.06-.85,0-2-.88-2-1.92,0-.65.56-1.18,1.41-1.77,1.27-.91,4.24-2.56,6.69-3.04,1.38,0,2.65.32,3.65,1.09,1.62,1.36,2.09,3.15,2.09,5.45v7.75c0,1.92.77,2.56,1.56,2.56.5,0,1.09-.21,1.56-.47l.44,1.15-3.86,2.27ZM317.26,118.96c-.88.44-2.65,1.27-3.57,1.68-1.71.74-2.65,1.59-2.65,3.18,0,2.27,1.71,3.27,3.01,3.27,1.03,0,2.45-.65,3.21-1.41v-6.72Z"
+                                        />
+                                        <path class="cls-3" d="M335.85,110.47c.82-.35,1.47-.5,1.97-.5,4.8,0,8.81,3.98,8.81,9.05,0,6.28-5.21,10.75-11.17,10.75-1.89,0-4.15-.41-6.69-1.53v-23.81c0-2.71-.15-3-2.89-3.27v-1.03c2.06-.27,4.95-.91,6.69-1.5v13.23l3.27-1.38ZM332.58,124.2c0,.65.09,1.09.27,1.47.29.88,1.59,2.39,3.77,2.39,3.48,0,5.77-2.86,5.77-7.9s-3.09-7.72-6.57-7.72c-1.18,0-2.42.35-3.24.74v11.02Z"
+                                        />
+                                        <path class="cls-3" d="M350.31,129.27v-1.15c2.74-.26,3.06-.53,3.06-3.54v-8.66c0-2.71-.15-2.92-2.74-3.36v-1.03c2.36-.38,4.57-.88,6.54-1.65v14.7c0,2.98.29,3.21,3.09,3.54v1.15h-9.96ZM352.61,103.99c0-1.39,1.12-2.42,2.42-2.42s2.3,1.03,2.3,2.42c0,1.24-1,2.33-2.36,2.33-1.24,0-2.36-1.09-2.36-2.33Z"
+                                        />
+                                        <path class="cls-3" d="M380.27,125.29c-1.97,2.56-4.95,4.48-7.51,4.48-5.72,0-9.02-4.42-9.02-8.99,0-3.27,1.5-6.19,4.45-8.37,2.42-1.77,5.07-2.45,6.75-2.45h.06c1.8,0,3.24.53,3.95,1.15.59.47.71.85.71,1.33,0,1-.97,1.97-1.53,1.97-.26,0-.47-.12-.85-.5-1.41-1.27-2.92-1.86-4.48-1.86-2.71,0-5.19,2.18-5.19,6.75,0,5.92,4.3,7.84,6.66,7.84,1.83,0,3.3-.5,5.27-2.33l.74.97Z"
+                                        />
+                                        <path class="cls-3" d="M397.65,129.77c-.83,0-1.77-.38-2.24-.85-.59-.56-.85-1.15-1.06-1.83-1.77,1.12-3.83,2.68-5.07,2.68-3.27,0-5.42-2.59-5.42-5.3,0-2.15,1.18-3.45,3.57-4.21,2.8-.88,5.83-2,6.78-2.8v-.77c0-3.09-1.41-4.74-3.51-4.74-.77,0-1.41.29-1.86.77-.56.56-.94,1.53-1.33,2.92-.27.77-.74,1.06-1.41,1.06-.85,0-2-.88-2-1.92,0-.65.56-1.18,1.41-1.77,1.27-.91,4.24-2.56,6.69-3.04,1.38,0,2.65.32,3.65,1.09,1.62,1.36,2.09,3.15,2.09,5.45v7.75c0,1.92.77,2.56,1.56,2.56.5,0,1.09-.21,1.56-.47l.44,1.15-3.86,2.27ZM394.2,118.96c-.88.44-2.65,1.27-3.57,1.68-1.71.74-2.65,1.59-2.65,3.18,0,2.27,1.71,3.27,3,3.27,1.03,0,2.45-.65,3.21-1.41v-6.72Z"
+                                        />
+                                        <path class="cls-3" d="M430.72,101.25c3.15,0,5.69.5,7.45,1.8s2.89,3.3,2.89,6.13c0,5.63-4.3,8.34-8.6,8.84-.68.09-1.59.09-2.06.06l-3.3-.83v6.57c0,3.68.38,3.92,4.39,4.21v1.24h-12.32v-1.24c3.51-.29,3.89-.65,3.89-4.24v-17c0-3.86-.38-4.04-3.65-4.24v-1.3h11.31ZM427.1,115.74c.56.21,1.77.53,3.15.53,2.74,0,6.22-1.47,6.22-6.95,0-4.69-3-6.63-6.48-6.63-1.21,0-2.12.24-2.42.53-.29.29-.47.77-.47,1.97v10.55Z"
+                                        />
+                                        <path class="cls-3" d="M444.83,129.27v-1.15c2.74-.26,3.06-.53,3.06-3.54v-8.66c0-2.71-.15-2.92-2.74-3.36v-1.03c2.36-.38,4.57-.88,6.54-1.65v14.7c0,2.98.29,3.21,3.09,3.54v1.15h-9.96ZM447.13,103.99c0-1.39,1.12-2.42,2.42-2.42s2.3,1.03,2.3,2.42c0,1.24-1,2.33-2.36,2.33-1.24,0-2.36-1.09-2.36-2.33Z"
+                                        />
+                                        <path class="cls-3" d="M474.79,125.29c-1.97,2.56-4.95,4.48-7.51,4.48-5.72,0-9.02-4.42-9.02-8.99,0-3.27,1.5-6.19,4.45-8.37,2.42-1.77,5.07-2.45,6.75-2.45h.06c1.8,0,3.24.53,3.95,1.15.59.47.71.85.71,1.33,0,1-.97,1.97-1.53,1.97-.26,0-.47-.12-.85-.5-1.41-1.27-2.92-1.86-4.48-1.86-2.71,0-5.19,2.18-5.19,6.75,0,5.92,4.3,7.84,6.66,7.84,1.83,0,3.3-.5,5.27-2.33l.74.97Z"
+                                        />
+                                        <path class="cls-3" d="M492.76,129.36c-2-2.18-4.74-5.75-7.04-8.49-.53-.65-.88-.88-1.27-.88-.18-.03-.38,0-.65.06v4.69c0,2.86.38,3.06,3.18,3.39v1.15h-10.14v-1.15c2.92-.32,3.21-.62,3.21-3.39v-20.27c0-2.8-.27-3.03-2.92-3.3v-1.03c2.06-.21,4.71-.91,6.66-1.5v20.3c1.3-.27,2-.85,2.71-1.5.94-.91,2.27-2.65,3-3.77.88-1.3.71-1.65-1.3-1.89v-1.18l9.19-.38v1.12c-2.98.47-4.1.94-5.77,2.5-1.15,1.09-1.89,1.92-3.68,3.98.91,1.33,5.45,6.48,6.84,7.96,1.5,1.56,2.74,2.27,4.33,2.36v1.15l-6.36.09Z"
+                                        />
+                                        <path class="cls-3" d="M512.5,115.72c-.85-2.53-2.39-4.33-4.54-4.33-1.59,0-2.71,1.18-2.71,2.86,0,1.77,1.65,2.8,3.62,3.57,3.33,1.33,5.6,2.89,5.6,5.92,0,4.04-3.71,6.04-7.34,6.04-2.27,0-4.33-.8-5.07-1.41-.29-.56-.71-3.59-.77-5.3l1.21-.18c.82,2.89,2.8,5.45,5.39,5.45,1.59,0,3.01-1.21,3.01-2.92s-1.15-2.74-3.39-3.74c-2.53-1.15-5.57-2.62-5.57-6.04,0-3.06,2.65-5.66,6.78-5.66,1.89,0,3.06.38,3.95.77.38.94.91,3.59,1,4.63l-1.18.35Z"
+                                        />
+                                    </g>
+                                    <g>
+                                        <path class="cls-3" d="M18.99,77.4v.85c0,.36-.24.6-.61.6H4.42v-35.21c0-5.02-.36-5.56-4.42-5.99v-.91c3.08-.24,8.59-1.15,13.07-2.48v42.52h5.32c.36,0,.61.24.61.6Z" />
+                                        <path class="cls-3" d="M40.59,46.43c-1.75,2.36-3.69,5.44-5.26,7.99h18.39c8.23,0,13.97,5.38,13.97,11.79,0,3.93-1.63,6.96-4.05,9.07,2.24,1.09,4.6,1.51,6.41,1.51h.3c.36,0,.6.24.6.6v.85c0,.36-.24.6-.6.6h-.91c-3.27,0-6.05-.67-8.35-1.82-2.3,1.21-4.9,1.82-7.38,1.82H18.45c-.36,0-.61-.24-.61-.6v-.85c0-.36.24-.6.61-.6h33.39c4.78,0,6.9-5.08,6.59-10.16-.3-5.08-2.96-10.16-7.62-10.16h-24.62v-2.06c2.06-3.45,5.02-8.29,7.14-11.07,3.21-4.3,6.47-5.26,15.18-5.44l.24.79c-2.42.85-3.63,1.82-8.17,7.74Z"
+                                        />
+                                        <path class="cls-3" d="M76.57,56.77v-.91c3.08-.24,8.59-1.15,13.07-2.48v23.41h5.32c.36,0,.61.24.61.6v.85c0,.36-.24.6-.61.6h-24.62c-.36,0-.6-.24-.6-.6v-.85c0-.36.24-.6.6-.6h10.65v-14.03c0-5.02-.36-5.57-4.42-5.99ZM75.18,82.91c2.36,0,4.17,1.75,4.17,4.11s-1.82,4.11-4.23,4.11c-2.18,0-4.11-1.87-4.11-4.11,0-2.36,1.94-4.11,4.17-4.11ZM86.37,82.91c2.36,0,4.17,1.75,4.17,4.11s-1.82,4.11-4.23,4.11c-2.18,0-4.11-1.87-4.11-4.11,0-2.36,1.94-4.11,4.17-4.11ZM110.38,82.91c2.36,0,4.17,1.75,4.17,4.11s-1.82,4.11-4.23,4.11c-2.18,0-4.11-1.87-4.11-4.11,0-2.36,1.94-4.11,4.17-4.11Z"
+                                        />
+                                        <path class="cls-3" d="M101.19,56.77v-.91c3.08-.24,8.59-1.15,13.07-2.48v25.47h-19.3c-.36,0-.6-.24-.6-.6v-.85c0-.36.24-.6.6-.6h10.65v-14.03c0-5.02-.36-5.57-4.42-5.99Z" />
+                                        <path class="cls-3" d="M124.96,78.85v-35.21c0-5.02-.36-5.56-4.42-5.99v-.91c3.08-.24,8.59-1.15,13.07-2.48v44.58h-8.65Z" />
+                                        <path class="cls-3" d="M147.58,88.59c-3.99,3.93-9.13,5.32-13.25,6.41l-.48-.91c6.9-2.84,10.46-5.5,10.46-18.87v-12.46c0-5.02-.36-5.57-4.42-5.99v-.91c3.08-.24,8.59-1.15,13.07-2.48v15.3c0,8.65-.3,14.88-5.38,19.9Z" />
+                                        <path class="cls-3" d="M163.67,78.85v-35.21c0-5.02-.36-5.56-4.42-5.99v-.91c3.08-.24,8.59-1.15,13.07-2.48v44.58h-8.65ZM174.74,31.37l-.85.91h-14.4v-1.21h3.69c-1.39-.91-2.42-2.48-2.42-4.54,0-2.9,2.66-5.32,6.41-5.32,2.6,0,5.2.67,6.05.85.12.55.6,3.93.6,4.3l-.48.12c-.91-3.69-3.57-4.11-5.38-4.11-2,0-3.02,2-3.02,4.66,0,3.33,1.39,4.05,2.84,4.05h6.83l.12.3Z"
+                                        />
+                                        <path class="cls-3" d="M202.02,76.55c0,6.53,2.24,12.58,8.77,12.76,6.41.24,7.68-4.66,7.68-11.01v-15.55c0-5.02-.36-5.57-4.42-5.99v-.91c3.08-.24,8.59-1.15,13.07-2.48v23.41h5.32c.36,0,.6.24.6.6v.85c0,.36-.24.6-.6.6h-5.32c0,8.47-8.59,12.28-16.7,12.28-10.28,0-16.76-5.38-16.76-12.7,0-8.11,7.98-12.1,13.97-14.03l.18.79c-3.33,2.24-5.81,5.2-5.81,11.37Z"
+                                        />
+                                        <path class="cls-3" d="M241.7,71.05v-5.93c0-10.1,9.13-14.82,15.97-14.82,9.62,0,16.39,6.23,16.39,13.79,0,9.8-8.71,14.76-16.39,14.76-3.75,0-6.83-.91-9.32-2.3-1.45,1.57-3.75,2.3-6.77,2.3h-9.13c-.36,0-.6-.24-.6-.6v-.85c0-.36.24-.6.6-.6h5.02c1.69,0,3.99-.91,4.23-5.75ZM249.8,74.01c2.78,2,6.05,2.78,8.47,2.78,3.69,0,6.53-2.84,6.53-11.49,0-6.78-2.54-12.95-7.74-12.95-3.93,0-6.71,4.23-6.71,10.77v6.9c0,1.57-.18,2.9-.54,3.99Z"
+                                        />
+                                        <path class="cls-3" d="M309.8,76.8h28.85v-14.03c0-5.02-.36-5.57-4.42-5.99v-.91c3.08-.24,8.59-1.15,13.07-2.48v25.47h-36.9c-7.68,0-16.39-4.96-16.39-14.76,0-5.02-.36-5.57-4.42-5.99v-.91c3.08-.24,8.59-1.15,13.07-2.48v10.59c0,8.65,3.45,11.49,7.14,11.49ZM316.28,40.32c2.36,0,4.17,1.75,4.17,4.11s-1.82,4.11-4.23,4.11c-2.18,0-4.11-1.87-4.11-4.11,0-2.36,1.94-4.11,4.17-4.11ZM209.81,40.32c2.36,0,4.17,1.75,4.17,4.11s-1.82,4.11-4.23,4.11c-2.18,0-4.11-1.87-4.11-4.11,0-2.36,1.94-4.11,4.17-4.11ZM327.47,40.32c2.36,0,4.17,1.75,4.17,4.11s-1.81,4.11-4.23,4.11c-2.18,0-4.11-1.87-4.11-4.11,0-2.36,1.94-4.11,4.17-4.11Z"
+                                        />
+                                        <path class="cls-3" d="M357.95,78.85v-35.21c0-5.02-.36-5.56-4.42-5.99v-.91c3.08-.24,8.59-1.15,13.07-2.48v44.58h-8.65Z" />
+                                        <path class="cls-3" d="M380.57,88.59c-3.99,3.93-9.13,5.32-13.25,6.41l-.48-.91c6.9-2.84,10.46-5.5,10.46-18.87v-12.46c0-5.02-.36-5.57-4.42-5.99v-.91c3.08-.24,8.59-1.15,13.07-2.48v15.3c0,8.65-.3,14.88-5.38,19.9Z" />
+                                        <path class="cls-3" d="M411.24,77.4v.85c0,.36-.24.6-.6.6h-13.97v-35.21c0-5.02-.36-5.56-4.42-5.99v-.91c3.08-.24,8.59-1.15,13.07-2.48v42.52h5.32c.36,0,.6.24.6.6Z" />
+                                        <path class="cls-3" d="M416.86,56.77v-.91c3.08-.24,8.59-1.15,13.07-2.48v23.41h5.32c.36,0,.6.24.6.6v.85c0,.36-.24.6-.6.6h-24.62c-.36,0-.6-.24-.6-.6v-.85c0-.36.24-.6.6-.6h10.65v-14.03c0-5.02-.36-5.57-4.42-5.99ZM418.25,37.78c2.36,0,4.17,1.75,4.17,4.11,0,2.24-1.82,4.11-4.23,4.11-2.18,0-4.11-1.87-4.11-4.11,0-2.36,1.93-4.11,4.17-4.11ZM429.44,37.78c2.36,0,4.17,1.75,4.17,4.11,0,2.24-1.81,4.11-4.23,4.11-2.18,0-4.11-1.87-4.11-4.11,0-2.36,1.94-4.11,4.17-4.11ZM455.17,37.78c2.36,0,4.17,1.75,4.17,4.11,0,2.24-1.81,4.11-4.23,4.11-2.18,0-4.11-1.87-4.11-4.11,0-2.36,1.94-4.11,4.17-4.11Z"
+                                        />
+                                        <path class="cls-3" d="M434.64,78.25v-.85c0-.36.24-.6.6-.6h28.01c-1.45-1.39-2.24-3.63-2.24-6.78v-2.66c0-9.38-4.36-12.34-9.01-12.34-3.27,0-6.77,1.51-8.95,3.33l-.67-.97c5.02-5.2,10.04-7.32,14.4-7.32,7.44,0,12.89,6.35,12.89,14.76v5.32c0,5.57,2.42,6.65,4.23,6.65h.12c.36,0,.6.24.6.6v.85c0,.36-.24.6-.6.6h-38.77c-.36,0-.6-.24-.6-.6Z"
+                                        />
+                                        <path class="cls-3" d="M483.27,71.05v-5.93c0-10.1,9.13-14.82,15.97-14.82,9.62,0,16.39,6.23,16.39,13.79,0,9.8-8.71,14.76-16.39,14.76-3.75,0-6.83-.91-9.32-2.3-1.45,1.57-3.75,2.3-6.77,2.3h-9.13c-.36,0-.6-.24-.6-.6v-.85c0-.36.24-.6.6-.6h5.02c1.69,0,3.99-.91,4.23-5.75ZM491.38,74.01c2.78,2,6.05,2.78,8.47,2.78,3.69,0,6.53-2.84,6.53-11.49,0-6.78-2.54-12.95-7.74-12.95-3.93,0-6.71,4.23-6.71,10.77v6.9c0,1.57-.18,2.9-.54,3.99Z"
+                                        />
+                                    </g>
+                                </svg>
+                            </a>
+                        </div>
+                        <hr />
+                        <!-- Three Columns of Links -->
+                        <div class="arabica_link-columns">
+                            <div class="arabica_column">
+                                <ul>
+                                    <li><a href="#">حول الموسوعة</a></li>
+                                    <li><a href="#">مكتب التحرير</a></li>
+                                    <li><a href="#">هيئة البلدان العربية</a></li>
+                                    <li><a href="#">الهيئة الإدارية</a></li>
+                                    <li><a href="#">الإعلانات</a></li>
+                                    <li><a href="#">ساهم معنا</a></li>
+                                    <li><a href="#">تواصل معنا</a></li>
+                                </ul>
+                            </div>
+                            <div class="arabica_column">
+                                <ul>
+                                    <li><a href="#">الاقتصاد</a></li>
+                                    <li><a href="#">الفلسفة</a></li>
+                                    <li><a href="#">الكيمياء</a></li>
+                                    <li><a href="#">البيولوجيا</a></li>
+                                    <li><a href="#">العلوم الرياضية والفيزيائية</a></li>
+                                    <li><a href="#">التاريخ</a></li>
+                                    <li><a href="#">الجغرافيا</a></li>
+                                </ul>
+                            </div>
+                            <div class="arabica_column">
+                                <ul>
+                                    <li><a href="#">اللسانيات</a></li>
+                                    <li><a href="#">الديانات</a></li>
+                                    <li><a href="#">الشخصيات العامة</a></li>
+                                    <li><a href="#">الفلك</a></li>
+                                    <li><a href="#">العلوم الاجتماعية</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Left Side (35%) -->
+                    <div class="arabica_footer-left">
+                        <div class="arabica_footer_logo_copy">
+                            <div class="arabica_footer-logo arabica_footer-logo-left">
+                                <a href="https://www.dohainstitute.org" target="_blank">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 294 55.01" >
+                                        <path class="cls-3" d="M4.28,14.16c.25,0,.47-.09.64-.27.17-.18.26-.4.26-.65s-.09-.48-.26-.65c-.18-.18-.39-.27-.64-.27s-.46.09-.63.27c-.17.18-.26.4-.26.65s.09.47.26.65c.17.18.38.27.63.27ZM6.51,14.16c.24,0,.45-.09.63-.27.17-.18.26-.4.26-.65s-.09-.48-.26-.65c-.17-.18-.38-.27-.63-.27s-.46.09-.63.27c-.17.18-.26.4-.26.65s.09.47.26.65c.17.18.38.27.63.27ZM5.6,21.53h3.79v-6.35h-1.77v4.94h-1.83c-1.23,0-2.1-.23-2.61-.69-.49-.43-.73-1.13-.73-2.11,0-.81.15-1.56.46-2.23l-1.9.31c-.23.64-.35,1.35-.35,2.12,0,1.3.37,2.27,1.1,2.92.81.72,2.09,1.07,3.84,1.07ZM21.44,21.34c.35.12.9.18,1.63.18h2.22c.14-.96.2-2.01.2-3.14,0-1.28-.14-2.53-.43-3.74l-1.73.24c.26,1.17.39,2.38.39,3.62,0,.58-.03,1.12-.1,1.62h-.35c-.63,0-1.05-.08-1.26-.24-.22-.17-.33-.51-.33-1.04v-3.39h-1.71v3.05c0,1.15-.36,1.73-1.08,1.73-.38,0-.64-.14-.76-.42-.11-.23-.16-.67-.16-1.32v-2.5h-1.77v2.46c0,.65-.09,1.09-.28,1.33-.18.23-.49.34-.93.34h-1.81v-8.11h-1.77v9.52h3.57c.92,0,1.52-.31,1.79-.94.23.7.83,1.05,1.79,1.05,1.03,0,1.71-.35,2.03-1.03.19.36.48.61.86.74ZM30.55,21.53h9.55c.92,0,1.52-.31,1.79-.94.23.7.83,1.05,1.79,1.05,1.03,0,1.71-.35,2.03-1.03.19.36.48.61.86.74.35.12.9.18,1.63.18h6.91v-9.52h-1.77v8.11h-2.78c.04-.66.07-1.24.07-1.74,0-1.28-.14-2.53-.43-3.74l-1.73.24c.26,1.17.39,2.38.39,3.62,0,.58-.03,1.12-.1,1.62h-.35c-.63,0-1.05-.08-1.26-.24-.22-.17-.33-.51-.33-1.04v-3.39h-1.71v3.05c0,1.15-.36,1.73-1.08,1.73-.38,0-.64-.14-.76-.42-.11-.23-.16-.67-.16-1.32v-2.5h-1.77v2.46c0,.65-.09,1.09-.28,1.33-.18.23-.49.34-.93.34h-2.29v-4.94h-1.77v4.94h-6.84v-8.11h-1.77v9.52h3.12ZM34.67,22.91c-.17.18-.26.4-.26.65s.09.48.26.65c.17.18.38.26.63.26s.47-.09.64-.27c.17-.18.26-.39.26-.65s-.09-.47-.26-.65c-.18-.18-.39-.26-.64-.26s-.45.09-.63.27ZM38.42,23.55c0-.25-.09-.47-.26-.65-.17-.18-.38-.26-.63-.26s-.45.09-.63.27c-.17.18-.26.4-.26.65s.09.48.26.65c.17.18.38.26.63.26s.46-.09.63-.27c.17-.18.26-.4.26-.65ZM59.03,12.01h-1.77v9.52h1.77v-9.52ZM67.19,14.16c.25,0,.46-.09.63-.27.17-.18.26-.4.26-.65s-.09-.48-.26-.65c-.17-.18-.38-.27-.63-.27s-.45.09-.63.27c-.17.18-.26.4-.26.65s.09.47.26.65c.17.18.38.27.63.27ZM64.96,14.16c.25,0,.47-.09.64-.27.17-.18.26-.4.26-.65s-.09-.48-.26-.65c-.18-.18-.39-.27-.64-.27s-.46.09-.63.27c-.17.18-.26.4-.26.65s.09.47.26.65c.17.18.38.27.63.27ZM72.63,20.59c.23.7.83,1.05,1.79,1.05,1.03,0,1.71-.35,2.03-1.03.19.36.48.61.86.74.35.12.9.18,1.63.18h2.22c.14-.96.2-2.01.2-3.14,0-1.28-.14-2.53-.43-3.74l-1.73.24c.26,1.17.39,2.38.39,3.62,0,.58-.03,1.12-.1,1.62h-.35c-.63,0-1.05-.08-1.26-.24-.22-.17-.33-.51-.33-1.04v-3.39h-1.71v3.05c0,1.15-.36,1.73-1.08,1.73-.38,0-.64-.14-.76-.42-.11-.23-.16-.67-.16-1.32v-2.5h-1.77v2.46c0,.65-.09,1.09-.28,1.33-.18.23-.49.34-.93.34h-1.79v-4.65c-.82-.31-1.76-.47-2.81-.47-1.17,0-2.07.34-2.71,1.03-.57.62-.85,1.4-.85,2.36,0,2.09,1.2,3.13,3.61,3.13h4.55c.92,0,1.52-.31,1.79-.94ZM67.34,20.12h-.86c-1.35,0-2.02-.63-2.02-1.89,0-.54.14-.97.43-1.31.29-.34.68-.51,1.18-.51s.94.08,1.28.24v3.47ZM85.07,12.01h-1.77v9.52h1.77v-9.52ZM87.87,21.68c0,.7-.13,1.19-.39,1.49-.23.26-.58.4-1.07.4-.35,0-.72-.05-1.09-.16l-.13,1.42c.36.09.74.13,1.13.13,2.22,0,3.32-1.12,3.32-3.37v-6.4h-1.77v6.5ZM96.84,20.64c0-1.63-.38-2.92-1.14-3.86-.72-.88-1.83-1.52-3.34-1.92l-.43,1.49c2.04.52,3.09,1.78,3.17,3.78h-3.99v1.4h5.73v-.89ZM98.27,16.04c-.57.62-.85,1.4-.85,2.36,0,2.09,1.2,3.13,3.61,3.13h1.05v.2c0,1.2-.78,1.79-2.33,1.79-.7,0-1.39-.08-2.1-.23l-.11,1.46c.69.12,1.37.18,2.05.18,1.43,0,2.5-.33,3.23-.99.65-.59.98-1.38.98-2.39v-6.08c-.82-.31-1.76-.47-2.81-.47-1.17,0-2.07.34-2.71,1.03ZM102.08,20.12h-.86c-1.35,0-2.02-.63-2.02-1.89,0-.54.14-.97.43-1.31.29-.34.68-.51,1.18-.51s.94.08,1.28.24v3.47ZM114.42,20.12h-1.83c-1.23,0-2.1-.23-2.61-.69-.49-.43-.73-1.13-.73-2.11,0-.81.15-1.56.46-2.23l-1.9.31c-.23.64-.35,1.35-.35,2.12,0,1.3.37,2.27,1.1,2.92.81.72,2.09,1.07,3.84,1.07h3.79v-6.35h-1.77v4.94ZM112.42,13.24c0,.25.09.47.26.65.18.18.39.27.64.27s.45-.09.63-.27c.17-.18.26-.4.26-.65s-.09-.48-.26-.65c-.17-.18-.38-.27-.63-.27s-.47.09-.64.27c-.17.18-.26.4-.26.65ZM112.19,12.24c.23,0,.43-.08.59-.25.16-.16.24-.36.24-.6s-.08-.44-.24-.6c-.16-.17-.36-.25-.59-.25s-.42.08-.58.25c-.16.16-.24.36-.24.6s.08.44.24.6c.16.17.36.25.58.25ZM111.09,14.16c.24,0,.45-.09.63-.27.17-.18.26-.4.26-.65s-.09-.48-.26-.65c-.17-.18-.38-.27-.63-.27s-.46.09-.63.27c-.17.18-.26.4-.26.65s.09.47.26.65c.17.18.38.27.63.27ZM136.42,15.18h-1.77v4.94h-2.73c.03-.35.05-.71.05-1.09,0-1.32-.33-2.3-.98-2.93-.68-.66-1.76-1-3.25-1-.52,0-1.09.04-1.72.13v1.39c.53-.08,1.04-.11,1.54-.11.95,0,1.63.22,2.05.65.39.41.59,1.06.59,1.94,0,.33-.02.67-.07,1.03h-10.16v-8.11h-1.77v9.52h18.21v-6.35ZM135.19,24.21c.18-.18.28-.4.28-.66s-.09-.48-.28-.66c-.18-.18-.4-.27-.66-.27s-.47.09-.66.27c-.18.18-.27.4-.27.66s.09.49.27.67c.18.18.4.27.66.27s.48-.09.66-.28ZM137.92,14.19l1.44,4.92h1.8l-1.41-4.92h-1.83ZM140.32,12.81h-.82c-.57,0-.86-.14-.86-.44,0-.26.2-.39.6-.39.29,0,.52.02.68.07l.16-.92c-.19-.05-.45-.08-.79-.08-.6,0-1.08.13-1.41.4-.3.24-.45.55-.45.92,0,.22.07.39.2.49-.17-.04-.39-.05-.68-.05v.93h3.39v-.93ZM137.98,21.53h10.51v-9.52h-1.77v8.11h-2.8v-7.88h-1.77v7.88h-4.16v1.4ZM158.02,24.47c.25,0,.46-.09.63-.27.18-.18.26-.4.26-.65s-.09-.47-.26-.65c-.17-.18-.38-.26-.63-.26s-.46.09-.63.27c-.17.18-.26.4-.26.65s.09.48.26.65c.18.18.39.26.63.26ZM166.02,22.89c-.18.18-.27.4-.27.66s.09.49.27.67c.18.18.4.27.66.27s.48-.09.66-.28c.18-.18.28-.4.28-.66s-.09-.48-.28-.66c-.18-.18-.4-.27-.66-.27s-.47.09-.66.27ZM155.78,22.64c-.24,0-.46.09-.63.27-.17.18-.26.4-.26.65s.09.48.26.65c.18.18.39.26.63.26s.47-.09.64-.27c.18-.18.26-.39.26-.65s-.09-.47-.26-.65c-.17-.18-.39-.26-.64-.26ZM160.05,21.53v-5.04c.29-.05.59-.08.89-.08.56,0,.94.13,1.16.4.22.26.33.72.33,1.37v3.35h6.13v-6.35h-1.77v4.94h-2.63v-2.14c0-.98-.22-1.71-.66-2.18-.5-.53-1.31-.8-2.44-.8-.97,0-1.87.09-2.7.26v4.86h-.92c-1.23,0-2.1-.23-2.61-.69-.49-.43-.73-1.13-.73-2.11,0-.81.15-1.56.46-2.23l-1.9.31c-.23.64-.35,1.35-.35,2.12,0,1.3.37,2.27,1.1,2.92.81.72,2.09,1.07,3.84,1.07h2.81ZM188.64,20.12h-2.35c-.52,0-1.02-.12-1.5-.35.91-.77,1.37-1.63,1.37-2.59,0-.64-.22-1.15-.66-1.55-.5-.44-1.23-.67-2.17-.67-1.21,0-2.51.5-3.89,1.5l-.14,1.27c.69.19,1.63.85,2.82,1.97-.85.28-1.89.42-3.13.42h-5.4v-4.94h-1.77v6.5c0,.7-.13,1.19-.39,1.49-.23.26-.58.4-1.07.4-.35,0-.72-.05-1.09-.16l-.13,1.42c.36.09.74.13,1.13.13,2.22,0,3.32-1.12,3.32-3.37v-.05h5.28c1.72,0,3.2-.28,4.44-.84.84.56,1.76.84,2.77.84h4.33v-9.52h-1.77v8.11ZM183.57,18.95c-1.31-1.1-2.14-1.72-2.49-1.87.81-.54,1.49-.81,2.04-.81.42,0,.74.11.97.33.21.2.32.47.32.8,0,.59-.28,1.1-.83,1.54ZM194.34,12.01h-1.77v9.52h1.77v-9.52ZM201.83,21.58v-.05h6.84v-.9c0-2.58-.99-4.32-2.98-5.21l3.28-1.98v-1.77l-5.33,3.35v1.31c2.12.5,3.22,1.77,3.3,3.81h-5.1v-4.94h-1.77v6.5c0,.7-.13,1.19-.39,1.49-.23.26-.58.4-1.07.4-.35,0-.72-.05-1.09-.16l-.13,1.42c.36.09.74.13,1.13.13,2.22,0,3.32-1.12,3.32-3.37ZM200.93,14.05c.25,0,.47-.09.66-.27.18-.18.27-.4.27-.66s-.09-.47-.27-.66c-.18-.18-.4-.27-.66-.27s-.48.09-.66.27c-.18.18-.28.4-.28.66s.09.49.28.67c.18.18.4.26.66.26ZM227.31,20.12h-2.36v-2.01c0-2.07-1.01-3.1-3.04-3.1-1.11,0-1.99.33-2.63,1-.58.61-.87,1.37-.87,2.28,0,.68-.14,1.16-.41,1.45-.25.26-.64.39-1.16.39h-4.66v-4.94h-1.77v6.5c0,.7-.13,1.19-.39,1.49-.23.26-.58.4-1.07.4-.35,0-.72-.05-1.09-.16l-.13,1.42c.36.09.74.13,1.13.13,2.22,0,3.32-1.12,3.32-3.37v-.05h5.07v-.02c1.02-.04,1.67-.38,1.93-1.04.56.7,1.57,1.05,3.02,1.05h6.89v-9.52h-1.77v8.11ZM223.22,20.12h-1.02c-1.35,0-2.02-.63-2.02-1.89,0-.54.14-.97.42-1.31.29-.34.69-.51,1.18-.51.96,0,1.44.64,1.44,1.92v1.79ZM233.04,12.01h-1.77v9.52h1.77v-9.52ZM3.13,31.99L0,41.1h1.76l.64-1.87h3.44l.62,1.87h1.94l-3.2-9.11h-2.06ZM2.81,37.85l.93-2.71c.09-.3.21-.72.35-1.26h.01c.08.36.2.78.36,1.26l.93,2.71h-2.58ZM10.69,35.74h-.03c.08-.47.12-.93.12-1.35h-1.63v6.71h1.72v-2.74c0-1.85.62-2.66,1.86-2.41l.08-1.69c-1.01-.1-1.72.4-2.13,1.48ZM19,36.61c0-.79-.19-1.37-.57-1.74-.42-.41-1.13-.62-2.12-.62-.92,0-1.77.15-2.53.45l.28,1.33c.71-.31,1.38-.46,2.02-.46.43,0,.74.1.93.28.18.18.27.48.27.89v.24c-1.21,0-2.15.19-2.81.57-.7.4-1.05.99-1.05,1.77,0,.56.17,1.01.5,1.36.35.37.82.55,1.41.55,1.06,0,1.77-.43,2.14-1.28h.01c-.04.31-.07.69-.07,1.15h1.64c-.03-.49-.05-1.07-.05-1.73v-2.77ZM17.28,38.3c0,.42-.13.79-.39,1.11-.27.34-.61.51-1.01.51-.24,0-.44-.08-.59-.23-.14-.15-.22-.33-.22-.55,0-.68.74-1.02,2.21-1.02v.18ZM24.31,34.26c-.98,0-1.65.4-2.02,1.19h-.01c.07-.37.11-.81.11-1.31v-2.89h-1.72v9.66c.77.22,1.6.32,2.49.32,1.13,0,2.02-.35,2.67-1.06.63-.69.95-1.61.95-2.77,0-1-.21-1.78-.63-2.32-.43-.55-1.04-.82-1.83-.82ZM23.29,39.86c-.36,0-.66-.04-.9-.12v-1.89c0-.58.13-1.08.38-1.5.27-.44.62-.66,1.06-.66.76,0,1.14.63,1.14,1.89,0,1.53-.56,2.29-1.68,2.29ZM34.81,39.62c-1.77,0-2.65-1.03-2.65-3.08,0-.93.21-1.66.63-2.2.45-.58,1.08-.86,1.91-.86.63,0,1.22.11,1.77.32l.24-1.62c-.6-.18-1.25-.27-1.94-.27-1.48,0-2.61.46-3.41,1.38-.76.87-1.14,2.05-1.14,3.55,0,1.27.3,2.29.91,3.04.72.89,1.81,1.33,3.29,1.33.85,0,1.63-.14,2.37-.42l-.27-1.56c-.52.25-1.09.38-1.72.38ZM41.02,34.26c-.97,0-1.75.34-2.33,1.02-.56.65-.84,1.49-.84,2.52,0,2.28,1.1,3.43,3.3,3.43.84,0,1.64-.14,2.42-.43l-.18-1.31c-.64.26-1.29.4-1.94.4-1.23,0-1.85-.6-1.85-1.81h4.13c.04-.25.07-.57.07-.97,0-.85-.22-1.53-.65-2.02-.49-.55-1.19-.82-2.12-.82ZM39.61,36.93c.1-.94.54-1.4,1.32-1.4s1.18.47,1.16,1.4h-2.48ZM48.92,34.26c-1.06,0-1.82.44-2.27,1.33h-.02c.07-.33.1-.73.1-1.2h-1.63v6.71h1.72v-3.24c0-.59.15-1.09.45-1.52.3-.43.67-.64,1.1-.64.56,0,.83.37.83,1.11v4.29h1.71v-4.71c0-1.42-.66-2.13-1.99-2.13ZM55.29,39.78c-.3,0-.5-.08-.62-.23-.12-.15-.18-.45-.18-.88v-2.94h1.63v-1.34h-1.63v-2.52l-1.71.46v2.06h-1.16v1.34h1.16v3.4c0,.79.14,1.33.41,1.64.28.31.79.46,1.52.46.47,0,.95-.06,1.45-.18l-.12-1.36c-.22.06-.47.09-.77.09ZM60.02,34.26c-.97,0-1.75.34-2.33,1.02-.56.65-.84,1.49-.84,2.52,0,2.28,1.1,3.43,3.3,3.43.84,0,1.64-.14,2.42-.43l-.18-1.31c-.64.26-1.29.4-1.94.4-1.23,0-1.85-.6-1.85-1.81h4.13c.04-.25.07-.57.07-.97,0-.85-.22-1.53-.65-2.02-.49-.55-1.19-.82-2.12-.82ZM58.61,36.93c.1-.94.54-1.4,1.32-1.4s1.18.47,1.16,1.4h-2.48ZM65.63,35.74h-.03c.08-.47.12-.93.12-1.35h-1.63v6.71h1.72v-2.74c0-1.85.62-2.66,1.86-2.41l.08-1.69c-1.01-.1-1.72.4-2.13,1.48ZM74.5,32.55c.32,0,.6.04.83.12l.12-1.42c-.31-.07-.67-.11-1.09-.11-1.78,0-2.67.9-2.67,2.7v.55h-1.17v1.34h1.17v5.37h1.71v-5.37h1.56v-1.34h-1.56v-.57c0-.85.36-1.28,1.09-1.28ZM78.81,34.26c-1.01,0-1.83.34-2.47,1.02-.63.67-.95,1.53-.95,2.58,0,2.25,1.04,3.38,3.13,3.38.99,0,1.81-.34,2.46-1.02.64-.68.96-1.55.96-2.6,0-1.12-.28-1.98-.85-2.55-.54-.54-1.3-.81-2.29-.81ZM79.74,39.25c-.27.34-.63.51-1.07.51-1,0-1.5-.69-1.5-2.08,0-.65.16-1.15.47-1.5.28-.31.63-.47,1.05-.47.99,0,1.48.67,1.48,2,0,.66-.14,1.17-.43,1.54ZM84.6,35.74h-.03c.08-.47.12-.93.12-1.35h-1.63v6.71h1.72v-2.74c0-1.85.62-2.66,1.86-2.41l.08-1.69c-1.01-.1-1.72.4-2.13,1.48ZM94.01,37.04c.65-.11,1.18-.4,1.59-.84.43-.47.64-1.04.64-1.69,0-1.71-1.1-2.57-3.3-2.57-1.1,0-1.97.02-2.61.06v9.11h1.75v-3.76h.15l2.45,3.76h2.16l-2.11-3.07c-.14-.21-.39-.55-.73-1ZM92.72,36.07c-.26,0-.47,0-.63-.03v-2.63c.18-.03.41-.05.69-.05,1.1,0,1.64.44,1.64,1.31,0,.43-.15.76-.46,1.02-.3.25-.72.38-1.24.38ZM100.54,34.26c-.97,0-1.75.34-2.33,1.02-.56.65-.84,1.49-.84,2.52,0,2.28,1.1,3.43,3.3,3.43.84,0,1.64-.14,2.42-.43l-.18-1.31c-.64.26-1.29.4-1.94.4-1.23,0-1.85-.6-1.85-1.81h4.13c.04-.25.07-.57.07-.97,0-.85-.22-1.53-.65-2.02-.49-.55-1.19-.82-2.12-.82ZM99.12,36.93c.1-.94.54-1.4,1.32-1.4s1.18.47,1.16,1.4h-2.48ZM107.36,37.23l-.95-.38c-.29-.16-.43-.36-.43-.6,0-.46.33-.69.99-.69.41,0,.81.06,1.21.18l.08-1.35c-.42-.09-.82-.13-1.21-.13-.92,0-1.64.21-2.15.63-.46.38-.69.89-.69,1.52,0,.85.45,1.45,1.36,1.79.6.23.91.35.93.36.28.15.43.36.43.61,0,.49-.36.73-1.08.73-.54,0-1.01-.09-1.43-.27l-.12,1.44c.42.11.91.17,1.5.17.89,0,1.6-.2,2.14-.61.54-.41.81-.95.81-1.61,0-.83-.46-1.42-1.38-1.79ZM112.86,34.26c-.97,0-1.75.34-2.33,1.02-.56.65-.84,1.49-.84,2.52,0,2.28,1.1,3.43,3.3,3.43.84,0,1.64-.14,2.42-.43l-.18-1.31c-.64.26-1.29.4-1.94.4-1.23,0-1.85-.6-1.85-1.81h4.13c.04-.25.07-.57.07-.97,0-.85-.22-1.53-.65-2.02-.49-.55-1.19-.82-2.12-.82ZM111.45,36.93c.1-.94.54-1.4,1.32-1.4s1.18.47,1.16,1.4h-2.48ZM122.16,36.61c0-.79-.19-1.37-.57-1.74-.42-.41-1.13-.62-2.12-.62-.92,0-1.77.15-2.53.45l.28,1.33c.71-.31,1.38-.46,2.02-.46.43,0,.74.1.93.28.18.18.27.48.27.89v.24c-1.21,0-2.15.19-2.81.57-.7.4-1.05.99-1.05,1.77,0,.56.17,1.01.5,1.36.35.37.82.55,1.41.55,1.06,0,1.77-.43,2.14-1.28h.01c-.04.31-.07.69-.07,1.15h1.64c-.03-.49-.05-1.07-.05-1.73v-2.77ZM120.43,38.3c0,.42-.13.79-.39,1.11-.27.34-.61.51-1.01.51-.24,0-.44-.08-.59-.23-.14-.15-.22-.33-.22-.55,0-.68.74-1.02,2.21-1.02v.18ZM125.36,35.74h-.03c.08-.47.12-.93.12-1.35h-1.63v6.71h1.72v-2.74c0-1.85.62-2.66,1.86-2.41l.08-1.69c-1.01-.1-1.72.4-2.13,1.48ZM131.25,39.74c-1.04,0-1.56-.65-1.56-1.94,0-.64.13-1.14.39-1.5.27-.38.66-.57,1.16-.57.42,0,.83.09,1.25.26l.27-1.48c-.44-.15-.93-.23-1.47-.23-1.11,0-1.97.35-2.57,1.06-.56.66-.83,1.54-.83,2.64,0,2.17,1.01,3.25,3.02,3.25.72,0,1.35-.1,1.88-.31l-.22-1.44c-.4.18-.84.27-1.31.27ZM137.71,34.26c-1.03,0-1.76.41-2.19,1.24h-.03c.08-.35.12-.8.12-1.36v-2.89h-1.72v9.85h1.72v-3.22c0-.6.15-1.11.45-1.54.3-.43.67-.64,1.1-.64.56,0,.83.37.83,1.11v4.29h1.71v-4.71c0-1.42-.66-2.13-1.99-2.13ZM152.74,34.92h-1.71c.04,1.1-.23,2.1-.81,2.99h0c-.86-.69-1.68-1.41-2.44-2.18,1.07-.83,1.6-1.7,1.6-2.6,0-.61-.21-1.08-.62-1.44-.43-.36-1.02-.55-1.77-.55-.84,0-1.5.22-1.99.66-.46.41-.69.93-.69,1.56,0,.7.38,1.51,1.14,2.41-1.14.89-1.71,1.82-1.71,2.81,0,.77.25,1.4.74,1.88.54.53,1.31.8,2.31.8,1.34,0,2.5-.4,3.5-1.19.45.36,1.07.81,1.85,1.35l1.13-1.31c-.45-.3-1.04-.73-1.76-1.27.85-1.12,1.25-2.43,1.22-3.92ZM146.24,32.67c.16-.16.36-.24.61-.24.56,0,.83.27.83.81,0,.48-.3.99-.91,1.51-.51-.6-.77-1.09-.77-1.48,0-.24.08-.44.24-.6ZM147.1,39.78c-.47,0-.86-.14-1.15-.43-.28-.27-.41-.6-.41-.99,0-.51.31-1.03.93-1.56.74.76,1.59,1.53,2.57,2.32-.59.44-1.23.66-1.94.66ZM159.8,31.93c-.86,0-1.71.02-2.54.06v9.11h1.75v-3.14c.2.02.41.03.63.03,1.14,0,2.03-.31,2.69-.93.61-.59.92-1.36.92-2.31,0-.9-.3-1.59-.89-2.08-.6-.49-1.45-.73-2.56-.73ZM159.75,36.53c-.27,0-.52-.02-.74-.07v-3.06c.22,0,.45-.01.68-.01,1.16,0,1.75.51,1.75,1.54s-.56,1.61-1.68,1.61ZM166.94,34.26c-1.01,0-1.83.34-2.47,1.02-.63.67-.95,1.53-.95,2.58,0,2.25,1.04,3.38,3.13,3.38.99,0,1.81-.34,2.46-1.02.64-.68.96-1.55.96-2.6,0-1.12-.28-1.98-.85-2.55-.54-.54-1.3-.81-2.29-.81ZM167.87,39.25c-.27.34-.63.51-1.07.51-1,0-1.5-.69-1.5-2.08,0-.65.16-1.15.47-1.5.28-.31.63-.47,1.05-.47.99,0,1.48.67,1.48,2,0,.66-.14,1.17-.43,1.54ZM171.26,41.1h1.72v-9.85h-1.72v9.85ZM175.56,31.3c-.3,0-.55.1-.76.31-.21.21-.31.45-.31.74s.1.54.31.74c.21.2.46.3.76.3s.55-.1.76-.31c.21-.2.32-.45.32-.73s-.11-.54-.32-.75c-.21-.2-.46-.3-.76-.3ZM174.7,41.1h1.72v-6.71h-1.72v6.71ZM181.03,39.74c-1.04,0-1.56-.65-1.56-1.94,0-.64.13-1.14.39-1.5.27-.38.66-.57,1.16-.57.42,0,.83.09,1.25.26l.27-1.48c-.44-.15-.93-.23-1.47-.23-1.11,0-1.97.35-2.57,1.06-.56.66-.83,1.54-.83,2.64,0,2.17,1.01,3.25,3.02,3.25.72,0,1.35-.1,1.88-.31l-.22-1.44c-.4.18-.84.27-1.31.27ZM187.04,36.67c-.28.82-.49,1.53-.64,2.14h-.01c-.15-.62-.33-1.24-.53-1.85l-.9-2.56h-1.92l2.48,6.71-.22.59c-.3.88-.81,1.32-1.52,1.32-.28,0-.56-.05-.85-.14l-.2,1.49c.3.06.61.09.94.09.8,0,1.45-.21,1.94-.62.53-.45,1-1.24,1.43-2.37l2.65-7.09h-1.85l-.79,2.28ZM196.53,35.88c-.81-.34-1.25-.54-1.34-.59-.4-.24-.6-.54-.6-.89,0-.73.5-1.09,1.49-1.09.52,0,1.04.09,1.56.26l.16-1.54c-.55-.12-1.1-.18-1.64-.18-1.08,0-1.92.25-2.54.76-.6.49-.89,1.15-.89,1.98,0,1.1.64,1.92,1.91,2.44.77.32,1.21.51,1.31.57.4.24.6.55.6.93,0,.79-.51,1.19-1.52,1.19-.7,0-1.36-.13-1.98-.39l-.19,1.69c.61.16,1.31.24,2.1.24,1.04,0,1.89-.28,2.54-.84.64-.55.97-1.25.97-2.1,0-1.07-.65-1.88-1.94-2.43ZM202.43,39.78c-.3,0-.5-.08-.62-.23-.12-.15-.18-.45-.18-.88v-2.94h1.63v-1.34h-1.63v-2.52l-1.71.46v2.06h-1.16v1.34h1.16v3.4c0,.79.14,1.33.41,1.64.28.31.79.46,1.52.46.47,0,.95-.06,1.45-.18l-.12-1.36c-.22.06-.47.09-.77.09ZM208.51,37.64c0,.59-.15,1.1-.45,1.52-.3.43-.67.64-1.1.64-.56,0-.83-.37-.83-1.11v-4.29h-1.71v4.71c0,1.42.66,2.13,1.99,2.13,1.06,0,1.81-.44,2.27-1.33h.01c-.05.28-.08.68-.08,1.2h1.62v-6.71h-1.72v3.24ZM215.87,34.33c-.26-.04-.55-.05-.85-.05-1.1,0-1.96.36-2.6,1.07-.63.7-.94,1.62-.94,2.76,0,.98.2,1.75.6,2.29.43.57,1.04.86,1.83.86,1.01,0,1.71-.42,2.11-1.27h.03c-.05.37-.08.74-.08,1.12h1.6v-9.85h-1.71v3.08ZM215.87,37.62c0,.6-.13,1.11-.38,1.53-.27.44-.62.67-1.06.67-.77,0-1.15-.63-1.15-1.9,0-1.52.56-2.28,1.68-2.28.27,0,.57.04.91.11v1.88ZM220.17,31.3c-.3,0-.55.1-.76.31-.21.21-.31.45-.31.74s.1.54.31.74c.21.2.46.3.76.3s.55-.1.76-.31c.21-.2.32-.45.32-.73s-.11-.54-.32-.75c-.21-.2-.46-.3-.76-.3ZM219.31,41.1h1.72v-6.71h-1.72v6.71ZM225.45,34.26c-.97,0-1.75.34-2.33,1.02-.56.65-.84,1.49-.84,2.52,0,2.28,1.1,3.43,3.3,3.43.84,0,1.64-.14,2.42-.43l-.18-1.31c-.64.26-1.29.4-1.94.4-1.23,0-1.85-.6-1.85-1.81h4.13c.04-.25.07-.57.07-.97,0-.85-.22-1.53-.65-2.02-.49-.55-1.19-.82-2.12-.82ZM224.04,36.93c.1-.94.54-1.4,1.32-1.4s1.18.47,1.16,1.4h-2.48ZM232.27,37.23l-.95-.38c-.29-.16-.43-.36-.43-.6,0-.46.33-.69.99-.69.41,0,.81.06,1.21.18l.08-1.35c-.42-.09-.82-.13-1.21-.13-.92,0-1.64.21-2.15.63-.46.38-.69.89-.69,1.52,0,.85.45,1.45,1.36,1.79.6.23.91.35.93.36.28.15.43.36.43.61,0,.49-.36.73-1.08.73-.54,0-1.01-.09-1.43-.27l-.12,1.44c.42.11.91.17,1.5.17.89,0,1.6-.2,2.14-.61.54-.41.81-.95.81-1.61,0-.83-.46-1.42-1.38-1.79ZM267.39,27.43s-.02-.07-.06-.22c-.05-.17-.18-.4-.39-.72-.2-.31-.38-.48-.53-.48s-.34.21-.56.63c-.19.32-.31.64-.36.88.36.22.66.49.94.78.28-.34.6-.61.95-.87ZM277.06,33.86c.17,0,.35-.19.57-.58.22-.35.33-.68.39-.95-.34-.2-.65-.46-.96-.73-.26.29-.57.58-.96.82.1.34.24.68.43.96.22.32.39.49.52.49ZM288.4,0h-43.62c-3.09,0-5.6,2.52-5.6,5.62v43.77c0,3.1,2.51,5.62,5.6,5.62h43.62c3.09,0,5.6-2.52,5.6-5.62V5.62c0-3.1-2.51-5.62-5.6-5.62ZM278.61,3.89c.57.53,1.08.86,1.57.99.46.12.96.2,1.48.2l-.64.22v21.89h-2.4V3.89ZM255.44,4.24c.24-.26.52-.39.86-.39.31,0,.58.13.82.36.21.24.32.53.32.9s-.11.64-.34.88c-.24.27-.53.38-.84.38-.33,0-.61-.11-.84-.38-.25-.24-.35-.53-.35-.88s.12-.64.37-.88ZM251.94,19.5c.58.41,1.18.59,1.8.46.61-.14,1.1-.5,1.46-1.09.23-.41.37-.94.42-1.63v-2.24c.01-.78-.12-3.23-.39-3.42-.25-.22-.62-.34-1.13-.41.54-.07,1.18-.35,1.98-.8.81-.43,1.41-1.06,1.84-1.84v5.99h12.87v-1.46h-6.3c-5.26,0-5.78-9.41.51-9.41,1.24,0,3.03.67,3.5,2.54.07.21.14.5.21.82.16.71.79.97,1.06.87.68-.34,1.02.12,1.09.27.06.17.06.34-.02.53-.19.32-.46.39-.81.24-.25-.17-.36-.39-.28-.7-.51.14-.98.1-1.38-.17l-.16-.12c-1.1,1.09-2.46.68-2.89.51.19-.01,2.15.19,2.56-1.58.17-.71-.65-1.77-2.23-1.77-4.45,0-3.58,5.55-.92,5.55h6.21c1.55,0,2.31.75,2.28,2.23v4.04h-15.28c0,1.64-.31,2.7-.92,3.41-.72.7-1.57,1.04-2.5,1.04-1.95.02-3.1-.99-3.43-3.1.17.58.44.99.83,1.26ZM251.84,29.65c.58.43,1.19.58,1.8.46.63-.12,1.11-.48,1.47-1.07.23-.44.38-.97.43-1.65v-2.2c.01-.8-.11-1.28-.38-1.5-.27-.22-.64-.36-1.14-.44.54-.1,1.18-.34,1.98-.8.81-.46,1.4-1.04,1.82-1.85v4.18h6.31c-.74-.46-.71-1.04.07-1.53.82-.48,1.32-.65,1.46-.56.24.14.48.31.7.53.44-.29.72-.46.87-.53.16-.05.68.17,1.49.63.81.46.76,1.01-.14,1.45h6.13V5.31l-.69-.22c.38,0,.69-.05.97-.12.08-.02.14-.05.22-.05.08-.02.16-.05.23-.1.08-.02.23-.07.37-.14.19-.05.36-.12.58-.22l.73-.58v23.34h-7.18c.01.12.01.27.01.49.09.46.3.77.66.94-1.42.42-2.82,1.38-4.2,2.96-1.45-1.57-2.77-2.5-3.95-2.96.31-.19.51-.51.56-.94v-.49h-5.16c0,1.41-.31,2.55-.92,3.25-.74.69-1.57,1.02-2.49,1.02-1.94.05-3.1-1-3.45-3.08.17.58.45,1,.83,1.23ZM244.05,50.57v-11.36l6.06,5.69-6.06,5.67ZM244.05,38.78v-11.31l6.06,5.67-6.06,5.64ZM244.05,27.03v-11.36l6.06,5.67-6.06,5.68ZM244.05,15.25V3.89l6.06,5.68-6.06,5.68ZM251.65,40.66c.61.44,1.21.58,1.83.46.61-.15,1.1-.51,1.46-1.09.23-.42.37-.95.41-1.62v-2.21c.03-.82-.1-1.31-.37-1.5-.25-.22-.62-.34-1.13-.4.53-.08,1.18-.35,1.99-.81.78-.43,1.4-1.05,1.83-1.83v4.2h17.26l.4-.4c-1.21-1.21-1.8-1.81-1.8-3.32-.1-.44-.29-.78-.63-1,1.45-.36,2.84-1.33,4.16-2.86,1.52,1.56,2.85,2.5,3.94,2.86-.29.22-.46.56-.51,1,0,1.56-.65,2.26-1.69,3.31l.41.41h3.31V5.28l-.68-.22c.36,0,.68-.05.95-.12.07-.02.15-.05.23-.07.08,0,.15-.05.22-.08.1-.02.23-.07.39-.14.17-.08.36-.15.57-.25l.74-.52v34.39l-6.71.03-1.15-1.2-1.12,1.17h-18.26c0,1.41-.31,2.47-.92,3.2-.72.68-1.57,1.02-2.5,1.02-1.95.04-3.1-.97-3.44-3.11.18.61.44,1.02.81,1.27ZM255.94,50.54c-.24.27-.53.38-.84.38-.33,0-.61-.11-.84-.38-.25-.24-.35-.53-.35-.88s.12-.64.37-.88c.24-.26.52-.39.86-.39.31,0,.58.13.82.36.21.24.32.53.32.9s-.11.64-.34.88ZM258.79,50.54c-.24.27-.53.38-.84.38-.33,0-.61-.11-.84-.38-.24-.24-.34-.53-.34-.88s.12-.64.37-.88c.24-.26.52-.39.86-.39.31,0,.58.13.82.36.21.24.32.53.32.9s-.11.64-.34.88ZM272.69,43.35c-.35.02-.55.23-.55.66v2.46c0,.19-.03.47-.04.55-.11.66-.32,1.37-.79,2.1-.45.72-1.28,1.43-2.26,1.7-.97.3-1.96.22-2.86.02-1.8-.43-3.37-1.33-4.85-2.29-.67-.42-1.36-.82-2.07-1.14-.7-.32-1.41-.59-2.08-.77-.68-.17-1.34-.25-1.94-.19-.6.07-1.14.29-1.58.62-.92.65-1.42,1.62-1.73,2.27-.3.67-.44,1.08-.44,1.08h-.02s0-.11.01-.31c0-.2.03-.5.09-.88.06-.38.15-.84.35-1.36.19-.52.49-1.09.97-1.64.49-.54,1.19-1.01,2.01-1.27.82-.26,1.73-.31,2.62-.19.89.1,1.75.38,2.58.71.82.34,1.63.76,2.41,1.22,1.38.85,2.85,1.59,4.17,1.85.65.12,1.25.13,1.67-.01.43-.13.72-.39.94-.74.22-.35.36-.79.41-1.15v-2.35c0-1,0-3.06,2.3-3.39.65-.12,1.27-.26,1.83-.44.56-.19,1.08-.51,1.82-1.01v4.61h10.71v-2.57c-.06-.44-.42-.68-1.07-.75.09-.05.36-.12.81-.19.44-.09.86-.24,1.29-.48.43-.22.87-.68,1.32-1.33v7.73h-15.49v-2.54c0-.39-.17-.58-.55-.58ZM288.47,50.54c-.24.27-.53.38-.84.38-.33,0-.61-.11-.84-.38-.25-.24-.34-.53-.34-.88s.12-.64.37-.88c.24-.26.52-.39.86-.39.31,0,.58.13.82.36.21.24.32.53.32.9s-.11.64-.34.88ZM288.82,5.24v33.04h-2.41V3.89c.57.53,1.09.83,1.56.96.47.12.95.17,1.47.19l-.63.19Z"
+                                        />
+                                    </svg>
+                                </a>
+                            </div>
+                            <hr />
+                            <div class="arabica_footer_copyright">
+                                <p class="arabica_footer-text">
+                                    © جميع الحقوق محفوظة
+                                    <br /> للمركز العربي للأبحاث ودراسة السياسات، 2024
+                                    <br />
+                                </p>
+                                <div class="arabica_doha_link">
+                                    <a href="https://www.dohainstitute.org">
+                  www.dohainstitute.org</a
+                >
+              </div>
+            </div>
+          </div>
+          <hr />
+          <div class="arabica_footer-social">
+            <ul>
+              <li>
+                <a
+                  href="https://www.facebook.com"
+                  target="_blank"
+                  title="Facebook"
+                  ><svg
+                    class="arabica_social-icon"
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 448 512"
+                  >
+                    <path
+                      class="arabica_social-color"
+                      d="M64 32C28.7 32 0 60.7 0 96V416c0 35.3 28.7 64 64 64h98.2V334.2H109.4V256h52.8V222.3c0-87.1 39.4-127.5 125-127.5c16.2 0 44.2 3.2 55.7 6.4V172c-6-.6-16.5-1-29.6-1c-42 0-58.2 15.9-58.2 57.2V256h83.6l-14.4 78.2H255V480H384c35.3 0 64-28.7 64-64V96c0-35.3-28.7-64-64-64H64z"
+                    />
+                  </svg>
+                </a>
+                                    </li>
+                                    <li>
+                                        <a href="https://twitter.com" target="_blank" title="Twitter">
+                                            <svg class="arabica_social-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+                                                <path class="arabica_social-color" d="M64 32C28.7 32 0 60.7 0 96V416c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V96c0-35.3-28.7-64-64-64H64zm297.1 84L257.3 234.6 379.4 396H283.8L209 298.1 123.3 396H75.8l111-126.9L69.7 116h98l67.7 89.5L313.6 116h47.5zM323.3 367.6L153.4 142.9H125.1L296.9 367.6h26.3z"
+                                                />
+                                            </svg>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="https://www.youtube.com" target="_blank" title="YouTube">
+                                            <svg class="arabica_social-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+                                                <path class="arabica_social-color" d="M282 256.2l-95.2-54.1V310.3L282 256.2zM384 32H64C28.7 32 0 60.7 0 96V416c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V96c0-35.3-28.7-64-64-64zm14.4 136.1c7.6 28.6 7.6 88.2 7.6 88.2s0 59.6-7.6 88.1c-4.2 15.8-16.5 27.7-32.2 31.9C337.9 384 224 384 224 384s-113.9 0-142.2-7.6c-15.7-4.2-28-16.1-32.2-31.9C42 315.9 42 256.3 42 256.3s0-59.7 7.6-88.2c4.2-15.8 16.5-28.2 32.2-32.4C110.1 128 224 128 224 128s113.9 0 142.2 7.7c15.7 4.2 28 16.6 32.2 32.4z"
+                                                />
+                                            </svg>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="https://www.linkedin.com" target="_blank" title="LinkedIn">
+                                            <svg class="arabica_social-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+                                                <path class="arabica_social-color" d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"
+                                                />
+                                            </svg>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="rss-feed-url" target="_blank" title="RSS">
+                                            <svg class="arabica_social-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+                                                <path class="arabica_social-color" d="M64 32C28.7 32 0 60.7 0 96L0 416c0 35.3 28.7 64 64 64l320 0c35.3 0 64-28.7 64-64l0-320c0-35.3-28.7-64-64-64L64 32zM96 136c0-13.3 10.7-24 24-24c137 0 248 111 248 248c0 13.3-10.7 24-24 24s-24-10.7-24-24c0-110.5-89.5-200-200-200c-13.3 0-24-10.7-24-24zm0 96c0-13.3 10.7-24 24-24c83.9 0 152 68.1 152 152c0 13.3-10.7 24-24 24s-24-10.7-24-24c0-57.4-46.6-104-104-104c-13.3 0-24-10.7-24-24zm0 120a32 32 0 1 1 64 0 32 32 0 1 1 -64 0z"
+                                                />
+                                            </svg>
+                                        </a>
+                                    </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+            </footer>
+
+            <div class="arabica_mobile_nav hidden" id="mobileNav">
+                <button type="button" class="menu-close" id="menuClose">
+                    <svg class="menu-close-icon" xmlns="http://www.w3.org/2000/svg" width="23.81" height="23.804" viewBox="0 0 23.81 23.804">
+                        <path data-name="Icon ionic-ios-close" d="M26.011,23.191l8.5-8.5A1.993,1.993,0,0,0,31.7,11.868l-8.5,8.5-8.5-8.5a1.993,1.993,0,1,0-2.818,2.818l8.5,8.5-8.5,8.5a1.993,1.993,0,0,0,2.818,2.818l8.5-8.5,8.5,8.5a1.993,1.993,0,0,0,2.818-2.818Z" transform="translate(-11.285 -11.289)"
+                        fill="#fff" />
+                    </svg>
+                </button>
+                <div class="arabica_mobile_nav_content">
+                    <div class="menu-logo">
+                        <a href="index.html">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 666.31 129.77">
+                                <g>
+                                    <path class="cls-1" d="M601.23,0c-35.88,0-65.08,29.11-65.08,64.89s29.19,64.89,65.08,64.89,65.08-29.11,65.08-64.89S637.11,0,601.23,0ZM540.06,64.89c0-33.63,27.44-60.99,61.17-60.99s61.17,27.36,61.17,60.99-27.44,60.99-61.17,60.99-61.17-27.36-61.17-60.99Z"
+                                    />
+                                    <path class="cls-1" d="M594.61,13.8c-1.44.18-2.87.43-4.26.73.21.62.42,1.24.62,1.86,2.45,8.11,4.21,16.39,5.53,24.77-2.36-7.99-5.57-15.78-9.99-22.65-.96-1.48-2.82-2.1-4.45-1.43-1.59.63-3.14,1.35-4.65,2.14.93,1.04,1.84,2.12,2.69,3.24,4.49,6.12,8.09,12.82,10.97,19.88-4.32-7.17-9.88-13.58-16.52-18.5-1.33-.98-3.14-.98-4.46.02-1.55,1.18-3.02,2.43-4.41,3.76,1.92.9,3.81,1.91,5.61,3.09,6.8,4.53,12.47,10.51,16.97,17.34-6.34-7.2-14.4-12.89-23.38-16.13-1.51-.55-3.2-.06-4.2,1.2-1.31,1.67-2.52,3.41-3.63,5.24,9.53,1.24,18.88,6.06,26.05,12.35.74.64,1.46,1.32,2.16,2-.77-.56-1.56-1.09-2.35-1.59-7.45-4.67-16.19-8.21-25.11-9.1-1.59-.16-3.11.71-3.76,2.17-.88,2.01-1.64,4.09-2.26,6.22,9.48-1.6,19.89,1.15,28.36,5.36.84.42,1.65.88,2.47,1.35-9.34-3.39-20.44-3.64-29.56-1.9h-.04c-1.52.31-2.67,1.55-2.87,3.08-.31,2.38-.45,4.82-.41,7.3h.01c8.95-4.69,20.5-5.51,30.34-3.63,9.69,1.88,16.55,7.74,19.23,16.31l-.36,16.49c-3.29-2.35-7.02-4.12-10.82-5.48-10.64-3.72-22.21-3.86-33.26-2.1.42.86.86,1.69,1.32,2.51.76,1.36,2.29,2.12,3.82,1.86,3.27-.55,6.58-.91,9.92-1.03,5.77-.16,11.59.41,17.15,2.02,5.13,1.52,10.2,3.81,14.19,7.41,3.99-3.6,9.06-5.89,14.19-7.41,5.56-1.6,11.38-2.17,17.15-2.02,3.33.12,6.62.47,9.88,1.02,1.52.26,3.06-.5,3.81-1.85.46-.82.9-1.67,1.32-2.52-11.03-1.76-22.6-1.63-33.23,2.1-3.81,1.37-7.54,3.14-10.85,5.51l-.35-16.45c2.66-8.61,9.54-14.48,19.24-16.37,9.84-1.87,21.37-1.06,30.33,3.62h.01c.04-2.48-.11-4.91-.41-7.29-.19-1.53-1.35-2.77-2.88-3.08h-.02c-9.48-1.87-20.42-1.41-29.57,1.96,6.11-3.71,13.16-6.07,20.17-6.85,3.43-.41,7.15-.48,10.66.05-.62-2.13-1.37-4.19-2.25-6.19-.64-1.46-2.16-2.33-3.76-2.17-8.92.89-17.64,4.43-25.09,9.1-.78.49-1.55,1.02-2.31,1.55,5.32-5.23,11.74-9.37,18.71-11.93,3.08-1.14,6.27-1.96,9.43-2.37-1.09-1.82-2.31-3.56-3.61-5.22-1-1.26-2.67-1.74-4.19-1.2-8.85,3.19-16.86,8.75-23.16,15.81,4.44-6.74,10.04-12.67,16.74-17.03,1.8-1.18,3.67-2.19,5.59-3.09-1.4-1.34-2.87-2.59-4.41-3.76-1.31-.99-3.12-1-4.45-.03-6.61,4.86-12.13,11.17-16.45,18.32,3.34-8.42,7.74-16.5,13.58-22.93-1.49-.78-3.02-1.49-4.59-2.11-1.63-.65-3.5-.05-4.45,1.42-4.27,6.65-7.54,14.23-9.96,22.17,1.31-8.21,3.05-16.34,5.45-24.3.19-.62.41-1.24.62-1.86-1.41-.3-2.82-.55-4.26-.73-1.85-.24-3.6.98-3.99,2.8-1.17,5.32-2.03,10.72-2.64,16.14-.61-5.43-1.47-10.82-2.64-16.15-.36-1.67-1.87-2.82-3.53-2.82-.15,0-.3,0-.46.03M558.83,93.93c.7,1,1.43,1.98,2.19,2.93.82,1,2.07,1.53,3.36,1.38,1.84-.2,3.68-.34,5.53-.42,5.77-.16,11.59.41,17.15,2.02,5.13,1.52,10.2,3.81,14.19,7.41,3.99-3.6,9.06-5.89,14.19-7.41,5.56-1.6,11.38-2.17,17.15-2.02,1.84.06,3.67.2,5.49.41,1.29.14,2.54-.37,3.36-1.38.76-.95,1.5-1.92,2.19-2.93-9.81-1.13-19.89-.63-29.24,2.64-4.71,1.69-9.33,4-13.14,7.27-3.81-3.28-8.41-5.58-13.14-7.27-6.44-2.26-13.21-3.2-20-3.2-3.1,0-6.2.19-9.27.56M564.52,100.79c1.22,1.24,2.51,2.42,3.85,3.52.68.56,1.53.84,2.41.82,2.9-.07,10.03,0,16.26,2.04,5.09,1.67,10.2,3.81,14.19,7.41,3.99-3.6,9.09-5.78,14.19-7.41,6.27-2,13.35-2.1,16.24-2.04.88.02,1.73-.27,2.4-.82,1.35-1.11,2.64-2.29,3.86-3.53-7.97-.37-16,.47-23.56,3.11-4.71,1.69-9.33,4-13.14,7.27-3.81-3.28-8.41-5.58-13.14-7.27-6.44-2.26-13.22-3.2-20.03-3.2-1.19,0-2.38.03-3.56.09M597.93,116c-3.04-2-6.4-3.56-9.81-4.78-4.61-1.61-9.4-2.54-14.25-2.95,7.05,4.42,15.25,7.17,24.06,7.73ZM614.38,111.22c-3.41,1.23-6.76,2.78-9.8,4.78,8.79-.57,16.97-3.31,24.01-7.73-4.83.41-9.6,1.34-14.21,2.95Z"
+                                    />
+                                </g>
+                                <g>
+                                    <path class="cls-1" d="M274.4,129.27v-1.24c2.74-.38,3.12-.77,2.53-2.5-.62-1.71-1.41-3.86-2.36-6.33h-9.46c-.74,1.97-1.33,3.65-1.89,5.36-.94,2.62-.59,3.12,2.74,3.48v1.24h-9.72v-1.24c2.86-.44,3.48-.74,5.04-4.57l9.25-22.48,1.53-.38c2.83,7.63,5.66,15.29,8.57,22.86,1.41,3.8,2.03,4.27,4.89,4.57v1.24h-11.14ZM270.07,106.52h-.09c-1.41,3.57-2.8,7.25-4.12,10.73h8.07l-3.86-10.73Z"
+                                    />
+                                    <path class="cls-1" d="M295.72,114.63c1.44-2.36,3.24-4.66,5.27-4.66,1.59,0,2.65,1.15,2.65,2.21,0,1-.59,1.89-1.53,2.33-.53.21-.91.12-1.18-.12-.68-.62-1.18-.88-1.92-.88-1.12,0-2.45,1.27-3.39,3.57v7.69c0,2.83.21,3.09,3.62,3.36v1.15h-10.46v-1.15c2.65-.26,3.04-.53,3.04-3.36v-8.93c0-2.74-.24-2.92-2.68-3.27v-.97c2.18-.35,4.24-.85,6.48-1.77v4.8h.09Z"
+                                    />
+                                    <path class="cls-1" d="M320.71,129.77c-.83,0-1.77-.38-2.24-.85-.59-.56-.85-1.15-1.06-1.83-1.77,1.12-3.83,2.68-5.07,2.68-3.27,0-5.42-2.59-5.42-5.3,0-2.15,1.18-3.45,3.57-4.21,2.8-.88,5.83-2,6.78-2.8v-.77c0-3.09-1.41-4.74-3.51-4.74-.77,0-1.41.29-1.86.77-.56.56-.94,1.53-1.33,2.92-.27.77-.74,1.06-1.41,1.06-.85,0-2-.88-2-1.92,0-.65.56-1.18,1.41-1.77,1.27-.91,4.24-2.56,6.69-3.04,1.38,0,2.65.32,3.65,1.09,1.62,1.36,2.09,3.15,2.09,5.45v7.75c0,1.92.77,2.56,1.56,2.56.5,0,1.09-.21,1.56-.47l.44,1.15-3.86,2.27ZM317.26,118.96c-.88.44-2.65,1.27-3.57,1.68-1.71.74-2.65,1.59-2.65,3.18,0,2.27,1.71,3.27,3.01,3.27,1.03,0,2.45-.65,3.21-1.41v-6.72Z"
+                                    />
+                                    <path class="cls-1" d="M335.85,110.47c.82-.35,1.47-.5,1.97-.5,4.8,0,8.81,3.98,8.81,9.05,0,6.28-5.21,10.75-11.17,10.75-1.89,0-4.15-.41-6.69-1.53v-23.81c0-2.71-.15-3-2.89-3.27v-1.03c2.06-.27,4.95-.91,6.69-1.5v13.23l3.27-1.38ZM332.58,124.2c0,.65.09,1.09.27,1.47.29.88,1.59,2.39,3.77,2.39,3.48,0,5.77-2.86,5.77-7.9s-3.09-7.72-6.57-7.72c-1.18,0-2.42.35-3.24.74v11.02Z"
+                                    />
+                                    <path class="cls-1" d="M350.31,129.27v-1.15c2.74-.26,3.06-.53,3.06-3.54v-8.66c0-2.71-.15-2.92-2.74-3.36v-1.03c2.36-.38,4.57-.88,6.54-1.65v14.7c0,2.98.29,3.21,3.09,3.54v1.15h-9.96ZM352.61,103.99c0-1.39,1.12-2.42,2.42-2.42s2.3,1.03,2.3,2.42c0,1.24-1,2.33-2.36,2.33-1.24,0-2.36-1.09-2.36-2.33Z"
+                                    />
+                                    <path class="cls-1" d="M380.27,125.29c-1.97,2.56-4.95,4.48-7.51,4.48-5.72,0-9.02-4.42-9.02-8.99,0-3.27,1.5-6.19,4.45-8.37,2.42-1.77,5.07-2.45,6.75-2.45h.06c1.8,0,3.24.53,3.95,1.15.59.47.71.85.71,1.33,0,1-.97,1.97-1.53,1.97-.26,0-.47-.12-.85-.5-1.41-1.27-2.92-1.86-4.48-1.86-2.71,0-5.19,2.18-5.19,6.75,0,5.92,4.3,7.84,6.66,7.84,1.83,0,3.3-.5,5.27-2.33l.74.97Z"
+                                    />
+                                    <path class="cls-1" d="M397.65,129.77c-.83,0-1.77-.38-2.24-.85-.59-.56-.85-1.15-1.06-1.83-1.77,1.12-3.83,2.68-5.07,2.68-3.27,0-5.42-2.59-5.42-5.3,0-2.15,1.18-3.45,3.57-4.21,2.8-.88,5.83-2,6.78-2.8v-.77c0-3.09-1.41-4.74-3.51-4.74-.77,0-1.41.29-1.86.77-.56.56-.94,1.53-1.33,2.92-.27.77-.74,1.06-1.41,1.06-.85,0-2-.88-2-1.92,0-.65.56-1.18,1.41-1.77,1.27-.91,4.24-2.56,6.69-3.04,1.38,0,2.65.32,3.65,1.09,1.62,1.36,2.09,3.15,2.09,5.45v7.75c0,1.92.77,2.56,1.56,2.56.5,0,1.09-.21,1.56-.47l.44,1.15-3.86,2.27ZM394.2,118.96c-.88.44-2.65,1.27-3.57,1.68-1.71.74-2.65,1.59-2.65,3.18,0,2.27,1.71,3.27,3,3.27,1.03,0,2.45-.65,3.21-1.41v-6.72Z"
+                                    />
+                                    <path class="cls-1" d="M430.72,101.25c3.15,0,5.69.5,7.45,1.8s2.89,3.3,2.89,6.13c0,5.63-4.3,8.34-8.6,8.84-.68.09-1.59.09-2.06.06l-3.3-.83v6.57c0,3.68.38,3.92,4.39,4.21v1.24h-12.32v-1.24c3.51-.29,3.89-.65,3.89-4.24v-17c0-3.86-.38-4.04-3.65-4.24v-1.3h11.31ZM427.1,115.74c.56.21,1.77.53,3.15.53,2.74,0,6.22-1.47,6.22-6.95,0-4.69-3-6.63-6.48-6.63-1.21,0-2.12.24-2.42.53-.29.29-.47.77-.47,1.97v10.55Z"
+                                    />
+                                    <path class="cls-1" d="M444.83,129.27v-1.15c2.74-.26,3.06-.53,3.06-3.54v-8.66c0-2.71-.15-2.92-2.74-3.36v-1.03c2.36-.38,4.57-.88,6.54-1.65v14.7c0,2.98.29,3.21,3.09,3.54v1.15h-9.96ZM447.13,103.99c0-1.39,1.12-2.42,2.42-2.42s2.3,1.03,2.3,2.42c0,1.24-1,2.33-2.36,2.33-1.24,0-2.36-1.09-2.36-2.33Z"
+                                    />
+                                    <path class="cls-1" d="M474.79,125.29c-1.97,2.56-4.95,4.48-7.51,4.48-5.72,0-9.02-4.42-9.02-8.99,0-3.27,1.5-6.19,4.45-8.37,2.42-1.77,5.07-2.45,6.75-2.45h.06c1.8,0,3.24.53,3.95,1.15.59.47.71.85.71,1.33,0,1-.97,1.97-1.53,1.97-.26,0-.47-.12-.85-.5-1.41-1.27-2.92-1.86-4.48-1.86-2.71,0-5.19,2.18-5.19,6.75,0,5.92,4.3,7.84,6.66,7.84,1.83,0,3.3-.5,5.27-2.33l.74.97Z"
+                                    />
+                                    <path class="cls-1" d="M492.76,129.36c-2-2.18-4.74-5.75-7.04-8.49-.53-.65-.88-.88-1.27-.88-.18-.03-.38,0-.65.06v4.69c0,2.86.38,3.06,3.18,3.39v1.15h-10.14v-1.15c2.92-.32,3.21-.62,3.21-3.39v-20.27c0-2.8-.27-3.03-2.92-3.3v-1.03c2.06-.21,4.71-.91,6.66-1.5v20.3c1.3-.27,2-.85,2.71-1.5.94-.91,2.27-2.65,3-3.77.88-1.3.71-1.65-1.3-1.89v-1.18l9.19-.38v1.12c-2.98.47-4.1.94-5.77,2.5-1.15,1.09-1.89,1.92-3.68,3.98.91,1.33,5.45,6.48,6.84,7.96,1.5,1.56,2.74,2.27,4.33,2.36v1.15l-6.36.09Z"
+                                    />
+                                    <path class="cls-1" d="M512.5,115.72c-.85-2.53-2.39-4.33-4.54-4.33-1.59,0-2.71,1.18-2.71,2.86,0,1.77,1.65,2.8,3.62,3.57,3.33,1.33,5.6,2.89,5.6,5.92,0,4.04-3.71,6.04-7.34,6.04-2.27,0-4.33-.8-5.07-1.41-.29-.56-.71-3.59-.77-5.3l1.21-.18c.82,2.89,2.8,5.45,5.39,5.45,1.59,0,3.01-1.21,3.01-2.92s-1.15-2.74-3.39-3.74c-2.53-1.15-5.57-2.62-5.57-6.04,0-3.06,2.65-5.66,6.78-5.66,1.89,0,3.06.38,3.95.77.38.94.91,3.59,1,4.63l-1.18.35Z"
+                                    />
+                                </g>
+                                <g>
+                                    <path class="cls-1" d="M18.99,77.4v.85c0,.36-.24.6-.61.6H4.42v-35.21c0-5.02-.36-5.56-4.42-5.99v-.91c3.08-.24,8.59-1.15,13.07-2.48v42.52h5.32c.36,0,.61.24.61.6Z" />
+                                    <path class="cls-1" d="M40.59,46.43c-1.75,2.36-3.69,5.44-5.26,7.99h18.39c8.23,0,13.97,5.38,13.97,11.79,0,3.93-1.63,6.96-4.05,9.07,2.24,1.09,4.6,1.51,6.41,1.51h.3c.36,0,.6.24.6.6v.85c0,.36-.24.6-.6.6h-.91c-3.27,0-6.05-.67-8.35-1.82-2.3,1.21-4.9,1.82-7.38,1.82H18.45c-.36,0-.61-.24-.61-.6v-.85c0-.36.24-.6.61-.6h33.39c4.78,0,6.9-5.08,6.59-10.16-.3-5.08-2.96-10.16-7.62-10.16h-24.62v-2.06c2.06-3.45,5.02-8.29,7.14-11.07,3.21-4.3,6.47-5.26,15.18-5.44l.24.79c-2.42.85-3.63,1.82-8.17,7.74Z"
+                                    />
+                                    <path class="cls-1" d="M76.57,56.77v-.91c3.08-.24,8.59-1.15,13.07-2.48v23.41h5.32c.36,0,.61.24.61.6v.85c0,.36-.24.6-.61.6h-24.62c-.36,0-.6-.24-.6-.6v-.85c0-.36.24-.6.6-.6h10.65v-14.03c0-5.02-.36-5.57-4.42-5.99ZM75.18,82.91c2.36,0,4.17,1.75,4.17,4.11s-1.82,4.11-4.23,4.11c-2.18,0-4.11-1.87-4.11-4.11,0-2.36,1.94-4.11,4.17-4.11ZM86.37,82.91c2.36,0,4.17,1.75,4.17,4.11s-1.82,4.11-4.23,4.11c-2.18,0-4.11-1.87-4.11-4.11,0-2.36,1.94-4.11,4.17-4.11ZM110.38,82.91c2.36,0,4.17,1.75,4.17,4.11s-1.82,4.11-4.23,4.11c-2.18,0-4.11-1.87-4.11-4.11,0-2.36,1.94-4.11,4.17-4.11Z"
+                                    />
+                                    <path class="cls-1" d="M101.19,56.77v-.91c3.08-.24,8.59-1.15,13.07-2.48v25.47h-19.3c-.36,0-.6-.24-.6-.6v-.85c0-.36.24-.6.6-.6h10.65v-14.03c0-5.02-.36-5.57-4.42-5.99Z" />
+                                    <path class="cls-1" d="M124.96,78.85v-35.21c0-5.02-.36-5.56-4.42-5.99v-.91c3.08-.24,8.59-1.15,13.07-2.48v44.58h-8.65Z" />
+                                    <path class="cls-1" d="M147.58,88.59c-3.99,3.93-9.13,5.32-13.25,6.41l-.48-.91c6.9-2.84,10.46-5.5,10.46-18.87v-12.46c0-5.02-.36-5.57-4.42-5.99v-.91c3.08-.24,8.59-1.15,13.07-2.48v15.3c0,8.65-.3,14.88-5.38,19.9Z" />
+                                    <path class="cls-1" d="M163.67,78.85v-35.21c0-5.02-.36-5.56-4.42-5.99v-.91c3.08-.24,8.59-1.15,13.07-2.48v44.58h-8.65ZM174.74,31.37l-.85.91h-14.4v-1.21h3.69c-1.39-.91-2.42-2.48-2.42-4.54,0-2.9,2.66-5.32,6.41-5.32,2.6,0,5.2.67,6.05.85.12.55.6,3.93.6,4.3l-.48.12c-.91-3.69-3.57-4.11-5.38-4.11-2,0-3.02,2-3.02,4.66,0,3.33,1.39,4.05,2.84,4.05h6.83l.12.3Z"
+                                    />
+                                    <path class="cls-1" d="M202.02,76.55c0,6.53,2.24,12.58,8.77,12.76,6.41.24,7.68-4.66,7.68-11.01v-15.55c0-5.02-.36-5.57-4.42-5.99v-.91c3.08-.24,8.59-1.15,13.07-2.48v23.41h5.32c.36,0,.6.24.6.6v.85c0,.36-.24.6-.6.6h-5.32c0,8.47-8.59,12.28-16.7,12.28-10.28,0-16.76-5.38-16.76-12.7,0-8.11,7.98-12.1,13.97-14.03l.18.79c-3.33,2.24-5.81,5.2-5.81,11.37Z"
+                                    />
+                                    <path class="cls-1" d="M241.7,71.05v-5.93c0-10.1,9.13-14.82,15.97-14.82,9.62,0,16.39,6.23,16.39,13.79,0,9.8-8.71,14.76-16.39,14.76-3.75,0-6.83-.91-9.32-2.3-1.45,1.57-3.75,2.3-6.77,2.3h-9.13c-.36,0-.6-.24-.6-.6v-.85c0-.36.24-.6.6-.6h5.02c1.69,0,3.99-.91,4.23-5.75ZM249.8,74.01c2.78,2,6.05,2.78,8.47,2.78,3.69,0,6.53-2.84,6.53-11.49,0-6.78-2.54-12.95-7.74-12.95-3.93,0-6.71,4.23-6.71,10.77v6.9c0,1.57-.18,2.9-.54,3.99Z"
+                                    />
+                                    <path class="cls-1" d="M309.8,76.8h28.85v-14.03c0-5.02-.36-5.57-4.42-5.99v-.91c3.08-.24,8.59-1.15,13.07-2.48v25.47h-36.9c-7.68,0-16.39-4.96-16.39-14.76,0-5.02-.36-5.57-4.42-5.99v-.91c3.08-.24,8.59-1.15,13.07-2.48v10.59c0,8.65,3.45,11.49,7.14,11.49ZM316.28,40.32c2.36,0,4.17,1.75,4.17,4.11s-1.82,4.11-4.23,4.11c-2.18,0-4.11-1.87-4.11-4.11,0-2.36,1.94-4.11,4.17-4.11ZM209.81,40.32c2.36,0,4.17,1.75,4.17,4.11s-1.82,4.11-4.23,4.11c-2.18,0-4.11-1.87-4.11-4.11,0-2.36,1.94-4.11,4.17-4.11ZM327.47,40.32c2.36,0,4.17,1.75,4.17,4.11s-1.81,4.11-4.23,4.11c-2.18,0-4.11-1.87-4.11-4.11,0-2.36,1.94-4.11,4.17-4.11Z"
+                                    />
+                                    <path class="cls-1" d="M357.95,78.85v-35.21c0-5.02-.36-5.56-4.42-5.99v-.91c3.08-.24,8.59-1.15,13.07-2.48v44.58h-8.65Z" />
+                                    <path class="cls-1" d="M380.57,88.59c-3.99,3.93-9.13,5.32-13.25,6.41l-.48-.91c6.9-2.84,10.46-5.5,10.46-18.87v-12.46c0-5.02-.36-5.57-4.42-5.99v-.91c3.08-.24,8.59-1.15,13.07-2.48v15.3c0,8.65-.3,14.88-5.38,19.9Z" />
+                                    <path class="cls-1" d="M411.24,77.4v.85c0,.36-.24.6-.6.6h-13.97v-35.21c0-5.02-.36-5.56-4.42-5.99v-.91c3.08-.24,8.59-1.15,13.07-2.48v42.52h5.32c.36,0,.6.24.6.6Z" />
+                                    <path class="cls-1" d="M416.86,56.77v-.91c3.08-.24,8.59-1.15,13.07-2.48v23.41h5.32c.36,0,.6.24.6.6v.85c0,.36-.24.6-.6.6h-24.62c-.36,0-.6-.24-.6-.6v-.85c0-.36.24-.6.6-.6h10.65v-14.03c0-5.02-.36-5.57-4.42-5.99ZM418.25,37.78c2.36,0,4.17,1.75,4.17,4.11,0,2.24-1.82,4.11-4.23,4.11-2.18,0-4.11-1.87-4.11-4.11,0-2.36,1.93-4.11,4.17-4.11ZM429.44,37.78c2.36,0,4.17,1.75,4.17,4.11,0,2.24-1.81,4.11-4.23,4.11-2.18,0-4.11-1.87-4.11-4.11,0-2.36,1.94-4.11,4.17-4.11ZM455.17,37.78c2.36,0,4.17,1.75,4.17,4.11,0,2.24-1.81,4.11-4.23,4.11-2.18,0-4.11-1.87-4.11-4.11,0-2.36,1.94-4.11,4.17-4.11Z"
+                                    />
+                                    <path class="cls-1" d="M434.64,78.25v-.85c0-.36.24-.6.6-.6h28.01c-1.45-1.39-2.24-3.63-2.24-6.78v-2.66c0-9.38-4.36-12.34-9.01-12.34-3.27,0-6.77,1.51-8.95,3.33l-.67-.97c5.02-5.2,10.04-7.32,14.4-7.32,7.44,0,12.89,6.35,12.89,14.76v5.32c0,5.57,2.42,6.65,4.23,6.65h.12c.36,0,.6.24.6.6v.85c0,.36-.24.6-.6.6h-38.77c-.36,0-.6-.24-.6-.6Z"
+                                    />
+                                    <path class="cls-1" d="M483.27,71.05v-5.93c0-10.1,9.13-14.82,15.97-14.82,9.62,0,16.39,6.23,16.39,13.79,0,9.8-8.71,14.76-16.39,14.76-3.75,0-6.83-.91-9.32-2.3-1.45,1.57-3.75,2.3-6.77,2.3h-9.13c-.36,0-.6-.24-.6-.6v-.85c0-.36.24-.6.6-.6h5.02c1.69,0,3.99-.91,4.23-5.75ZM491.38,74.01c2.78,2,6.05,2.78,8.47,2.78,3.69,0,6.53-2.84,6.53-11.49,0-6.78-2.54-12.95-7.74-12.95-3.93,0-6.71,4.23-6.71,10.77v6.9c0,1.57-.18,2.9-.54,3.99Z"
+                                    />
+                                </g>
+                            </svg>
+                        </a>
+                    </div>
+                    <div class="arabica_mobile_nav_list"></div>
+                    <div class="arabica_social_link">
+                        <ul>
+                            <li>
+                                <a href="https://www.facebook.com" target="_blank" title="Facebook">
+                                    <svg class="arabica_social-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+                                        <path class="arabica_social-color" d="M64 32C28.7 32 0 60.7 0 96V416c0 35.3 28.7 64 64 64h98.2V334.2H109.4V256h52.8V222.3c0-87.1 39.4-127.5 125-127.5c16.2 0 44.2 3.2 55.7 6.4V172c-6-.6-16.5-1-29.6-1c-42 0-58.2 15.9-58.2 57.2V256h83.6l-14.4 78.2H255V480H384c35.3 0 64-28.7 64-64V96c0-35.3-28.7-64-64-64H64z"
+                                        />
+                                    </svg>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://twitter.com" target="_blank" title="Twitter">
+                                    <svg class="arabica_social-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+                                        <path class="arabica_social-color" d="M64 32C28.7 32 0 60.7 0 96V416c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V96c0-35.3-28.7-64-64-64H64zm297.1 84L257.3 234.6 379.4 396H283.8L209 298.1 123.3 396H75.8l111-126.9L69.7 116h98l67.7 89.5L313.6 116h47.5zM323.3 367.6L153.4 142.9H125.1L296.9 367.6h26.3z"
+                                        />
+                                    </svg>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://www.youtube.com" target="_blank" title="YouTube">
+                                    <svg class="arabica_social-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+                                        <path class="arabica_social-color" d="M282 256.2l-95.2-54.1V310.3L282 256.2zM384 32H64C28.7 32 0 60.7 0 96V416c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V96c0-35.3-28.7-64-64-64zm14.4 136.1c7.6 28.6 7.6 88.2 7.6 88.2s0 59.6-7.6 88.1c-4.2 15.8-16.5 27.7-32.2 31.9C337.9 384 224 384 224 384s-113.9 0-142.2-7.6c-15.7-4.2-28-16.1-32.2-31.9C42 315.9 42 256.3 42 256.3s0-59.7 7.6-88.2c4.2-15.8 16.5-28.2 32.2-32.4C110.1 128 224 128 224 128s113.9 0 142.2 7.7c15.7 4.2 28 16.6 32.2 32.4z"
+                                        />
+                                    </svg>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://www.linkedin.com" target="_blank" title="LinkedIn">
+                                    <svg class="arabica_social-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+                                        <path class="arabica_social-color" d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"
+                                        />
+                                    </svg>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="rss-feed-url" target="_blank" title="RSS">
+                                    <svg class="arabica_social-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+                                        <path class="arabica_social-color" d="M64 32C28.7 32 0 60.7 0 96L0 416c0 35.3 28.7 64 64 64l320 0c35.3 0 64-28.7 64-64l0-320c0-35.3-28.7-64-64-64L64 32zM96 136c0-13.3 10.7-24 24-24c137 0 248 111 248 248c0 13.3-10.7 24-24 24s-24-10.7-24-24c0-110.5-89.5-200-200-200c-13.3 0-24-10.7-24-24zm0 96c0-13.3 10.7-24 24-24c83.9 0 152 68.1 152 152c0 13.3-10.7 24-24 24s-24-10.7-24-24c0-57.4-46.6-104-104-104c-13.3 0-24-10.7-24-24zm0 120a32 32 0 1 1 64 0 32 32 0 1 1 -64 0z"
+                                        />
+                                    </svg>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <script src="Assets/js/homepage-script.js"></script>
+            <script src="Assets/js/global-script.js"></script>
 </body>
 
 </html>
