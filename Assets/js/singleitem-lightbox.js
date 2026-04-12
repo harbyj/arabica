@@ -1,0 +1,704 @@
+/* jshint esversion: 11 */
+$(document).ready(function () {
+  /* ------------------------------------
+     TAG GALLERIES ASAP (runs first)
+     ------------------------------------ */
+  $(".arabica_gallery").each(function () {
+    const $g = $(this);
+    if ($g.hasClass("horizontal")) $g.addClass("has-horizontal-gallery");
+    if ($g.hasClass("vertical"))   $g.addClass("has-vertical-gallery");
+  });
+  // If content can be injected later (AJAX/WebForms/Angular), you can keep this:
+  // const mo = new MutationObserver(() => {
+  //   $(".arabica_gallery").each(function () {
+  //     const $g = $(this);
+  //     if (!$g.data("tagged")) {
+  //       if ($g.hasClass("horizontal")) $g.addClass("has-horizontal-gallery");
+  //       if ($g.hasClass("vertical"))   $g.addClass("has-vertical-gallery");
+  //       $g.data("tagged", true);
+  //     }
+  //   });
+  // });
+  // mo.observe(document.body, { childList: true, subtree: true });
+
+  /* ------------------------------
+         GLOBAL LIGHTBOX SETUP
+     ------------------------------ */
+  const $lightbox = $('<div class="arabica_article_lightbox"></div>');
+  const $lightboxContent = $('<div class="arabica_article_lightbox-content"></div>');
+  const $closeBtn = $(`
+    <span class="arabica_article_close-btn">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+        <path fill="#ffffff" d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+      </svg>
+    </span>
+  `);
+  const $lightboxImg = $('<img id="lightbox-img">');
+  const $lightboxCaption = $('<div class="arabica_article_lightbox-caption" id="lightbox-caption"></div>');
+  const $galleryGrid = $('<div class="arabica_article_lightbox-gallery-grid" style="display: none;"></div>');
+
+  $lightbox.append($closeBtn);
+  $lightboxContent.append($lightboxImg).append($lightboxCaption);
+  $lightbox.append($galleryGrid).append($lightboxContent);
+  $("body").append($lightbox);
+
+  let currentGallery = [];
+  let currentIndex = 0;
+  let lbTouchStartX = 0;
+  let lbTouchEndX = 0;
+
+  function openLightbox(src, alt, caption, gallery = []) {
+    $lightboxImg.attr({ src, alt });
+    $lightboxCaption.text(caption);
+    $lightbox.fadeIn(200).addClass("active");
+    $("body").addClass("no-scroll");
+
+    if (gallery.length > 1) {
+      currentGallery = gallery;
+      currentIndex = gallery.findIndex((item) => item.src === src);
+      updateGalleryGrid(gallery);
+      $galleryGrid.css("display", "flex");
+    } else {
+      currentGallery = [];
+      $galleryGrid.html("").css("display", "none");
+    }
+  }
+
+  function closeLightbox() {
+    $lightbox.addClass("closing");
+    $lightbox.fadeOut(200, function() {
+        $('body').removeClass('no-scroll');
+      });
+    setTimeout(() => {
+      $lightbox.removeClass("active closing");
+      currentGallery = [];
+      $galleryGrid.html("");
+    }, 400);
+  }
+
+  function updateGalleryGrid(gallery) {
+    $galleryGrid.html(
+      gallery
+        .map(
+          (item, i) => `
+        <img src="${item.src}" alt="${item.alt}" data-index="${i}" class="${
+            i === currentIndex ? "active" : ""
+          }">
+      `
+        )
+        .join("")
+    );
+
+    const $activeImg = $galleryGrid.find(`[data-index="${currentIndex}"]`);
+    if ($activeImg.length) {
+      $activeImg.addClass("active");
+      requestAnimationFrame(() => {
+        const vw = window.innerWidth;
+        const gw = $galleryGrid[0].scrollWidth;
+
+        if (gw > vw) {
+          $galleryGrid.css({
+            left: "0",
+            transition: "transform 0.3s ease-in-out",
+            transform: `translateX(${Math.min(
+              0,
+              Math.max(
+                vw - gw,
+                vw / 2 - ($activeImg.position().left + $activeImg.width() / 2)
+              )
+            )}px)`,
+          });
+        } else {
+          $galleryGrid.css({
+            left: "",
+            transform: "",
+            transition: "",
+          });
+        }
+      });
+    }
+  }
+
+  let gridTouchStartX = 0;
+  let currentGridTranslate = 0;
+
+  $galleryGrid
+    .on("touchstart", (e) => {
+      const vw = window.innerWidth;
+      const gw = $galleryGrid[0].scrollWidth;
+      if (gw > vw) {
+        gridTouchStartX = e.touches[0].clientX;
+        $galleryGrid.css("transition", "none");
+      }
+    })
+    .on("touchmove", (e) => {
+      const vw = window.innerWidth;
+      const gw = $galleryGrid[0].scrollWidth;
+      if (gw > vw) {
+        let delta = e.touches[0].clientX - gridTouchStartX;
+        let tx = currentGridTranslate + delta;
+        tx = Math.min(0, Math.max(vw - gw, tx));
+        $galleryGrid.css("transform", `translateX(${tx}px)`);
+      }
+    })
+    .on("touchend", () => {
+      const vw = window.innerWidth;
+      const gw = $galleryGrid[0].scrollWidth;
+      if (gw > vw) {
+        const matrix = new DOMMatrixReadOnly($galleryGrid.css("transform"));
+        currentGridTranslate = matrix.m41;
+        $galleryGrid.css("transition", "transform 0.3s ease-in-out");
+      }
+    });
+
+  function updateLightboxContent() {
+    const { src, alt, caption } = currentGallery[currentIndex];
+    $lightboxImg.css("opacity", "0");
+    setTimeout(() => {
+      $lightboxImg.attr({ src, alt });
+      $lightboxCaption.text(caption);
+      updateGalleryGrid(currentGallery);
+      $lightboxImg.css("opacity", "1");
+    }, 150);
+  }
+
+  const showNextImage = () => {
+    if (currentGallery.length) {
+      currentIndex = (currentIndex + 1) % currentGallery.length;
+      updateLightboxContent();
+    }
+  };
+
+  const showPrevImage = () => {
+    if (currentGallery.length) {
+      currentIndex =
+        (currentIndex - 1 + currentGallery.length) % currentGallery.length;
+      updateLightboxContent();
+    }
+  };
+
+  $closeBtn.on("click", closeLightbox);
+  $lightbox.on("click", (e) => {
+  // Close unless clicking on image, caption, or gallery grid
+  const target = e.target;
+  if (target === $lightboxImg[0] || 
+      target === $lightboxCaption[0] ||
+      target === $galleryGrid[0] ||
+      $lightboxImg[0].contains(target) ||
+      $lightboxCaption[0].contains(target) ||
+      $galleryGrid[0].contains(target)) {
+    return; // Don't close
+  }
+  closeLightbox(); // Close on any other click
+});
+
+  $(document).on("keydown", (e) => {
+    if (e.key === "Escape") closeLightbox();
+    if (e.key === "ArrowRight" || e.key === "ArrowDown") showNextImage();
+    if (e.key === "ArrowLeft" || e.key === "ArrowUp") showPrevImage();
+  });
+
+  let lastWheel = 0;
+  $lightbox.on("wheel", (e) => {
+    e.preventDefault();
+    const now = Date.now();
+    if (now - lastWheel < 400) return;
+    lastWheel = now;
+    if (e.deltaY > 0) showNextImage();
+    if (e.deltaY < 0) showPrevImage();
+  });
+
+  $galleryGrid.on("click", "img", function () {
+    currentIndex = parseInt($(this).data("index"), 10);
+    updateLightboxContent();
+  });
+
+  $lightboxImg
+    .on("touchstart", (e) => {
+      lbTouchStartX = e.touches[0].clientX;
+    })
+    .on("touchmove", (e) => {
+      lbTouchEndX = e.touches[0].clientX;
+    })
+    .on("touchend", () => {
+      if (lbTouchStartX - lbTouchEndX > 50) showNextImage();
+      if (lbTouchEndX - lbTouchStartX > 50) showPrevImage();
+    });
+
+  /* ------------------------------
+         GALLERY SLIDER SETUP
+     ------------------------------ */
+  function initializeGallerySliders() {
+    $(".arabica_gallery").each(function () {
+      const $container = $(this);
+      const isHorizontal = $container.hasClass("horizontal");
+      const isVertical = $container.hasClass("vertical");
+      const isMobile = window.matchMedia("only screen and (max-width: 767px)").matches;
+
+      const hasSlider = $container.find(".arabica_article_slider").length > 0;
+
+      const imageCount = $container.find(".arabica_gallery-image").length;
+      const isSingleImage = imageCount === 1;
+
+      const shouldCreateSlider = !isSingleImage && (isMobile || (!isHorizontal && !isVertical));
+
+      if (shouldCreateSlider && !hasSlider) {
+        createSlider($container);
+      } else if (!shouldCreateSlider && hasSlider) {
+        destroySlider($container);
+      }
+    });
+  }
+
+  function createSlider($container) {
+    const $galleryItems = $container.find(".arabica_gallery-image");
+    if (!$galleryItems.length) return;
+
+    const $slider = $('<div class="arabica_article_slider" style="position: relative;"></div>');
+    const $sliderWrapper = $('<div class="arabica_article_slider_wrapper"></div>');
+    $galleryItems.appendTo($sliderWrapper);
+    $slider.append($sliderWrapper);
+
+    const $prevBtn = $(`
+      <button type="button" class="arabica_article_slider-nav arabica_article_slider-prev">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+          <path fill="#ffffff" d="M15.41 16.59L10.83 12l4.58-4.59L14 6l-6 6 6 6z"/>
+        </svg>
+      </button>
+    `);
+    const $nextBtn = $(`
+      <button type="button" class="arabica_article_slider-nav arabica_article_slider-next">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+          <path fill="#ffffff" d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6z"/>
+        </svg>
+      </button>
+    `);
+    const $counter = $(
+      `<span class="arabica_article_slider-counter"><i class="fa-regular fa-images"></i> 1 / ${$galleryItems.length}</span>`
+    );
+
+    $slider.append($prevBtn, $nextBtn, $counter);
+    $container.empty().append($slider);
+
+    let currentSlide = 0;
+    let sliderWidth = $slider.width();
+    let startX = 0;
+    let startY = 0;
+    let isDragging = false;
+    let isHorizontalDrag = false;
+
+    const setSliderPosition = () => {
+      $sliderWrapper.css("transform", `translateX(-${currentSlide * sliderWidth}px)`);
+    };
+
+    const updateSliderHeight = () => {
+      const $el = $sliderWrapper.children().eq(currentSlide);
+      if ($el.length) $slider.css("height", $el.outerHeight());
+    };
+
+    const updateNavButtonsPosition = () => {
+      const $slideEl = $sliderWrapper.children().eq(currentSlide);
+      if (!$slideEl.length) return;
+
+      const $imgEl = $slideEl.find("img");
+      if ($imgEl.length) {
+        const imgRect = $imgEl[0].getBoundingClientRect();
+        const sliderRect = $slider[0].getBoundingClientRect();
+        const centerY = imgRect.top - sliderRect.top + $imgEl.outerHeight() / 2;
+        $prevBtn.css("top", centerY);
+        $nextBtn.css("top", centerY);
+      }
+    };
+
+    const updateCounter = () => {
+      $counter.html(`<i class="fa-regular fa-images"></i> ${currentSlide + 1} / ${$galleryItems.length}`);
+      const $slideEl = $sliderWrapper.children().eq(currentSlide);
+      const $capEl = $slideEl.find("figcaption");
+      const gap = $capEl.length ? $capEl.outerHeight() + 10 : 10;
+      $counter.css("bottom", gap);
+    };
+
+    const updateSliderLayout = () => {
+      sliderWidth = $slider.width();
+      setSliderPosition();
+      updateSliderHeight();
+      updateNavButtonsPosition();
+      updateCounter();
+    };
+
+    updateSliderLayout();
+
+    const resizeHandler = () => updateSliderLayout();
+    $container.data('slider-resize-handler', resizeHandler);
+    $(window).on("resize", resizeHandler);
+
+    const nextSlide = () => {
+      currentSlide = (currentSlide + 1) % $galleryItems.length;
+      $sliderWrapper.css("transition", "transform 0.3s ease-in-out");
+      setSliderPosition();
+      updateSliderLayout();
+    };
+
+    const prevSlide = () => {
+      currentSlide = (currentSlide - 1 + $galleryItems.length) % $galleryItems.length;
+      $sliderWrapper.css("transition", "transform 0.3s ease-in-out");
+      setSliderPosition();
+      updateSliderLayout();
+    };
+
+    $nextBtn.on("click", nextSlide);
+    $prevBtn.on("click", prevSlide);
+
+    $sliderWrapper
+      .on("touchstart", (e) => {
+        isDragging = true;
+        isHorizontalDrag = false;
+        startX = e.touches[0].clientX;
+        startY = e.touches[0].clientY;
+        $sliderWrapper.css("transition", "none");
+      })
+      .on("touchmove", (e) => {
+        if (!isDragging) return;
+        const dx = e.touches[0].clientX - startX;
+        const dy = e.touches[0].clientY - startY;
+        if (!isHorizontalDrag) {
+          if (Math.abs(dx) > Math.abs(dy)) isHorizontalDrag = true;
+          else return;
+        }
+        $sliderWrapper.css("transform", `translateX(-${currentSlide * sliderWidth - dx}px)`);
+      })
+      .on("touchend", (e) => {
+        if (!isDragging) return;
+        isDragging = false;
+        const dx = e.changedTouches[0].clientX - startX;
+        if (isHorizontalDrag) {
+          if (dx < -50) nextSlide();
+          else if (dx > 50) prevSlide();
+          else setSliderPosition();
+        } else {
+          setSliderPosition();
+        }
+        $sliderWrapper.css("transition", "transform 0.3s ease-in-out");
+      });
+
+    $sliderWrapper.find("a").on("click", function (e) {
+      const href = $(this).attr("href");
+      if (/\.(jpe?g|png|gif|webp|svg)$/i.test(href)) {
+        e.preventDefault();
+        const $imgEl = $(this).find("img");
+        const altText = $imgEl.attr("alt") || "";
+        const captionText = $(this).next("figcaption").text() || "";
+        const gallery = $container
+          .find("a")
+          .map(function () {
+            return {
+              src: $(this).attr("href"),
+              alt: $(this).find("img").attr("alt") || "",
+              caption: $(this).next("figcaption").text() || "",
+            };
+          })
+          .get();
+        openLightbox(href, altText, captionText, gallery);
+      }
+    });
+  }
+
+  function destroySlider($container) {
+    const resizeHandler = $container.data('slider-resize-handler');
+    if (resizeHandler) {
+      $(window).off("resize", resizeHandler);
+      $container.removeData('slider-resize-handler');
+    }
+
+    const $slider = $container.find(".arabica_article_slider");
+    const $galleryItems = $slider.find(".arabica_gallery-image");
+    $container.empty();
+    $galleryItems.appendTo($container);
+  }
+
+  /* ------------------------------
+         IMAGE ORIENTATION DETECTION (PRIORITY)
+     ------------------------------ */
+  function getImageOrientation(naturalWidth, naturalHeight) {
+    const ratio = naturalWidth / naturalHeight;
+    const threshold = 0.1;
+    if (Math.abs(ratio - 1) <= threshold) return 'square';
+    return ratio > 1 ? 'horizontal' : 'vertical';
+  }
+
+  function updateImageOrientationClasses() {
+    $(".arabica_article-image").each(function () {
+      const $container = $(this);
+      const $gallery = $container.find(".arabica_gallery");
+      if (!$gallery.length) return;
+
+      const $images = $gallery.find(".arabica_gallery-image img");
+      if (!$images.length) return;
+
+      $container.removeClass('vertical-image horizontal-image square-image single-image');
+
+      if ($images.length === 1) {
+        $container.addClass('single-image');
+        return;
+      }
+
+      let orientations = [];
+      let allImagesLoaded = true;
+
+      $images.each(function() {
+        const img = this;
+        if (img.naturalWidth && img.naturalHeight) {
+          orientations.push(getImageOrientation(img.naturalWidth, img.naturalHeight));
+        } else {
+          allImagesLoaded = false;
+        }
+      });
+
+      if (!allImagesLoaded || orientations.length === 0) return;
+
+      const uniqueOrientations = [...new Set(orientations)];
+      if (uniqueOrientations.length === 1) {
+        $container.addClass(uniqueOrientations[0] + '-image');
+      }
+    });
+  }
+
+  // PRIORITY: Initialize orientation classes FIRST
+  updateImageOrientationClasses();
+
+  // Initialize sliders on page load
+  initializeGallerySliders();
+
+  /* ------------------------------
+     UNIFIED LIGHTBOX HANDLERS FOR ALL GALLERY IMAGES
+     ------------------------------ */
+  function initializeLightboxHandlers() {
+    $(".arabica_gallery-image a").off("click.gallery-lightbox");
+
+    const isMobile = window.matchMedia("only screen and (max-width: 767px)").matches;
+
+    $(".arabica_gallery-image a").each(function() {
+      const $link = $(this);
+      const $container = $link.closest(".arabica_gallery");
+      const isInSlider = $link.closest(".arabica_article_slider").length > 0;
+      if (isInSlider) return;
+
+      const isHorizontal = $container.hasClass("horizontal");
+      const isVertical = $container.hasClass("vertical");
+      const imageCount = $container.find(".arabica_gallery-image").length;
+      const isSingleImage = imageCount === 1;
+
+      const shouldHandleLightbox = isMobile ? (isHorizontal || isVertical || isSingleImage) : true;
+
+      if (shouldHandleLightbox) {
+        $link.on("click.gallery-lightbox", function (e) {
+          const href = $(this).attr("href");
+          if (/\.(jpe?g|png|gif|webp|svg)$/i.test(href)) {
+            e.preventDefault();
+            const $imgEl = $(this).find("img");
+            const altText = $imgEl.attr("alt") || "";
+            const captionText = $(this).next("figcaption").text() || "";
+
+            if (isSingleImage) {
+              openLightbox(href, altText, captionText);
+            } else {
+              const gallery = $container
+                .find(".arabica_gallery-image a")
+                .map(function () {
+                  return {
+                    src: $(this).attr("href"),
+                    alt: $(this).find("img").attr("alt") || "",
+                    caption: $(this).next("figcaption").text() || "",
+                  };
+                })
+                .get();
+              openLightbox(href, altText, captionText, gallery);
+            }
+          }
+        });
+      }
+    });
+  }
+
+  // Initialize lightbox handlers
+  initializeLightboxHandlers();
+
+  /* ------------------------------
+         LEGACY SINGLE IMAGE SUPPORT
+     ------------------------------ */
+  $(".arabica_article-content a, .arabica_article-image a, .arabica_news-content a, .arabica_news-image a").each(function () {
+    const href = $(this).attr("href");
+    if (/\.(jpe?g|png|gif|webp|svg)$/i.test(href) && !$(this).closest(".arabica_gallery-image").length) {
+      $(this).on("click", function (e) {
+        e.preventDefault();
+        const $imgEl = $(this).find("img");
+        const altText = $imgEl.attr("alt") || "";
+        const captionText = $(this).next("figcaption").text() || "";
+        openLightbox(href, altText, captionText);
+      });
+    }
+  });
+
+  /* ------------------------------
+         RESPONSIVE GALLERY IMAGE OBJECT-FIT
+     ------------------------------ */
+  function updateGalleryImageObjectFit() {
+    $(".arabica_gallery-image").each(function () {
+      const $galleryItem = $(this);
+      const $img = $galleryItem.find("img");
+      if ($img.length && $img[0].naturalWidth && $img[0].naturalHeight) {
+        const galleryRatio = $galleryItem.width() / $galleryItem.height();
+        const imageRatio = $img[0].naturalWidth / $img[0].naturalHeight;
+        const lowerBound = galleryRatio * 0.85;
+        const upperBound = galleryRatio * 1.15;
+        $img.css("object-fit", imageRatio >= lowerBound && imageRatio <= upperBound ? "cover" : "contain");
+      }
+    });
+  }
+
+  updateGalleryImageObjectFit();
+
+  $(".arabica_gallery-image img").on("load", function() {
+    const $img = $(this);
+    const $container = $img.closest(".arabica_article-image");
+    if ($container.length) {
+      setTimeout(() => {
+        updateImageOrientationClasses();
+      }, 50);
+    }
+
+    const $galleryItem = $img.closest(".arabica_gallery-image");
+    if ($img[0].naturalWidth && $img[0].naturalHeight) {
+      const galleryRatio = $galleryItem.width() / $galleryItem.height();
+      const imageRatio = $img[0].naturalWidth / $img[0].naturalHeight;
+      const lowerBound = galleryRatio * 0.85;
+      const upperBound = galleryRatio * 1.15;
+      $img.css("object-fit", imageRatio >= lowerBound && imageRatio <= upperBound ? "cover" : "contain");
+    }
+  });
+
+  /* ------------------------------
+         RESPONSIVE DESKTOP HORIZONTAL GALLERY BUTTONS
+     ------------------------------ */
+  function initializeHorizontalButtons() {
+    $(".arabica_gallery.horizontal").each(function() {
+      const $container = $(this);
+      const $wrapper = $container.parent('.slider-container');
+      if ($wrapper.length) {
+        const resizeHandler = $container.data('button-resize-handler');
+        const scrollHandler = $container.data('button-scroll-handler');
+        if (resizeHandler) $(window).off("resize", resizeHandler);
+        if (scrollHandler) $container.off("scroll", scrollHandler);
+        $container.removeData('button-resize-handler button-scroll-handler');
+
+        $wrapper.before($container);
+        $wrapper.remove();
+      }
+    });
+
+    const isDesktop = window.innerWidth >= 768;
+    if (!isDesktop) return;
+
+    $(".arabica_gallery.horizontal").each(function () {
+      const $container = $(this);
+      const $items = $container.find(".arabica_gallery-image");
+
+      if ($items.length <= 4) {
+        return;
+      }
+
+      const $wrapper = $('<div class="slider-container" style="position: relative;"></div>');
+      $container.before($wrapper);
+      $wrapper.append($container);
+
+      const $prev = $(`
+        <button type="button" class="slider-btn prev hidden" aria-label="Previous" style="position: absolute;">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+            <path fill="#ffffff" d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6z"/>
+          </svg>
+        </button>
+      `);
+      const $next = $(`
+        <button type="button" class="slider-btn next hidden" aria-label="Next" style="position: absolute;">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+            <path fill="#ffffff" d="M15.41 16.59L10.83 12l4.58-4.59L14 6l-6 6 6 6z"/>
+          </svg>
+        </button>
+      `);
+      $wrapper.append($prev, $next);
+
+      const isRtl = $container.css("direction") === "rtl";
+      if (isRtl) {
+        $prev.css("right", "8px");
+        $next.css("left", "8px");
+      } else {
+        $prev.css("left", "8px");
+        $next.css("right", "8px");
+      }
+
+      const gap = parseInt($container.css("gap")) || 0;
+      const step = () => $items.first().width() + gap;
+
+      function updateButtons() {
+        const raw = $container.scrollLeft();
+        const norm = isRtl ? -raw : raw;
+        const max = $container[0].scrollWidth - $container.width();
+        $prev.toggleClass("visible", norm > 1).toggleClass("hidden", norm <= 1);
+        $next.toggleClass("visible", norm + 1 < max).toggleClass("hidden", norm + 1 >= max);
+      }
+
+      function positionButtons() {
+        const $img = $container.find("img");
+        if (!$img.length) return;
+        const imgRect = $img[0].getBoundingClientRect();
+        const wrapRect = $wrapper[0].getBoundingClientRect();
+        const centerY = imgRect.top - wrapRect.top + imgRect.height / 2;
+        $prev.css("top", centerY);
+        $next.css("top", centerY);
+      }
+
+      $prev.on("click", () => {
+        $container.animate({ scrollLeft: isRtl ? `+=${step()}` : `-=${step()}` }, 300);
+      });
+      $next.on("click", () => {
+        $container.animate({ scrollLeft: isRtl ? `-=${step()}` : `+=${step()}` }, 300);
+      });
+
+      const resizeHandler = () => {
+        positionButtons();
+        updateButtons();
+      };
+      const scrollHandler = () => {
+        positionButtons();
+        updateButtons();
+      };
+
+      $container.data('button-resize-handler', resizeHandler);
+      $container.data('button-scroll-handler', scrollHandler);
+
+      $(window).on("resize", resizeHandler);
+      $container.on("scroll", scrollHandler);
+
+      positionButtons();
+      updateButtons();
+    });
+  }
+
+  // Initialize horizontal buttons
+  initializeHorizontalButtons();
+
+  /* ------------------------------
+         RESPONSIVE INITIALIZATION
+     ------------------------------ */
+  let resizeTimeout;
+  $(window).on("resize", function() {
+    clearTimeout(resizeTimeout);
+    resizeTimeout = setTimeout(function() {
+      updateImageOrientationClasses(); // PRIORITY: Orientation classes first
+      initializeGallerySliders();
+      initializeLightboxHandlers();
+      initializeHorizontalButtons();
+      updateGalleryImageObjectFit(); // Object-fit recalculation last
+    }, 150);
+  });
+});
