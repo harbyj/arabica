@@ -6406,7 +6406,7 @@ display: block !important;
 
 .arabica_suggest-submit:disabled {
   opacity: 0.6;
-  cursor: not-allowed;
+  cursor: default;
 }
 
 /* Spinner */
@@ -7557,6 +7557,7 @@ a.ui-button:active,
 	display: block!important;
 	clear:both!important;
 }
+
 .arabica_article-content .ms-rtestate-field h2:first-child {
     margin-top: 0;
 }
