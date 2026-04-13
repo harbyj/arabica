@@ -1,8 +1,78 @@
 (function ($) {
 
-  var FORMSUBMIT_URL = "https://formsubmit.co/ajax/abioyeharbyj@gmail.com";
-  var _capturedSelection = null;
-  var _suppressHide = false;
+  var FORMSUBMIT_URL  = "https://formsubmit.co/ajax/abioyeharbyj@gmail.com";
+  var RECAPTCHA_KEY   = "YOUR_SITE_KEY";  // ← replace with your site key
+
+  var _capturedSelection  = null;
+  var _suppressHide       = false;
+  var _recaptchaWidgetId  = null;
+  var _recaptchaReady     = false;
+
+  // -------------------------
+  // reCAPTCHA loader
+  // -------------------------
+  function loadRecaptcha() {
+    if (document.getElementById("arbRecaptchaScript")) return;
+    window.onArbRecaptchaLoad = function () {
+      _recaptchaReady = true;
+    };
+    var s = document.createElement("script");
+    s.id  = "arbRecaptchaScript";
+    s.src = "https://www.google.com/recaptcha/api.js?onload=onArbRecaptchaLoad&render=explicit&hl=ar";
+    s.async = true;
+    s.defer = true;
+    document.head.appendChild(s);
+  }
+
+  function renderRecaptcha(callback) {
+    // Already rendered
+    if (_recaptchaWidgetId !== null) {
+      grecaptcha.reset(_recaptchaWidgetId);
+      if (callback) callback();
+      return;
+    }
+
+    // grecaptcha ready — render now
+    if (_recaptchaReady && typeof grecaptcha !== "undefined") {
+      _recaptchaWidgetId = grecaptcha.render("arbSuggestCaptchaWidget", {
+        sitekey: RECAPTCHA_KEY,
+        theme:   "light",
+        hl:      "ar"
+      });
+      if (callback) callback();
+      return;
+    }
+
+    // Not ready yet — poll
+    var attempts = 0;
+    var poll = setInterval(function () {
+      attempts++;
+      if (typeof grecaptcha !== "undefined" && typeof grecaptcha.render === "function") {
+        clearInterval(poll);
+        _recaptchaWidgetId = grecaptcha.render("arbSuggestCaptchaWidget", {
+          sitekey: RECAPTCHA_KEY,
+          theme:   "light",
+          hl:      "ar"
+        });
+        if (callback) callback();
+      } else if (attempts > 40) {
+        clearInterval(poll); // give up after 4s
+      }
+    }, 100);
+  }
+
+  function resetRecaptcha() {
+    if (typeof grecaptcha !== "undefined" && _recaptchaWidgetId !== null) {
+      grecaptcha.reset(_recaptchaWidgetId);
+    }
+  }
+
+  function getRecaptchaResponse() {
+    if (typeof grecaptcha !== "undefined" && _recaptchaWidgetId !== null) {
+      return grecaptcha.getResponse(_recaptchaWidgetId);
+    }
+    return "";
+  }
 
   // -------------------------
   // Helpers
@@ -48,8 +118,7 @@
     var comment = $.trim($("#arbSuggestComment").val());
 
     $("#arbSuggestName, #arbSuggestEmail, #arbSuggestComment").removeClass("has-error");
-    $("#arbSuggestNameErr, #arbSuggestEmailErr, #arbSuggestCommentErr").text("");
-    $("#arbSuggestCaptchaErr").text("");
+    $("#arbSuggestNameErr, #arbSuggestEmailErr, #arbSuggestCommentErr, #arbSuggestCaptchaErr").text("");
 
     if (!name) {
       $("#arbSuggestName").addClass("has-error");
@@ -74,8 +143,7 @@
     }
 
     // ---- reCAPTCHA check ----
-    var captchaResponse = typeof grecaptcha !== "undefined" ? grecaptcha.getResponse() : "";
-    if (!captchaResponse) {
+    if (!getRecaptchaResponse()) {
       $("#arbSuggestCaptchaErr").text("يرجى التحقق من أنك لست روبوتاً.");
       valid = false;
     }
@@ -89,10 +157,6 @@
   function openSuggestModal(selectedText) {
     var art = extractArticleData();
 
-    // var infoHtml = '<strong>' + (art.title || "مقالة غير معنونة") + '</strong>'
-    //   + '<a href="' + art.url + '" target="_blank" rel="noopener noreferrer">' + art.url + '</a>';
-    // $("#arbSuggestArticleInfo").html(infoHtml);
-
     if (selectedText && selectedText.length) {
       $("#arbSuggestSelectionText").text(selectedText);
       $("#arbSuggestSelectionBlock").show();
@@ -102,19 +166,23 @@
     }
 
     $("#arbSuggestName, #arbSuggestEmail, #arbSuggestComment").val("").removeClass("has-error");
-    $("#arbSuggestNameErr, #arbSuggestEmailErr, #arbSuggestCommentErr").text("");
+    $("#arbSuggestNameErr, #arbSuggestEmailErr, #arbSuggestCommentErr, #arbSuggestCaptchaErr").text("");
     $("#arbSuggestBottom").attr("aria-hidden", "true");
+    $("#arbSuggestFooter").show();
     $("#arbSuggestSubmit").removeClass("is-loading").prop("disabled", false);
 
     $("body").addClass("no-scroll");
     $("#suggestionModal").fadeIn(200).addClass("active");
+
+    // Render captcha after modal is visible
+    renderRecaptcha();
   }
 
   function closeSuggestModal() {
     $("#suggestionModal").removeClass("active").fadeOut(200, function () {
       $("body").removeClass("no-scroll");
       $("#arbSuggestFooter").show();
-      if (typeof grecaptcha !== "undefined") grecaptcha.reset(); // ← add this
+      resetRecaptcha();
     });
   }
 
@@ -134,15 +202,15 @@
     $btn.addClass("is-loading").prop("disabled", true);
 
     var payload = {
-      _subject:              "اقتراح تعديل: " + (art.title || "مقالة غير معنونة"),
-      _replyto:              email,
-      _template:             "table",
-      "الاسم":               name,
-      "البريد الإلكتروني":   email,
-      "المقالة":             art.title || "مقالة غير معنونة",
-      "الرابط":              art.url,
-      "الاقتراح":            comment,
-      "g-recaptcha-response": typeof grecaptcha !== "undefined" ? grecaptcha.getResponse() : ""
+      _subject:               "اقتراح تعديل: " + (art.title || "مقالة غير معنونة"),
+      _replyto:               email,
+      _template:              "table",
+      "الاسم":                name,
+      "البريد الإلكتروني":    email,
+      "المقالة":              art.title || "مقالة غير معنونة",
+      "الرابط":               art.url,
+      "الاقتراح":             comment,
+      "g-recaptcha-response": getRecaptchaResponse()
     };
 
     if (selText) {
@@ -160,12 +228,12 @@
         $("#arbSuggestFooter").hide();
         showSuggestBottom("تم إرسال اقتراحك بنجاح، شكراً لك!");
         $("#arbSuggestName, #arbSuggestEmail, #arbSuggestComment").val("");
-        if (typeof grecaptcha !== "undefined") grecaptcha.reset();
+        resetRecaptcha();
         setTimeout(function () { closeSuggestModal(); }, 2500);
       },
       error: function () {
         $btn.removeClass("is-loading").prop("disabled", false);
-        if (typeof grecaptcha !== "undefined") grecaptcha.reset();
+        resetRecaptcha();
         showSuggestBottom("حدث خطأ أثناء الإرسال، يرجى المحاولة مجدداً.", true);
       }
     });
@@ -236,7 +304,6 @@
       anchorRect = firstRect;
     }
 
-    // Article bounds as hard clamp edges
     var $article = $(".arabica_article-content");
     var artLeft  = scrollX + 6;
     var artRight = scrollX + vWidth - 6;
@@ -292,7 +359,6 @@
       return;
     }
 
-    // ---- Do not trigger inside ref dropdowns ----
     if ($(range.commonAncestorContainer).closest(".arabica_ref-dropdown").length) {
       hideTooltip();
       return;
@@ -311,7 +377,6 @@
   // Copy with rich format
   // -------------------------
   function copySelection(html, plain) {
-    // Strip .arabica_ref-actions from plain text too
     var $tmp = $("<div>").html(html);
     $tmp.find(".arabica_ref-actions").remove();
     var cleanHtml  = $tmp.html();
@@ -351,11 +416,13 @@
     $buf.remove();
   }
 
-
   // -------------------------
   // Bind events
   // -------------------------
   $(function () {
+
+    // ---- Load reCAPTCHA script lazily ----
+    loadRecaptcha();
 
     // ---- Inject tooltip into DOM ----
     if (!$("#arbSelectionTooltip").length) {
