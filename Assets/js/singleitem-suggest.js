@@ -49,6 +49,7 @@
 
     $("#arbSuggestName, #arbSuggestEmail, #arbSuggestComment").removeClass("has-error");
     $("#arbSuggestNameErr, #arbSuggestEmailErr, #arbSuggestCommentErr").text("");
+    $("#arbSuggestCaptchaErr").text("");
 
     if (!name) {
       $("#arbSuggestName").addClass("has-error");
@@ -69,6 +70,13 @@
     if (!comment) {
       $("#arbSuggestComment").addClass("has-error");
       $("#arbSuggestCommentErr").text("يرجى كتابة اقتراحك أو تعليقك.");
+      valid = false;
+    }
+
+    // ---- reCAPTCHA check ----
+    var captchaResponse = typeof grecaptcha !== "undefined" ? grecaptcha.getResponse() : "";
+    if (!captchaResponse) {
+      $("#arbSuggestCaptchaErr").text("يرجى التحقق من أنك لست روبوتاً.");
       valid = false;
     }
 
@@ -105,6 +113,8 @@
   function closeSuggestModal() {
     $("#suggestionModal").removeClass("active").fadeOut(200, function () {
       $("body").removeClass("no-scroll");
+      $("#arbSuggestFooter").show();
+      if (typeof grecaptcha !== "undefined") grecaptcha.reset(); // ← add this
     });
   }
 
@@ -124,14 +134,15 @@
     $btn.addClass("is-loading").prop("disabled", true);
 
     var payload = {
-      _subject:   "اقتراح تعديل: " + (art.title || "مقالة غير معنونة"),
-      _replyto:   email,
-      _template:  "table",
-      name:       name,
-      email:      email,
-      article:    art.title || "مقالة غير معنونة",
-      url:        art.url,
-      suggestion: comment
+      _subject:              "اقتراح تعديل: " + (art.title || "مقالة غير معنونة"),
+      _replyto:              email,
+      _template:             "table",
+      "الاسم":               name,
+      "البريد الإلكتروني":   email,
+      "المقالة":             art.title || "مقالة غير معنونة",
+      "الرابط":              art.url,
+      "الاقتراح":            comment,
+      "g-recaptcha-response": typeof grecaptcha !== "undefined" ? grecaptcha.getResponse() : ""
     };
 
     if (selText) {
@@ -146,12 +157,15 @@
       data: JSON.stringify(payload),
       success: function () {
         $btn.removeClass("is-loading").prop("disabled", false);
+        $("#arbSuggestFooter").hide();
         showSuggestBottom("تم إرسال اقتراحك بنجاح، شكراً لك!");
         $("#arbSuggestName, #arbSuggestEmail, #arbSuggestComment").val("");
+        if (typeof grecaptcha !== "undefined") grecaptcha.reset();
         setTimeout(function () { closeSuggestModal(); }, 2500);
       },
       error: function () {
         $btn.removeClass("is-loading").prop("disabled", false);
+        if (typeof grecaptcha !== "undefined") grecaptcha.reset();
         showSuggestBottom("حدث خطأ أثناء الإرسال، يرجى المحاولة مجدداً.", true);
       }
     });
@@ -274,6 +288,12 @@
     if (!$article.length) { hideTooltip(); return; }
 
     if (!$article.get(0).contains(range.commonAncestorContainer)) {
+      hideTooltip();
+      return;
+    }
+
+    // ---- Do not trigger inside ref dropdowns ----
+    if ($(range.commonAncestorContainer).closest(".arabica_ref-dropdown").length) {
       hideTooltip();
       return;
     }
