@@ -1,7 +1,7 @@
 (function ($) {
 
-  var FORMSUBMIT_URL  = "https://formsubmit.co/ajax/abioyeharbyj@gmail.com";
-  var RECAPTCHA_KEY   = "6LcG97QsAAAAAGN8RKShZpevGTn1Xl5Kd1sm-IL9";  // ← replace with your site key
+  var FORMSUBMIT_URL  = "https://formsubmit.co/ajax/ef5587b01a2ddda3c05251dc057675fd";
+  var RECAPTCHA_KEY   = "6LcG97QsAAAAAGN8RKShZpevGTn1Xl5Kd1sm-IL9";
 
   var _capturedSelection  = null;
   var _suppressHide       = false;
